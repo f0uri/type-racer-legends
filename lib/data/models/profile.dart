@@ -66,6 +66,7 @@ class PlayerProfile {
         'histAt': 0,
         'charStats': <String, dynamic>{},
         'daily': <String, dynamic>{},
+        'weeklyCh': <String, dynamic>{},
         'events': <String, dynamic>{},
         'tourn': <String, dynamic>{},
         'pendingPurchases': <dynamic>[],

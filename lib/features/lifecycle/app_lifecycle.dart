@@ -3,6 +3,7 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../core/providers.dart';
+import '../career/challenge_link.dart';
 
 /// Hooks lifecycle + connectivity: sync on background/foreground and when the network returns.
 /// Other features register callbacks through [lifecycleHooksProvider].
@@ -24,11 +25,16 @@ class AppLifecycleHost extends ConsumerStatefulWidget {
 class _AppLifecycleHostState extends ConsumerState<AppLifecycleHost> with WidgetsBindingObserver {
   StreamSubscription<List<ConnectivityResult>>? _sub;
   bool _wasOffline = false;
+  ChallengeLinkListener? _links;
 
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      _links = ChallengeLinkListener(ProviderScope.containerOf(context, listen: false))..start();
+    });
     try {
       _sub = Connectivity().onConnectivityChanged.listen((r) {
         final offline = r.isEmpty || (r.length == 1 && r.first == ConnectivityResult.none);
@@ -63,6 +69,7 @@ class _AppLifecycleHostState extends ConsumerState<AppLifecycleHost> with Widget
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
     _sub?.cancel();
+    _links?.dispose();
     super.dispose();
   }
 

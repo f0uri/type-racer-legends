@@ -5,7 +5,7 @@ import 'metrics.dart';
 import 'race_models.dart';
 import 'typing_engine.dart';
 
-enum RaceEventType { keyCorrect, keyWrong, comboTier, nitroStart, nitroEnd, perfectWord, pitPrompt, pitSuccess, pitFail, powerPrompt, powerSuccess, powerFail, slipstreamOn, slipstreamOff, taunt, overtake, overtaken, bump, finish, photoFinish, shieldBlocked, stunned, go }
+enum RaceEventType { keyCorrect, keyWrong, comboTier, nitroStart, nitroEnd, perfectWord, pitPrompt, pitSuccess, pitFail, powerPrompt, powerSuccess, powerFail, slipstreamOn, slipstreamOff, taunt, overtake, overtaken, bump, finish, photoFinish, shieldBlocked, stunned, go, rocket, kill, incoming, hit }
 
 class RaceEvent {
   final RaceEventType type;
@@ -15,7 +15,7 @@ class RaceEvent {
   const RaceEvent(this.type, {this.text, this.who, this.value = 0});
 }
 
-enum ChallengeKind { shield, emp, turbo, pit }
+enum ChallengeKind { shield, emp, turbo, pit, defend }
 
 class Challenge {
   final ChallengeKind kind;
@@ -39,6 +39,7 @@ class RacerState {
   int rank = 0;
   double stunLeft = 0;
   bool shielded = false;
+  bool destroyed = false;
   RacerState({required this.id, required this.name, required this.cc, this.isPlayer = false, this.isGhost = false, this.spec});
 }
 
@@ -75,6 +76,14 @@ class RaceSession {
       racers.add(r);
       ghostDrivers[r.id] = g.samples != null && g.samples!.isNotEmpty ? GhostDriver.fromSamples(g.name, g.samples!, total) : GhostDriver.constant(g.name, g.wpm, total);
     }
+    if (survival && drivers.isNotEmpty) {
+      drivers.values.first.pos = -14; // the hunter starts behind the player
+      racers[1].eff = -14;
+    }
+    for (final o in config.opponents) {
+      hp[o.id] = o.isBoss ? 6 : 3;
+    }
+    _attackCd = 9 + this.rnd.nextDouble() * 4;
     _scheduleChallenges();
     for (final r in racers) {
       _lastSign[r.id] = 0;
@@ -133,6 +142,14 @@ class RaceSession {
   double _histAcc = 0;
 
   bool riskBadge(RaceConfig c) => c.riskMul > 1.5;
+  bool get survival => config.modeId == 'survival';
+  bool get combat => config.modeId == 'combat';
+  final Map<String, int> hp = {};
+  int kills = 0;
+  bool caught = false;
+  double _attackCd = 10;
+  /// Gap (characters) between the survival hunter and the player; negative = hunter ahead.
+  double get hunterGap => survival && racers.length > 1 ? player.eff - racers[1].eff : 99;
   int get total => config.text.len;
   double fractionOf(RacerState r) => total == 0 ? 1 : (r.eff / total).clamp(0.0, 1.0);
 
@@ -155,12 +172,13 @@ class RaceSession {
     ChallengeKind.emp: ['EMP', 'PULSE', 'SHOCK', 'ZAP'],
     ChallengeKind.turbo: ['TURBO', 'BOOST', 'BLAST', 'ROCKET'],
     ChallengeKind.pit: ['SERVICE', 'REPAIR', 'REFUEL', 'TUNEUP', 'MECHANIC'],
+    ChallengeKind.defend: ['DODGE', 'SWERVE', 'BRAKE', 'EVADE', 'DUCK', 'ROLL', 'DRIFT'],
   };
 
   void _scheduleChallenges() {
     final r = config.rules;
-    if (r.pit && total >= 90) _sched.add(_Sched(0.5, ChallengeKind.pit));
-    if (r.powerups && total >= 60) {
+    if (r.pit && total >= 90 && !survival && !combat) _sched.add(_Sched(0.5, ChallengeKind.pit));
+    if (r.powerups && total >= 60 && !survival) {
       final kinds = [ChallengeKind.shield, ChallengeKind.emp, ChallengeKind.turbo]..shuffle(rnd);
       final marks = total >= 160 ? [0.2, 0.36, 0.72] : [0.3, 0.7];
       for (var i = 0; i < marks.length; i++) {
@@ -228,6 +246,7 @@ class RaceSession {
         player.eff += 0.8;
         _emit(RaceEventType.perfectWord);
       }
+      if (combat && clean && len >= 3) _fireRocket();
       _wordStartT = time;
       _wordChars = 0;
       _maybeStartChallenge();
@@ -304,6 +323,20 @@ class RaceSession {
       }
       return;
     }
+    if (c.kind == ChallengeKind.defend) {
+      if (ok) {
+        powerupsUsed++;
+        _emit(RaceEventType.powerSuccess, text: 'dodge');
+      } else if (player.shielded) {
+        player.shielded = false;
+        _emit(RaceEventType.shieldBlocked);
+      } else {
+        brake = 1.4;
+        player.eff = max(0, player.eff - 2);
+        _emit(RaceEventType.hit, who: _attacker);
+      }
+      return;
+    }
     if (!ok) {
       _emit(RaceEventType.powerFail);
       return;
@@ -321,7 +354,7 @@ class RaceSession {
         // disable the closest opponent ahead (or the leader) for 2.5s
         RacerState? target;
         for (final r in racers) {
-          if (r.isPlayer || r.finished || r.isGhost) continue;
+          if (r.isPlayer || r.finished || r.isGhost || r.destroyed) continue;
           if (target == null) {
             target = r;
             continue;
@@ -335,8 +368,62 @@ class RaceSession {
         }
         break;
       case ChallengeKind.pit:
+      case ChallengeKind.defend:
         break;
     }
+  }
+
+  String? _attacker;
+
+  void _fireRocket() {
+    RacerState? target;
+    var best = 1e9;
+    for (final r in racers) {
+      if (r.isPlayer || r.isGhost || r.finished || r.destroyed) continue;
+      final d = (r.eff - player.eff).abs();
+      if (d < best) {
+        best = d;
+        target = r;
+      }
+    }
+    if (target == null) return;
+    final left = (hp[target.id] ?? 3) - 1;
+    hp[target.id] = left;
+    final drv = drivers[target.id];
+    if (drv != null) {
+      drv.pos = max(0, drv.pos - 2.5);
+      drv.stun(0.8);
+    }
+    _emit(RaceEventType.rocket, who: target.name, value: left.toDouble());
+    if (left <= 0) {
+      target.destroyed = true;
+      kills++;
+      _emit(RaceEventType.kill, who: target.name);
+      final alive = racers.where((r) => r.spec != null && !r.destroyed && !r.finished).length;
+      if (alive == 0 && !player.finished) {
+        player.eff = total.toDouble();
+        _finish(player);
+      }
+    }
+  }
+
+  void _combatAttacks(double dt) {
+    if (!combat || player.finished) return;
+    _attackCd -= dt;
+    if (_attackCd > 0) return;
+    if (challenge != null) {
+      _attackCd = 1.5;
+      return;
+    }
+    final alive = racers.where((r) => r.spec != null && !r.destroyed && !r.finished).toList();
+    if (alive.isEmpty) return;
+    final a = alive[rnd.nextInt(alive.length)];
+    _attacker = a.name;
+    final words = _powerWords[ChallengeKind.defend]!;
+    final w = words[rnd.nextInt(words.length)];
+    challenge = Challenge(ChallengeKind.defend, w, 3.0);
+    _emit(RaceEventType.incoming, who: a.name, text: w);
+    _attackCd = 7 + rnd.nextDouble() * 5;
   }
 
   // ---------------------------------------------------------------- update
@@ -395,15 +482,25 @@ class RaceSession {
         continue;
       }
       final d = drivers[r.id]!;
+      if (r.destroyed) {
+        r.speedCps = 0;
+        continue;
+      }
+      if (survival) d.wpmScale = min(3.0, 0.5 + time * 0.012);
       if (!r.finished) {
         final before = d.pos;
-        d.update(dt, playerFrac: playerFrac, playerWpm: playerWpm, rubberEnabled: !config.rules.pure || true);
+        d.update(dt, playerFrac: playerFrac, playerWpm: playerWpm, rubberEnabled: !survival);
         r.eff = d.pos;
         r.stunLeft = d.stunLeft;
         r.speedCps = (d.pos - before) / max(dt, 1e-6);
         if (d.finished) _finish(r);
       }
     }
+    if (survival && !player.finished && hunterGap <= 0.3) {
+      caught = true;
+      _finish(player);
+    }
+    _combatAttacks(dt);
     _updateSlipstream();
     _updateOvertakes();
     _updateTaunts(dt);
@@ -449,7 +546,7 @@ class RaceSession {
     var on = false;
     if (engine.combo >= 6 && !player.finished) {
       for (final r in racers) {
-        if (r.isPlayer || r.finished) continue;
+        if (r.isPlayer || r.finished || r.destroyed || survival) continue;
         final d = (r.eff - player.eff) / total;
         if (d > 0.004 && d < 0.07) {
           on = true;
@@ -465,7 +562,7 @@ class RaceSession {
 
   void _updateOvertakes() {
     for (final r in racers) {
-      if (r.isPlayer) continue;
+      if (r.isPlayer || r.destroyed) continue;
       final d = r.eff - player.eff;
       final sign = d > 0.5 ? 1 : (d < -0.5 ? -1 : 0);
       final prev = _lastSign[r.id] ?? 0;
@@ -483,8 +580,8 @@ class RaceSession {
     _tauntCd -= dt;
     if (_tauntCd > 0) return;
     _tauntCd = 5 + rnd.nextDouble() * 6;
-    final ais = racers.where((r) => r.spec != null && !r.finished).toList();
-    if (ais.isEmpty) return;
+    final ais = racers.where((r) => r.spec != null && !r.finished && !r.destroyed).toList();
+    if (ais.isEmpty || survival) return;
     final bosses = ais.where((r) => r.spec!.isBoss).toList();
     final r = bosses.isNotEmpty && rnd.nextDouble() < 0.7 ? bosses.first : ais[rnd.nextInt(ais.length)];
     final ahead = r.eff > player.eff;
@@ -499,7 +596,7 @@ class RaceSession {
     over = true;
     // Rank: finished racers by finish time; unfinished by progress.
     final ordered = <RacerState>[...finishOrder];
-    final rest = racers.where((r) => !r.finished).toList()..sort((a, b) => b.eff.compareTo(a.eff));
+    final rest = racers.where((r) => !r.finished).toList()..sort((a, b) => (b.destroyed ? -1e9 : b.eff).compareTo(a.destroyed ? -1e9 : a.eff));
     ordered.addAll(rest);
     for (var i = 0; i < ordered.length; i++) {
       ordered[i].rank = i + 1;
@@ -568,6 +665,7 @@ class RaceSession {
       samples: samples,
       charStats: engine.charStats,
       wordStats: wordErrorMap,
+      extra: {if (combat) 'kills': kills, if (survival) 'survived': double.parse(tEnd.toStringAsFixed(1)), if (survival) 'caught': caught},
     );
   }
 }

@@ -43,6 +43,10 @@ class RaceRewards {
     if (r.pitPerfect) p.addCounter('pit_perfect', 1);
     if (meaningful && r.accuracy >= 100 && r.chars >= 40) p.addCounter('perfect_races', 1);
     if (r.photoFinish && r.won) p.addCounter('photo_finish_wins', 1);
+    final kills = (r.extra['kills'] as num?)?.toInt() ?? 0;
+    if (kills > 0) p.addCounter('combat_kills', kills);
+    final survived = (r.extra['survived'] as num?)?.toDouble();
+    if (survived != null && !r.suspicious && survived > 0) p.setBest('survival_best', survived);
     p.registerActivity(now);
 
     if (meaningful) {
@@ -77,6 +81,8 @@ class RaceRewards {
     final accFrom = (econ['accBonusFrom'] as num?)?.toDouble() ?? 95;
     final accBonus = (econ['accBonus'] as num?)?.toDouble() ?? 0.15;
     var coins = (base + r.wpm * perWpm) * (r.opponents > 0 ? rankMultiplier(db, r.playerRank) : 0.8) * r.config.riskMul * earningsMul;
+    if (survived != null) coins *= 1 + min(2.0, survived / 60);
+    if (kills > 0) coins *= 1 + min(1.0, kills * 0.15);
     if (r.accuracy >= accFrom) coins *= 1 + accBonus;
     if (r.accuracy < 80) coins *= 0.5;
     var c = max(guaranteed, coins.round());

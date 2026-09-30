@@ -5,6 +5,7 @@ import '../../../core/theme/app_theme.dart';
 import '../../../core/util/misc.dart';
 import '../../../core/widgets/common.dart';
 import '../../career/rank.dart';
+import '../../career/challenge_link.dart';
 import '../engine/race_models.dart';
 import '../race_outcome.dart';
 import 'race_screen.dart';
@@ -125,6 +126,16 @@ class _ResultScreenState extends ConsumerState<ResultScreen> {
                 filled: widget.onPrimary == null,
                 color: widget.onPrimary == null ? C.cyan : C.magenta,
                 onPressed: () => Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) => RaceScreen(config: widget.rebuild!(), rebuild: widget.rebuild))),
+              ),
+            ],
+            if (!r.suspicious && r.chars >= RaceRewards.minCharsForStats && db.textById(r.config.text.id) != null && db.featureOn('link_challenge')) ...[
+              const SizedBox(height: 10),
+              NeonButton(
+                label: 'تحدَّ صديقاً بهذه النتيجة',
+                icon: Icons.share_rounded,
+                filled: false,
+                color: C.magenta,
+                onPressed: () => ChallengeLink.share(context, r, ref.read(profileProvider).name, ref.read(profileProvider).country),
               ),
             ],
             const SizedBox(height: 10),

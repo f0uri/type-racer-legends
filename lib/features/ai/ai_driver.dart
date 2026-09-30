@@ -59,6 +59,8 @@ class AiDriver {
   late final PersonaParams _p;
 
   double pos = 0;
+  /// Multiplier on the spec's speed (used by survival hunters that keep accelerating).
+  double wpmScale = 1;
   double stunLeft = 0;
   double _stall = 0, _noise = 0, _burst = 0, _burstLeft = 0, _acc = 0;
   int errors = 0;
@@ -109,7 +111,7 @@ class AiDriver {
         mult *= 1 - min(_p.rubberSlow * spec.rubberScale, -d * 2.5);
       }
     }
-    final wpm = max(3.0, spec.baseWpm * mult);
+    final wpm = max(3.0, spec.baseWpm * wpmScale * mult);
     currentWpm = wpm;
     final cps = wpm * 5 / 60;
     _acc += cps * dt * (1 + 0.25 * _gauss(rnd)).clamp(0.4, 1.8);
@@ -200,7 +202,11 @@ class Matchmaker {
 
   /// Creates a roster of AI racers with unique names, flags, vehicles and personalities.
   static List<AiSpec> roster(ContentDb db, Random rnd, List<double> wpms, {String? playerName}) {
-    final names = (db.ai['names'] as List?)?.map((e) => Map<String, dynamic>.from(e as Map)).toList() ?? [];
+    final seen = <String>{(playerName ?? '').toLowerCase()};
+    final names = <Map<String, dynamic>>[
+      for (final e in (db.ai['names'] as List?) ?? const [])
+        if (seen.add(((e as Map)['n'] as String).toLowerCase())) Map<String, dynamic>.from(e),
+    ];
     if (names.isEmpty) names.addAll([{'n': 'Alex', 'cc': 'US'}, {'n': 'Lina', 'cc': 'MA'}, {'n': 'Yuki', 'cc': 'JP'}, {'n': 'Omar', 'cc': 'SA'}, {'n': 'Emma', 'cc': 'SE'}, {'n': 'Hugo', 'cc': 'FR'}, {'n': 'Noor', 'cc': 'AE'}]);
     names.shuffle(rnd);
     final vehicles = db.vehicles.where((v) => v.eventId == null && v.achievementId == null && db.itemAvailable(v)).toList();

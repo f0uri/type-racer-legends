@@ -128,6 +128,11 @@ class RaceGame extends FlameGame {
       v.wobble = max(0, v.wobble - dt * 2.5);
       v.flicker = r.stunLeft > 0 ? v.flicker + dt : 0;
     }
+    for (final r in s.racers) {
+      if (r.destroyed && _rnd.nextDouble() < dt * 18) {
+        particles.emit(PKind.smoke, _screenX(r) + 40, _laneY(r) - 20, -scrollSpeed * 0.7, -25, 0.9, 5, const Color(0xFF333333));
+      }
+    }
     _emitEffects(dt);
     particles.update(dt);
   }
@@ -199,10 +204,48 @@ class RaceGame extends FlameGame {
         case RaceEventType.go:
           audio?.play(Sfx.go);
           break;
+        case RaceEventType.rocket:
+          final t = session.racers.where((r) => r.name == e.who).firstOrNull;
+          if (t != null) _rocketTo(_screenX(t) + 40, _laneY(t) - 26);
+          audio?.play(Sfx.power, vol: 0.7);
+          break;
+        case RaceEventType.kill:
+          final t = session.racers.where((r) => r.name == e.who).firstOrNull;
+          if (t != null) {
+            final x = _screenX(t) + 40, y = _laneY(t) - 26;
+            particles.burst(PKind.spark, x, y, 40, speed: 220, colors: const [Color(0xFFFF9E00), Color(0xFFFF4D00), Color(0xFFFFFFFF)], life: 0.9, size: 3.5, g: 120);
+            particles.burst(PKind.smoke, x, y, 16, speed: 60, colors: const [Color(0xFF444444)], life: 1.6, size: 10, g: -30);
+            particles.burst(PKind.ring, x, y, 3, speed: 0, life: 0.7, size: 40, colors: const [Color(0xFFFFB627)]);
+          }
+          shake = max(shake, 0.8);
+          audio?.play(Sfx.thump);
+          haptics?.nitro();
+          break;
+        case RaceEventType.hit:
+          shake = max(shake, 0.9);
+          flash = 0.4;
+          particles.burst(PKind.spark, pp.dx + 50, pp.dy - 26, 26, speed: 200, colors: const [Color(0xFFFF9E00), Color(0xFFFF4D00)], life: 0.7, size: 3, g: 100);
+          audio?.play(Sfx.thump);
+          haptics?.wrong();
+          break;
+        case RaceEventType.incoming:
+          audio?.play(Sfx.pit);
+          haptics?.light();
+          break;
         default:
           break;
       }
     }
+  }
+
+  void _rocketTo(double tx, double ty) {
+    final pp = playerScreenPos;
+    final sx = pp.dx + 60, sy = pp.dy - 30;
+    for (var i = 0; i < 14; i++) {
+      final f = i / 13;
+      particles.emit(PKind.dot, sx + (tx - sx) * f, sy + (ty - sy) * f - sin(f * pi) * 14, 0, 0, 0.18 + f * 0.25, 3.2, const Color(0xFFFFE066));
+    }
+    particles.burst(PKind.spark, tx, ty, 14, speed: 150, colors: const [Color(0xFFFFB627), Color(0xFFFFFFFF)], life: 0.5, size: 3, g: 60);
   }
 
   void _celebrate() {
@@ -291,7 +334,10 @@ class RaceGame extends FlameGame {
     return index.isEven ? 1 : 0;
   }
 
-  double _pxPerFrac() => _size.width * 5.0 * (1 - 0.1 * nitroFx);
+  /// Characters that fit across the track view: long texts do not shrink the distances between racers.
+  double get _span => min(session.total, 180).toDouble();
+
+  double _pxPerFrac() => _size.width * 5.0 * (1 - 0.1 * nitroFx) * (_span / max(1, session.total));
 
   double _screenX(RacerState r) {
     final rel = (r.eff - session.player.eff) / max(1, session.total);
@@ -414,6 +460,15 @@ class RaceGame extends FlameGame {
       }
       _drawRacer(c, r, look, lane, x, L);
     }
+    if (s.survival) _danger(c);
+  }
+
+  void _danger(Canvas c) {
+    final gap = session.hunterGap;
+    final d = (1 - gap / 28).clamp(0.0, 1.0);
+    if (d <= 0) return;
+    final W = _size.width, H = _size.height;
+    c.drawRect(Rect.fromLTWH(0, 0, W * 0.35, H), Paint()..shader = Gradient.linear(Offset.zero, Offset(W * 0.35, 0), [Color.fromRGBO(255, 40, 70, 0.55 * d * (0.7 + 0.3 * sin(sceneT * 12))), const Color(0x00FF2846)]));
   }
 
   void _offscreenArrow(Canvas c, RacerState r, int lane) {
@@ -430,7 +485,7 @@ class RaceGame extends FlameGame {
     final v = _v(r.id);
     final gy = _size.height * EnvPainter.lanes[lane];
     final isPlayer = r.isPlayer;
-    final alpha = r.isGhost ? 0.45 : (v.flicker > 0 && (v.flicker * 14).floor().isEven ? 0.35 : 1.0);
+    final alpha = r.destroyed ? 0.55 : r.isGhost ? 0.45 : (v.flicker > 0 && (v.flicker * 14).floor().isEven ? 0.35 : 1.0);
     c.save();
     if (alpha < 1) c.saveLayer(Rect.fromLTWH(x - L * 0.3, gy - L * 1.2, L * 1.8, L * 1.4), Paint()..color = Color.fromRGBO(255, 255, 255, alpha));
     // pitch: lean back on nitro or celebrate wheelie
@@ -562,6 +617,14 @@ class RaceGame extends FlameGame {
     final tp = _tagPainter(txt, r.isGhost ? const Color(0xAAFFFFFF) : const Color(0xDDFFFFFF));
     final h = VehiclePainter.heightOf(look) * L;
     tp.paint(c, Offset(x + L * 0.5 - tp.width / 2, gy - h - tp.height - 2));
+    if (session.combat && !r.destroyed) {
+      final hpLeft = session.hp[r.id] ?? 0, maxHp = r.spec?.isBoss == true ? 6 : 3;
+      final pw = 9.0;
+      final x0 = x + L * 0.5 - maxHp * pw / 2;
+      for (var i = 0; i < maxHp; i++) {
+        c.drawRect(Rect.fromLTWH(x0 + i * pw, gy - h - tp.height - 9, pw - 2, 4), Paint()..color = i < hpLeft ? const Color(0xFFFF4D6D) : const Color(0x55FFFFFF));
+      }
+    }
   }
 
   final Map<String, TextPainter> _tags = {};

@@ -95,6 +95,7 @@ class RaceResult {
   final List<List<num>> samples; // [tSec, pos] for ghost saving
   final Map<String, List<int>> charStats;
   final Map<String, dynamic> wordStats; // word -> [errors]
+  final Map<String, dynamic> extra; // mode specific: kills, survived, caught...
   const RaceResult({
     required this.config,
     required this.standings,
@@ -117,7 +118,9 @@ class RaceResult {
     required this.samples,
     required this.charStats,
     this.wordStats = const {},
+    this.extra = const {},
   });
-  bool get won => playerRank == 1;
+  bool get won => playerRank == 1 && extra['caught'] != true;
+  RaceResult flagged({bool suspicious = true}) => RaceResult(config: config, standings: standings, playerRank: playerRank, wpm: wpm, rawWpm: rawWpm, accuracy: accuracy, time: time, maxCombo: maxCombo, errors: errors, chars: chars, nitroUses: nitroUses, perfectWords: perfectWords, powerupsUsed: powerupsUsed, pitPerfect: pitPerfect, photoFinish: photoFinish, timeUp: timeUp, suspicious: suspicious, intervals: intervals, samples: samples, charStats: charStats, wordStats: wordStats, extra: extra);
   int get opponents => standings.length - 1;
 }

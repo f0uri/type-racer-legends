@@ -269,7 +269,7 @@ class _RaceScreenState extends ConsumerState<RaceScreen> with WidgetsBindingObse
           _popup('⚡ اكتب الكلمة!', C.cyan);
           break;
         case RaceEventType.powerSuccess:
-          _popup(const {'shield': '🛡️ درع!', 'emp': '📡 EMP!', 'turbo': '🚀 توربو!'}[e.text] ?? '⚡', C.cyan);
+          _popup(const {'shield': '🛡️ درع!', 'emp': '📡 EMP!', 'turbo': '🚀 توربو!', 'dodge': '✅ تفاديت الهجوم'}[e.text] ?? '⚡', C.cyan);
           break;
         case RaceEventType.powerFail:
           _popup('فاتتك الفرصة', C.textDim);
@@ -285,6 +285,18 @@ class _RaceScreenState extends ConsumerState<RaceScreen> with WidgetsBindingObse
           break;
         case RaceEventType.overtaken:
           _popup('${e.who} تجاوزك', C.red);
+          break;
+        case RaceEventType.incoming:
+          _popup('⚠️ هجوم من ${e.who}!', C.red);
+          break;
+        case RaceEventType.hit:
+          _popup('💥 أصابك ${e.who}', C.red);
+          break;
+        case RaceEventType.rocket:
+          _popup('🚀 إصابة ${e.who}', C.gold);
+          break;
+        case RaceEventType.kill:
+          _popup('☠️ دُمّر ${e.who}!', C.gold);
           break;
         case RaceEventType.slipstreamOn:
           _popup('💨 Slipstream', C.textDim);
@@ -619,8 +631,8 @@ class _RaceScreenState extends ConsumerState<RaceScreen> with WidgetsBindingObse
   }
 
   Widget _challengeCard(Challenge c) {
-    final label = switch (c.kind) { ChallengeKind.shield => '🛡️ درع — اكتب الكلمة', ChallengeKind.emp => '📡 EMP — عطّل منافساً', ChallengeKind.turbo => '🚀 توربو — اكتب بسرعة', ChallengeKind.pit => '🔧 نقطة صيانة — بدون أي خطأ!' };
-    final color = c.isPit ? C.green : C.cyan;
+    final label = switch (c.kind) { ChallengeKind.shield => '🛡️ درع — اكتب الكلمة', ChallengeKind.emp => '📡 EMP — عطّل منافساً', ChallengeKind.turbo => '🚀 توربو — اكتب بسرعة', ChallengeKind.pit => '🔧 نقطة صيانة — بدون أي خطأ!', ChallengeKind.defend => '🎯 هجوم قادم — تفادَ بسرعة!' };
+    final color = c.isPit ? C.green : (c.kind == ChallengeKind.defend ? C.red : C.cyan);
     return Positioned.fill(
       child: Container(
         decoration: BoxDecoration(color: const Color(0xEE0B1026), borderRadius: BorderRadius.circular(14), border: Border.all(color: color, width: 2)),

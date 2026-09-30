@@ -44,7 +44,9 @@ class ProfileMerger {
     final kx = (x['key'] ?? '').toString(), ky = (y['key'] ?? '').toString();
     if (kx.compareTo(ky) > 0) return x;
     if (kx.compareTo(ky) < 0) return y;
-    final r = _mm(x);
+    // same period: keep the more advanced record (longer result list), then union what was claimed
+    final lx = (x['res'] is List) ? (x['res'] as List).length : 0, ly = (y['res'] is List) ? (y['res'] as List).length : 0;
+    final r = _mm(ly > lx ? y : x);
     r['claimed'] = _orMap(x['claimed'], y['claimed']);
     r['base'] = _maxMap(x['base'], y['base']);
     r['best'] = _maxMap({'v': x['best'] ?? 0}, {'v': y['best'] ?? 0})['v'];
@@ -166,6 +168,7 @@ class ProfileMerger {
     r['charStats'] = cs;
 
     r['daily'] = _period(a['daily'], b['daily']);
+    r['weeklyCh'] = _period(a['weeklyCh'], b['weeklyCh']);
     final evA = _mm(a['events']), evB = _mm(b['events']);
     final ev = <String, dynamic>{};
     for (final k in {...evA.keys, ...evB.keys}) {
