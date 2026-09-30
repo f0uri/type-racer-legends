@@ -38,11 +38,11 @@ firebase deploy --only functions,firestore:rules,firestore:indexes
 بعد أول نشر أنشئ مستند `config/limits` (اختياري) لتعديل حدود مكافحة الغش، وراجع سجلات الدوال.
 
 ## 4. التحقق من المشتريات (verifyPurchase)
-1. Google Cloud Console → IAM → Service Accounts → أنشئ حساب خدمة، وأنشئ له مفتاح JSON.
-2. Play Console → Users and permissions → ادعُ هذا الحساب بصلاحية **View financial data** و**Manage orders**.
-3. فعّل **Google Play Android Developer API** في مشروع Cloud المرتبط.
-4. خزّن المفتاح كسر للدوال (`firebase functions:secrets:set PLAY_SERVICE_ACCOUNT`) واتبع التعليق في `functions/index.js` (`verifyPurchase`) لربطه.
-   إلى أن يتم ذلك: الدالة تُرجع `valid: null` والتطبيق يسلّم المشترى مؤقتاً على الجهاز.
+الدالة تستخدم Application Default Credentials، أي **حساب الخدمة الذي تعمل به الدالة** (الافتراضي: `<PROJECT_NUMBER>-compute@developer.gserviceaccount.com`، أو أي حساب خدمة تحدده للدالة).
+1. فعّل **Google Play Android Developer API** في مشروع Google Cloud المرتبط بـFirebase.
+2. Play Console → Users and permissions → **Invite new users** → ضع بريد حساب الخدمة أعلاه وامنحه صلاحيتي **View financial data** و**Manage orders and subscriptions**.
+3. لا حاجة لمفتاح JSON ولا لتعديل الكود. (إن أردت حساب خدمة مخصصاً: `serviceAccount` في خيارات الدالة.)
+إلى أن يتم ذلك: الدالة تُرجع `valid: null` والتطبيق يسلّم المشترى مؤقتاً على الجهاز.
 
 ## 5. Google Play Console
 1. أنشئ التطبيق (اسم الحزمة `com.typeracerlegends.game`) وأكمل بطاقة المتجر ومحتوى التطبيق (Data safety: Analytics/Crashlytics، AdMob، حساب جوجل).

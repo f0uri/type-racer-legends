@@ -75,7 +75,7 @@ node --test functions/test/*.test.js   # اختبارات مكافحة الغش
   "startsAt": null, "endsAt": null, "kinds": ["car", "bike"], "tags": [],
   "params": { "pattern": "gradient", "colors": ["#ff7b00", "#ff006e"] } }
 ```
-`slot`: `paint | rims | underglow | exhaust | nitro | sticker | horn | celebration | plate`. `rarity`: `common | rare | legendary`.
+`slot`: `paint | rims | neon | exhaust | nitroFlame | sticker | horn | celebration | plate`. `rarity`: `common | rare | legendary`.
 اجعل `enabled: false` لإخفائه، أو أضف `startsAt/endsAt` لعرضه لفترة محدودة. لإبراز عناصر في المتجر أضفها إلى `featured.shop` في `catalog.json`.
 
 ### إضافة حدث موسمي
@@ -86,7 +86,7 @@ node --test functions/test/*.test.js   # اختبارات مكافحة الغش
 في `content/catalog.json` → `killSwitch`: `features` (من: `ads, iap, tournament, daily, link_challenge, leaderboard, survival, combat, world_tour, shop, updates`) و`items` (معرّفات عناصر). أو عبر Firebase Remote Config: `kill_features`, `kill_items`, `daily_coin_cap`, `interstitial_every_n`, `interstitial_enabled`, `rewarded_daily_limit`, `min_supported_version`, `maintenance_message`.
 
 ### إضافة نصوص
-ضع الملفات في `content/texts/` (مصفوفة نصوص `{id, lang, cat, diff, text}`) — **ملكية عامة أو أصلية فقط**. يمكن إضافة `es` بنفس الشكل.
+ضع ملفاً في `content/texts/` بالشكل `{"version":1,"items":[{"id":"x001","t":"النص","cat":"quotes","topic":"...","lang":"en","diff":1-5,"len":عدد_الحروف}]}` (انظر `tools/gen_texts.py`) — **ملكية عامة أو أصلية فقط**. يمكن إضافة `es` بنفس الشكل.
 
 ## إصدار تحديث
 
