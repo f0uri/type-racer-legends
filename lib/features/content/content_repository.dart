@@ -18,6 +18,15 @@ class ContentRepository {
     }
   }
 
+  Future<Map<String, dynamic>?> bundledCatalog() => _asset('catalog.json');
+
+  Future<Map<String, dynamic>?> bundledFile(String key) async {
+    final cat = await bundledCatalog();
+    final entry = (cat?['files'] as Map?)?[key] as Map?;
+    if (entry == null) return null;
+    return _asset(entry['path'] as String);
+  }
+
   Map<String, dynamic>? cachedCatalog() {
     final raw = store.content.get('catalog') as String?;
     if (raw == null) return null;

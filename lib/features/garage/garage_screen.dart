@@ -9,6 +9,7 @@ import '../../core/widgets/common.dart';
 import '../../data/models/content_models.dart';
 import '../../data/models/profile.dart';
 import '../content/content_db.dart';
+import '../content/new_items.dart';
 import '../shop/economy.dart';
 import 'effect_preview.dart';
 import 'garage_widgets.dart';
@@ -106,6 +107,12 @@ class _GarageScreenState extends ConsumerState<GarageScreen>
     final owned = Economy.ownsVehicle(p, v);
     final look = _look(db, p, v);
     final equipped = p.selVehicle == v.id;
+    if (NewItems.isNew(p, v.id)) {
+      final vid = v.id;
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) ref.read(profileProvider.notifier).update((pp) => NewItems.markSeen(pp, [vid]), syncSoon: false);
+      });
+    }
     return Scaffold(
       body: GradientBg(
         child: SafeArea(
@@ -216,7 +223,8 @@ class _GarageScreenState extends ConsumerState<GarageScreen>
                               ),
                             ),
                           ),
-                          RarityBadge(v.rarity),
+                          if (NewItems.isNew(p, v.id)) ...[const NewBadge(), const SizedBox(width: 6)],
+                    RarityBadge(v.rarity),
                           const SizedBox(width: 8),
                           const Text(
                             '↔ اسحب للتدوير',
@@ -575,6 +583,7 @@ class _GarageScreenState extends ConsumerState<GarageScreen>
                       name: loc(s.name),
                       rarity: s.rarity,
                       equipped: lo[_slot] == s.id,
+                    isNew: NewItems.isNew(p, s.id),
                       selected: _pvId == s.id && _pvKey == _slot,
                       locked: !own && !av.canBuy,
                       priceLabel: own ? 'مملوك' : priceText(s.price),

@@ -7,6 +7,7 @@ import '../data/models/profile.dart';
 import '../data/remote/cloud_sync.dart';
 import '../data/remote/firebase_boot.dart';
 import '../features/ai/ai_driver.dart';
+import 'remote_settings.dart';
 import '../features/content/content_db.dart';
 import 'services/audio_service.dart';
 import 'services/haptics_service.dart';
@@ -17,16 +18,34 @@ final initialContentProvider = Provider<ContentDb>((ref) => ContentDb.empty());
 final cloudSyncProvider = Provider<CloudSync>((ref) => CloudSync());
 
 class ContentController extends Notifier<ContentDb> {
-  @override
-  ContentDb build() => _apply(ref.read(initialContentProvider));
-  void set(ContentDb db) => state = _apply(db);
+  ContentDb? _base;
+  RemoteSettings _remote = RemoteSettings.empty;
 
-  /// Pushes data-driven AI personality parameters into the AI engine.
-  ContentDb _apply(ContentDb db) {
+  @override
+  ContentDb build() {
+    _base = ref.read(initialContentProvider);
+    return _compose();
+  }
+
+  ContentDb _compose() {
+    final db = _base!.withOverrides(killFeatures: _remote.killFeatures, killItems: _remote.killItems, economyPatch: _remote.economyPatch);
+    // pushes data-driven AI personality parameters into the AI engine
     final pp = db.ai['personalities'];
     if (pp is Map) Persona.applyContent(pp.cast<String, dynamic>());
     return db;
   }
+
+  void set(ContentDb db) {
+    _base = db;
+    state = _compose();
+  }
+
+  void applyRemote(RemoteSettings r) {
+    _remote = r;
+    state = _compose();
+  }
+
+  RemoteSettings get remote => _remote;
 }
 
 final contentProvider = NotifierProvider<ContentController, ContentDb>(ContentController.new);

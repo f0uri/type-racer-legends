@@ -8,6 +8,8 @@ import '../../core/widgets/common.dart';
 import '../../data/merge/profile_merge.dart';
 import '../../data/remote/firebase_boot.dart';
 import '../auth/auth_controller.dart';
+import '../content/content_updater.dart';
+import '../update/update_ui.dart';
 import 'legal_texts.dart';
 
 class SettingsScreen extends ConsumerWidget {
@@ -134,6 +136,11 @@ class SettingsScreen extends ConsumerWidget {
             _switch(ref, 'تذكير السلسلة اليومية', 'streakReminder', s.streakReminder, sub: 'تنبيه قبل انتهاء سلسلتك بساعتين'),
             _switch(ref, 'الأحداث والبطولات', 'eventNotifs', s.eventNotifs),
             _switch(ref, 'فحص التحديثات تلقائياً', 'autoUpdateCheck', s.autoUpdateCheck),
+            ListTile(contentPadding: EdgeInsets.zero, title: const Text('التحقق من التحديثات الآن'), trailing: const Icon(Icons.system_update_rounded, color: C.cyan), onTap: () => manualUpdateCheck(context, ref)),
+            ListTile(contentPadding: EdgeInsets.zero, title: const Text('تحديث المحتوى (نصوص، مركبات، أحداث)'), trailing: const Icon(Icons.sync_rounded, color: C.cyan), onTap: () async {
+              final applied = await ref.read(contentUpdaterProvider.notifier).refresh(force: true);
+              if (context.mounted) toast(context, applied ? 'تم تحديث المحتوى ✅' : 'المحتوى محدّث');
+            }),
           ])),
           _section('حول'),
           Panel(child: Column(children: [

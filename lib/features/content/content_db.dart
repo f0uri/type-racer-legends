@@ -92,6 +92,16 @@ class ContentDb {
     );
   }
 
+  /// Copy with extra remote kill-switch entries and economy patches (Firebase Remote Config); nothing is executed.
+  ContentDb withOverrides({Set<String> killFeatures = const {}, Set<String> killItems = const {}, Map<String, Map<String, dynamic>>? economyPatch}) {
+    final eco = Map<String, dynamic>.from(economy);
+    economyPatch?.forEach((group, patch) {
+      eco[group] = {..._m(eco[group]), ...patch};
+    });
+    return ContentDb._(catalogVersion, catalog, vehicles, skins, outfits, events, texts, biomes, bosses, stages, achievements, quests, cities, tournaments, vocab, eco, shop, season, ai,
+        titles, {...killedItems, ...killItems}, {...killedFeatures, ...killFeatures}, _textById, _byId);
+  }
+
   // ---- lookups -----
   Vehicle? vehicle(String id) => _byId[id] is Vehicle ? _byId[id] as Vehicle : null;
   Skin? skin(String id) => _byId[id] is Skin ? _byId[id] as Skin : null;

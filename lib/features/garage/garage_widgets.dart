@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../core/theme/app_theme.dart';
 import '../../core/util/misc.dart';
+import '../../core/widgets/common.dart';
 import '../../data/models/content_models.dart';
 import '../content/content_db.dart';
 import 'look.dart';
@@ -63,11 +64,11 @@ class _MiniPainter extends CustomPainter {
 
 /// Generic selectable tile used for skins / outfits.
 class ItemTile extends StatelessWidget {
-  const ItemTile({super.key, required this.preview, required this.name, required this.rarity, this.equipped = false, this.selected = false, this.locked = false, this.priceLabel, this.onTap});
+  const ItemTile({super.key, required this.preview, required this.name, required this.rarity, this.equipped = false, this.selected = false, this.locked = false, this.isNew = false, this.priceLabel, this.onTap});
   final Widget preview;
   final String name;
   final String rarity;
-  final bool equipped, selected, locked;
+  final bool equipped, selected, locked, isNew;
   final String? priceLabel;
   final VoidCallback? onTap;
   @override
@@ -82,7 +83,8 @@ class ItemTile extends StatelessWidget {
             borderRadius: BorderRadius.circular(14),
             border: Border.all(color: selected ? C.cyan : C.rarity(rarity).withValues(alpha: 0.55), width: selected ? 2.2 : 1.2),
           ),
-          child: Column(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+          child: Stack(clipBehavior: Clip.none, children: [
+            Column(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
             Expanded(child: Center(child: Opacity(opacity: locked ? 0.5 : 1, child: preview))),
             Text(name, maxLines: 1, overflow: TextOverflow.ellipsis, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w700)),
             SizedBox(
@@ -91,6 +93,8 @@ class ItemTile extends StatelessWidget {
                   ? const Text('✓ مجهّز', style: TextStyle(color: C.green, fontSize: 10, fontWeight: FontWeight.w900))
                   : (locked ? const Icon(Icons.lock_rounded, size: 13, color: Colors.white38) : Text(priceLabel ?? 'مملوك', style: const TextStyle(color: C.gold, fontSize: 10, fontWeight: FontWeight.w800))),
             ),
+            ]),
+            if (isNew) const Positioned(top: -4, left: -4, child: NewBadge()),
           ]),
         ),
       );
