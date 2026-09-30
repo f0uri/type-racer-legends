@@ -1,0 +1,905 @@
+{
+"version": 1,
+"items": [
+{
+"id": "ews000",
+"t": "back king bold dream walk road right skill step key race turn hope",
+"cat": "words_short",
+"topic": "general",
+"lang": "en",
+"diff": 2,
+"len": 66
+},
+{
+"id": "ews001",
+"t": "hill tiny flag near warm stop back left game run",
+"cat": "words_short",
+"topic": "general",
+"lang": "en",
+"diff": 2,
+"len": 48
+},
+{
+"id": "ews002",
+"t": "focus byte peace boost bird sky bronze tiny rest skill city rock gear first",
+"cat": "words_short",
+"topic": "general",
+"lang": "en",
+"diff": 2,
+"len": 75
+},
+{
+"id": "ews003",
+"t": "love silver car cool leaf heavy tree lap rain long",
+"cat": "words_short",
+"topic": "general",
+"lang": "en",
+"diff": 2,
+"len": 50
+},
+{
+"id": "ews004",
+"t": "coin code leap skill wise head left clean gold skid turn swift sky power",
+"cat": "words_short",
+"topic": "general",
+"lang": "en",
+"diff": 2,
+"len": 72
+},
+{
+"id": "ews005",
+"t": "work gear left skill lane bright short car hawk peace turn tire close",
+"cat": "words_short",
+"topic": "general",
+"lang": "en",
+"diff": 2,
+"len": 69
+},
+{
+"id": "ews006",
+"t": "near work rain sharp dark speed high small road spin gold stop hand",
+"cat": "words_short",
+"topic": "general",
+"lang": "en",
+"diff": 2,
+"len": 67
+},
+{
+"id": "ews007",
+"t": "sea short wolf last zoom flag rush silver joy drift work soul wave start",
+"cat": "words_short",
+"topic": "general",
+"lang": "en",
+"diff": 2,
+"len": 72
+},
+{
+"id": "ews008",
+"t": "tire heart gear sun dark speed wheel tiny stop faith team car bear",
+"cat": "words_short",
+"topic": "general",
+"lang": "en",
+"diff": 2,
+"len": 66
+},
+{
+"id": "ews009",
+"t": "nitro bright sea code rest goal work key tree spin chip race path talk",
+"cat": "words_short",
+"topic": "general",
+"lang": "en",
+"diff": 2,
+"len": 70
+},
+{
+"id": "ews010",
+"t": "wave city rush lap mind go low tiny sun last chip bird joy flag",
+"cat": "words_short",
+"topic": "general",
+"lang": "en",
+"diff": 2,
+"len": 63
+},
+{
+"id": "ews011",
+"t": "home rest dream key start trust huge open moon queen star head drive step",
+"cat": "words_short",
+"topic": "general",
+"lang": "en",
+"diff": 2,
+"len": 73
+},
+{
+"id": "ews012",
+"t": "joy sun long spin rain snow trust short last power city hero dream queen",
+"cat": "words_short",
+"topic": "general",
+"lang": "en",
+"diff": 2,
+"len": 72
+},
+{
+"id": "ews013",
+"t": "walk wise game heavy go near talk boost brave rock home fox",
+"cat": "words_short",
+"topic": "general",
+"lang": "en",
+"diff": 2,
+"len": 59
+},
+{
+"id": "ews014",
+"t": "storm love foot bear drift wise spin jump home type road tiny",
+"cat": "words_short",
+"topic": "general",
+"lang": "en",
+"diff": 2,
+"len": 61
+},
+{
+"id": "ews015",
+"t": "joy leap trust big zoom fish sea sand flag home boost hero",
+"cat": "words_short",
+"topic": "general",
+"lang": "en",
+"diff": 2,
+"len": 58
+},
+{
+"id": "ews016",
+"t": "rest leaf drive hill rush jump huge brave back clear next king gem",
+"cat": "words_short",
+"topic": "general",
+"lang": "en",
+"diff": 2,
+"len": 66
+},
+{
+"id": "ews017",
+"t": "peace fish bike warm sea home team play bear hope mind foot big",
+"cat": "words_short",
+"topic": "general",
+"lang": "en",
+"diff": 2,
+"len": 63
+},
+{
+"id": "ews018",
+"t": "byte leaf fast start storm fox silver wave boost short",
+"cat": "words_short",
+"topic": "general",
+"lang": "en",
+"diff": 2,
+"len": 54
+},
+{
+"id": "ews019",
+"t": "quick peace wheel fox cool swift wind bold run sea rest mind clean stop",
+"cat": "words_short",
+"topic": "general",
+"lang": "en",
+"diff": 2,
+"len": 71
+},
+{
+"id": "ews020",
+"t": "dash wave byte fox zoom stop gem lap drift bold bit walk lane",
+"cat": "words_short",
+"topic": "general",
+"lang": "en",
+"diff": 2,
+"len": 61
+},
+{
+"id": "ews021",
+"t": "sky left map speed snow hand car right boost game",
+"cat": "words_short",
+"topic": "general",
+"lang": "en",
+"diff": 2,
+"len": 49
+},
+{
+"id": "ews022",
+"t": "hope dream bright flag gear love right win path snow faith",
+"cat": "words_short",
+"topic": "general",
+"lang": "en",
+"diff": 2,
+"len": 58
+},
+{
+"id": "ews023",
+"t": "coin peace level lane game rush wise warm first open focus dash stop",
+"cat": "words_short",
+"topic": "general",
+"lang": "en",
+"diff": 2,
+"len": 68
+},
+{
+"id": "ews024",
+"t": "hope race moon coin boost hill faith lap near skid",
+"cat": "words_short",
+"topic": "general",
+"lang": "en",
+"diff": 2,
+"len": 50
+},
+{
+"id": "ews025",
+"t": "data type queen coin rain goal wise flag hope dash team joy lap",
+"cat": "words_short",
+"topic": "general",
+"lang": "en",
+"diff": 2,
+"len": 63
+},
+{
+"id": "ews026",
+"t": "drift lap heavy wise sharp neon sand gear high focus gold near bit",
+"cat": "words_short",
+"topic": "general",
+"lang": "en",
+"diff": 2,
+"len": 66
+},
+{
+"id": "ews027",
+"t": "wolf code sand sea first run swift zoom keen walk rest",
+"cat": "words_short",
+"topic": "general",
+"lang": "en",
+"diff": 2,
+"len": 54
+},
+{
+"id": "ews028",
+"t": "heart power close byte faith queen home map flag long boost focus hawk sky",
+"cat": "words_short",
+"topic": "general",
+"lang": "en",
+"diff": 2,
+"len": 74
+},
+{
+"id": "ews029",
+"t": "walk work storm sun clean fun wise bird talk long wind",
+"cat": "words_short",
+"topic": "general",
+"lang": "en",
+"diff": 2,
+"len": 54
+},
+{
+"id": "ews030",
+"t": "far gold level home lane start snow team right boost big bronze bold neon",
+"cat": "words_short",
+"topic": "general",
+"lang": "en",
+"diff": 2,
+"len": 73
+},
+{
+"id": "ews031",
+"t": "step swift fuel walk bird warm wolf flag lion map back far long",
+"cat": "words_short",
+"topic": "general",
+"lang": "en",
+"diff": 2,
+"len": 63
+},
+{
+"id": "ews032",
+"t": "walk bear dream bold speed drift hero hill rest sharp",
+"cat": "words_short",
+"topic": "general",
+"lang": "en",
+"diff": 2,
+"len": 53
+},
+{
+"id": "ews033",
+"t": "clean play dream city hand game open swift start sun high trust",
+"cat": "words_short",
+"topic": "general",
+"lang": "en",
+"diff": 2,
+"len": 63
+},
+{
+"id": "ews034",
+"t": "huge talk spin sun sharp open fun calm lion mind clean",
+"cat": "words_short",
+"topic": "general",
+"lang": "en",
+"diff": 2,
+"len": 54
+},
+{
+"id": "ews035",
+"t": "hawk lap open dream nitro left dark drift spin hill faith close wolf",
+"cat": "words_short",
+"topic": "general",
+"lang": "en",
+"diff": 2,
+"len": 68
+},
+{
+"id": "ews036",
+"t": "clean play queen flag love bear rush bit team back foot home lap",
+"cat": "words_short",
+"topic": "general",
+"lang": "en",
+"diff": 2,
+"len": 64
+},
+{
+"id": "ews037",
+"t": "play blaze joy go lap type trust heart dream power",
+"cat": "words_short",
+"topic": "general",
+"lang": "en",
+"diff": 2,
+"len": 50
+},
+{
+"id": "ews038",
+"t": "fun gold drive nitro moon play bronze cool skill stop long left near",
+"cat": "words_short",
+"topic": "general",
+"lang": "en",
+"diff": 2,
+"len": 68
+},
+{
+"id": "ews039",
+"t": "type storm bird sand brave dark path step walk left open drift short",
+"cat": "words_short",
+"topic": "general",
+"lang": "en",
+"diff": 2,
+"len": 68
+},
+{
+"id": "ews040",
+"t": "moon map path level big mind hope faith bike next",
+"cat": "words_short",
+"topic": "general",
+"lang": "en",
+"diff": 2,
+"len": 49
+},
+{
+"id": "ews041",
+"t": "keen power last drift gear huge gold head sun data bronze",
+"cat": "words_short",
+"topic": "general",
+"lang": "en",
+"diff": 2,
+"len": 57
+},
+{
+"id": "ews042",
+"t": "hope left type nitro bronze huge fuel cool bear city",
+"cat": "words_short",
+"topic": "general",
+"lang": "en",
+"diff": 2,
+"len": 52
+},
+{
+"id": "ews043",
+"t": "wind speed stop go skill right drift key talk hawk",
+"cat": "words_short",
+"topic": "general",
+"lang": "en",
+"diff": 2,
+"len": 50
+},
+{
+"id": "ews044",
+"t": "wave sand heart sun faith chip dream focus brave love swift",
+"cat": "words_short",
+"topic": "general",
+"lang": "en",
+"diff": 2,
+"len": 59
+},
+{
+"id": "ews045",
+"t": "trust low peace dark short moon small drift fun heavy joy spin",
+"cat": "words_short",
+"topic": "general",
+"lang": "en",
+"diff": 2,
+"len": 62
+},
+{
+"id": "ews046",
+"t": "jump fuel silver type snow key swift win hope path fast storm dream",
+"cat": "words_short",
+"topic": "general",
+"lang": "en",
+"diff": 2,
+"len": 67
+},
+{
+"id": "ews047",
+"t": "tiny rock joy dark queen mind chip fox far blaze fast rush walk skid",
+"cat": "words_short",
+"topic": "general",
+"lang": "en",
+"diff": 2,
+"len": 68
+},
+{
+"id": "ews048",
+"t": "run tree near power rain gold jump type love clean gem",
+"cat": "words_short",
+"topic": "general",
+"lang": "en",
+"diff": 2,
+"len": 54
+},
+{
+"id": "ews049",
+"t": "skid wheel queen huge close foot drift hill tree heart big team long",
+"cat": "words_short",
+"topic": "general",
+"lang": "en",
+"diff": 2,
+"len": 68
+},
+{
+"id": "ews050",
+"t": "cool step calm zoom sun hope talk road go gear rest drive work",
+"cat": "words_short",
+"topic": "general",
+"lang": "en",
+"diff": 2,
+"len": 62
+},
+{
+"id": "ews051",
+"t": "silver star goal sky fun clear hope close bright moon wolf bike back",
+"cat": "words_short",
+"topic": "general",
+"lang": "en",
+"diff": 2,
+"len": 68
+},
+{
+"id": "ews052",
+"t": "quick bird heart clean head keen low small wise fox left back",
+"cat": "words_short",
+"topic": "general",
+"lang": "en",
+"diff": 2,
+"len": 61
+},
+{
+"id": "ews053",
+"t": "queen car fuel leap data focus big start mind star peace sharp huge",
+"cat": "words_short",
+"topic": "general",
+"lang": "en",
+"diff": 2,
+"len": 67
+},
+{
+"id": "ews054",
+"t": "silver focus keen far first data hawk walk quick bronze",
+"cat": "words_short",
+"topic": "general",
+"lang": "en",
+"diff": 2,
+"len": 55
+},
+{
+"id": "ews055",
+"t": "huge race leap spin bold brave dream head goal fuel flag",
+"cat": "words_short",
+"topic": "general",
+"lang": "en",
+"diff": 2,
+"len": 56
+},
+{
+"id": "ews056",
+"t": "type sharp rain high nitro wind level fun low lap leap game",
+"cat": "words_short",
+"topic": "general",
+"lang": "en",
+"diff": 2,
+"len": 59
+},
+{
+"id": "ews057",
+"t": "city drive king bold peace team last fox back gear lane neon low speed",
+"cat": "words_short",
+"topic": "general",
+"lang": "en",
+"diff": 2,
+"len": 70
+},
+{
+"id": "ews058",
+"t": "talk play sand car leap bold wise hawk wave hill",
+"cat": "words_short",
+"topic": "general",
+"lang": "en",
+"diff": 2,
+"len": 48
+},
+{
+"id": "ews059",
+"t": "fish low road hope wise skid neon soul map start",
+"cat": "words_short",
+"topic": "general",
+"lang": "en",
+"diff": 2,
+"len": 48
+},
+{
+"id": "ewl000",
+"t": "accelerate velocity quickly motorcycle technology opportunity successful wonderful",
+"cat": "words_long",
+"topic": "general",
+"lang": "en",
+"diff": 4,
+"len": 82
+},
+{
+"id": "ewl001",
+"t": "champion technology competition landscape enthusiasm opportunity",
+"cat": "words_long",
+"topic": "general",
+"lang": "en",
+"diff": 4,
+"len": 64
+},
+{
+"id": "ewl002",
+"t": "tournament challenge velocity accuracy formidable determination",
+"cat": "words_long",
+"topic": "general",
+"lang": "en",
+"diff": 4,
+"len": 63
+},
+{
+"id": "ewl003",
+"t": "unstoppable progress motorcycle extraordinary enthusiasm transformation",
+"cat": "words_long",
+"topic": "general",
+"lang": "en",
+"diff": 5,
+"len": 71
+},
+{
+"id": "ewl004",
+"t": "velocity successful thunderous precision generation technology excellent victory",
+"cat": "words_long",
+"topic": "general",
+"lang": "en",
+"diff": 4,
+"len": 80
+},
+{
+"id": "ewl005",
+"t": "victory brilliant magnificent keyboard determination information",
+"cat": "words_long",
+"topic": "general",
+"lang": "en",
+"diff": 4,
+"len": 64
+},
+{
+"id": "ewl006",
+"t": "quickly practice formidable accelerate competition landscape",
+"cat": "words_long",
+"topic": "general",
+"lang": "en",
+"diff": 4,
+"len": 60
+},
+{
+"id": "ewl007",
+"t": "information concentration formidable technology unstoppable motorcycle opportunity landscape",
+"cat": "words_long",
+"topic": "general",
+"lang": "en",
+"diff": 5,
+"len": 92
+},
+{
+"id": "ewl008",
+"t": "momentum extraordinary champion navigation challenge quickly technology",
+"cat": "words_long",
+"topic": "general",
+"lang": "en",
+"diff": 4,
+"len": 71
+},
+{
+"id": "ewl009",
+"t": "development competition brilliant responsible remarkable information acceleration confidence",
+"cat": "words_long",
+"topic": "general",
+"lang": "en",
+"diff": 5,
+"len": 92
+},
+{
+"id": "ewl010",
+"t": "extraordinary opportunity fantastic imagination accelerate quickly velocity",
+"cat": "words_long",
+"topic": "general",
+"lang": "en",
+"diff": 5,
+"len": 75
+},
+{
+"id": "ewl011",
+"t": "brilliant challenge horizon keyboard persistence dangerous",
+"cat": "words_long",
+"topic": "general",
+"lang": "en",
+"diff": 4,
+"len": 58
+},
+{
+"id": "ewl012",
+"t": "atmosphere fantastic landscape spectacular remarkable dangerous",
+"cat": "words_long",
+"topic": "general",
+"lang": "en",
+"diff": 4,
+"len": 63
+},
+{
+"id": "ewl013",
+"t": "momentum excellent brilliant experience horizon information dangerous",
+"cat": "words_long",
+"topic": "general",
+"lang": "en",
+"diff": 4,
+"len": 69
+},
+{
+"id": "ewl014",
+"t": "reliable concentration momentum challenge excellent generation",
+"cat": "words_long",
+"topic": "general",
+"lang": "en",
+"diff": 4,
+"len": 62
+},
+{
+"id": "ewl015",
+"t": "momentum powerful fantastic extraordinary accelerate brilliant tournament",
+"cat": "words_long",
+"topic": "general",
+"lang": "en",
+"diff": 4,
+"len": 73
+},
+{
+"id": "ewl016",
+"t": "persistence wonderful keyboard victory legendary precision excellent development",
+"cat": "words_long",
+"topic": "general",
+"lang": "en",
+"diff": 4,
+"len": 80
+},
+{
+"id": "ewl017",
+"t": "thunderous motorcycle practice technology accuracy reliable journey",
+"cat": "words_long",
+"topic": "general",
+"lang": "en",
+"diff": 4,
+"len": 67
+},
+{
+"id": "ewl018",
+"t": "strategy horizon thunderous generation atmosphere spectacular competition acceleration",
+"cat": "words_long",
+"topic": "general",
+"lang": "en",
+"diff": 5,
+"len": 86
+},
+{
+"id": "ewl019",
+"t": "opportunity imagination journey transformation persistence dangerous",
+"cat": "words_long",
+"topic": "general",
+"lang": "en",
+"diff": 5,
+"len": 68
+},
+{
+"id": "ewl020",
+"t": "development responsible formidable unstoppable overtaking strategy excellent",
+"cat": "words_long",
+"topic": "general",
+"lang": "en",
+"diff": 5,
+"len": 76
+},
+{
+"id": "ewl021",
+"t": "accuracy strategy brilliant momentum progress opportunity victory unstoppable",
+"cat": "words_long",
+"topic": "general",
+"lang": "en",
+"diff": 4,
+"len": 77
+},
+{
+"id": "ewl022",
+"t": "development performance determination unstoppable imagination generation",
+"cat": "words_long",
+"topic": "general",
+"lang": "en",
+"diff": 5,
+"len": 72
+},
+{
+"id": "ewl023",
+"t": "extraordinary discipline champion accuracy formidable challenge transformation journey",
+"cat": "words_long",
+"topic": "general",
+"lang": "en",
+"diff": 5,
+"len": 86
+},
+{
+"id": "ewl024",
+"t": "excellent exhilarating practice unstoppable wonderful fantastic adventure extraordinary",
+"cat": "words_long",
+"topic": "general",
+"lang": "en",
+"diff": 5,
+"len": 87
+},
+{
+"id": "ewl025",
+"t": "progress spectacular development challenge technology landscape concentration",
+"cat": "words_long",
+"topic": "general",
+"lang": "en",
+"diff": 5,
+"len": 77
+},
+{
+"id": "ewl026",
+"t": "achievement navigation quickly motorcycle journey imagination tournament successful",
+"cat": "words_long",
+"topic": "general",
+"lang": "en",
+"diff": 4,
+"len": 83
+},
+{
+"id": "ewl027",
+"t": "practice exhilarating reliable responsible development legendary generation successful",
+"cat": "words_long",
+"topic": "general",
+"lang": "en",
+"diff": 5,
+"len": 86
+},
+{
+"id": "ewl028",
+"t": "extraordinary experience champion landscape competition atmosphere",
+"cat": "words_long",
+"topic": "general",
+"lang": "en",
+"diff": 5,
+"len": 66
+},
+{
+"id": "ewl029",
+"t": "powerful imagination motorcycle tournament overtaking dangerous strategy",
+"cat": "words_long",
+"topic": "general",
+"lang": "en",
+"diff": 4,
+"len": 72
+},
+{
+"id": "ewl030",
+"t": "horizon legendary persistence confidence quickly experience precision adventure",
+"cat": "words_long",
+"topic": "general",
+"lang": "en",
+"diff": 4,
+"len": 79
+},
+{
+"id": "ewl031",
+"t": "concentration velocity information remarkable precision persistence performance magnificent",
+"cat": "words_long",
+"topic": "general",
+"lang": "en",
+"diff": 5,
+"len": 91
+},
+{
+"id": "ewl032",
+"t": "competition velocity enthusiasm fantastic experience excellent",
+"cat": "words_long",
+"topic": "general",
+"lang": "en",
+"diff": 4,
+"len": 62
+},
+{
+"id": "ewl033",
+"t": "development powerful quickly navigation extraordinary motorcycle exhilarating unstoppable",
+"cat": "words_long",
+"topic": "general",
+"lang": "en",
+"diff": 5,
+"len": 89
+},
+{
+"id": "ewl034",
+"t": "legendary powerful brilliant keyboard extraordinary precision",
+"cat": "words_long",
+"topic": "general",
+"lang": "en",
+"diff": 4,
+"len": 61
+},
+{
+"id": "ewl035",
+"t": "navigation brilliant technology persistence discipline atmosphere reliable",
+"cat": "words_long",
+"topic": "general",
+"lang": "en",
+"diff": 4,
+"len": 74
+},
+{
+"id": "ewl036",
+"t": "exhilarating adventure excellent accuracy overtaking discipline spectacular",
+"cat": "words_long",
+"topic": "general",
+"lang": "en",
+"diff": 5,
+"len": 75
+},
+{
+"id": "ewl037",
+"t": "tournament brilliant generation keyboard magnificent acceleration",
+"cat": "words_long",
+"topic": "general",
+"lang": "en",
+"diff": 5,
+"len": 65
+},
+{
+"id": "ewl038",
+"t": "strategy legendary experience overtaking tournament persistence",
+"cat": "words_long",
+"topic": "general",
+"lang": "en",
+"diff": 4,
+"len": 63
+},
+{
+"id": "ewl039",
+"t": "reliable horizon technology generation confidence fantastic landscape",
+"cat": "words_long",
+"topic": "general",
+"lang": "en",
+"diff": 4,
+"len": 69
+}
+]
+}

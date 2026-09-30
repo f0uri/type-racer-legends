@@ -1,0 +1,63 @@
+rules_version = '2';
+// Type Racer Legends - copy/paste into Firebase Console > Firestore > Rules (or `firebase deploy --only firestore:rules`).
+// Every user can read/write only their own document, with value limits. Leaderboards are written ONLY by Cloud Functions.
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function signedIn() { return request.auth != null; }
+    function isOwner(uid) { return signedIn() && request.auth.uid == uid; }
+
+    function validProfile(d) {
+      return d.keys().hasOnly(['name', 'country', 'level', 'xp', 'coins', 'gems', 'bestWpm', 'rankPoints', 'streak',
+                               'lastPlayedAt', 'refCode', 'blob', 'rev', 'schema', 'updatedAt'])
+        && d.name is string && d.name.size() <= 24
+        && d.country is string && d.country.size() <= 2
+        && d.level is int && d.level >= 1 && d.level <= 200
+        && d.xp is int && d.xp >= 0 && d.xp < 100000000
+        && d.coins is int && d.coins >= 0 && d.coins < 2000000000
+        && d.gems is int && d.gems >= 0 && d.gems < 100000000
+        && d.bestWpm is int && d.bestWpm >= 0 && d.bestWpm <= 300
+        && d.rankPoints is int && d.rankPoints >= 0 && d.rankPoints < 100000
+        && d.streak is int && d.streak >= 0 && d.streak < 5000
+        && d.blob is string && d.blob.size() < 900000
+        && d.rev is int && d.rev >= 1;
+    }
+
+    match /users/{uid} {
+      allow read: if isOwner(uid);
+      allow create: if isOwner(uid) && validProfile(request.resource.data);
+      allow update: if isOwner(uid) && validProfile(request.resource.data)
+                    && request.resource.data.rev > resource.data.rev;
+      allow delete: if false; // deletion goes through the deleteAccountData Cloud Function
+
+      // Automatic backups are written by the onUserWrite Cloud Function only.
+      match /backups/{id} {
+        allow read: if isOwner(uid);
+        allow write: if false;
+      }
+    }
+
+    // Push notification tokens + reminder preferences (owner only).
+    match /fcmTokens/{uid} {
+      allow read, write: if isOwner(uid)
+        && request.resource.data.keys().hasOnly(['token', 'updatedAt', 'streakEnds', 'notifStreak', 'notifEvents', 'tz']);
+      allow delete: if isOwner(uid);
+    }
+
+    // Leaderboards: readable by signed-in users, written by Cloud Functions after anti-cheat validation.
+    match /leaderboards/{board}/entries/{uid} {
+      allow read: if signedIn();
+      allow write: if false;
+    }
+
+    // Remote, read-only config.
+    match /config/{doc} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

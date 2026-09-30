@@ -1,0 +1,615 @@
+{
+"version": 1,
+"items": [
+{
+"id": "eq000",
+"t": "All that glisters is not gold.",
+"cat": "quote",
+"topic": "quotes",
+"lang": "en",
+"diff": 2,
+"len": 30,
+"src": "William Shakespeare"
+},
+{
+"id": "eq001",
+"t": "To thine own self be true, and it must follow, as the night the day, thou canst not then be false to any man.",
+"cat": "quote",
+"topic": "quotes",
+"lang": "en",
+"diff": 2,
+"len": 109,
+"src": "William Shakespeare"
+},
+{
+"id": "eq002",
+"t": "The fault, dear Brutus, is not in our stars, but in ourselves, that we are underlings.",
+"cat": "quote",
+"topic": "quotes",
+"lang": "en",
+"diff": 3,
+"len": 86,
+"src": "William Shakespeare"
+},
+{
+"id": "eq003",
+"t": "Our doubts are traitors, and make us lose the good we oft might win, by fearing to attempt.",
+"cat": "quote",
+"topic": "quotes",
+"lang": "en",
+"diff": 2,
+"len": 91,
+"src": "William Shakespeare"
+},
+{
+"id": "eq004",
+"t": "Brevity is the soul of wit.",
+"cat": "quote",
+"topic": "quotes",
+"lang": "en",
+"diff": 2,
+"len": 27,
+"src": "William Shakespeare"
+},
+{
+"id": "eq005",
+"t": "Better three hours too soon than a minute too late.",
+"cat": "quote",
+"topic": "quotes",
+"lang": "en",
+"diff": 2,
+"len": 51,
+"src": "William Shakespeare"
+},
+{
+"id": "eq006",
+"t": "If music be the food of love, play on.",
+"cat": "quote",
+"topic": "quotes",
+"lang": "en",
+"diff": 2,
+"len": 38,
+"src": "William Shakespeare"
+},
+{
+"id": "eq007",
+"t": "Love all, trust a few, do wrong to none.",
+"cat": "quote",
+"topic": "quotes",
+"lang": "en",
+"diff": 2,
+"len": 40,
+"src": "William Shakespeare"
+},
+{
+"id": "eq008",
+"t": "We are such stuff as dreams are made on, and our little life is rounded with a sleep.",
+"cat": "quote",
+"topic": "quotes",
+"lang": "en",
+"diff": 2,
+"len": 85,
+"src": "William Shakespeare"
+},
+{
+"id": "eq009",
+"t": "Though this be madness, yet there is method in it.",
+"cat": "quote",
+"topic": "quotes",
+"lang": "en",
+"diff": 2,
+"len": 50,
+"src": "William Shakespeare"
+},
+{
+"id": "eq010",
+"t": "Government of the people, by the people, for the people, shall not perish from the earth.",
+"cat": "quote",
+"topic": "quotes",
+"lang": "en",
+"diff": 3,
+"len": 89,
+"src": "Abraham Lincoln"
+},
+{
+"id": "eq011",
+"t": "Four score and seven years ago our fathers brought forth on this continent a new nation, conceived in liberty.",
+"cat": "quote",
+"topic": "quotes",
+"lang": "en",
+"diff": 3,
+"len": 110,
+"src": "Abraham Lincoln"
+},
+{
+"id": "eq012",
+"t": "Early to bed and early to rise makes a man healthy, wealthy, and wise.",
+"cat": "quote",
+"topic": "quotes",
+"lang": "en",
+"diff": 2,
+"len": 70,
+"src": "Benjamin Franklin"
+},
+{
+"id": "eq013",
+"t": "Well done is better than well said.",
+"cat": "quote",
+"topic": "quotes",
+"lang": "en",
+"diff": 2,
+"len": 35,
+"src": "Benjamin Franklin"
+},
+{
+"id": "eq014",
+"t": "Lost time is never found again.",
+"cat": "quote",
+"topic": "quotes",
+"lang": "en",
+"diff": 2,
+"len": 31,
+"src": "Benjamin Franklin"
+},
+{
+"id": "eq015",
+"t": "A penny saved is a penny earned.",
+"cat": "quote",
+"topic": "quotes",
+"lang": "en",
+"diff": 2,
+"len": 32,
+"src": "Benjamin Franklin"
+},
+{
+"id": "eq016",
+"t": "Energy and persistence conquer all things.",
+"cat": "quote",
+"topic": "quotes",
+"lang": "en",
+"diff": 3,
+"len": 42,
+"src": "Benjamin Franklin"
+},
+{
+"id": "eq017",
+"t": "Nothing great was ever achieved without enthusiasm.",
+"cat": "quote",
+"topic": "quotes",
+"lang": "en",
+"diff": 3,
+"len": 51,
+"src": "Ralph Waldo Emerson"
+},
+{
+"id": "eq018",
+"t": "The only way to have a friend is to be one.",
+"cat": "quote",
+"topic": "quotes",
+"lang": "en",
+"diff": 1,
+"len": 43,
+"src": "Ralph Waldo Emerson"
+},
+{
+"id": "eq019",
+"t": "Trust thyself: every heart vibrates to that iron string.",
+"cat": "quote",
+"topic": "quotes",
+"lang": "en",
+"diff": 3,
+"len": 56,
+"src": "Ralph Waldo Emerson"
+},
+{
+"id": "eq020",
+"t": "If one advances confidently in the direction of his dreams, he will meet with a success unexpected in common hours.",
+"cat": "quote",
+"topic": "quotes",
+"lang": "en",
+"diff": 3,
+"len": 115,
+"src": "Henry David Thoreau"
+},
+{
+"id": "eq021",
+"t": "It is not enough to be busy; so are the ants. The question is, what are we busy about?",
+"cat": "quote",
+"topic": "quotes",
+"lang": "en",
+"diff": 2,
+"len": 86,
+"src": "Henry David Thoreau"
+},
+{
+"id": "eq022",
+"t": "Courage is resistance to fear, mastery of fear, not absence of fear.",
+"cat": "quote",
+"topic": "quotes",
+"lang": "en",
+"diff": 3,
+"len": 68,
+"src": "Mark Twain"
+},
+{
+"id": "eq023",
+"t": "Always do right. This will gratify some people and astonish the rest.",
+"cat": "quote",
+"topic": "quotes",
+"lang": "en",
+"diff": 3,
+"len": 69,
+"src": "Mark Twain"
+},
+{
+"id": "eq024",
+"t": "Kindness is the language which the deaf can hear and the blind can see.",
+"cat": "quote",
+"topic": "quotes",
+"lang": "en",
+"diff": 2,
+"len": 71,
+"src": "Mark Twain"
+},
+{
+"id": "eq025",
+"t": "We are all in the gutter, but some of us are looking at the stars.",
+"cat": "quote",
+"topic": "quotes",
+"lang": "en",
+"diff": 2,
+"len": 66,
+"src": "Oscar Wilde"
+},
+{
+"id": "eq026",
+"t": "Experience is simply the name we give our mistakes.",
+"cat": "quote",
+"topic": "quotes",
+"lang": "en",
+"diff": 2,
+"len": 51,
+"src": "Oscar Wilde"
+},
+{
+"id": "eq027",
+"t": "Slow and steady wins the race.",
+"cat": "quote",
+"topic": "quotes",
+"lang": "en",
+"diff": 2,
+"len": 30,
+"src": "Aesop"
+},
+{
+"id": "eq028",
+"t": "United we stand, divided we fall.",
+"cat": "quote",
+"topic": "quotes",
+"lang": "en",
+"diff": 3,
+"len": 33,
+"src": "Aesop"
+},
+{
+"id": "eq029",
+"t": "No act of kindness, no matter how small, is ever wasted.",
+"cat": "quote",
+"topic": "quotes",
+"lang": "en",
+"diff": 2,
+"len": 56,
+"src": "Aesop"
+},
+{
+"id": "eq030",
+"t": "It is easy to be brave from a safe distance.",
+"cat": "quote",
+"topic": "quotes",
+"lang": "en",
+"diff": 2,
+"len": 44,
+"src": "Aesop"
+},
+{
+"id": "eq031",
+"t": "Look before you leap.",
+"cat": "quote",
+"topic": "quotes",
+"lang": "en",
+"diff": 2,
+"len": 21,
+"src": "Aesop"
+},
+{
+"id": "eq032",
+"t": "Honesty is the first chapter in the book of wisdom.",
+"cat": "quote",
+"topic": "quotes",
+"lang": "en",
+"diff": 2,
+"len": 51,
+"src": "Thomas Jefferson"
+},
+{
+"id": "eq033",
+"t": "It is hard to fail, but it is worse never to have tried to succeed.",
+"cat": "quote",
+"topic": "quotes",
+"lang": "en",
+"diff": 2,
+"len": 67,
+"src": "Theodore Roosevelt"
+},
+{
+"id": "eq034",
+"t": "Do what you can, with what you have, where you are.",
+"cat": "quote",
+"topic": "quotes",
+"lang": "en",
+"diff": 2,
+"len": 51,
+"src": "Theodore Roosevelt"
+},
+{
+"id": "eq035",
+"t": "Curiouser and curiouser!",
+"cat": "quote",
+"topic": "quotes",
+"lang": "en",
+"diff": 3,
+"len": 24,
+"src": "Lewis Carroll"
+},
+{
+"id": "eq036",
+"t": "Why, sometimes I have believed as many as six impossible things before breakfast.",
+"cat": "quote",
+"topic": "quotes",
+"lang": "en",
+"diff": 3,
+"len": 81,
+"src": "Lewis Carroll"
+},
+{
+"id": "eq037",
+"t": "It is no use going back to yesterday, because I was a different person then.",
+"cat": "quote",
+"topic": "quotes",
+"lang": "en",
+"diff": 2,
+"len": 76,
+"src": "Lewis Carroll"
+},
+{
+"id": "eq038",
+"t": "It was the best of times, it was the worst of times, it was the age of wisdom, it was the age of foolishness.",
+"cat": "quote",
+"topic": "quotes",
+"lang": "en",
+"diff": 2,
+"len": 109,
+"src": "Charles Dickens"
+},
+{
+"id": "eq039",
+"t": "No one is useless in this world who lightens the burden of it for anyone else.",
+"cat": "quote",
+"topic": "quotes",
+"lang": "en",
+"diff": 2,
+"len": 78,
+"src": "Charles Dickens"
+},
+{
+"id": "eq040",
+"t": "There is no charm equal to tenderness of heart.",
+"cat": "quote",
+"topic": "quotes",
+"lang": "en",
+"diff": 2,
+"len": 47,
+"src": "Jane Austen"
+},
+{
+"id": "eq041",
+"t": "If there is no struggle, there is no progress.",
+"cat": "quote",
+"topic": "quotes",
+"lang": "en",
+"diff": 2,
+"len": 46,
+"src": "Frederick Douglass"
+},
+{
+"id": "eq042",
+"t": "The secret of success is constancy to purpose.",
+"cat": "quote",
+"topic": "quotes",
+"lang": "en",
+"diff": 2,
+"len": 46,
+"src": "Benjamin Disraeli"
+},
+{
+"id": "eq043",
+"t": "Genius is one percent inspiration and ninety-nine percent perspiration.",
+"cat": "quote",
+"topic": "quotes",
+"lang": "en",
+"diff": 4,
+"len": 71,
+"src": "Thomas Edison"
+},
+{
+"id": "eq044",
+"t": "To strive, to seek, to find, and not to yield.",
+"cat": "quote",
+"topic": "quotes",
+"lang": "en",
+"diff": 2,
+"len": 46,
+"src": "Alfred Tennyson"
+},
+{
+"id": "eq045",
+"t": "It is better to have loved and lost than never to have loved at all.",
+"cat": "quote",
+"topic": "quotes",
+"lang": "en",
+"diff": 2,
+"len": 68,
+"src": "Alfred Tennyson"
+},
+{
+"id": "eq046",
+"t": "The world is so full of a number of things, I am sure we should all be as happy as kings.",
+"cat": "quote",
+"topic": "quotes",
+"lang": "en",
+"diff": 2,
+"len": 89,
+"src": "Robert Louis Stevenson"
+},
+{
+"id": "eq047",
+"t": "If you can keep your head when all about you are losing theirs, you will be a man, my son.",
+"cat": "quote",
+"topic": "quotes",
+"lang": "en",
+"diff": 2,
+"len": 90,
+"src": "Rudyard Kipling"
+},
+{
+"id": "eq048",
+"t": "All warfare is based on deception.",
+"cat": "quote",
+"topic": "quotes",
+"lang": "en",
+"diff": 2,
+"len": 34,
+"src": "Sun Tzu"
+},
+{
+"id": "eq049",
+"t": "Supreme excellence consists in breaking the enemy's resistance without fighting.",
+"cat": "quote",
+"topic": "quotes",
+"lang": "en",
+"diff": 4,
+"len": 80,
+"src": "Sun Tzu"
+},
+{
+"id": "eq050",
+"t": "If you know the enemy and know yourself, you need not fear the result of a hundred battles.",
+"cat": "quote",
+"topic": "quotes",
+"lang": "en",
+"diff": 2,
+"len": 91,
+"src": "Sun Tzu"
+},
+{
+"id": "eq051",
+"t": "Well begun is half done.",
+"cat": "quote",
+"topic": "quotes",
+"lang": "en",
+"diff": 2,
+"len": 24,
+"src": "Proverb"
+},
+{
+"id": "eq052",
+"t": "A journey of a thousand miles begins with a single step.",
+"cat": "quote",
+"topic": "quotes",
+"lang": "en",
+"diff": 2,
+"len": 56,
+"src": "Proverb"
+},
+{
+"id": "eq053",
+"t": "Practice makes perfect.",
+"cat": "quote",
+"topic": "quotes",
+"lang": "en",
+"diff": 3,
+"len": 23,
+"src": "Proverb"
+},
+{
+"id": "eq054",
+"t": "Actions speak louder than words.",
+"cat": "quote",
+"topic": "quotes",
+"lang": "en",
+"diff": 3,
+"len": 32,
+"src": "Proverb"
+},
+{
+"id": "eq055",
+"t": "Fortune favors the bold.",
+"cat": "quote",
+"topic": "quotes",
+"lang": "en",
+"diff": 3,
+"len": 24,
+"src": "Proverb"
+},
+{
+"id": "eq056",
+"t": "Where there is a will, there is a way.",
+"cat": "quote",
+"topic": "quotes",
+"lang": "en",
+"diff": 2,
+"len": 38,
+"src": "Proverb"
+},
+{
+"id": "eq057",
+"t": "The best way of avenging thyself is not to become like the wrong doer.",
+"cat": "quote",
+"topic": "quotes",
+"lang": "en",
+"diff": 2,
+"len": 70,
+"src": "Marcus Aurelius"
+},
+{
+"id": "eq058",
+"t": "A rolling stone gathers no moss.",
+"cat": "quote",
+"topic": "quotes",
+"lang": "en",
+"diff": 2,
+"len": 32,
+"src": "Proverb"
+},
+{
+"id": "eq059",
+"t": "The early bird catches the worm.",
+"cat": "quote",
+"topic": "quotes",
+"lang": "en",
+"diff": 2,
+"len": 32,
+"src": "Proverb"
+},
+{
+"id": "eq060",
+"t": "Rome was not built in a day.",
+"cat": "quote",
+"topic": "quotes",
+"lang": "en",
+"diff": 2,
+"len": 28,
+"src": "Proverb"
+}
+]
+}

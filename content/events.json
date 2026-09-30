@@ -1,0 +1,286 @@
+{
+ "version": 1,
+ "items": [
+  {
+   "id": "back_to_school_2026",
+   "type": "event",
+   "name": {
+    "ar": "العودة للمدارس",
+    "en": "Back to School",
+    "fr": "Rentrée"
+   },
+   "desc": {
+    "ar": "اجمع المهام واحصل على سكنات المدرسة الحصرية!",
+    "en": "Complete the tasks to unlock exclusive school skins!",
+    "fr": "Terminez les tâches pour débloquer des skins exclusifs !"
+   },
+   "enabled": true,
+   "startsAt": "2026-09-01T00:00:00Z",
+   "endsAt": "2026-10-31T23:59:59Z",
+   "color": "#4361ee",
+   "icon": "school",
+   "xpMultiplier": 1.25,
+   "featured": [
+    "b_notebook",
+    "p_school",
+    "o_school"
+   ],
+   "tasks": [
+    {
+     "id": "back_to_school_2026_t1",
+     "metric": "races",
+     "target": 10,
+     "reward": {
+      "coins": 500
+     }
+    },
+    {
+     "id": "back_to_school_2026_t2",
+     "metric": "wins",
+     "target": 5,
+     "reward": {
+      "gems": 30
+     }
+    },
+    {
+     "id": "back_to_school_2026_t3",
+     "metric": "chars",
+     "target": 3000,
+     "reward": {
+      "coins": 1500
+     }
+    },
+    {
+     "id": "back_to_school_2026_t4",
+     "metric": "perfect_races",
+     "target": 3,
+     "reward": {
+      "gems": 60
+     }
+    },
+    {
+     "id": "back_to_school_2026_t5",
+     "metric": "combo_max",
+     "target": 40,
+     "reward": {
+      "coins": 1000
+     }
+    }
+   ],
+   "finalReward": {
+    "gems": 150
+   }
+  },
+  {
+   "id": "ramadan_2027",
+   "type": "event",
+   "name": {
+    "ar": "رمضان",
+    "en": "Ramadan",
+    "fr": "Ramadan"
+   },
+   "desc": {
+    "ar": "مركبات وسكنات رمضانية حصرية طوال الشهر الفضيل.",
+    "en": "Exclusive Ramadan vehicles and skins all month long.",
+    "fr": "Véhicules et skins exclusifs de Ramadan tout le mois."
+   },
+   "enabled": true,
+   "startsAt": "2027-02-08T00:00:00Z",
+   "endsAt": "2027-03-11T23:59:59Z",
+   "color": "#0b6e4f",
+   "icon": "moon",
+   "xpMultiplier": 1.5,
+   "featured": [
+    "c_crescent",
+    "b_lantern",
+    "p_crescent",
+    "o_ramadan",
+    "s_crescent"
+   ],
+   "tasks": [
+    {
+     "id": "ramadan_2027_t1",
+     "metric": "races",
+     "target": 10,
+     "reward": {
+      "coins": 500
+     }
+    },
+    {
+     "id": "ramadan_2027_t2",
+     "metric": "wins",
+     "target": 5,
+     "reward": {
+      "gems": 30
+     }
+    },
+    {
+     "id": "ramadan_2027_t3",
+     "metric": "chars",
+     "target": 3000,
+     "reward": {
+      "coins": 1500
+     }
+    },
+    {
+     "id": "ramadan_2027_t4",
+     "metric": "perfect_races",
+     "target": 3,
+     "reward": {
+      "gems": 60
+     }
+    },
+    {
+     "id": "ramadan_2027_t5",
+     "metric": "combo_max",
+     "target": 40,
+     "reward": {
+      "coins": 1000
+     }
+    }
+   ],
+   "finalReward": {
+    "gems": 150
+   }
+  },
+  {
+   "id": "winter_neon_2026",
+   "type": "event",
+   "name": {
+    "ar": "نيون الشتاء",
+    "en": "Winter Neon",
+    "fr": "Néon d'Hiver"
+   },
+   "desc": {
+    "ar": "سباقات ليلية مضيئة ومكافآت شتوية.",
+    "en": "Glowing night races and winter rewards.",
+    "fr": "Courses nocturnes lumineuses et récompenses d'hiver."
+   },
+   "enabled": true,
+   "startsAt": "2026-12-15T00:00:00Z",
+   "endsAt": "2027-01-15T23:59:59Z",
+   "color": "#00b4d8",
+   "icon": "snow",
+   "xpMultiplier": 1.25,
+   "featured": [
+    "n_white",
+    "f_ice"
+   ],
+   "tasks": [
+    {
+     "id": "winter_neon_2026_t1",
+     "metric": "races",
+     "target": 10,
+     "reward": {
+      "coins": 500
+     }
+    },
+    {
+     "id": "winter_neon_2026_t2",
+     "metric": "wins",
+     "target": 5,
+     "reward": {
+      "gems": 30
+     }
+    },
+    {
+     "id": "winter_neon_2026_t3",
+     "metric": "chars",
+     "target": 3000,
+     "reward": {
+      "coins": 1500
+     }
+    },
+    {
+     "id": "winter_neon_2026_t4",
+     "metric": "perfect_races",
+     "target": 3,
+     "reward": {
+      "gems": 60
+     }
+    },
+    {
+     "id": "winter_neon_2026_t5",
+     "metric": "combo_max",
+     "target": 40,
+     "reward": {
+      "coins": 1000
+     }
+    }
+   ],
+   "finalReward": {
+    "gems": 150
+   }
+  },
+  {
+   "id": "worldcup_2026",
+   "type": "event",
+   "name": {
+    "ar": "كأس العالم",
+    "en": "World Cup",
+    "fr": "Coupe du Monde"
+   },
+   "desc": {
+    "ar": "انتهى الحدث. السكنات الحصرية لمن جمعها فقط.",
+    "en": "Event ended. Exclusive skins remain for those who collected them.",
+    "fr": "Événement terminé. Les skins exclusifs restent à ceux qui les ont obtenus."
+   },
+   "enabled": true,
+   "startsAt": "2026-06-01T00:00:00Z",
+   "endsAt": "2026-07-25T23:59:59Z",
+   "color": "#2a9d8f",
+   "icon": "football",
+   "xpMultiplier": 1.5,
+   "featured": [
+    "c_striker",
+    "p_worldcup",
+    "s_ball"
+   ],
+   "tasks": [
+    {
+     "id": "worldcup_2026_t1",
+     "metric": "races",
+     "target": 10,
+     "reward": {
+      "coins": 500
+     }
+    },
+    {
+     "id": "worldcup_2026_t2",
+     "metric": "wins",
+     "target": 5,
+     "reward": {
+      "gems": 30
+     }
+    },
+    {
+     "id": "worldcup_2026_t3",
+     "metric": "chars",
+     "target": 3000,
+     "reward": {
+      "coins": 1500
+     }
+    },
+    {
+     "id": "worldcup_2026_t4",
+     "metric": "perfect_races",
+     "target": 3,
+     "reward": {
+      "gems": 60
+     }
+    },
+    {
+     "id": "worldcup_2026_t5",
+     "metric": "combo_max",
+     "target": 40,
+     "reward": {
+      "coins": 1000
+     }
+    }
+   ],
+   "finalReward": {
+    "gems": 150
+   }
+  }
+ ]
+}

@@ -1,0 +1,7 @@
+{
+  "indexes": [
+    { "collectionGroup": "entries", "queryScope": "COLLECTION", "fields": [{ "fieldPath": "score", "order": "DESCENDING" }] },
+    { "collectionGroup": "entries", "queryScope": "COLLECTION", "fields": [{ "fieldPath": "country", "order": "ASCENDING" }, { "fieldPath": "score", "order": "DESCENDING" }] }
+  ],
+  "fieldOverrides": []
+}

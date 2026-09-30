@@ -1,0 +1,77 @@
+{
+"version": 1,
+"items": [
+{
+"id": "eo000",
+"t": "The ability to type quickly and accurately is a valuable skill in the modern world. Whether you are writing a message to a friend, preparing a report for school, or building software for millions of users, the keyboard is the bridge between your ideas and the screen. Fast typists do not look at their hands. They rely on memory, rhythm, and steady practice. Each day of careful effort makes the next day a little easier, and soon the fingers move almost by themselves.",
+"cat": "official",
+"topic": "official",
+"lang": "en",
+"diff": 5,
+"len": 469
+},
+{
+"id": "eo001",
+"t": "A good racing driver studies the track before the race begins. He learns where the road turns, where the surface is smooth, and where he can safely go faster. In the same way, a good typist studies the text in front of her. She reads a few words ahead, keeps her eyes calm, and lets her fingers follow a steady beat. Speed comes from control, and control comes from patience. The fastest people are rarely the ones who rush, but the ones who stay relaxed.",
+"cat": "official",
+"topic": "official",
+"lang": "en",
+"diff": 5,
+"len": 455
+},
+{
+"id": "eo002",
+"t": "Long ago, travelers crossed the great desert by following the stars. They walked at night when the air was cool and rested during the hot afternoon. Each traveler carried water, bread, and a small lamp, and each one knew that the journey could not be hurried. Step by step, the dunes changed color and the horizon moved closer. When they finally saw the green trees of the oasis, they understood that patience had been their best companion.",
+"cat": "official",
+"topic": "official",
+"lang": "en",
+"diff": 5,
+"len": 440
+},
+{
+"id": "eo003",
+"t": "The city at night is full of quiet machines. Trains glide through tunnels beneath the streets, elevators carry sleepy workers to high offices, and traffic lights change from red to green for empty roads. Somewhere a baker starts the first oven of the day, and somewhere a student finishes one more page of homework. The world keeps moving, even when we are not watching, and every small task helps it turn a little further toward the morning.",
+"cat": "official",
+"topic": "official",
+"lang": "en",
+"diff": 5,
+"len": 442
+},
+{
+"id": "eo004",
+"t": "Learning anything new follows the same pattern. At first it feels strange and slow, and every mistake seems large. Then one day you notice that a difficult task has become easy. Nobody announced the moment, and nobody gave you a prize, yet the change is real. This is how skills grow: quietly, through repetition, with small improvements that add up over weeks and months. Keep showing up, keep practicing, and let time do the rest of the work.",
+"cat": "official",
+"topic": "official",
+"lang": "en",
+"diff": 5,
+"len": 444
+},
+{
+"id": "eo005",
+"t": "Modern vehicles use many sensors to understand the road around them. Cameras watch the lines, radar measures the distance to other cars, and tiny computers decide how much power each wheel needs. Even with all this technology, the most important part of any journey is still the attention of the driver. A calm mind, relaxed hands, and clear eyes are more valuable than any machine, because they help us make careful choices when the road surprises us.",
+"cat": "official",
+"topic": "official",
+"lang": "en",
+"diff": 5,
+"len": 452
+},
+{
+"id": "eo006",
+"t": "Every morning the market comes alive before the sun is fully up. Farmers unload baskets of oranges, tomatoes, and fresh herbs, while shopkeepers arrange their tables with careful hands. The air fills with voices, laughter, and the smell of warm bread. By noon the streets are crowded and bright, and by evening the tables are empty again. Tomorrow the same happy work will begin once more, and nobody will ever grow tired of the beautiful noise.",
+"cat": "official",
+"topic": "official",
+"lang": "en",
+"diff": 5,
+"len": 445
+},
+{
+"id": "eo007",
+"t": "Teamwork is the quiet engine behind every great achievement. A ship needs sailors, a concert needs musicians, and a race car needs mechanics who work through the night. Each person has a small job, yet every small job matters to the final result. When people trust one another and share a clear goal, ordinary effort becomes extraordinary. The finish line is only the last step of a long road that many people built together.",
+"cat": "official",
+"topic": "official",
+"lang": "en",
+"diff": 5,
+"len": 425
+}
+]
+}

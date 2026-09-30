@@ -1,0 +1,617 @@
+{
+ "version": 1,
+ "personalities": {
+  "aggressive": {
+   "var": 0.16,
+   "err": 0.055,
+   "start": 1.06,
+   "fade": 0.0
+  },
+  "balanced": {
+   "var": 0.1,
+   "err": 0.035,
+   "start": 1.0,
+   "fade": 0.0
+  },
+  "cautious": {
+   "var": 0.06,
+   "err": 0.015,
+   "start": 0.95,
+   "fade": 0.0
+  },
+  "fatigue": {
+   "var": 0.1,
+   "err": 0.03,
+   "start": 1.08,
+   "fade": 0.22
+  }
+ },
+ "taunts": {
+  "aggressive": {
+   "lead": [
+    {
+     "ar": "وداعاً!",
+     "en": "See ya!"
+    },
+    {
+     "ar": "أنت بطيء جداً!",
+     "en": "Way too slow!"
+    },
+    {
+     "ar": "لا تستطيع اللحاق بي!",
+     "en": "Can't catch me!"
+    }
+   ],
+   "behind": [
+    {
+     "ar": "سأتجاوزك قريباً!",
+     "en": "I'm coming for you!"
+    },
+    {
+     "ar": "لا تفرح!",
+     "en": "Don't celebrate yet!"
+    }
+   ],
+   "win": [
+    {
+     "ar": "سهل جداً!",
+     "en": "Too easy!"
+    },
+    {
+     "ar": "مرة أخرى؟",
+     "en": "Again?"
+    }
+   ],
+   "lose": [
+    {
+     "ar": "كانت لي فرصة ضائعة!",
+     "en": "I'll get you next time!"
+    },
+    {
+     "ar": "حظ سيئ...",
+     "en": "Bad luck..."
+    }
+   ]
+  },
+  "balanced": {
+   "lead": [
+    {
+     "ar": "سباق ممتع!",
+     "en": "Nice race!"
+    },
+    {
+     "ar": "أتقدم بثبات.",
+     "en": "Steady ahead."
+    }
+   ],
+   "behind": [
+    {
+     "ar": "ما زال الوقت مبكراً.",
+     "en": "Still early."
+    },
+    {
+     "ar": "أحسنت، استمر!",
+     "en": "Well done, keep going!"
+    }
+   ],
+   "win": [
+    {
+     "ar": "مباراة جيدة!",
+     "en": "Good game!"
+    },
+    {
+     "ar": "سباق رائع.",
+     "en": "Great race."
+    }
+   ],
+   "lose": [
+    {
+     "ar": "فزت عن جدارة!",
+     "en": "You earned it!"
+    },
+    {
+     "ar": "تهانيّ!",
+     "en": "Congrats!"
+    }
+   ]
+  },
+  "cautious": {
+   "lead": [
+    {
+     "ar": "دقة قبل سرعة.",
+     "en": "Accuracy first."
+    },
+    {
+     "ar": "بلا أخطاء.",
+     "en": "No mistakes."
+    }
+   ],
+   "behind": [
+    {
+     "ar": "سأحافظ على هدوئي.",
+     "en": "Staying calm."
+    },
+    {
+     "ar": "الصبر مفتاح الفوز.",
+     "en": "Patience wins."
+    }
+   ],
+   "win": [
+    {
+     "ar": "الحذر ينتصر.",
+     "en": "Caution pays."
+    },
+    {
+     "ar": "ثبات وهدوء.",
+     "en": "Calm and steady."
+    }
+   ],
+   "lose": [
+    {
+     "ar": "سرعتك مذهلة.",
+     "en": "You're quick!"
+    },
+    {
+     "ar": "سأتدرب أكثر.",
+     "en": "I'll practice more."
+    }
+   ]
+  },
+  "fatigue": {
+   "lead": [
+    {
+     "ar": "أنا في أوج قوتي!",
+     "en": "I'm at full power!"
+    },
+    {
+     "ar": "الانطلاقة ممتازة!",
+     "en": "Great start!"
+    }
+   ],
+   "behind": [
+    {
+     "ar": "أصابعي تتعب...",
+     "en": "My fingers are tired..."
+    },
+    {
+     "ar": "أحتاج استراحة!",
+     "en": "Need a break!"
+    }
+   ],
+   "win": [
+    {
+     "ar": "بالكاد وصلت!",
+     "en": "Barely made it!"
+    },
+    {
+     "ar": "آخ... يدايَ!",
+     "en": "Phew... my hands!"
+    }
+   ],
+   "lose": [
+    {
+     "ar": "فقدت طاقتي في النهاية.",
+     "en": "Ran out of steam."
+    },
+    {
+     "ar": "نفسي انقطع.",
+     "en": "Out of breath."
+    }
+   ]
+  }
+ },
+ "names": [
+  {
+   "n": "Alex",
+   "cc": "US"
+  },
+  {
+   "n": "Amira",
+   "cc": "EG"
+  },
+  {
+   "n": "Yuki",
+   "cc": "JP"
+  },
+  {
+   "n": "Mateo",
+   "cc": "ES"
+  },
+  {
+   "n": "Lina",
+   "cc": "MA"
+  },
+  {
+   "n": "Omar",
+   "cc": "SA"
+  },
+  {
+   "n": "Sofia",
+   "cc": "IT"
+  },
+  {
+   "n": "Hans",
+   "cc": "DE"
+  },
+  {
+   "n": "Chloe",
+   "cc": "FR"
+  },
+  {
+   "n": "Liam",
+   "cc": "GB"
+  },
+  {
+   "n": "Noor",
+   "cc": "AE"
+  },
+  {
+   "n": "Ravi",
+   "cc": "IN"
+  },
+  {
+   "n": "Mei",
+   "cc": "CN"
+  },
+  {
+   "n": "Lucas",
+   "cc": "BR"
+  },
+  {
+   "n": "Fatima",
+   "cc": "DZ"
+  },
+  {
+   "n": "Youssef",
+   "cc": "TN"
+  },
+  {
+   "n": "Elena",
+   "cc": "RU"
+  },
+  {
+   "n": "Ahmed",
+   "cc": "JO"
+  },
+  {
+   "n": "Zoe",
+   "cc": "CA"
+  },
+  {
+   "n": "Jin",
+   "cc": "KR"
+  },
+  {
+   "n": "Nadia",
+   "cc": "LB"
+  },
+  {
+   "n": "Karim",
+   "cc": "MA"
+  },
+  {
+   "n": "Emma",
+   "cc": "SE"
+  },
+  {
+   "n": "Diego",
+   "cc": "AR"
+  },
+  {
+   "n": "Hiro",
+   "cc": "JP"
+  },
+  {
+   "n": "Layla",
+   "cc": "QA"
+  },
+  {
+   "n": "Ivan",
+   "cc": "UA"
+  },
+  {
+   "n": "Sara",
+   "cc": "MA"
+  },
+  {
+   "n": "Tariq",
+   "cc": "PK"
+  },
+  {
+   "n": "Anna",
+   "cc": "PL"
+  },
+  {
+   "n": "Mohamed",
+   "cc": "EG"
+  },
+  {
+   "n": "Leila",
+   "cc": "IR"
+  },
+  {
+   "n": "Oscar",
+   "cc": "NL"
+  },
+  {
+   "n": "Maya",
+   "cc": "IL"
+  },
+  {
+   "n": "Pablo",
+   "cc": "MX"
+  },
+  {
+   "n": "Hana",
+   "cc": "KR"
+  },
+  {
+   "n": "Bilal",
+   "cc": "DZ"
+  },
+  {
+   "n": "Clara",
+   "cc": "PT"
+  },
+  {
+   "n": "Sami",
+   "cc": "SY"
+  },
+  {
+   "n": "Nina",
+   "cc": "NO"
+  },
+  {
+   "n": "Rayan",
+   "cc": "MA"
+  },
+  {
+   "n": "Isla",
+   "cc": "AU"
+  },
+  {
+   "n": "Kofi",
+   "cc": "GH"
+  },
+  {
+   "n": "Amal",
+   "cc": "MA"
+  },
+  {
+   "n": "Felix",
+   "cc": "AT"
+  },
+  {
+   "n": "Dina",
+   "cc": "KW"
+  },
+  {
+   "n": "Jonas",
+   "cc": "CH"
+  },
+  {
+   "n": "Rim",
+   "cc": "TN"
+  },
+  {
+   "n": "Tomas",
+   "cc": "CZ"
+  },
+  {
+   "n": "Aya",
+   "cc": "JP"
+  },
+  {
+   "n": "Zaid",
+   "cc": "IQ"
+  },
+  {
+   "n": "Sienna",
+   "cc": "NZ"
+  },
+  {
+   "n": "Malik",
+   "cc": "SN"
+  },
+  {
+   "n": "Lola",
+   "cc": "CO"
+  },
+  {
+   "n": "Adam",
+   "cc": "TR"
+  },
+  {
+   "n": "Yara",
+   "cc": "BH"
+  },
+  {
+   "n": "Nikolai",
+   "cc": "BG"
+  },
+  {
+   "n": "Hugo",
+   "cc": "BE"
+  },
+  {
+   "n": "Salma",
+   "cc": "MA"
+  },
+  {
+   "n": "Ethan",
+   "cc": "IE"
+  },
+  {
+   "n": "Mona",
+   "cc": "OM"
+  },
+  {
+   "n": "Andre",
+   "cc": "ZA"
+  },
+  {
+   "n": "Iris",
+   "cc": "GR"
+  },
+  {
+   "n": "Reda",
+   "cc": "MA"
+  },
+  {
+   "n": "Soraya",
+   "cc": "AF"
+  },
+  {
+   "n": "Mila",
+   "cc": "HR"
+  },
+  {
+   "n": "Kenji",
+   "cc": "JP"
+  },
+  {
+   "n": "Dalia",
+   "cc": "LY"
+  },
+  {
+   "n": "Theo",
+   "cc": "DK"
+  },
+  {
+   "n": "Rania",
+   "cc": "PS"
+  },
+  {
+   "n": "Viktor",
+   "cc": "HU"
+  },
+  {
+   "n": "Selin",
+   "cc": "TR"
+  },
+  {
+   "n": "Idris",
+   "cc": "NG"
+  },
+  {
+   "n": "Camila",
+   "cc": "CL"
+  },
+  {
+   "n": "Hamza",
+   "cc": "MA"
+  },
+  {
+   "n": "Jade",
+   "cc": "FR"
+  },
+  {
+   "n": "Nour",
+   "cc": "SD"
+  },
+  {
+   "n": "Rafael",
+   "cc": "PT"
+  },
+  {
+   "n": "Keira",
+   "cc": "GB"
+  },
+  {
+   "n": "Anis",
+   "cc": "DZ"
+  },
+  {
+   "n": "Lea",
+   "cc": "DE"
+  },
+  {
+   "n": "Amine",
+   "cc": "MA"
+  },
+  {
+   "n": "Ola",
+   "cc": "SE"
+  },
+  {
+   "n": "Samir",
+   "cc": "ET"
+  },
+  {
+   "n": "Tiana",
+   "cc": "PH"
+  },
+  {
+   "n": "Boris",
+   "cc": "RS"
+  },
+  {
+   "n": "Hadi",
+   "cc": "LB"
+  },
+  {
+   "n": "Mariam",
+   "cc": "EG"
+  },
+  {
+   "n": "Joao",
+   "cc": "BR"
+  },
+  {
+   "n": "Ines",
+   "cc": "ES"
+  },
+  {
+   "n": "Zakaria",
+   "cc": "MA"
+  },
+  {
+   "n": "Elif",
+   "cc": "TR"
+  },
+  {
+   "n": "Stefan",
+   "cc": "RO"
+  },
+  {
+   "n": "Noa",
+   "cc": "FI"
+  },
+  {
+   "n": "Yahya",
+   "cc": "YE"
+  },
+  {
+   "n": "Lucia",
+   "cc": "PE"
+  },
+  {
+   "n": "Marwan",
+   "cc": "JO"
+  },
+  {
+   "n": "Kaito",
+   "cc": "JP"
+  },
+  {
+   "n": "Sana",
+   "cc": "PK"
+  },
+  {
+   "n": "Ali",
+   "cc": "IR"
+  },
+  {
+   "n": "Wendy",
+   "cc": "SG"
+  },
+  {
+   "n": "Aaron",
+   "cc": "US"
+  },
+  {
+   "n": "Hind",
+   "cc": "MA"
+  }
+ ]
+}

@@ -1,0 +1,185 @@
+{
+"version": 1,
+"items": [
+{
+"id": "ss000",
+"t": "El sol sale despacio sobre la ciudad y las calles comienzan a llenarse de vida.",
+"cat": "sentence",
+"topic": "general",
+"lang": "es",
+"diff": 2,
+"len": 79
+},
+{
+"id": "ss001",
+"t": "Cada mañana el panadero abre su tienda y el olor a pan caliente recorre todo el barrio.",
+"cat": "sentence",
+"topic": "general",
+"lang": "es",
+"diff": 2,
+"len": 87
+},
+{
+"id": "ss002",
+"t": "Aprender a escribir rápido requiere paciencia, concentración y un poco de práctica cada día.",
+"cat": "sentence",
+"topic": "general",
+"lang": "es",
+"diff": 3,
+"len": 92
+},
+{
+"id": "ss003",
+"t": "Los niños juegan en el jardín mientras sus padres preparan una gran comida para todos.",
+"cat": "sentence",
+"topic": "general",
+"lang": "es",
+"diff": 2,
+"len": 86
+},
+{
+"id": "ss004",
+"t": "El coche rojo cruzó el desierto a toda velocidad bajo un cielo enorme y azul.",
+"cat": "sentence",
+"topic": "general",
+"lang": "es",
+"diff": 2,
+"len": 77
+},
+{
+"id": "ss005",
+"t": "La biblioteca es un lugar tranquilo donde cada libro espera a su próximo lector.",
+"cat": "sentence",
+"topic": "general",
+"lang": "es",
+"diff": 2,
+"len": 80
+},
+{
+"id": "ss006",
+"t": "Nunca dejes de soñar, porque los sueños son el primer paso hacia cualquier meta.",
+"cat": "sentence",
+"topic": "general",
+"lang": "es",
+"diff": 3,
+"len": 80
+},
+{
+"id": "ss007",
+"t": "El campeón entrenó durante meses para cumplir por fin el sueño de toda su vida.",
+"cat": "sentence",
+"topic": "general",
+"lang": "es",
+"diff": 2,
+"len": 79
+},
+{
+"id": "ss008",
+"t": "En el mercado, los colores de las frutas anuncian que el verano está terminando.",
+"cat": "sentence",
+"topic": "general",
+"lang": "es",
+"diff": 3,
+"len": 80
+},
+{
+"id": "ss009",
+"t": "Un buen piloto mantiene la calma, mira lejos y siempre está concentrado en el camino.",
+"cat": "sentence",
+"topic": "general",
+"lang": "es",
+"diff": 3,
+"len": 85
+},
+{
+"id": "ss010",
+"t": "La lluvia cae suavemente sobre los tejados y el viento juega con las hojas de los árboles.",
+"cat": "sentence",
+"topic": "general",
+"lang": "es",
+"diff": 2,
+"len": 90
+},
+{
+"id": "ss011",
+"t": "Viajar nos enseña que el mundo es grande, pero que las personas se parecen mucho.",
+"cat": "sentence",
+"topic": "general",
+"lang": "es",
+"diff": 2,
+"len": 81
+},
+{
+"id": "ss012",
+"t": "El fútbol reúne a amigos, familias y desconocidos alrededor de una misma pasión.",
+"cat": "sentence",
+"topic": "general",
+"lang": "es",
+"diff": 3,
+"len": 80
+},
+{
+"id": "ss013",
+"t": "Las estrellas brillan en la noche como faroles colgados del techo del mundo.",
+"cat": "sentence",
+"topic": "general",
+"lang": "es",
+"diff": 2,
+"len": 76
+},
+{
+"id": "ss014",
+"t": "Más vale tarde que nunca, pero mejor todavía es empezar hoy mismo.",
+"cat": "sentence",
+"topic": "general",
+"lang": "es",
+"diff": 2,
+"len": 66
+},
+{
+"id": "ss015",
+"t": "Poco a poco se va lejos, y cada día de práctica te acerca a tu mejor versión.",
+"cat": "sentence",
+"topic": "general",
+"lang": "es",
+"diff": 2,
+"len": 77
+},
+{
+"id": "ss016",
+"t": "La moto aceleró de repente y el camino se convirtió en un río de luces.",
+"cat": "sentence",
+"topic": "general",
+"lang": "es",
+"diff": 2,
+"len": 71
+},
+{
+"id": "ss017",
+"t": "Quien siembra paciencia cosecha velocidad, y la velocidad llega con la práctica.",
+"cat": "sentence",
+"topic": "general",
+"lang": "es",
+"diff": 3,
+"len": 80
+},
+{
+"id": "ss018",
+"t": "El tren llegó puntual y todos los viajeros subieron a los vagones con una sonrisa.",
+"cat": "sentence",
+"topic": "general",
+"lang": "es",
+"diff": 2,
+"len": 82
+},
+{
+"id": "ss019",
+"t": "Hoy vamos a competir contra nuestro mejor tiempo y a superar el récord de ayer.",
+"cat": "sentence",
+"topic": "general",
+"lang": "es",
+"diff": 2,
+"len": 79
+}
+]
+}

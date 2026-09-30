@@ -1,0 +1,155 @@
+{
+ "version": 1,
+ "gemPacks": [
+  {
+   "id": "gems_small",
+   "gems": 120,
+   "name": {
+    "ar": "حزمة جواهر صغيرة",
+    "en": "Small Gem Pack",
+    "fr": "Petit Pack de Gemmes"
+   }
+  },
+  {
+   "id": "gems_medium",
+   "gems": 650,
+   "name": {
+    "ar": "حزمة جواهر متوسطة",
+    "en": "Medium Gem Pack",
+    "fr": "Pack de Gemmes Moyen"
+   }
+  },
+  {
+   "id": "gems_large",
+   "gems": 1500,
+   "name": {
+    "ar": "حزمة جواهر كبيرة",
+    "en": "Large Gem Pack",
+    "fr": "Grand Pack de Gemmes"
+   }
+  }
+ ],
+ "products": {
+  "removeAds": "remove_ads",
+  "battlePass": "battle_pass_premium"
+ },
+ "coinBundles": [
+  {
+   "id": "coins_a",
+   "gems": 20,
+   "coins": 2000
+  },
+  {
+   "id": "coins_b",
+   "gems": 90,
+   "coins": 10000
+  },
+  {
+   "id": "coins_c",
+   "gems": 400,
+   "coins": 50000
+  }
+ ],
+ "chests": [
+  {
+   "id": "chest_bronze",
+   "name": {
+    "ar": "صندوق برونزي",
+    "en": "Bronze Chest",
+    "fr": "Coffre de Bronze"
+   },
+   "price": {
+    "coins": 800
+   },
+   "color": "#cd7f32",
+   "drops": [
+    {
+     "w": 70,
+     "coins": [
+      150,
+      400
+     ]
+    },
+    {
+     "w": 25,
+     "gems": [
+      2,
+      6
+     ]
+    },
+    {
+     "w": 5,
+     "skinRarity": "common"
+    }
+   ]
+  },
+  {
+   "id": "chest_silver",
+   "name": {
+    "ar": "صندوق فضي",
+    "en": "Silver Chest",
+    "fr": "Coffre d'Argent"
+   },
+   "price": {
+    "gems": 40
+   },
+   "color": "#c0c0c0",
+   "drops": [
+    {
+     "w": 55,
+     "coins": [
+      500,
+      1500
+     ]
+    },
+    {
+     "w": 30,
+     "gems": [
+      6,
+      20
+     ]
+    },
+    {
+     "w": 15,
+     "skinRarity": "rare"
+    }
+   ]
+  },
+  {
+   "id": "chest_gold",
+   "name": {
+    "ar": "صندوق ذهبي",
+    "en": "Gold Chest",
+    "fr": "Coffre d'Or"
+   },
+   "price": {
+    "gems": 120
+   },
+   "color": "#ffd700",
+   "drops": [
+    {
+     "w": 40,
+     "coins": [
+      1500,
+      4000
+     ]
+    },
+    {
+     "w": 35,
+     "gems": [
+      20,
+      60
+     ]
+    },
+    {
+     "w": 20,
+     "skinRarity": "rare"
+    },
+    {
+     "w": 5,
+     "skinRarity": "legendary"
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,71 @@
+import 'dart:async';
+import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../core/providers.dart';
+
+/// Hooks lifecycle + connectivity: sync on background/foreground and when the network returns.
+/// Other features register callbacks through [lifecycleHooksProvider].
+class LifecycleHooks {
+  final List<Future<void> Function()> onResume = [];
+  final List<Future<void> Function()> onPause = [];
+  final List<Future<void> Function()> onOnline = [];
+}
+
+final lifecycleHooksProvider = Provider<LifecycleHooks>((ref) => LifecycleHooks());
+
+class AppLifecycleHost extends ConsumerStatefulWidget {
+  final Widget child;
+  const AppLifecycleHost({super.key, required this.child});
+  @override
+  ConsumerState<AppLifecycleHost> createState() => _AppLifecycleHostState();
+}
+
+class _AppLifecycleHostState extends ConsumerState<AppLifecycleHost> with WidgetsBindingObserver {
+  StreamSubscription<List<ConnectivityResult>>? _sub;
+  bool _wasOffline = false;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+    try {
+      _sub = Connectivity().onConnectivityChanged.listen((r) {
+        final offline = r.isEmpty || (r.length == 1 && r.first == ConnectivityResult.none);
+        if (_wasOffline && !offline) {
+          ref.read(profileProvider.notifier).syncNow();
+          for (final f in ref.read(lifecycleHooksProvider).onOnline) {
+            f();
+          }
+        }
+        _wasOffline = offline;
+      });
+    } catch (_) {}
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    final hooks = ref.read(lifecycleHooksProvider);
+    if (state == AppLifecycleState.paused) {
+      ref.read(profileProvider.notifier).syncNow();
+      for (final f in hooks.onPause) {
+        f();
+      }
+    } else if (state == AppLifecycleState.resumed) {
+      ref.read(profileProvider.notifier).syncNow();
+      for (final f in hooks.onResume) {
+        f();
+      }
+    }
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    _sub?.cancel();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) => widget.child;
+}

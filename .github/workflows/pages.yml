@@ -1,0 +1,52 @@
+name: Publish live content (GitHub Pages)
+
+on:
+  push:
+    branches: [main]
+    paths: ['content/**', 'site/**', 'version.json', 'tools/build_content.py', '.github/workflows/pages.yml']
+  workflow_call:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Rebuild catalog (validate JSON, hashes, auto-bump versions)
+        run: python3 tools/build_content.py
+      - name: Commit catalog changes
+        run: |
+          git config user.name "content-bot"
+          git config user.email "content-bot@users.noreply.github.com"
+          if ! git diff --quiet -- content; then
+            git add content
+            git commit -m "chore(content): rebuild catalog [skip ci]"
+            git push origin HEAD:main || echo "push skipped"
+          fi
+      - name: Assemble site
+        run: |
+          mkdir -p _site/content
+          cp -r content/. _site/content/
+          cp -r site/. _site/
+          [ -f version.json ] && cp version.json _site/version.json || echo '{}' > _site/version.json
+          touch _site/.nojekyll
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+      - id: deployment
+        uses: actions/deploy-pages@v4

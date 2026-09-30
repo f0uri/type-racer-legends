@@ -1,0 +1,341 @@
+{
+ "version": 1,
+ "items": [
+  {
+   "id": "tangier",
+   "idx": 0,
+   "name": {
+    "ar": "طنجة",
+    "en": "Tangier",
+    "fr": "Tanger"
+   },
+   "cc": "MA",
+   "landmark": "lighthouse",
+   "km": 0,
+   "minWpm": 18,
+   "opp": 2,
+   "textIds": [
+    "w_tangier000",
+    "w_tangier001",
+    "w_tangier002"
+   ],
+   "reward": {
+    "coins": 200,
+    "xp": 80,
+    "gems": 0
+   },
+   "colors": [
+    "#732714",
+    "#19b7b3"
+   ]
+  },
+  {
+   "id": "paris",
+   "idx": 1,
+   "name": {
+    "ar": "باريس",
+    "en": "Paris",
+    "fr": "Paris"
+   },
+   "cc": "FR",
+   "landmark": "eiffel",
+   "km": 2000,
+   "minWpm": 22,
+   "opp": 2,
+   "textIds": [
+    "w_paris000",
+    "w_paris001",
+    "w_paris002"
+   ],
+   "reward": {
+    "coins": 280,
+    "xp": 95,
+    "gems": 0
+   },
+   "colors": [
+    "#855387",
+    "#39b919"
+   ]
+  },
+  {
+   "id": "london",
+   "idx": 2,
+   "name": {
+    "ar": "لندن",
+    "en": "London",
+    "fr": "Londres"
+   },
+   "cc": "GB",
+   "landmark": "bigben",
+   "km": 340,
+   "minWpm": 27,
+   "opp": 2,
+   "textIds": [
+    "w_london000",
+    "w_london001",
+    "w_london002"
+   ],
+   "reward": {
+    "coins": 360,
+    "xp": 110,
+    "gems": 5
+   },
+   "colors": [
+    "#2c9cdf",
+    "#14b2fb"
+   ]
+  },
+  {
+   "id": "rome",
+   "idx": 3,
+   "name": {
+    "ar": "روما",
+    "en": "Rome",
+    "fr": "Rome"
+   },
+   "cc": "IT",
+   "landmark": "colosseum",
+   "km": 1430,
+   "minWpm": 31,
+   "opp": 2,
+   "textIds": [
+    "w_rome000",
+    "w_rome001",
+    "w_rome002"
+   ],
+   "reward": {
+    "coins": 440,
+    "xp": 125,
+    "gems": 0
+   },
+   "colors": [
+    "#f27f68",
+    "#325c14"
+   ]
+  },
+  {
+   "id": "cairo",
+   "idx": 4,
+   "name": {
+    "ar": "القاهرة",
+    "en": "Cairo",
+    "fr": "Le Caire"
+   },
+   "cc": "EG",
+   "landmark": "pyramids",
+   "km": 2130,
+   "minWpm": 36,
+   "opp": 3,
+   "textIds": [
+    "w_cairo000",
+    "w_cairo001",
+    "w_cairo002"
+   ],
+   "reward": {
+    "coins": 520,
+    "xp": 140,
+    "gems": 0
+   },
+   "colors": [
+    "#385948",
+    "#2777a2"
+   ]
+  },
+  {
+   "id": "dubai",
+   "idx": 5,
+   "name": {
+    "ar": "دبي",
+    "en": "Dubai",
+    "fr": "Dubaï"
+   },
+   "cc": "AE",
+   "landmark": "burj",
+   "km": 2400,
+   "minWpm": 40,
+   "opp": 3,
+   "textIds": [
+    "w_dubai000",
+    "w_dubai001",
+    "w_dubai002"
+   ],
+   "reward": {
+    "coins": 600,
+    "xp": 155,
+    "gems": 5
+   },
+   "colors": [
+    "#b571f8",
+    "#13c671"
+   ]
+  },
+  {
+   "id": "mumbai",
+   "idx": 6,
+   "name": {
+    "ar": "مومباي",
+    "en": "Mumbai",
+    "fr": "Bombay"
+   },
+   "cc": "IN",
+   "landmark": "gateway",
+   "km": 1930,
+   "minWpm": 45,
+   "opp": 3,
+   "textIds": [
+    "w_mumbai000",
+    "w_mumbai001",
+    "w_mumbai002"
+   ],
+   "reward": {
+    "coins": 680,
+    "xp": 170,
+    "gems": 0
+   },
+   "colors": [
+    "#a227ae",
+    "#1dcdcd"
+   ]
+  },
+  {
+   "id": "beijing",
+   "idx": 7,
+   "name": {
+    "ar": "بكين",
+    "en": "Beijing",
+    "fr": "Pékin"
+   },
+   "cc": "CN",
+   "landmark": "pagoda",
+   "km": 4700,
+   "minWpm": 49,
+   "opp": 3,
+   "textIds": [
+    "w_beijing000",
+    "w_beijing001",
+    "w_beijing002"
+   ],
+   "reward": {
+    "coins": 760,
+    "xp": 185,
+    "gems": 0
+   },
+   "colors": [
+    "#29d9b0",
+    "#159058"
+   ]
+  },
+  {
+   "id": "tokyo",
+   "idx": 8,
+   "name": {
+    "ar": "طوكيو",
+    "en": "Tokyo",
+    "fr": "Tokyo"
+   },
+   "cc": "JP",
+   "landmark": "tokyotower",
+   "km": 2100,
+   "minWpm": 54,
+   "opp": 4,
+   "textIds": [
+    "w_tokyo000",
+    "w_tokyo001",
+    "w_tokyo002"
+   ],
+   "reward": {
+    "coins": 840,
+    "xp": 200,
+    "gems": 5
+   },
+   "colors": [
+    "#8f43c7",
+    "#2ad385"
+   ]
+  },
+  {
+   "id": "sydney",
+   "idx": 9,
+   "name": {
+    "ar": "سيدني",
+    "en": "Sydney",
+    "fr": "Sydney"
+   },
+   "cc": "AU",
+   "landmark": "opera",
+   "km": 7800,
+   "minWpm": 58,
+   "opp": 4,
+   "textIds": [
+    "w_sydney000",
+    "w_sydney001",
+    "w_sydney002"
+   ],
+   "reward": {
+    "coins": 920,
+    "xp": 215,
+    "gems": 0
+   },
+   "colors": [
+    "#32226b",
+    "#1f7735"
+   ]
+  },
+  {
+   "id": "rio",
+   "idx": 10,
+   "name": {
+    "ar": "ريو دي جانيرو",
+    "en": "Rio de Janeiro",
+    "fr": "Rio de Janeiro"
+   },
+   "cc": "BR",
+   "landmark": "christ",
+   "km": 13300,
+   "minWpm": 63,
+   "opp": 4,
+   "textIds": [
+    "w_rio000",
+    "w_rio001",
+    "w_rio002"
+   ],
+   "reward": {
+    "coins": 1000,
+    "xp": 230,
+    "gems": 0
+   },
+   "colors": [
+    "#377957",
+    "#33548b"
+   ]
+  },
+  {
+   "id": "newyork",
+   "idx": 11,
+   "name": {
+    "ar": "نيويورك",
+    "en": "New York",
+    "fr": "New York"
+   },
+   "cc": "US",
+   "landmark": "liberty",
+   "km": 7700,
+   "minWpm": 67,
+   "opp": 4,
+   "textIds": [
+    "w_newyork000",
+    "w_newyork001",
+    "w_newyork002"
+   ],
+   "reward": {
+    "coins": 1080,
+    "xp": 245,
+    "gems": 5
+   },
+   "colors": [
+    "#8cedaa",
+    "#13d8a7"
+   ]
+  }
+ ]
+}

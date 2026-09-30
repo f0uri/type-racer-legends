@@ -1,0 +1,365 @@
+{
+"version": 1,
+"items": [
+{
+"id": "epn000",
+"t": "Wait, what? No way! It costs $83.76, right?",
+"cat": "punctuation",
+"topic": "punct_numbers",
+"lang": "en",
+"diff": 4,
+"len": 43
+},
+{
+"id": "epn001",
+"t": "Dear friend, on 2/13/2026 we'll meet at 5:41 p.m.; don't be late!",
+"cat": "numbers",
+"topic": "punct_numbers",
+"lang": "en",
+"diff": 4,
+"len": 65
+},
+{
+"id": "epn002",
+"t": "Order #656: 3 items, total $292.59 (tax included).",
+"cat": "punctuation",
+"topic": "punct_numbers",
+"lang": "en",
+"diff": 4,
+"len": 50
+},
+{
+"id": "epn003",
+"t": "\"Ready?\" she asked. \"Yes,\" he said, \"let's go; we have 33 minutes.\"",
+"cat": "numbers",
+"topic": "punct_numbers",
+"lang": "en",
+"diff": 4,
+"len": 67
+},
+{
+"id": "epn004",
+"t": "Room 238, floor 8: call 555-5646 before 8:55 a.m., please.",
+"cat": "punctuation",
+"topic": "punct_numbers",
+"lang": "en",
+"diff": 4,
+"len": 58
+},
+{
+"id": "epn005",
+"t": "Score: 9-1! That's +50% better than last week, isn't it?",
+"cat": "numbers",
+"topic": "punct_numbers",
+"lang": "en",
+"diff": 4,
+"len": 56
+},
+{
+"id": "epn006",
+"t": "Tickets (4 adults, 0 children) cost $27; bring your ID, okay?",
+"cat": "punctuation",
+"topic": "punct_numbers",
+"lang": "en",
+"diff": 3,
+"len": 61
+},
+{
+"id": "epn007",
+"t": "In 23 days, we'll travel 308 km; that's 5.6 hours by train!",
+"cat": "numbers",
+"topic": "punct_numbers",
+"lang": "en",
+"diff": 3,
+"len": 59
+},
+{
+"id": "epn008",
+"t": "Is it 7 + 10 = 17? Yes; and 55 - 20 = 35, too.",
+"cat": "punctuation",
+"topic": "punct_numbers",
+"lang": "en",
+"diff": 3,
+"len": 46
+},
+{
+"id": "epn009",
+"t": "Coordinates: 46.96 N, 63.92 E; altitude 2010 m; temperature 20 C.",
+"cat": "numbers",
+"topic": "punct_numbers",
+"lang": "en",
+"diff": 3,
+"len": 65
+},
+{
+"id": "epn010",
+"t": "Wait, what? No way! It costs $98.77, right?",
+"cat": "punctuation",
+"topic": "punct_numbers",
+"lang": "en",
+"diff": 4,
+"len": 43
+},
+{
+"id": "epn011",
+"t": "Dear friend, on 5/19/2026 we'll meet at 1:51 p.m.; don't be late!",
+"cat": "numbers",
+"topic": "punct_numbers",
+"lang": "en",
+"diff": 4,
+"len": 65
+},
+{
+"id": "epn012",
+"t": "Order #465: 8 items, total $117.33 (tax included).",
+"cat": "punctuation",
+"topic": "punct_numbers",
+"lang": "en",
+"diff": 4,
+"len": 50
+},
+{
+"id": "epn013",
+"t": "\"Ready?\" she asked. \"Yes,\" he said, \"let's go; we have 4 minutes.\"",
+"cat": "numbers",
+"topic": "punct_numbers",
+"lang": "en",
+"diff": 4,
+"len": 66
+},
+{
+"id": "epn014",
+"t": "Room 489, floor 8: call 555-9369 before 9:49 a.m., please.",
+"cat": "punctuation",
+"topic": "punct_numbers",
+"lang": "en",
+"diff": 4,
+"len": 58
+},
+{
+"id": "epn015",
+"t": "Score: 3-3! That's +35% better than last week, isn't it?",
+"cat": "numbers",
+"topic": "punct_numbers",
+"lang": "en",
+"diff": 4,
+"len": 56
+},
+{
+"id": "epn016",
+"t": "Tickets (1 adults, 1 children) cost $141; bring your ID, okay?",
+"cat": "punctuation",
+"topic": "punct_numbers",
+"lang": "en",
+"diff": 3,
+"len": 62
+},
+{
+"id": "epn017",
+"t": "In 14 days, we'll travel 269 km; that's 5.9 hours by train!",
+"cat": "numbers",
+"topic": "punct_numbers",
+"lang": "en",
+"diff": 3,
+"len": 59
+},
+{
+"id": "epn018",
+"t": "Is it 45 + 4 = 49? Yes; and 97 - 36 = 61, too.",
+"cat": "punctuation",
+"topic": "punct_numbers",
+"lang": "en",
+"diff": 3,
+"len": 46
+},
+{
+"id": "epn019",
+"t": "Coordinates: 34.82 N, 106.7 E; altitude 755 m; temperature 17 C.",
+"cat": "numbers",
+"topic": "punct_numbers",
+"lang": "en",
+"diff": 3,
+"len": 64
+},
+{
+"id": "epn020",
+"t": "Wait, what? No way! It costs $6.90, right?",
+"cat": "punctuation",
+"topic": "punct_numbers",
+"lang": "en",
+"diff": 4,
+"len": 42
+},
+{
+"id": "epn021",
+"t": "Dear friend, on 2/19/2026 we'll meet at 9:20 p.m.; don't be late!",
+"cat": "numbers",
+"topic": "punct_numbers",
+"lang": "en",
+"diff": 4,
+"len": 65
+},
+{
+"id": "epn022",
+"t": "Order #555: 9 items, total $29.85 (tax included).",
+"cat": "punctuation",
+"topic": "punct_numbers",
+"lang": "en",
+"diff": 4,
+"len": 49
+},
+{
+"id": "epn023",
+"t": "\"Ready?\" she asked. \"Yes,\" he said, \"let's go; we have 19 minutes.\"",
+"cat": "numbers",
+"topic": "punct_numbers",
+"lang": "en",
+"diff": 4,
+"len": 67
+},
+{
+"id": "epn024",
+"t": "Room 210, floor 3: call 555-8767 before 7:02 a.m., please.",
+"cat": "punctuation",
+"topic": "punct_numbers",
+"lang": "en",
+"diff": 4,
+"len": 58
+},
+{
+"id": "epn025",
+"t": "Score: 5-4! That's +72% better than last week, isn't it?",
+"cat": "numbers",
+"topic": "punct_numbers",
+"lang": "en",
+"diff": 4,
+"len": 56
+},
+{
+"id": "epn026",
+"t": "Tickets (1 adults, 2 children) cost $34; bring your ID, okay?",
+"cat": "punctuation",
+"topic": "punct_numbers",
+"lang": "en",
+"diff": 3,
+"len": 61
+},
+{
+"id": "epn027",
+"t": "In 9 days, we'll travel 676 km; that's 2.6 hours by train!",
+"cat": "numbers",
+"topic": "punct_numbers",
+"lang": "en",
+"diff": 3,
+"len": 58
+},
+{
+"id": "epn028",
+"t": "Is it 57 + 29 = 86? Yes; and 66 - 22 = 44, too.",
+"cat": "punctuation",
+"topic": "punct_numbers",
+"lang": "en",
+"diff": 3,
+"len": 47
+},
+{
+"id": "epn029",
+"t": "Coordinates: 18.66 N, 19.70 E; altitude 1191 m; temperature 27 C.",
+"cat": "numbers",
+"topic": "punct_numbers",
+"lang": "en",
+"diff": 3,
+"len": 65
+},
+{
+"id": "epn030",
+"t": "Wait, what? No way! It costs $63.01, right?",
+"cat": "punctuation",
+"topic": "punct_numbers",
+"lang": "en",
+"diff": 4,
+"len": 43
+},
+{
+"id": "epn031",
+"t": "Dear friend, on 11/14/2026 we'll meet at 5:03 p.m.; don't be late!",
+"cat": "numbers",
+"topic": "punct_numbers",
+"lang": "en",
+"diff": 4,
+"len": 66
+},
+{
+"id": "epn032",
+"t": "Order #605: 2 items, total $79.17 (tax included).",
+"cat": "punctuation",
+"topic": "punct_numbers",
+"lang": "en",
+"diff": 4,
+"len": 49
+},
+{
+"id": "epn033",
+"t": "\"Ready?\" she asked. \"Yes,\" he said, \"let's go; we have 23 minutes.\"",
+"cat": "numbers",
+"topic": "punct_numbers",
+"lang": "en",
+"diff": 4,
+"len": 67
+},
+{
+"id": "epn034",
+"t": "Room 454, floor 2: call 555-1477 before 10:38 a.m., please.",
+"cat": "punctuation",
+"topic": "punct_numbers",
+"lang": "en",
+"diff": 4,
+"len": 59
+},
+{
+"id": "epn035",
+"t": "Score: 4-4! That's +66% better than last week, isn't it?",
+"cat": "numbers",
+"topic": "punct_numbers",
+"lang": "en",
+"diff": 4,
+"len": 56
+},
+{
+"id": "epn036",
+"t": "Tickets (2 adults, 3 children) cost $130; bring your ID, okay?",
+"cat": "punctuation",
+"topic": "punct_numbers",
+"lang": "en",
+"diff": 3,
+"len": 62
+},
+{
+"id": "epn037",
+"t": "In 8 days, we'll travel 920 km; that's 5.8 hours by train!",
+"cat": "numbers",
+"topic": "punct_numbers",
+"lang": "en",
+"diff": 3,
+"len": 58
+},
+{
+"id": "epn038",
+"t": "Is it 23 + 27 = 50? Yes; and 65 - 20 = 45, too.",
+"cat": "punctuation",
+"topic": "punct_numbers",
+"lang": "en",
+"diff": 3,
+"len": 47
+},
+{
+"id": "epn039",
+"t": "Coordinates: 56.58 N, 60.1 E; altitude 2021 m; temperature 37 C.",
+"cat": "numbers",
+"topic": "punct_numbers",
+"lang": "en",
+"diff": 3,
+"len": 64
+}
+]
+}

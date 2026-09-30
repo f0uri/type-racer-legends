@@ -1,0 +1,273 @@
+{
+ "version": 1,
+ "items": [
+  {
+   "id": "o_default",
+   "type": "outfit",
+   "name": {
+    "ar": "زي المتسابق",
+    "en": "Rookie Suit",
+    "fr": "Combinaison Débutant"
+   },
+   "rarity": "common",
+   "price": {},
+   "unlock": {},
+   "enabled": true,
+   "startsAt": null,
+   "endsAt": null,
+   "params": {
+    "helmet": "#e5383b",
+    "suit": "#2b2d42",
+    "suit2": "#e5383b",
+    "visor": "#111827",
+    "style": "full"
+   },
+   "tags": []
+  },
+  {
+   "id": "o_blue",
+   "type": "outfit",
+   "name": {
+    "ar": "الفارس الأزرق",
+    "en": "Blue Rider",
+    "fr": "Pilote Bleu"
+   },
+   "rarity": "common",
+   "price": {
+    "coins": 800
+   },
+   "unlock": {
+    "level": 2
+   },
+   "enabled": true,
+   "startsAt": null,
+   "endsAt": null,
+   "params": {
+    "helmet": "#1d6ff2",
+    "suit": "#0b132b",
+    "suit2": "#3a86ff",
+    "visor": "#0a0a0a",
+    "style": "full"
+   },
+   "tags": []
+  },
+  {
+   "id": "o_night",
+   "type": "outfit",
+   "name": {
+    "ar": "فارس الليل",
+    "en": "Night Rider",
+    "fr": "Pilote de Nuit"
+   },
+   "rarity": "rare",
+   "price": {
+    "coins": 1800
+   },
+   "unlock": {
+    "level": 5
+   },
+   "enabled": true,
+   "startsAt": null,
+   "endsAt": null,
+   "params": {
+    "helmet": "#15161a",
+    "suit": "#0b0b0f",
+    "suit2": "#00f5ff",
+    "visor": "#00f5ff",
+    "style": "stripe"
+   },
+   "tags": []
+  },
+  {
+   "id": "o_desert",
+   "type": "outfit",
+   "name": {
+    "ar": "بدوي الصحراء",
+    "en": "Desert Nomad",
+    "fr": "Nomade du Désert"
+   },
+   "rarity": "rare",
+   "price": {
+    "coins": 2000
+   },
+   "unlock": {
+    "level": 7
+   },
+   "enabled": true,
+   "startsAt": null,
+   "endsAt": null,
+   "params": {
+    "helmet": "#c9a227",
+    "suit": "#8c7a4f",
+    "suit2": "#5e5034",
+    "visor": "#2b2118",
+    "style": "full"
+   },
+   "tags": []
+  },
+  {
+   "id": "o_arctic",
+   "type": "outfit",
+   "name": {
+    "ar": "مستكشف القطب",
+    "en": "Arctic Explorer",
+    "fr": "Explorateur Arctique"
+   },
+   "rarity": "rare",
+   "price": {
+    "coins": 2200
+   },
+   "unlock": {
+    "level": 9
+   },
+   "enabled": true,
+   "startsAt": null,
+   "endsAt": null,
+   "params": {
+    "helmet": "#e0fbfc",
+    "suit": "#3a86ff",
+    "suit2": "#f1faee",
+    "visor": "#1b263b",
+    "style": "full"
+   },
+   "tags": []
+  },
+  {
+   "id": "o_cyber",
+   "type": "outfit",
+   "name": {
+    "ar": "سايبر",
+    "en": "Cyber Suit",
+    "fr": "Combinaison Cyber"
+   },
+   "rarity": "legendary",
+   "price": {
+    "gems": 220
+   },
+   "unlock": {
+    "level": 14
+   },
+   "enabled": true,
+   "startsAt": null,
+   "endsAt": null,
+   "params": {
+    "helmet": "#10002b",
+    "suit": "#1a1a2e",
+    "suit2": "#ff00e5",
+    "visor": "#ff00e5",
+    "style": "stripe"
+   },
+   "tags": []
+  },
+  {
+   "id": "o_gold",
+   "type": "outfit",
+   "name": {
+    "ar": "بطل ذهبي",
+    "en": "Gold Champion",
+    "fr": "Champion Doré"
+   },
+   "rarity": "legendary",
+   "price": {
+    "gems": 300
+   },
+   "unlock": {
+    "level": 18
+   },
+   "enabled": true,
+   "startsAt": null,
+   "endsAt": null,
+   "params": {
+    "helmet": "#ffd700",
+    "suit": "#7a5c00",
+    "suit2": "#ffd700",
+    "visor": "#111111",
+    "style": "full"
+   },
+   "tags": []
+  },
+  {
+   "id": "o_ramadan",
+   "type": "outfit",
+   "name": {
+    "ar": "زي رمضان",
+    "en": "Ramadan Suit",
+    "fr": "Tenue Ramadan"
+   },
+   "rarity": "legendary",
+   "price": {},
+   "unlock": {
+    "event": "ramadan_2027"
+   },
+   "enabled": true,
+   "startsAt": null,
+   "endsAt": null,
+   "params": {
+    "helmet": "#0b6e4f",
+    "suit": "#0b3d2e",
+    "suit2": "#ffd60a",
+    "visor": "#111111",
+    "style": "full"
+   },
+   "tags": [
+    "event",
+    "ramadan"
+   ]
+  },
+  {
+   "id": "o_school",
+   "type": "outfit",
+   "name": {
+    "ar": "زي المدرسة",
+    "en": "School Suit",
+    "fr": "Tenue Scolaire"
+   },
+   "rarity": "rare",
+   "price": {},
+   "unlock": {
+    "event": "back_to_school_2026"
+   },
+   "enabled": true,
+   "startsAt": null,
+   "endsAt": null,
+   "params": {
+    "helmet": "#4361ee",
+    "suit": "#3a0ca3",
+    "suit2": "#ffee32",
+    "visor": "#111111",
+    "style": "full"
+   },
+   "tags": [
+    "event",
+    "school"
+   ]
+  },
+  {
+   "id": "o_legend",
+   "type": "outfit",
+   "name": {
+    "ar": "زي الأسطورة",
+    "en": "Legend Suit",
+    "fr": "Combinaison Légende"
+   },
+   "rarity": "legendary",
+   "price": {},
+   "unlock": {
+    "achievement": "a_rank_legend"
+   },
+   "enabled": true,
+   "startsAt": null,
+   "endsAt": null,
+   "params": {
+    "helmet": "#ffd700",
+    "suit": "#111111",
+    "suit2": "#ff2e63",
+    "visor": "#ffd700",
+    "style": "stripe"
+   },
+   "tags": [
+    "achievement"
+   ]
+  }
+ ]
+}

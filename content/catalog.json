@@ -1,0 +1,292 @@
+{
+ "schema": 1,
+ "version": 1,
+ "generatedAt": "2026-09-30T12:49:40Z",
+ "minAppVersion": 1,
+ "killSwitch": {
+  "features": [],
+  "items": []
+ },
+ "featured": {
+  "shop": [
+   "c_vortex",
+   "p_aurora",
+   "b_crimson",
+   "n_rainbow"
+  ]
+ },
+ "dailyPool": [
+  "em_foo000",
+  "em_foo002",
+  "em_foo005",
+  "em_gam000",
+  "em_gen000",
+  "em_gen003",
+  "em_mot000",
+  "em_mot002",
+  "em_mot003",
+  "em_mot004",
+  "em_spo000",
+  "em_spo002",
+  "em_spo005",
+  "em_tec002",
+  "em_tec003",
+  "eq002",
+  "eq010",
+  "eq011",
+  "eq012",
+  "eq021",
+  "eq023",
+  "eq036",
+  "eq038",
+  "eq039",
+  "eq045",
+  "eq046",
+  "eq047",
+  "eq049",
+  "eq057",
+  "es_foo001",
+  "es_foo002",
+  "es_foo003",
+  "es_foo006",
+  "es_foo007",
+  "es_foo008",
+  "es_foo009",
+  "es_foo010",
+  "es_foo012",
+  "es_foo014",
+  "es_foo015",
+  "es_foo018",
+  "es_foo019",
+  "es_foo020",
+  "es_foo021",
+  "es_foo023",
+  "es_foo024",
+  "es_gam000",
+  "es_gam001",
+  "es_gam002",
+  "es_gam004",
+  "es_gam005",
+  "es_gam007",
+  "es_gam010",
+  "es_gam011",
+  "es_gam012",
+  "es_gam015",
+  "es_gam016",
+  "es_gam017",
+  "es_gam020",
+  "es_gam023",
+  "es_gen000",
+  "es_gen001",
+  "es_gen004",
+  "es_gen005",
+  "es_gen006",
+  "es_gen011",
+  "es_gen012",
+  "es_gen013",
+  "es_gen014",
+  "es_gen015",
+  "es_gen017",
+  "es_gen018",
+  "es_gen020",
+  "es_gen021",
+  "es_gen023",
+  "es_gen025",
+  "es_gen027",
+  "es_gen028",
+  "es_gen029",
+  "es_mot000",
+  "es_mot002",
+  "es_mot003",
+  "es_mot006",
+  "es_mot007",
+  "es_mot009",
+  "es_mot010",
+  "es_mot012",
+  "es_mot017",
+  "es_mot018",
+  "es_mot019",
+  "es_mot020",
+  "es_mot021",
+  "es_mot024",
+  "es_spo000",
+  "es_spo001",
+  "es_spo003",
+  "es_spo005",
+  "es_spo007",
+  "es_spo010",
+  "es_spo011",
+  "es_spo012",
+  "es_spo013",
+  "es_spo014",
+  "es_spo017",
+  "es_spo019",
+  "es_tec000",
+  "es_tec002",
+  "es_tec005",
+  "es_tec006",
+  "es_tec009",
+  "es_tec012",
+  "es_tec013",
+  "es_tec014",
+  "es_tec015",
+  "es_tec016",
+  "es_tec017",
+  "es_tec018",
+  "es_tec020",
+  "es_tec021",
+  "es_tec023"
+ ],
+ "files": {
+  "achievements": {
+   "path": "achievements.json",
+   "version": 1,
+   "sha256": "c253d2ee6ca6bc3a0959ef73fc380c9b89a9850ddd7ac70d88f0ec256a44c3fc",
+   "bytes": 44141
+  },
+  "ai": {
+   "path": "ai.json",
+   "version": 1,
+   "sha256": "ef50cbf789e4b9316d97e66000a3fa741ff7818945b56a86f4ad6e337ee2ff45",
+   "bytes": 7500
+  },
+  "campaign": {
+   "path": "campaign.json",
+   "version": 1,
+   "sha256": "697dd9ed0871075814340a9906dc0952ca831bf4648472dbcad5512ffa3f132f",
+   "bytes": 27453
+  },
+  "economy": {
+   "path": "economy.json",
+   "version": 1,
+   "sha256": "aefd8df67923862c9a67536b74695cca4274689f64c5a5a44ed6d77cfc3aa61b",
+   "bytes": 1544
+  },
+  "events": {
+   "path": "events.json",
+   "version": 1,
+   "sha256": "912f398ef4aa357e5b42d0fa7291b2cd8973c1cd7cafba632dd73590560aff67",
+   "bytes": 5531
+  },
+  "outfits": {
+   "path": "outfits.json",
+   "version": 1,
+   "sha256": "e55c55d95aac3c44103e452091cff3e84b2ca96071530b56c5d8df8433475dc6",
+   "bytes": 4722
+  },
+  "quests": {
+   "path": "quests.json",
+   "version": 1,
+   "sha256": "37808e557d90731a8d5567e0c515707d4a67b9c672562ece8d68565c58e15248",
+   "bytes": 8121
+  },
+  "season": {
+   "path": "season.json",
+   "version": 1,
+   "sha256": "f41032c9da4346885fab2e0ac46db33c731983338c361d217e88efb1d302b590",
+   "bytes": 4940
+  },
+  "shop": {
+   "path": "shop.json",
+   "version": 1,
+   "sha256": "fd3da3867e8d23f29b8368582f754e1122ffc3ef2a7a6a119f2b595647c4c6b8",
+   "bytes": 2142
+  },
+  "skins": {
+   "path": "skins.json",
+   "version": 1,
+   "sha256": "629feb43ce3076f96405f1f4625505d2b4d1e70a9e26853d9dd6b76f25adddd1",
+   "bytes": 38250
+  },
+  "tournaments": {
+   "path": "tournaments.json",
+   "version": 1,
+   "sha256": "4a5733e4e1971a0eb3fbbd7725a1d7fd19b2eac9866ddc26db5d6eacda961d29",
+   "bytes": 1149
+  },
+  "vehicles": {
+   "path": "vehicles.json",
+   "version": 1,
+   "sha256": "bc3fe43807889b0399f97a476d1b08f6db9ff01ba2b3cfe51054ca487a3d408e",
+   "bytes": 20710
+  },
+  "vocab": {
+   "path": "vocab.json",
+   "version": 1,
+   "sha256": "99e748bcae8ad9efb6a7d7a02647e8bd2dafe01408c25263bfab12d62e6c3b4f",
+   "bytes": 23836
+  },
+  "world": {
+   "path": "world.json",
+   "version": 1,
+   "sha256": "bcb9421aabbb56c78976cf5138e3ef1f88194ff5722d1fcc807e6ea987f9277f",
+   "bytes": 4882
+  },
+  "texts/en_code": {
+   "path": "texts/en_code.json",
+   "version": 1,
+   "sha256": "46cec54b5ee7b59d3a92f58382256d1c8cd3fd013fa209a6a92da59a28039236",
+   "bytes": 5802
+  },
+  "texts/en_official": {
+   "path": "texts/en_official.json",
+   "version": 1,
+   "sha256": "39dbf80f091c06c80e03691b98642f41595928ca7a2468927d9e3748162f314a",
+   "bytes": 4441
+  },
+  "texts/en_punct": {
+   "path": "texts/en_punct.json",
+   "version": 1,
+   "sha256": "ba4aa68b6b9eff669c6c2ad1494e8db288bc177cc489282e335e878aff53b9f8",
+   "bytes": 6771
+  },
+  "texts/en_quotes": {
+   "path": "texts/en_quotes.json",
+   "version": 1,
+   "sha256": "f6b8a413c807a30d499807dee6615d0ace9f1efd6b13151a8349e5ab1970a4a2",
+   "bytes": 11046
+  },
+  "texts/en_sentences": {
+   "path": "texts/en_sentences.json",
+   "version": 1,
+   "sha256": "649c8e89e85b7dbab7d14bbb5b7b3e46687c6bc8f3c3fa476be0b4c6cdc9c639",
+   "bytes": 39100
+  },
+  "texts/en_stories": {
+   "path": "texts/en_stories.json",
+   "version": 1,
+   "sha256": "f076900dbbcf21e3987c32b7530e4bb1620c90356d4d3f0430bf772ed6438184",
+   "bytes": 5182
+  },
+  "texts/en_symbols": {
+   "path": "texts/en_symbols.json",
+   "version": 1,
+   "sha256": "c6896982a64ba9f0fcd2815b5013879bd12fa22814323dc7bc7b5119d412e894",
+   "bytes": 4714
+  },
+  "texts/en_words": {
+   "path": "texts/en_words.json",
+   "version": 1,
+   "sha256": "c98d4e40f9b337c974464e537dcf0724afa3ed473921bb259847a574f087397f",
+   "bytes": 17335
+  },
+  "texts/en_world": {
+   "path": "texts/en_world.json",
+   "version": 1,
+   "sha256": "38ea215d6a8ea3249d8bb1f87d8ed25725da2b1c3db4ee2be4bc816252c59dca",
+   "bytes": 7834
+  },
+  "texts/es_all": {
+   "path": "texts/es_all.json",
+   "version": 1,
+   "sha256": "4cdf76c7e103bdf5971ef50835ce44ab6bac83dd657972a4085143ce04a960e0",
+   "bytes": 3728
+  },
+  "texts/fr_all": {
+   "path": "texts/fr_all.json",
+   "version": 1,
+   "sha256": "af172a6ec430e7f1793d1a5151a3b4cfd738012c3bc97b3ed0999d291b8d842d",
+   "bytes": 12686
+  }
+ }
+}

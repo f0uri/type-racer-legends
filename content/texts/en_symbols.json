@@ -1,0 +1,293 @@
+{
+"version": 1,
+"items": [
+{
+"id": "esy000",
+"t": "user_607@mail.com | pass: P@ss#752! | ref=7&id=311",
+"cat": "symbols",
+"topic": "symbols",
+"lang": "en",
+"diff": 5,
+"len": 50
+},
+{
+"id": "esy001",
+"t": "if (a[0] >= b[7] && c != 20) { x += 18 * 2; }",
+"cat": "symbols",
+"topic": "symbols",
+"lang": "en",
+"diff": 5,
+"len": 45
+},
+{
+"id": "esy002",
+"t": "https://game.example/race?id=430&lvl=18#top",
+"cat": "symbols",
+"topic": "symbols",
+"lang": "en",
+"diff": 5,
+"len": 43
+},
+{
+"id": "esy003",
+"t": "C:\\Games\\Racer\\save_9.dat -> 100% (60/160)",
+"cat": "symbols",
+"topic": "symbols",
+"lang": "en",
+"diff": 5,
+"len": 42
+},
+{
+"id": "esy004",
+"t": "{ \"speed\": 195, \"nitro\": [9, 2], \"ok\": true }",
+"cat": "symbols",
+"topic": "symbols",
+"lang": "en",
+"diff": 5,
+"len": 45
+},
+{
+"id": "esy005",
+"t": "#d59e20 ~ rgb(73, 8, 206) * 50% + $78",
+"cat": "symbols",
+"topic": "symbols",
+"lang": "en",
+"diff": 4,
+"len": 37
+},
+{
+"id": "esy006",
+"t": "$total = ($a + $b) * 9 / 8; // ~85%",
+"cat": "symbols",
+"topic": "symbols",
+"lang": "en",
+"diff": 5,
+"len": 35
+},
+{
+"id": "esy007",
+"t": "<tag id=\"n3\" value='31'> & </tag> @9",
+"cat": "symbols",
+"topic": "symbols",
+"lang": "en",
+"diff": 5,
+"len": 36
+},
+{
+"id": "esy008",
+"t": "user_897@mail.com | pass: P@ss#632! | ref=80&id=667",
+"cat": "symbols",
+"topic": "symbols",
+"lang": "en",
+"diff": 5,
+"len": 51
+},
+{
+"id": "esy009",
+"t": "if (a[5] >= b[8] && c != 3) { x += 14 * 2; }",
+"cat": "symbols",
+"topic": "symbols",
+"lang": "en",
+"diff": 5,
+"len": 44
+},
+{
+"id": "esy010",
+"t": "https://game.example/race?id=176&lvl=26#top",
+"cat": "symbols",
+"topic": "symbols",
+"lang": "en",
+"diff": 5,
+"len": 43
+},
+{
+"id": "esy011",
+"t": "C:\\Games\\Racer\\save_2.dat -> 100% (80/194)",
+"cat": "symbols",
+"topic": "symbols",
+"lang": "en",
+"diff": 5,
+"len": 42
+},
+{
+"id": "esy012",
+"t": "{ \"speed\": 227, \"nitro\": [6, 7], \"ok\": true }",
+"cat": "symbols",
+"topic": "symbols",
+"lang": "en",
+"diff": 5,
+"len": 45
+},
+{
+"id": "esy013",
+"t": "#78e7de ~ rgb(58, 160, 144) * 50% + $56",
+"cat": "symbols",
+"topic": "symbols",
+"lang": "en",
+"diff": 4,
+"len": 39
+},
+{
+"id": "esy014",
+"t": "$total = ($a + $b) * 4 / 5; // ~96%",
+"cat": "symbols",
+"topic": "symbols",
+"lang": "en",
+"diff": 5,
+"len": 35
+},
+{
+"id": "esy015",
+"t": "<tag id=\"n13\" value='28'> & </tag> @17",
+"cat": "symbols",
+"topic": "symbols",
+"lang": "en",
+"diff": 5,
+"len": 38
+},
+{
+"id": "esy016",
+"t": "user_112@mail.com | pass: P@ss#561! | ref=39&id=471",
+"cat": "symbols",
+"topic": "symbols",
+"lang": "en",
+"diff": 5,
+"len": 51
+},
+{
+"id": "esy017",
+"t": "if (a[1] >= b[3] && c != 43) { x += 12 * 2; }",
+"cat": "symbols",
+"topic": "symbols",
+"lang": "en",
+"diff": 5,
+"len": 45
+},
+{
+"id": "esy018",
+"t": "https://game.example/race?id=227&lvl=41#top",
+"cat": "symbols",
+"topic": "symbols",
+"lang": "en",
+"diff": 5,
+"len": 43
+},
+{
+"id": "esy019",
+"t": "C:\\Games\\Racer\\save_6.dat -> 100% (14/193)",
+"cat": "symbols",
+"topic": "symbols",
+"lang": "en",
+"diff": 5,
+"len": 42
+},
+{
+"id": "esy020",
+"t": "{ \"speed\": 119, \"nitro\": [0, 2], \"ok\": true }",
+"cat": "symbols",
+"topic": "symbols",
+"lang": "en",
+"diff": 5,
+"len": 45
+},
+{
+"id": "esy021",
+"t": "#f0263f ~ rgb(16, 37, 227) * 50% + $5",
+"cat": "symbols",
+"topic": "symbols",
+"lang": "en",
+"diff": 4,
+"len": 37
+},
+{
+"id": "esy022",
+"t": "$total = ($a + $b) * 5 / 6; // ~41%",
+"cat": "symbols",
+"topic": "symbols",
+"lang": "en",
+"diff": 5,
+"len": 35
+},
+{
+"id": "esy023",
+"t": "<tag id=\"n89\" value='78'> & </tag> @57",
+"cat": "symbols",
+"topic": "symbols",
+"lang": "en",
+"diff": 5,
+"len": 38
+},
+{
+"id": "esy024",
+"t": "user_787@mail.com | pass: P@ss#973! | ref=89&id=671",
+"cat": "symbols",
+"topic": "symbols",
+"lang": "en",
+"diff": 5,
+"len": 51
+},
+{
+"id": "esy025",
+"t": "if (a[2] >= b[7] && c != 35) { x += 20 * 2; }",
+"cat": "symbols",
+"topic": "symbols",
+"lang": "en",
+"diff": 5,
+"len": 45
+},
+{
+"id": "esy026",
+"t": "https://game.example/race?id=172&lvl=20#top",
+"cat": "symbols",
+"topic": "symbols",
+"lang": "en",
+"diff": 5,
+"len": 43
+},
+{
+"id": "esy027",
+"t": "C:\\Games\\Racer\\save_1.dat -> 100% (40/183)",
+"cat": "symbols",
+"topic": "symbols",
+"lang": "en",
+"diff": 5,
+"len": 42
+},
+{
+"id": "esy028",
+"t": "{ \"speed\": 209, \"nitro\": [1, 4], \"ok\": true }",
+"cat": "symbols",
+"topic": "symbols",
+"lang": "en",
+"diff": 5,
+"len": 45
+},
+{
+"id": "esy029",
+"t": "#f067df ~ rgb(145, 235, 228) * 50% + $42",
+"cat": "symbols",
+"topic": "symbols",
+"lang": "en",
+"diff": 4,
+"len": 40
+},
+{
+"id": "esy030",
+"t": "$total = ($a + $b) * 6 / 6; // ~39%",
+"cat": "symbols",
+"topic": "symbols",
+"lang": "en",
+"diff": 5,
+"len": 35
+},
+{
+"id": "esy031",
+"t": "<tag id=\"n35\" value='85'> & </tag> @42",
+"cat": "symbols",
+"topic": "symbols",
+"lang": "en",
+"diff": 5,
+"len": 38
+}
+]
+}

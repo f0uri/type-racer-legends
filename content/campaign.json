@@ -1,0 +1,1707 @@
+{
+ "version": 1,
+ "biomes": [
+  {
+   "id": "city",
+   "name": {
+    "ar": "المدينة",
+    "en": "City",
+    "fr": "Ville"
+   },
+   "sky": [
+    "#ffb27a",
+    "#6d83c9"
+   ],
+   "ground": "#2b2f3a",
+   "weather": "rain",
+   "mod": "storm",
+   "accent": "#ffd166",
+   "stages": 9
+  },
+  {
+   "id": "desert",
+   "name": {
+    "ar": "الصحراء",
+    "en": "Desert",
+    "fr": "Désert"
+   },
+   "sky": [
+    "#ffd18a",
+    "#ff8a5c"
+   ],
+   "ground": "#b9874d",
+   "weather": "dust",
+   "mod": "storm",
+   "accent": "#ff9e00",
+   "stages": 9
+  },
+  {
+   "id": "forest",
+   "name": {
+    "ar": "الغابة",
+    "en": "Forest",
+    "fr": "Forêt"
+   },
+   "sky": [
+    "#b7e4c7",
+    "#2d6a4f"
+   ],
+   "ground": "#3a3326",
+   "weather": "rain",
+   "mod": "fog",
+   "accent": "#95d5b2",
+   "stages": 8
+  },
+  {
+   "id": "snow",
+   "name": {
+    "ar": "الثلج",
+    "en": "Snow",
+    "fr": "Neige"
+   },
+   "sky": [
+    "#e0fbfc",
+    "#98c1d9"
+   ],
+   "ground": "#c8d6e5",
+   "weather": "snow",
+   "mod": "ice",
+   "accent": "#7df9ff",
+   "stages": 8
+  },
+  {
+   "id": "neon",
+   "name": {
+    "ar": "ليل النيون",
+    "en": "Neon Night",
+    "fr": "Nuit Néon"
+   },
+   "sky": [
+    "#240046",
+    "#0b0221"
+   ],
+   "ground": "#12101f",
+   "weather": "rain",
+   "mod": "blackout",
+   "accent": "#ff00e5",
+   "stages": 8
+  },
+  {
+   "id": "future",
+   "name": {
+    "ar": "المدينة المستقبلية",
+    "en": "Future City",
+    "fr": "Ville Futuriste"
+   },
+   "sky": [
+    "#0a1a3f",
+    "#00b4d8"
+   ],
+   "ground": "#0d1b2a",
+   "weather": "storm",
+   "mod": "storm",
+   "accent": "#00f5d4",
+   "stages": 8
+  }
+ ],
+ "bosses": [
+  {
+   "id": "boss_city",
+   "name": {
+    "ar": "توربو طارق",
+    "en": "Turbo Tariq",
+    "fr": "Turbo Tarek"
+   },
+   "cc": "MA",
+   "persona": "aggressive",
+   "vehicle": "c_thunder",
+   "paint": "p_flames",
+   "wpmMul": 1.06,
+   "taunts": {
+    "ar": [
+     "هل تظن أنك تستطيع اللحاق بي؟",
+     "الطريق ملكي!",
+     "أسرع يا صديقي، أسرع!",
+     "هذا كل ما عندك؟"
+    ],
+    "en": [
+     "Think you can catch me?",
+     "This road is mine!",
+     "Faster, my friend, faster!",
+     "Is that all you've got?"
+    ]
+   },
+   "win": {
+    "ar": "أحسنت! المدينة لك.",
+    "en": "Well played! The city is yours.",
+    "fr": "Bien joué ! La ville est à toi."
+   },
+   "lose": {
+    "ar": "هذا هو مكانك الطبيعي.",
+    "en": "That's where you belong.",
+    "fr": "C'est ta place."
+   }
+  },
+  {
+   "id": "boss_desert",
+   "name": {
+    "ar": "سلمى العاصفة",
+    "en": "Sandstorm Salma",
+    "fr": "Salma la Tempête"
+   },
+   "cc": "EG",
+   "persona": "balanced",
+   "vehicle": "c_dune",
+   "paint": "p_camo",
+   "wpmMul": 1.09,
+   "taunts": {
+    "ar": [
+     "الرمال لا ترحم المتعجلين.",
+     "أنا أسمع أنفاسك من هنا.",
+     "العاصفة قادمة!",
+     "ثبّت يديك وركّز."
+    ],
+    "en": [
+     "The sand shows no mercy.",
+     "I can hear your breathing from here.",
+     "The storm is coming!",
+     "Steady hands, focus."
+    ]
+   },
+   "win": {
+    "ar": "العاصفة انتهت... وأنت الفائز.",
+    "en": "The storm is over... you win.",
+    "fr": "La tempête est finie... tu gagnes."
+   },
+   "lose": {
+    "ar": "الصحراء علّمتك درساً.",
+    "en": "The desert taught you a lesson.",
+    "fr": "Le désert t'a donné une leçon."
+   }
+  },
+  {
+   "id": "boss_forest",
+   "name": {
+    "ar": "فيليكس الثعلب",
+    "en": "Felix the Fox",
+    "fr": "Félix le Renard"
+   },
+   "cc": "FR",
+   "persona": "cautious",
+   "vehicle": "b_trail",
+   "paint": "p_chevron",
+   "wpmMul": 1.11,
+   "taunts": {
+    "ar": [
+     "أنا لا أخطئ أبداً.",
+     "الهدوء يصنع الأبطال.",
+     "ستضيع بين الأشجار.",
+     "دقة، دقة، دقة."
+    ],
+    "en": [
+     "I never make mistakes.",
+     "Calm makes champions.",
+     "You'll get lost among the trees.",
+     "Accuracy, accuracy, accuracy."
+    ]
+   },
+   "win": {
+    "ar": "ثعلب ماكر خسر أمامك!",
+    "en": "A clever fox lost to you!",
+    "fr": "Un renard rusé a perdu contre toi !"
+   },
+   "lose": {
+    "ar": "الحذر يفوز دائماً.",
+    "en": "Caution always wins.",
+    "fr": "La prudence gagne toujours."
+   }
+  },
+  {
+   "id": "boss_snow",
+   "name": {
+    "ar": "فريا الجليد",
+    "en": "Frostbite Freya",
+    "fr": "Freya Givre"
+   },
+   "cc": "NO",
+   "persona": "fatigue",
+   "vehicle": "c_frost",
+   "paint": "p_aurora",
+   "wpmMul": 1.14,
+   "taunts": {
+    "ar": [
+     "البرد يبطئ الجميع... إلا أنا.",
+     "ستتجمد أصابعك.",
+     "الجليد ينتظر.",
+     "لا تنظر للخلف!"
+    ],
+    "en": [
+     "Cold slows everyone... except me.",
+     "Your fingers will freeze.",
+     "The ice is waiting.",
+     "Don't look back!"
+    ]
+   },
+   "win": {
+    "ar": "ذابت أمامك قلعة الجليد.",
+    "en": "My ice castle melted before you.",
+    "fr": "Mon château de glace a fondu devant toi."
+   },
+   "lose": {
+    "ar": "ابقَ بارداً وحاول مجدداً.",
+    "en": "Stay cool and try again.",
+    "fr": "Reste calme et réessaie."
+   }
+  },
+  {
+   "id": "boss_neon",
+   "name": {
+    "ar": "النينجا كينجي",
+    "en": "Neon Ninja Kenji",
+    "fr": "Ninja Néon Kenji"
+   },
+   "cc": "JP",
+   "persona": "aggressive",
+   "vehicle": "b_grid",
+   "paint": "p_holo",
+   "wpmMul": 1.17,
+   "taunts": {
+    "ar": [
+     "الظلام هو ساحتي.",
+     "لن ترى الكلمات التالية.",
+     "سريع كالظل.",
+     "اكتب من الذاكرة!"
+    ],
+    "en": [
+     "Darkness is my arena.",
+     "You won't see the next words.",
+     "Fast as a shadow.",
+     "Type from memory!"
+    ]
+   },
+   "win": {
+    "ar": "ظلّي يحييك.",
+    "en": "My shadow salutes you.",
+    "fr": "Mon ombre te salue."
+   },
+   "lose": {
+    "ar": "اختفيت في الظلام.",
+    "en": "You vanished in the dark.",
+    "fr": "Tu as disparu dans l'obscurité."
+   }
+  },
+  {
+   "id": "boss_future",
+   "name": {
+    "ar": "الملكة آريا",
+    "en": "Quantum Queen Aria",
+    "fr": "Reine Quantique Aria"
+   },
+   "cc": "KR",
+   "persona": "balanced",
+   "vehicle": "c_phantom",
+   "paint": "p_galaxy",
+   "wpmMul": 1.22,
+   "taunts": {
+    "ar": [
+     "حساباتي تقول إنك ستخسر.",
+     "المستقبل لي.",
+     "كل ضغطة أتوقعها.",
+     "استسلم للخوارزمية."
+    ],
+    "en": [
+     "My calculations say you lose.",
+     "The future is mine.",
+     "I predict every keystroke.",
+     "Surrender to the algorithm."
+    ]
+   },
+   "win": {
+    "ar": "حتى الخوارزميات تنحني لك.",
+    "en": "Even algorithms bow to you.",
+    "fr": "Même les algorithmes s'inclinent."
+   },
+   "lose": {
+    "ar": "النتيجة كما توقعت.",
+    "en": "Result as predicted.",
+    "fr": "Résultat comme prévu."
+   }
+  }
+ ],
+ "items": [
+  {
+   "n": 1,
+   "biome": "city",
+   "boss": null,
+   "title": {
+    "ar": "المدينة 1",
+    "en": "City 1",
+    "fr": "Ville 1"
+   },
+   "lenMin": 35,
+   "lenMax": 70,
+   "cats": [
+    "sentence",
+    "words_short"
+   ],
+   "mod": "none",
+   "opp": {
+    "count": 2,
+    "wpm": 16
+   },
+   "accStar": 90,
+   "reward": {
+    "coins": 74,
+    "xp": 46,
+    "gems": 0
+   }
+  },
+  {
+   "n": 2,
+   "biome": "city",
+   "boss": null,
+   "title": {
+    "ar": "المدينة 2",
+    "en": "City 2",
+    "fr": "Ville 2"
+   },
+   "lenMin": 37,
+   "lenMax": 73,
+   "cats": [
+    "sentence",
+    "words_short"
+   ],
+   "mod": "none",
+   "opp": {
+    "count": 2,
+    "wpm": 18
+   },
+   "accStar": 90,
+   "reward": {
+    "coins": 88,
+    "xp": 52,
+    "gems": 0
+   }
+  },
+  {
+   "n": 3,
+   "biome": "city",
+   "boss": null,
+   "title": {
+    "ar": "المدينة 3",
+    "en": "City 3",
+    "fr": "Ville 3"
+   },
+   "lenMin": 40,
+   "lenMax": 78,
+   "cats": [
+    "sentence",
+    "words_short"
+   ],
+   "mod": "none",
+   "opp": {
+    "count": 2,
+    "wpm": 20
+   },
+   "accStar": 90,
+   "reward": {
+    "coins": 102,
+    "xp": 58,
+    "gems": 0
+   }
+  },
+  {
+   "n": 4,
+   "biome": "city",
+   "boss": null,
+   "title": {
+    "ar": "المدينة 4",
+    "en": "City 4",
+    "fr": "Ville 4"
+   },
+   "lenMin": 42,
+   "lenMax": 82,
+   "cats": [
+    "sentence",
+    "words_short"
+   ],
+   "mod": "none",
+   "opp": {
+    "count": 2,
+    "wpm": 22
+   },
+   "accStar": 90,
+   "reward": {
+    "coins": 116,
+    "xp": 64,
+    "gems": 0
+   }
+  },
+  {
+   "n": 5,
+   "biome": "city",
+   "boss": null,
+   "title": {
+    "ar": "المدينة 5",
+    "en": "City 5",
+    "fr": "Ville 5"
+   },
+   "lenMin": 45,
+   "lenMax": 87,
+   "cats": [
+    "sentence",
+    "words_short"
+   ],
+   "mod": "storm",
+   "opp": {
+    "count": 2,
+    "wpm": 24
+   },
+   "accStar": 90,
+   "reward": {
+    "coins": 130,
+    "xp": 70,
+    "gems": 0
+   }
+  },
+  {
+   "n": 6,
+   "biome": "city",
+   "boss": null,
+   "title": {
+    "ar": "المدينة 6",
+    "en": "City 6",
+    "fr": "Ville 6"
+   },
+   "lenMin": 48,
+   "lenMax": 92,
+   "cats": [
+    "sentence",
+    "words_short"
+   ],
+   "mod": "storm",
+   "opp": {
+    "count": 2,
+    "wpm": 26
+   },
+   "accStar": 90,
+   "reward": {
+    "coins": 144,
+    "xp": 76,
+    "gems": 0
+   }
+  },
+  {
+   "n": 7,
+   "biome": "city",
+   "boss": null,
+   "title": {
+    "ar": "المدينة 7",
+    "en": "City 7",
+    "fr": "Ville 7"
+   },
+   "lenMin": 50,
+   "lenMax": 96,
+   "cats": [
+    "sentence",
+    "words_short"
+   ],
+   "mod": "storm",
+   "opp": {
+    "count": 3,
+    "wpm": 28
+   },
+   "accStar": 90,
+   "reward": {
+    "coins": 158,
+    "xp": 82,
+    "gems": 0
+   }
+  },
+  {
+   "n": 8,
+   "biome": "city",
+   "boss": null,
+   "title": {
+    "ar": "المدينة 8",
+    "en": "City 8",
+    "fr": "Ville 8"
+   },
+   "lenMin": 53,
+   "lenMax": 100,
+   "cats": [
+    "sentence",
+    "words_short"
+   ],
+   "mod": "storm",
+   "opp": {
+    "count": 3,
+    "wpm": 30
+   },
+   "accStar": 90,
+   "reward": {
+    "coins": 172,
+    "xp": 88,
+    "gems": 0
+   }
+  },
+  {
+   "n": 9,
+   "biome": "city",
+   "boss": "boss_city",
+   "title": {
+    "ar": "المدينة 9 — الزعيم",
+    "en": "City 9 — Boss",
+    "fr": "Ville 9 — Boss"
+   },
+   "lenMin": 56,
+   "lenMax": 105,
+   "cats": [
+    "sentence",
+    "words_short"
+   ],
+   "mod": "storm",
+   "opp": {
+    "count": 4,
+    "wpm": 32
+   },
+   "accStar": 91,
+   "reward": {
+    "coins": 486,
+    "xp": 214,
+    "gems": 25
+   }
+  },
+  {
+   "n": 10,
+   "biome": "desert",
+   "boss": null,
+   "title": {
+    "ar": "الصحراء 1",
+    "en": "Desert 1",
+    "fr": "Désert 1"
+   },
+   "lenMin": 58,
+   "lenMax": 109,
+   "cats": [
+    "sentence",
+    "words_long"
+   ],
+   "mod": "none",
+   "opp": {
+    "count": 3,
+    "wpm": 34
+   },
+   "accStar": 91,
+   "reward": {
+    "coins": 200,
+    "xp": 100,
+    "gems": 0
+   }
+  },
+  {
+   "n": 11,
+   "biome": "desert",
+   "boss": null,
+   "title": {
+    "ar": "الصحراء 2",
+    "en": "Desert 2",
+    "fr": "Désert 2"
+   },
+   "lenMin": 61,
+   "lenMax": 114,
+   "cats": [
+    "sentence",
+    "words_long"
+   ],
+   "mod": "none",
+   "opp": {
+    "count": 3,
+    "wpm": 35
+   },
+   "accStar": 91,
+   "reward": {
+    "coins": 214,
+    "xp": 106,
+    "gems": 0
+   }
+  },
+  {
+   "n": 12,
+   "biome": "desert",
+   "boss": null,
+   "title": {
+    "ar": "الصحراء 3",
+    "en": "Desert 3",
+    "fr": "Désert 3"
+   },
+   "lenMin": 64,
+   "lenMax": 119,
+   "cats": [
+    "sentence",
+    "words_long"
+   ],
+   "mod": "none",
+   "opp": {
+    "count": 3,
+    "wpm": 37
+   },
+   "accStar": 91,
+   "reward": {
+    "coins": 228,
+    "xp": 112,
+    "gems": 0
+   }
+  },
+  {
+   "n": 13,
+   "biome": "desert",
+   "boss": null,
+   "title": {
+    "ar": "الصحراء 4",
+    "en": "Desert 4",
+    "fr": "Désert 4"
+   },
+   "lenMin": 66,
+   "lenMax": 123,
+   "cats": [
+    "sentence",
+    "words_long"
+   ],
+   "mod": "none",
+   "opp": {
+    "count": 3,
+    "wpm": 39
+   },
+   "accStar": 91,
+   "reward": {
+    "coins": 242,
+    "xp": 118,
+    "gems": 0
+   }
+  },
+  {
+   "n": 14,
+   "biome": "desert",
+   "boss": null,
+   "title": {
+    "ar": "الصحراء 5",
+    "en": "Desert 5",
+    "fr": "Désert 5"
+   },
+   "lenMin": 69,
+   "lenMax": 127,
+   "cats": [
+    "sentence",
+    "words_long"
+   ],
+   "mod": "storm",
+   "opp": {
+    "count": 3,
+    "wpm": 41
+   },
+   "accStar": 91,
+   "reward": {
+    "coins": 256,
+    "xp": 124,
+    "gems": 0
+   }
+  },
+  {
+   "n": 15,
+   "biome": "desert",
+   "boss": null,
+   "title": {
+    "ar": "الصحراء 6",
+    "en": "Desert 6",
+    "fr": "Désert 6"
+   },
+   "lenMin": 72,
+   "lenMax": 132,
+   "cats": [
+    "sentence",
+    "words_long"
+   ],
+   "mod": "storm",
+   "opp": {
+    "count": 3,
+    "wpm": 43
+   },
+   "accStar": 91,
+   "reward": {
+    "coins": 270,
+    "xp": 130,
+    "gems": 0
+   }
+  },
+  {
+   "n": 16,
+   "biome": "desert",
+   "boss": null,
+   "title": {
+    "ar": "الصحراء 7",
+    "en": "Desert 7",
+    "fr": "Désert 7"
+   },
+   "lenMin": 74,
+   "lenMax": 136,
+   "cats": [
+    "sentence",
+    "words_long"
+   ],
+   "mod": "storm",
+   "opp": {
+    "count": 3,
+    "wpm": 45
+   },
+   "accStar": 91,
+   "reward": {
+    "coins": 284,
+    "xp": 136,
+    "gems": 0
+   }
+  },
+  {
+   "n": 17,
+   "biome": "desert",
+   "boss": null,
+   "title": {
+    "ar": "الصحراء 8",
+    "en": "Desert 8",
+    "fr": "Désert 8"
+   },
+   "lenMin": 77,
+   "lenMax": 141,
+   "cats": [
+    "sentence",
+    "words_long"
+   ],
+   "mod": "storm",
+   "opp": {
+    "count": 3,
+    "wpm": 46
+   },
+   "accStar": 91,
+   "reward": {
+    "coins": 298,
+    "xp": 142,
+    "gems": 0
+   }
+  },
+  {
+   "n": 18,
+   "biome": "desert",
+   "boss": "boss_desert",
+   "title": {
+    "ar": "الصحراء 9 — الزعيم",
+    "en": "Desert 9 — Boss",
+    "fr": "Désert 9 — Boss"
+   },
+   "lenMin": 80,
+   "lenMax": 146,
+   "cats": [
+    "sentence",
+    "words_long"
+   ],
+   "mod": "storm",
+   "opp": {
+    "count": 4,
+    "wpm": 48
+   },
+   "accStar": 92,
+   "reward": {
+    "coins": 612,
+    "xp": 268,
+    "gems": 25
+   }
+  },
+  {
+   "n": 19,
+   "biome": "forest",
+   "boss": null,
+   "title": {
+    "ar": "الغابة 1",
+    "en": "Forest 1",
+    "fr": "Forêt 1"
+   },
+   "lenMin": 82,
+   "lenMax": 150,
+   "cats": [
+    "quote",
+    "sentence"
+   ],
+   "mod": "none",
+   "opp": {
+    "count": 4,
+    "wpm": 50
+   },
+   "accStar": 92,
+   "reward": {
+    "coins": 326,
+    "xp": 154,
+    "gems": 0
+   }
+  },
+  {
+   "n": 20,
+   "biome": "forest",
+   "boss": null,
+   "title": {
+    "ar": "الغابة 2",
+    "en": "Forest 2",
+    "fr": "Forêt 2"
+   },
+   "lenMin": 85,
+   "lenMax": 154,
+   "cats": [
+    "quote",
+    "sentence"
+   ],
+   "mod": "none",
+   "opp": {
+    "count": 4,
+    "wpm": 52
+   },
+   "accStar": 92,
+   "reward": {
+    "coins": 340,
+    "xp": 160,
+    "gems": 0
+   }
+  },
+  {
+   "n": 21,
+   "biome": "forest",
+   "boss": null,
+   "title": {
+    "ar": "الغابة 3",
+    "en": "Forest 3",
+    "fr": "Forêt 3"
+   },
+   "lenMin": 88,
+   "lenMax": 159,
+   "cats": [
+    "quote",
+    "sentence"
+   ],
+   "mod": "none",
+   "opp": {
+    "count": 4,
+    "wpm": 54
+   },
+   "accStar": 92,
+   "reward": {
+    "coins": 354,
+    "xp": 166,
+    "gems": 0
+   }
+  },
+  {
+   "n": 22,
+   "biome": "forest",
+   "boss": null,
+   "title": {
+    "ar": "الغابة 4",
+    "en": "Forest 4",
+    "fr": "Forêt 4"
+   },
+   "lenMin": 90,
+   "lenMax": 163,
+   "cats": [
+    "quote",
+    "sentence"
+   ],
+   "mod": "none",
+   "opp": {
+    "count": 4,
+    "wpm": 55
+   },
+   "accStar": 92,
+   "reward": {
+    "coins": 368,
+    "xp": 172,
+    "gems": 0
+   }
+  },
+  {
+   "n": 23,
+   "biome": "forest",
+   "boss": null,
+   "title": {
+    "ar": "الغابة 5",
+    "en": "Forest 5",
+    "fr": "Forêt 5"
+   },
+   "lenMin": 93,
+   "lenMax": 168,
+   "cats": [
+    "quote",
+    "sentence"
+   ],
+   "mod": "fog",
+   "opp": {
+    "count": 4,
+    "wpm": 57
+   },
+   "accStar": 92,
+   "reward": {
+    "coins": 382,
+    "xp": 178,
+    "gems": 0
+   }
+  },
+  {
+   "n": 24,
+   "biome": "forest",
+   "boss": null,
+   "title": {
+    "ar": "الغابة 6",
+    "en": "Forest 6",
+    "fr": "Forêt 6"
+   },
+   "lenMin": 96,
+   "lenMax": 173,
+   "cats": [
+    "quote",
+    "sentence"
+   ],
+   "mod": "fog",
+   "opp": {
+    "count": 4,
+    "wpm": 59
+   },
+   "accStar": 92,
+   "reward": {
+    "coins": 396,
+    "xp": 184,
+    "gems": 0
+   }
+  },
+  {
+   "n": 25,
+   "biome": "forest",
+   "boss": null,
+   "title": {
+    "ar": "الغابة 7",
+    "en": "Forest 7",
+    "fr": "Forêt 7"
+   },
+   "lenMin": 98,
+   "lenMax": 177,
+   "cats": [
+    "quote",
+    "sentence"
+   ],
+   "mod": "fog",
+   "opp": {
+    "count": 4,
+    "wpm": 61
+   },
+   "accStar": 92,
+   "reward": {
+    "coins": 410,
+    "xp": 190,
+    "gems": 0
+   }
+  },
+  {
+   "n": 26,
+   "biome": "forest",
+   "boss": "boss_forest",
+   "title": {
+    "ar": "الغابة 8 — الزعيم",
+    "en": "Forest 8 — Boss",
+    "fr": "Forêt 8 — Boss"
+   },
+   "lenMin": 101,
+   "lenMax": 181,
+   "cats": [
+    "quote",
+    "sentence"
+   ],
+   "mod": "fog",
+   "opp": {
+    "count": 5,
+    "wpm": 62
+   },
+   "accStar": 92,
+   "reward": {
+    "coins": 724,
+    "xp": 316,
+    "gems": 25
+   }
+  },
+  {
+   "n": 27,
+   "biome": "snow",
+   "boss": null,
+   "title": {
+    "ar": "الثلج 1",
+    "en": "Snow 1",
+    "fr": "Neige 1"
+   },
+   "lenMin": 103,
+   "lenMax": 185,
+   "cats": [
+    "punctuation",
+    "numbers",
+    "sentence"
+   ],
+   "mod": "none",
+   "opp": {
+    "count": 4,
+    "wpm": 64
+   },
+   "accStar": 93,
+   "reward": {
+    "coins": 438,
+    "xp": 202,
+    "gems": 0
+   }
+  },
+  {
+   "n": 28,
+   "biome": "snow",
+   "boss": null,
+   "title": {
+    "ar": "الثلج 2",
+    "en": "Snow 2",
+    "fr": "Neige 2"
+   },
+   "lenMin": 106,
+   "lenMax": 190,
+   "cats": [
+    "punctuation",
+    "numbers",
+    "sentence"
+   ],
+   "mod": "none",
+   "opp": {
+    "count": 4,
+    "wpm": 66
+   },
+   "accStar": 93,
+   "reward": {
+    "coins": 452,
+    "xp": 208,
+    "gems": 0
+   }
+  },
+  {
+   "n": 29,
+   "biome": "snow",
+   "boss": null,
+   "title": {
+    "ar": "الثلج 3",
+    "en": "Snow 3",
+    "fr": "Neige 3"
+   },
+   "lenMin": 109,
+   "lenMax": 195,
+   "cats": [
+    "punctuation",
+    "numbers",
+    "sentence"
+   ],
+   "mod": "none",
+   "opp": {
+    "count": 4,
+    "wpm": 68
+   },
+   "accStar": 93,
+   "reward": {
+    "coins": 466,
+    "xp": 214,
+    "gems": 0
+   }
+  },
+  {
+   "n": 30,
+   "biome": "snow",
+   "boss": null,
+   "title": {
+    "ar": "الثلج 4",
+    "en": "Snow 4",
+    "fr": "Neige 4"
+   },
+   "lenMin": 111,
+   "lenMax": 199,
+   "cats": [
+    "punctuation",
+    "numbers",
+    "sentence"
+   ],
+   "mod": "none",
+   "opp": {
+    "count": 4,
+    "wpm": 69
+   },
+   "accStar": 93,
+   "reward": {
+    "coins": 480,
+    "xp": 220,
+    "gems": 0
+   }
+  },
+  {
+   "n": 31,
+   "biome": "snow",
+   "boss": null,
+   "title": {
+    "ar": "الثلج 5",
+    "en": "Snow 5",
+    "fr": "Neige 5"
+   },
+   "lenMin": 114,
+   "lenMax": 204,
+   "cats": [
+    "punctuation",
+    "numbers",
+    "sentence"
+   ],
+   "mod": "ice",
+   "opp": {
+    "count": 4,
+    "wpm": 71
+   },
+   "accStar": 93,
+   "reward": {
+    "coins": 494,
+    "xp": 226,
+    "gems": 0
+   }
+  },
+  {
+   "n": 32,
+   "biome": "snow",
+   "boss": null,
+   "title": {
+    "ar": "الثلج 6",
+    "en": "Snow 6",
+    "fr": "Neige 6"
+   },
+   "lenMin": 117,
+   "lenMax": 208,
+   "cats": [
+    "punctuation",
+    "numbers",
+    "sentence"
+   ],
+   "mod": "ice",
+   "opp": {
+    "count": 4,
+    "wpm": 73
+   },
+   "accStar": 93,
+   "reward": {
+    "coins": 508,
+    "xp": 232,
+    "gems": 0
+   }
+  },
+  {
+   "n": 33,
+   "biome": "snow",
+   "boss": null,
+   "title": {
+    "ar": "الثلج 7",
+    "en": "Snow 7",
+    "fr": "Neige 7"
+   },
+   "lenMin": 119,
+   "lenMax": 212,
+   "cats": [
+    "punctuation",
+    "numbers",
+    "sentence"
+   ],
+   "mod": "ice",
+   "opp": {
+    "count": 4,
+    "wpm": 75
+   },
+   "accStar": 93,
+   "reward": {
+    "coins": 522,
+    "xp": 238,
+    "gems": 0
+   }
+  },
+  {
+   "n": 34,
+   "biome": "snow",
+   "boss": "boss_snow",
+   "title": {
+    "ar": "الثلج 8 — الزعيم",
+    "en": "Snow 8 — Boss",
+    "fr": "Neige 8 — Boss"
+   },
+   "lenMin": 122,
+   "lenMax": 217,
+   "cats": [
+    "punctuation",
+    "numbers",
+    "sentence"
+   ],
+   "mod": "ice",
+   "opp": {
+    "count": 5,
+    "wpm": 76
+   },
+   "accStar": 93,
+   "reward": {
+    "coins": 836,
+    "xp": 364,
+    "gems": 25
+   }
+  },
+  {
+   "n": 35,
+   "biome": "neon",
+   "boss": null,
+   "title": {
+    "ar": "ليل النيون 1",
+    "en": "Neon Night 1",
+    "fr": "Nuit Néon 1"
+   },
+   "lenMin": 125,
+   "lenMax": 222,
+   "cats": [
+    "code",
+    "symbols",
+    "sentence"
+   ],
+   "mod": "none",
+   "opp": {
+    "count": 5,
+    "wpm": 78
+   },
+   "accStar": 93,
+   "reward": {
+    "coins": 550,
+    "xp": 250,
+    "gems": 0
+   }
+  },
+  {
+   "n": 36,
+   "biome": "neon",
+   "boss": null,
+   "title": {
+    "ar": "ليل النيون 2",
+    "en": "Neon Night 2",
+    "fr": "Nuit Néon 2"
+   },
+   "lenMin": 127,
+   "lenMax": 226,
+   "cats": [
+    "code",
+    "symbols",
+    "sentence"
+   ],
+   "mod": "none",
+   "opp": {
+    "count": 5,
+    "wpm": 80
+   },
+   "accStar": 94,
+   "reward": {
+    "coins": 564,
+    "xp": 256,
+    "gems": 0
+   }
+  },
+  {
+   "n": 37,
+   "biome": "neon",
+   "boss": null,
+   "title": {
+    "ar": "ليل النيون 3",
+    "en": "Neon Night 3",
+    "fr": "Nuit Néon 3"
+   },
+   "lenMin": 130,
+   "lenMax": 231,
+   "cats": [
+    "code",
+    "symbols",
+    "sentence"
+   ],
+   "mod": "none",
+   "opp": {
+    "count": 5,
+    "wpm": 82
+   },
+   "accStar": 94,
+   "reward": {
+    "coins": 578,
+    "xp": 262,
+    "gems": 0
+   }
+  },
+  {
+   "n": 38,
+   "biome": "neon",
+   "boss": null,
+   "title": {
+    "ar": "ليل النيون 4",
+    "en": "Neon Night 4",
+    "fr": "Nuit Néon 4"
+   },
+   "lenMin": 133,
+   "lenMax": 235,
+   "cats": [
+    "code",
+    "symbols",
+    "sentence"
+   ],
+   "mod": "none",
+   "opp": {
+    "count": 5,
+    "wpm": 83
+   },
+   "accStar": 94,
+   "reward": {
+    "coins": 592,
+    "xp": 268,
+    "gems": 0
+   }
+  },
+  {
+   "n": 39,
+   "biome": "neon",
+   "boss": null,
+   "title": {
+    "ar": "ليل النيون 5",
+    "en": "Neon Night 5",
+    "fr": "Nuit Néon 5"
+   },
+   "lenMin": 135,
+   "lenMax": 239,
+   "cats": [
+    "code",
+    "symbols",
+    "sentence"
+   ],
+   "mod": "blackout",
+   "opp": {
+    "count": 5,
+    "wpm": 85
+   },
+   "accStar": 94,
+   "reward": {
+    "coins": 606,
+    "xp": 274,
+    "gems": 0
+   }
+  },
+  {
+   "n": 40,
+   "biome": "neon",
+   "boss": null,
+   "title": {
+    "ar": "ليل النيون 6",
+    "en": "Neon Night 6",
+    "fr": "Nuit Néon 6"
+   },
+   "lenMin": 138,
+   "lenMax": 244,
+   "cats": [
+    "code",
+    "symbols",
+    "sentence"
+   ],
+   "mod": "blackout",
+   "opp": {
+    "count": 5,
+    "wpm": 87
+   },
+   "accStar": 94,
+   "reward": {
+    "coins": 620,
+    "xp": 280,
+    "gems": 0
+   }
+  },
+  {
+   "n": 41,
+   "biome": "neon",
+   "boss": null,
+   "title": {
+    "ar": "ليل النيون 7",
+    "en": "Neon Night 7",
+    "fr": "Nuit Néon 7"
+   },
+   "lenMin": 141,
+   "lenMax": 249,
+   "cats": [
+    "code",
+    "symbols",
+    "sentence"
+   ],
+   "mod": "blackout",
+   "opp": {
+    "count": 5,
+    "wpm": 89
+   },
+   "accStar": 94,
+   "reward": {
+    "coins": 634,
+    "xp": 286,
+    "gems": 0
+   }
+  },
+  {
+   "n": 42,
+   "biome": "neon",
+   "boss": "boss_neon",
+   "title": {
+    "ar": "ليل النيون 8 — الزعيم",
+    "en": "Neon Night 8 — Boss",
+    "fr": "Nuit Néon 8 — Boss"
+   },
+   "lenMin": 143,
+   "lenMax": 253,
+   "cats": [
+    "code",
+    "symbols",
+    "sentence"
+   ],
+   "mod": "blackout",
+   "opp": {
+    "count": 6,
+    "wpm": 90
+   },
+   "accStar": 94,
+   "reward": {
+    "coins": 948,
+    "xp": 412,
+    "gems": 25
+   }
+  },
+  {
+   "n": 43,
+   "biome": "future",
+   "boss": null,
+   "title": {
+    "ar": "المدينة المستقبلية 1",
+    "en": "Future City 1",
+    "fr": "Ville Futuriste 1"
+   },
+   "lenMin": 146,
+   "lenMax": 258,
+   "cats": [
+    "story",
+    "quote",
+    "symbols"
+   ],
+   "mod": "none",
+   "opp": {
+    "count": 5,
+    "wpm": 92
+   },
+   "accStar": 94,
+   "reward": {
+    "coins": 662,
+    "xp": 298,
+    "gems": 0
+   }
+  },
+  {
+   "n": 44,
+   "biome": "future",
+   "boss": null,
+   "title": {
+    "ar": "المدينة المستقبلية 2",
+    "en": "Future City 2",
+    "fr": "Ville Futuriste 2"
+   },
+   "lenMin": 149,
+   "lenMax": 262,
+   "cats": [
+    "story",
+    "quote",
+    "symbols"
+   ],
+   "mod": "none",
+   "opp": {
+    "count": 5,
+    "wpm": 94
+   },
+   "accStar": 94,
+   "reward": {
+    "coins": 676,
+    "xp": 304,
+    "gems": 0
+   }
+  },
+  {
+   "n": 45,
+   "biome": "future",
+   "boss": null,
+   "title": {
+    "ar": "المدينة المستقبلية 3",
+    "en": "Future City 3",
+    "fr": "Ville Futuriste 3"
+   },
+   "lenMin": 151,
+   "lenMax": 266,
+   "cats": [
+    "story",
+    "quote",
+    "symbols"
+   ],
+   "mod": "none",
+   "opp": {
+    "count": 5,
+    "wpm": 95
+   },
+   "accStar": 95,
+   "reward": {
+    "coins": 690,
+    "xp": 310,
+    "gems": 0
+   }
+  },
+  {
+   "n": 46,
+   "biome": "future",
+   "boss": null,
+   "title": {
+    "ar": "المدينة المستقبلية 4",
+    "en": "Future City 4",
+    "fr": "Ville Futuriste 4"
+   },
+   "lenMin": 154,
+   "lenMax": 271,
+   "cats": [
+    "story",
+    "quote",
+    "symbols"
+   ],
+   "mod": "none",
+   "opp": {
+    "count": 5,
+    "wpm": 97
+   },
+   "accStar": 95,
+   "reward": {
+    "coins": 704,
+    "xp": 316,
+    "gems": 0
+   }
+  },
+  {
+   "n": 47,
+   "biome": "future",
+   "boss": null,
+   "title": {
+    "ar": "المدينة المستقبلية 5",
+    "en": "Future City 5",
+    "fr": "Ville Futuriste 5"
+   },
+   "lenMin": 157,
+   "lenMax": 276,
+   "cats": [
+    "story",
+    "quote",
+    "symbols"
+   ],
+   "mod": "storm",
+   "opp": {
+    "count": 5,
+    "wpm": 99
+   },
+   "accStar": 95,
+   "reward": {
+    "coins": 718,
+    "xp": 322,
+    "gems": 0
+   }
+  },
+  {
+   "n": 48,
+   "biome": "future",
+   "boss": null,
+   "title": {
+    "ar": "المدينة المستقبلية 6",
+    "en": "Future City 6",
+    "fr": "Ville Futuriste 6"
+   },
+   "lenMin": 159,
+   "lenMax": 280,
+   "cats": [
+    "story",
+    "quote",
+    "symbols"
+   ],
+   "mod": "storm",
+   "opp": {
+    "count": 5,
+    "wpm": 101
+   },
+   "accStar": 95,
+   "reward": {
+    "coins": 732,
+    "xp": 328,
+    "gems": 0
+   }
+  },
+  {
+   "n": 49,
+   "biome": "future",
+   "boss": null,
+   "title": {
+    "ar": "المدينة المستقبلية 7",
+    "en": "Future City 7",
+    "fr": "Ville Futuriste 7"
+   },
+   "lenMin": 162,
+   "lenMax": 285,
+   "cats": [
+    "story",
+    "quote",
+    "symbols"
+   ],
+   "mod": "blackout",
+   "opp": {
+    "count": 5,
+    "wpm": 102
+   },
+   "accStar": 95,
+   "reward": {
+    "coins": 746,
+    "xp": 334,
+    "gems": 0
+   }
+  },
+  {
+   "n": 50,
+   "biome": "future",
+   "boss": "boss_future",
+   "title": {
+    "ar": "المدينة المستقبلية 8 — الزعيم",
+    "en": "Future City 8 — Boss",
+    "fr": "Ville Futuriste 8 — Boss"
+   },
+   "lenMin": 165,
+   "lenMax": 290,
+   "cats": [
+    "story",
+    "quote",
+    "symbols"
+   ],
+   "mod": "storm",
+   "opp": {
+    "count": 6,
+    "wpm": 104
+   },
+   "accStar": 95,
+   "reward": {
+    "coins": 1060,
+    "xp": 460,
+    "gems": 25
+   }
+  }
+ ]
+}

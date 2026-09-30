@@ -1,0 +1,451 @@
+{
+ "version": 1,
+ "dailyCount": 3,
+ "weeklyCount": 3,
+ "items": [
+  {
+   "id": "d_races_3",
+   "period": "daily",
+   "metric": "races",
+   "target": 3,
+   "reward": {
+    "coins": 150
+   },
+   "sp": 20,
+   "name": {
+    "ar": "أكمل 3 سباقات",
+    "en": "Finish 3 races",
+    "fr": "Terminez 3 courses"
+   },
+   "enabled": true
+  },
+  {
+   "id": "d_races_5",
+   "period": "daily",
+   "metric": "races",
+   "target": 5,
+   "reward": {
+    "coins": 250
+   },
+   "sp": 20,
+   "name": {
+    "ar": "أكمل 5 سباقات",
+    "en": "Finish 5 races",
+    "fr": "Terminez 5 courses"
+   },
+   "enabled": true
+  },
+  {
+   "id": "d_races_8",
+   "period": "daily",
+   "metric": "races",
+   "target": 8,
+   "reward": {
+    "coins": 400
+   },
+   "sp": 20,
+   "name": {
+    "ar": "أكمل 8 سباقات",
+    "en": "Finish 8 races",
+    "fr": "Terminez 8 courses"
+   },
+   "enabled": true
+  },
+  {
+   "id": "d_wins_1",
+   "period": "daily",
+   "metric": "wins",
+   "target": 1,
+   "reward": {
+    "coins": 200
+   },
+   "sp": 20,
+   "name": {
+    "ar": "افز في 1 سباقات",
+    "en": "Win 1 races",
+    "fr": "Gagnez 1 courses"
+   },
+   "enabled": true
+  },
+  {
+   "id": "d_wins_2",
+   "period": "daily",
+   "metric": "wins",
+   "target": 2,
+   "reward": {
+    "coins": 300
+   },
+   "sp": 20,
+   "name": {
+    "ar": "افز في 2 سباقات",
+    "en": "Win 2 races",
+    "fr": "Gagnez 2 courses"
+   },
+   "enabled": true
+  },
+  {
+   "id": "d_wins_3",
+   "period": "daily",
+   "metric": "wins",
+   "target": 3,
+   "reward": {
+    "coins": 450
+   },
+   "sp": 20,
+   "name": {
+    "ar": "افز في 3 سباقات",
+    "en": "Win 3 races",
+    "fr": "Gagnez 3 courses"
+   },
+   "enabled": true
+  },
+  {
+   "id": "d_chars_500",
+   "period": "daily",
+   "metric": "chars",
+   "target": 500,
+   "reward": {
+    "coins": 150
+   },
+   "sp": 20,
+   "name": {
+    "ar": "اكتب 500 حرفاً",
+    "en": "Type 500 characters",
+    "fr": "Tapez 500 caractères"
+   },
+   "enabled": true
+  },
+  {
+   "id": "d_chars_1000",
+   "period": "daily",
+   "metric": "chars",
+   "target": 1000,
+   "reward": {
+    "coins": 250
+   },
+   "sp": 20,
+   "name": {
+    "ar": "اكتب 1000 حرفاً",
+    "en": "Type 1000 characters",
+    "fr": "Tapez 1000 caractères"
+   },
+   "enabled": true
+  },
+  {
+   "id": "d_chars_2000",
+   "period": "daily",
+   "metric": "chars",
+   "target": 2000,
+   "reward": {
+    "coins": 400
+   },
+   "sp": 20,
+   "name": {
+    "ar": "اكتب 2000 حرفاً",
+    "en": "Type 2000 characters",
+    "fr": "Tapez 2000 caractères"
+   },
+   "enabled": true
+  },
+  {
+   "id": "d_perfect_1",
+   "period": "daily",
+   "metric": "perfect_races",
+   "target": 1,
+   "reward": {
+    "coins": 300,
+    "gems": 3
+   },
+   "sp": 20,
+   "name": {
+    "ar": "أنهِ سباقاً بلا أخطاء",
+    "en": "Finish an error-free race",
+    "fr": "Terminez une course sans erreur"
+   },
+   "enabled": true
+  },
+  {
+   "id": "d_nitro_3",
+   "period": "daily",
+   "metric": "nitro_count",
+   "target": 3,
+   "reward": {
+    "coins": 200
+   },
+   "sp": 20,
+   "name": {
+    "ar": "فعّل النيترو 3 مرات",
+    "en": "Trigger nitro 3 times",
+    "fr": "Activez le nitro 3 fois"
+   },
+   "enabled": true
+  },
+  {
+   "id": "d_power_3",
+   "period": "daily",
+   "metric": "powerups_used",
+   "target": 3,
+   "reward": {
+    "coins": 200
+   },
+   "sp": 20,
+   "name": {
+    "ar": "استخدم 3 قوى بالكتابة",
+    "en": "Use 3 power-ups",
+    "fr": "Utilisez 3 bonus"
+   },
+   "enabled": true
+  },
+  {
+   "id": "d_pit_1",
+   "period": "daily",
+   "metric": "pit_perfect",
+   "target": 1,
+   "reward": {
+    "coins": 250
+   },
+   "sp": 20,
+   "name": {
+    "ar": "أنجز Pit Stop مثالي",
+    "en": "Do a perfect pit stop",
+    "fr": "Réussissez un arrêt parfait"
+   },
+   "enabled": true
+  },
+  {
+   "id": "d_lesson_1",
+   "period": "daily",
+   "metric": "lessons_done",
+   "target": 1,
+   "reward": {
+    "coins": 200
+   },
+   "sp": 20,
+   "name": {
+    "ar": "أكمل درساً في الكتابة",
+    "en": "Complete a typing lesson",
+    "fr": "Terminez une leçon"
+   },
+   "enabled": true
+  },
+  {
+   "id": "d_vocab_10",
+   "period": "daily",
+   "metric": "vocab_words",
+   "target": 10,
+   "reward": {
+    "coins": 200
+   },
+   "sp": 20,
+   "name": {
+    "ar": "ترجم 10 كلمات",
+    "en": "Translate 10 words",
+    "fr": "Traduisez 10 mots"
+   },
+   "enabled": true
+  },
+  {
+   "id": "d_combat_10",
+   "period": "daily",
+   "metric": "combat_kills",
+   "target": 10,
+   "reward": {
+    "coins": 250
+   },
+   "sp": 20,
+   "name": {
+    "ar": "دمّر 10 أهداف",
+    "en": "Destroy 10 targets",
+    "fr": "Détruisez 10 cibles"
+   },
+   "enabled": true
+  },
+  {
+   "id": "w_races_20",
+   "period": "weekly",
+   "metric": "races",
+   "target": 20,
+   "reward": {
+    "coins": 1200,
+    "gems": 10
+   },
+   "sp": 80,
+   "name": {
+    "ar": "أكمل 20 سباقاً",
+    "en": "Finish 20 races",
+    "fr": "Terminez 20 courses"
+   },
+   "enabled": true
+  },
+  {
+   "id": "w_races_35",
+   "period": "weekly",
+   "metric": "races",
+   "target": 35,
+   "reward": {
+    "coins": 2000,
+    "gems": 20
+   },
+   "sp": 80,
+   "name": {
+    "ar": "أكمل 35 سباقاً",
+    "en": "Finish 35 races",
+    "fr": "Terminez 35 courses"
+   },
+   "enabled": true
+  },
+  {
+   "id": "w_races_50",
+   "period": "weekly",
+   "metric": "races",
+   "target": 50,
+   "reward": {
+    "coins": 3000,
+    "gems": 30
+   },
+   "sp": 80,
+   "name": {
+    "ar": "أكمل 50 سباقاً",
+    "en": "Finish 50 races",
+    "fr": "Terminez 50 courses"
+   },
+   "enabled": true
+  },
+  {
+   "id": "w_wins_10",
+   "period": "weekly",
+   "metric": "wins",
+   "target": 10,
+   "reward": {
+    "coins": 1500,
+    "gems": 15
+   },
+   "sp": 80,
+   "name": {
+    "ar": "افز في 10 سباقاً",
+    "en": "Win 10 races",
+    "fr": "Gagnez 10 courses"
+   },
+   "enabled": true
+  },
+  {
+   "id": "w_wins_20",
+   "period": "weekly",
+   "metric": "wins",
+   "target": 20,
+   "reward": {
+    "coins": 2500,
+    "gems": 25
+   },
+   "sp": 80,
+   "name": {
+    "ar": "افز في 20 سباقاً",
+    "en": "Win 20 races",
+    "fr": "Gagnez 20 courses"
+   },
+   "enabled": true
+  },
+  {
+   "id": "w_chars_6000",
+   "period": "weekly",
+   "metric": "chars",
+   "target": 6000,
+   "reward": {
+    "coins": 1500,
+    "gems": 15
+   },
+   "sp": 80,
+   "name": {
+    "ar": "اكتب 6000 حرفاً",
+    "en": "Type 6000 characters",
+    "fr": "Tapez 6000 caractères"
+   },
+   "enabled": true
+  },
+  {
+   "id": "w_chars_12000",
+   "period": "weekly",
+   "metric": "chars",
+   "target": 12000,
+   "reward": {
+    "coins": 2500,
+    "gems": 25
+   },
+   "sp": 80,
+   "name": {
+    "ar": "اكتب 12000 حرفاً",
+    "en": "Type 12000 characters",
+    "fr": "Tapez 12000 caractères"
+   },
+   "enabled": true
+  },
+  {
+   "id": "w_perfect_5",
+   "period": "weekly",
+   "metric": "perfect_races",
+   "target": 5,
+   "reward": {
+    "coins": 2000,
+    "gems": 20
+   },
+   "sp": 80,
+   "name": {
+    "ar": "أنهِ 5 سباقات مثالية",
+    "en": "Finish 5 perfect races",
+    "fr": "Terminez 5 courses parfaites"
+   },
+   "enabled": true
+  },
+  {
+   "id": "w_daily_3",
+   "period": "weekly",
+   "metric": "daily_done",
+   "target": 3,
+   "reward": {
+    "coins": 1800,
+    "gems": 20
+   },
+   "sp": 80,
+   "name": {
+    "ar": "أكمل 3 تحديات يومية",
+    "en": "Complete 3 daily challenges",
+    "fr": "Terminez 3 défis quotidiens"
+   },
+   "enabled": true
+  },
+  {
+   "id": "w_lessons_5",
+   "period": "weekly",
+   "metric": "lessons_done",
+   "target": 5,
+   "reward": {
+    "coins": 1500,
+    "gems": 15
+   },
+   "sp": 80,
+   "name": {
+    "ar": "أكمل 5 دروس",
+    "en": "Complete 5 lessons",
+    "fr": "Terminez 5 leçons"
+   },
+   "enabled": true
+  },
+  {
+   "id": "w_tourn_2",
+   "period": "weekly",
+   "metric": "tournaments_played",
+   "target": 2,
+   "reward": {
+    "coins": 1800,
+    "gems": 20
+   },
+   "sp": 80,
+   "name": {
+    "ar": "شارك في 2 بطولات",
+    "en": "Play 2 tournaments",
+    "fr": "Jouez 2 tournois"
+   },
+   "enabled": true
+  }
+ ]
+}

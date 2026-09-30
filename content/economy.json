@@ -1,0 +1,121 @@
+{
+ "version": 1,
+ "race": {
+  "baseCoins": 18,
+  "perWpm": 0.55,
+  "rankMul": [
+   1.0,
+   0.7,
+   0.5,
+   0.35,
+   0.25,
+   0.2,
+   0.15,
+   0.12
+  ],
+  "minGuaranteed": 12,
+  "dailyCoinCap": 2500,
+  "xpBase": 25,
+  "xpPerWpm": 0.45,
+  "accBonusFrom": 95,
+  "accBonus": 0.15,
+  "riskMultiplier": 2.0,
+  "rankedWin": 22,
+  "rankedLoss": 12,
+  "rankedMax": 40
+ },
+ "levels": {
+  "xpBase": 120,
+  "xpStep": 45,
+  "maxLevel": 100
+ },
+ "upgrade": {
+  "maxLevel": 5,
+  "costBase": 400,
+  "costGrowth": 1.85,
+  "bonusPerLevel": 0.03,
+  "gemCostAtMax": 0
+ },
+ "tiers": [
+  {
+   "id": "bronze",
+   "rp": 0
+  },
+  {
+   "id": "silver",
+   "rp": 100
+  },
+  {
+   "id": "gold",
+   "rp": 300
+  },
+  {
+   "id": "platinum",
+   "rp": 600
+  },
+  {
+   "id": "diamond",
+   "rp": 1000
+  },
+  {
+   "id": "master",
+   "rp": 1500
+  },
+  {
+   "id": "legend",
+   "rp": 2200
+  }
+ ],
+ "ads": {
+  "rewardedCoins": 150,
+  "rewardedDailyLimit": 6,
+  "interstitialEveryNRaces": 3,
+  "interstitialEnabled": true,
+  "interstitialMinSeconds": 180
+ },
+ "streak": {
+  "rewards": [
+   {
+    "coins": 100
+   },
+   {
+    "coins": 150
+   },
+   {
+    "coins": 200,
+    "gems": 2
+   },
+   {
+    "coins": 250
+   },
+   {
+    "coins": 300,
+    "gems": 3
+   },
+   {
+    "coins": 400
+   },
+   {
+    "coins": 600,
+    "gems": 10
+   }
+  ]
+ },
+ "referral": {
+  "level": 5,
+  "inviterReward": {
+   "coins": 3000,
+   "gems": 30
+  },
+  "inviteeReward": {
+   "coins": 2000,
+   "gems": 20
+  }
+ },
+ "tests": {
+  "officialSeconds": 60,
+  "minAccuracy": 90
+ },
+ "breakMinutes": 45,
+ "maxHumanWpm": 240
+}

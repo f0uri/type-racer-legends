@@ -1,0 +1,329 @@
+{
+"version": 1,
+"items": [
+{
+"id": "w_tangier000",
+"t": "Tangier sits where the Atlantic meets the Mediterranean, and from its white hills you can see Europe across the water.",
+"cat": "world",
+"topic": "tangier",
+"lang": "en",
+"diff": 3,
+"len": 118
+},
+{
+"id": "w_tangier001",
+"t": "The old medina of Tangier is a maze of blue doors, bright tiles, and cafes where friends share mint tea for hours.",
+"cat": "world",
+"topic": "tangier",
+"lang": "en",
+"diff": 3,
+"len": 114
+},
+{
+"id": "w_tangier002",
+"t": "Writers and artists have loved this city for a century, because every street seems to hold an unfinished story.",
+"cat": "world",
+"topic": "tangier",
+"lang": "en",
+"diff": 3,
+"len": 111
+},
+{
+"id": "w_paris000",
+"t": "Paris lights up every evening, and the Eiffel Tower sparkles for five minutes at the top of each hour.",
+"cat": "world",
+"topic": "paris",
+"lang": "en",
+"diff": 2,
+"len": 102
+},
+{
+"id": "w_paris001",
+"t": "Along the river Seine, booksellers open green boxes full of old books, postcards, and forgotten maps.",
+"cat": "world",
+"topic": "paris",
+"lang": "en",
+"diff": 3,
+"len": 101
+},
+{
+"id": "w_paris002",
+"t": "A warm croissant, a small coffee, and a quiet street corner are all you need for a perfect Paris morning.",
+"cat": "world",
+"topic": "paris",
+"lang": "en",
+"diff": 3,
+"len": 105
+},
+{
+"id": "w_london000",
+"t": "London is a city of bridges, red buses, and clock towers, and its famous bell has marked the hours for generations.",
+"cat": "world",
+"topic": "london",
+"lang": "en",
+"diff": 3,
+"len": 115
+},
+{
+"id": "w_london001",
+"t": "In London parks, people read on green chairs while ducks and pigeons walk around as if they owned the place.",
+"cat": "world",
+"topic": "london",
+"lang": "en",
+"diff": 3,
+"len": 108
+},
+{
+"id": "w_london002",
+"t": "Underground trains rush beneath the streets, and millions of stories pass each other without a single word.",
+"cat": "world",
+"topic": "london",
+"lang": "en",
+"diff": 3,
+"len": 107
+},
+{
+"id": "w_rome000",
+"t": "Rome was not built in a day, and every stone of the Colosseum remembers the roar of a crowd two thousand years ago.",
+"cat": "world",
+"topic": "rome",
+"lang": "en",
+"diff": 2,
+"len": 115
+},
+{
+"id": "w_rome001",
+"t": "Toss a coin into the Trevi Fountain, make a wish, and the legend says that you will return to the eternal city.",
+"cat": "world",
+"topic": "rome",
+"lang": "en",
+"diff": 2,
+"len": 111
+},
+{
+"id": "w_rome002",
+"t": "In Rome, the past is never far away: you can drink coffee beside a column that is older than most countries.",
+"cat": "world",
+"topic": "rome",
+"lang": "en",
+"diff": 3,
+"len": 108
+},
+{
+"id": "w_cairo000",
+"t": "Cairo sits beside the great river Nile, and on its edge the pyramids have watched the desert for forty five centuries.",
+"cat": "world",
+"topic": "cairo",
+"lang": "en",
+"diff": 3,
+"len": 118
+},
+{
+"id": "w_cairo001",
+"t": "In the old bazaar, copper lanterns shine, spices fill the air, and shopkeepers greet you like a long lost cousin.",
+"cat": "world",
+"topic": "cairo",
+"lang": "en",
+"diff": 3,
+"len": 113
+},
+{
+"id": "w_cairo002",
+"t": "The Nile carries boats with white sails past a city that never sleeps and always has time for one more story.",
+"cat": "world",
+"topic": "cairo",
+"lang": "en",
+"diff": 2,
+"len": 109
+},
+{
+"id": "w_dubai000",
+"t": "Dubai rose from the desert with towers of glass, and the tallest of them touches the clouds above the sunny coast.",
+"cat": "world",
+"topic": "dubai",
+"lang": "en",
+"diff": 3,
+"len": 114
+},
+{
+"id": "w_dubai001",
+"t": "At sunset, the golden dunes outside the city turn red, and the silence is broken only by a soft desert wind.",
+"cat": "world",
+"topic": "dubai",
+"lang": "en",
+"diff": 3,
+"len": 108
+},
+{
+"id": "w_dubai002",
+"t": "Modern trains, floating gardens, and huge fountains show how quickly a bold dream can become a real place.",
+"cat": "world",
+"topic": "dubai",
+"lang": "en",
+"diff": 3,
+"len": 106
+},
+{
+"id": "w_mumbai000",
+"t": "Mumbai never stops moving: trains full of commuters, colorful taxis, and sea breezes along the long curved bay.",
+"cat": "world",
+"topic": "mumbai",
+"lang": "en",
+"diff": 3,
+"len": 111
+},
+{
+"id": "w_mumbai001",
+"t": "Street vendors sell hot snacks, bright flowers, and sweet tea while the city hums with music from every corner.",
+"cat": "world",
+"topic": "mumbai",
+"lang": "en",
+"diff": 3,
+"len": 111
+},
+{
+"id": "w_mumbai002",
+"t": "The Gateway of India stands by the harbor, welcoming ships and travelers just as it has for a hundred years.",
+"cat": "world",
+"topic": "mumbai",
+"lang": "en",
+"diff": 3,
+"len": 108
+},
+{
+"id": "w_beijing000",
+"t": "Beijing is home to the Forbidden City, a palace with nearly one thousand buildings and red walls that glow at sunset.",
+"cat": "world",
+"topic": "beijing",
+"lang": "en",
+"diff": 3,
+"len": 117
+},
+{
+"id": "w_beijing001",
+"t": "The Great Wall winds over green mountains for thousands of kilometers, and every step on it feels like a step in history.",
+"cat": "world",
+"topic": "beijing",
+"lang": "en",
+"diff": 3,
+"len": 121
+},
+{
+"id": "w_beijing002",
+"t": "In quiet parks at dawn, people practice slow exercises while the old city wakes up with the smell of fresh tea.",
+"cat": "world",
+"topic": "beijing",
+"lang": "en",
+"diff": 3,
+"len": 111
+},
+{
+"id": "w_tokyo000",
+"t": "Tokyo blends ancient temples and neon towers, and the crossing at Shibuya fills with thousands of people every minute.",
+"cat": "world",
+"topic": "tokyo",
+"lang": "en",
+"diff": 3,
+"len": 118
+},
+{
+"id": "w_tokyo001",
+"t": "Fast trains arrive to the second, vending machines glow on every corner, and politeness is part of the daily rhythm.",
+"cat": "world",
+"topic": "tokyo",
+"lang": "en",
+"diff": 3,
+"len": 116
+},
+{
+"id": "w_tokyo002",
+"t": "In spring, cherry blossoms cover the parks in soft pink, and families sit under the trees to share a quiet picnic.",
+"cat": "world",
+"topic": "tokyo",
+"lang": "en",
+"diff": 3,
+"len": 114
+},
+{
+"id": "w_sydney000",
+"t": "Sydney harbor sparkles under the sun, and the white sails of the Opera House look like shells resting on the water.",
+"cat": "world",
+"topic": "sydney",
+"lang": "en",
+"diff": 3,
+"len": 115
+},
+{
+"id": "w_sydney001",
+"t": "Surfers greet the waves at dawn, ferries cross the bay, and the famous bridge curves over the city like a steel rainbow.",
+"cat": "world",
+"topic": "sydney",
+"lang": "en",
+"diff": 3,
+"len": 120
+},
+{
+"id": "w_sydney002",
+"t": "Down under, summer arrives when winter begins elsewhere, and Christmas is celebrated on the beach.",
+"cat": "world",
+"topic": "sydney",
+"lang": "en",
+"diff": 3,
+"len": 98
+},
+{
+"id": "w_rio000",
+"t": "Rio de Janeiro lives between green mountains and golden beaches, and a giant statue opens its arms above the city.",
+"cat": "world",
+"topic": "rio",
+"lang": "en",
+"diff": 3,
+"len": 114
+},
+{
+"id": "w_rio001",
+"t": "Samba drums echo through the streets, children play football on the sand, and the sunset paints the bay in orange.",
+"cat": "world",
+"topic": "rio",
+"lang": "en",
+"diff": 3,
+"len": 114
+},
+{
+"id": "w_rio002",
+"t": "The cable car climbs Sugarloaf Mountain, and from the top the whole shining coastline looks like a living postcard.",
+"cat": "world",
+"topic": "rio",
+"lang": "en",
+"diff": 3,
+"len": 115
+},
+{
+"id": "w_newyork000",
+"t": "New York is a city of yellow taxis, tall towers, and bright screens, and its green lady holds a torch for the world.",
+"cat": "world",
+"topic": "newyork",
+"lang": "en",
+"diff": 3,
+"len": 116
+},
+{
+"id": "w_newyork001",
+"t": "In Central Park, joggers, artists, and musicians share the same quiet paths in the middle of the busy metropolis.",
+"cat": "world",
+"topic": "newyork",
+"lang": "en",
+"diff": 3,
+"len": 113
+},
+{
+"id": "w_newyork002",
+"t": "Every street in Manhattan has a rhythm, and the subway hums beneath it like a giant heartbeat that never rests.",
+"cat": "world",
+"topic": "newyork",
+"lang": "en",
+"diff": 3,
+"len": 111
+}
+]
+}

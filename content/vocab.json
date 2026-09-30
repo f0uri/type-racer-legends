@@ -1,0 +1,1727 @@
+{
+ "version": 1,
+ "items": [
+  {
+   "id": "v1_000",
+   "en": "car",
+   "ar": "سيارة",
+   "level": 1
+  },
+  {
+   "id": "v1_001",
+   "en": "bike",
+   "ar": "دراجة",
+   "level": 1
+  },
+  {
+   "id": "v1_002",
+   "en": "road",
+   "ar": "طريق",
+   "level": 1
+  },
+  {
+   "id": "v1_003",
+   "en": "fast",
+   "ar": "سريع",
+   "level": 1
+  },
+  {
+   "id": "v1_004",
+   "en": "slow",
+   "ar": "بطيء",
+   "level": 1
+  },
+  {
+   "id": "v1_005",
+   "en": "win",
+   "ar": "يفوز",
+   "level": 1
+  },
+  {
+   "id": "v1_006",
+   "en": "race",
+   "ar": "سباق",
+   "level": 1
+  },
+  {
+   "id": "v1_007",
+   "en": "fire",
+   "ar": "نار",
+   "level": 1
+  },
+  {
+   "id": "v1_008",
+   "en": "water",
+   "ar": "ماء",
+   "level": 1
+  },
+  {
+   "id": "v1_009",
+   "en": "sun",
+   "ar": "شمس",
+   "level": 1
+  },
+  {
+   "id": "v1_010",
+   "en": "moon",
+   "ar": "قمر",
+   "level": 1
+  },
+  {
+   "id": "v1_011",
+   "en": "star",
+   "ar": "نجمة",
+   "level": 1
+  },
+  {
+   "id": "v1_012",
+   "en": "day",
+   "ar": "يوم",
+   "level": 1
+  },
+  {
+   "id": "v1_013",
+   "en": "night",
+   "ar": "ليل",
+   "level": 1
+  },
+  {
+   "id": "v1_014",
+   "en": "house",
+   "ar": "بيت",
+   "level": 1
+  },
+  {
+   "id": "v1_015",
+   "en": "door",
+   "ar": "باب",
+   "level": 1
+  },
+  {
+   "id": "v1_016",
+   "en": "book",
+   "ar": "كتاب",
+   "level": 1
+  },
+  {
+   "id": "v1_017",
+   "en": "pen",
+   "ar": "قلم",
+   "level": 1
+  },
+  {
+   "id": "v1_018",
+   "en": "school",
+   "ar": "مدرسة",
+   "level": 1
+  },
+  {
+   "id": "v1_019",
+   "en": "friend",
+   "ar": "صديق",
+   "level": 1
+  },
+  {
+   "id": "v1_020",
+   "en": "family",
+   "ar": "عائلة",
+   "level": 1
+  },
+  {
+   "id": "v1_021",
+   "en": "mother",
+   "ar": "أم",
+   "level": 1
+  },
+  {
+   "id": "v1_022",
+   "en": "father",
+   "ar": "أب",
+   "level": 1
+  },
+  {
+   "id": "v1_023",
+   "en": "brother",
+   "ar": "أخ",
+   "level": 1
+  },
+  {
+   "id": "v1_024",
+   "en": "sister",
+   "ar": "أخت",
+   "level": 1
+  },
+  {
+   "id": "v1_025",
+   "en": "child",
+   "ar": "طفل",
+   "level": 1
+  },
+  {
+   "id": "v1_026",
+   "en": "man",
+   "ar": "رجل",
+   "level": 1
+  },
+  {
+   "id": "v1_027",
+   "en": "woman",
+   "ar": "امرأة",
+   "level": 1
+  },
+  {
+   "id": "v1_028",
+   "en": "dog",
+   "ar": "كلب",
+   "level": 1
+  },
+  {
+   "id": "v1_029",
+   "en": "cat",
+   "ar": "قطة",
+   "level": 1
+  },
+  {
+   "id": "v1_030",
+   "en": "bird",
+   "ar": "طائر",
+   "level": 1
+  },
+  {
+   "id": "v1_031",
+   "en": "fish",
+   "ar": "سمكة",
+   "level": 1
+  },
+  {
+   "id": "v1_032",
+   "en": "tree",
+   "ar": "شجرة",
+   "level": 1
+  },
+  {
+   "id": "v1_033",
+   "en": "flower",
+   "ar": "زهرة",
+   "level": 1
+  },
+  {
+   "id": "v1_034",
+   "en": "apple",
+   "ar": "تفاحة",
+   "level": 1
+  },
+  {
+   "id": "v1_035",
+   "en": "bread",
+   "ar": "خبز",
+   "level": 1
+  },
+  {
+   "id": "v1_036",
+   "en": "milk",
+   "ar": "حليب",
+   "level": 1
+  },
+  {
+   "id": "v1_037",
+   "en": "tea",
+   "ar": "شاي",
+   "level": 1
+  },
+  {
+   "id": "v1_038",
+   "en": "coffee",
+   "ar": "قهوة",
+   "level": 1
+  },
+  {
+   "id": "v1_039",
+   "en": "food",
+   "ar": "طعام",
+   "level": 1
+  },
+  {
+   "id": "v1_040",
+   "en": "big",
+   "ar": "كبير",
+   "level": 1
+  },
+  {
+   "id": "v1_041",
+   "en": "small",
+   "ar": "صغير",
+   "level": 1
+  },
+  {
+   "id": "v1_042",
+   "en": "hot",
+   "ar": "حار",
+   "level": 1
+  },
+  {
+   "id": "v1_043",
+   "en": "cold",
+   "ar": "بارد",
+   "level": 1
+  },
+  {
+   "id": "v1_044",
+   "en": "good",
+   "ar": "جيد",
+   "level": 1
+  },
+  {
+   "id": "v1_045",
+   "en": "bad",
+   "ar": "سيئ",
+   "level": 1
+  },
+  {
+   "id": "v1_046",
+   "en": "new",
+   "ar": "جديد",
+   "level": 1
+  },
+  {
+   "id": "v1_047",
+   "en": "old",
+   "ar": "قديم",
+   "level": 1
+  },
+  {
+   "id": "v1_048",
+   "en": "happy",
+   "ar": "سعيد",
+   "level": 1
+  },
+  {
+   "id": "v1_049",
+   "en": "sad",
+   "ar": "حزين",
+   "level": 1
+  },
+  {
+   "id": "v1_050",
+   "en": "red",
+   "ar": "أحمر",
+   "level": 1
+  },
+  {
+   "id": "v1_051",
+   "en": "blue",
+   "ar": "أزرق",
+   "level": 1
+  },
+  {
+   "id": "v1_052",
+   "en": "green",
+   "ar": "أخضر",
+   "level": 1
+  },
+  {
+   "id": "v1_053",
+   "en": "yellow",
+   "ar": "أصفر",
+   "level": 1
+  },
+  {
+   "id": "v1_054",
+   "en": "black",
+   "ar": "أسود",
+   "level": 1
+  },
+  {
+   "id": "v1_055",
+   "en": "white",
+   "ar": "أبيض",
+   "level": 1
+  },
+  {
+   "id": "v1_056",
+   "en": "one",
+   "ar": "واحد",
+   "level": 1
+  },
+  {
+   "id": "v1_057",
+   "en": "two",
+   "ar": "اثنان",
+   "level": 1
+  },
+  {
+   "id": "v1_058",
+   "en": "three",
+   "ar": "ثلاثة",
+   "level": 1
+  },
+  {
+   "id": "v1_059",
+   "en": "ten",
+   "ar": "عشرة",
+   "level": 1
+  },
+  {
+   "id": "v1_060",
+   "en": "yes",
+   "ar": "نعم",
+   "level": 1
+  },
+  {
+   "id": "v1_061",
+   "en": "no",
+   "ar": "لا",
+   "level": 1
+  },
+  {
+   "id": "v1_062",
+   "en": "hello",
+   "ar": "مرحبا",
+   "level": 1
+  },
+  {
+   "id": "v1_063",
+   "en": "thanks",
+   "ar": "شكرا",
+   "level": 1
+  },
+  {
+   "id": "v1_064",
+   "en": "please",
+   "ar": "من فضلك",
+   "level": 1
+  },
+  {
+   "id": "v1_065",
+   "en": "sorry",
+   "ar": "آسف",
+   "level": 1
+  },
+  {
+   "id": "v1_066",
+   "en": "eat",
+   "ar": "يأكل",
+   "level": 1
+  },
+  {
+   "id": "v1_067",
+   "en": "drink",
+   "ar": "يشرب",
+   "level": 1
+  },
+  {
+   "id": "v1_068",
+   "en": "sleep",
+   "ar": "ينام",
+   "level": 1
+  },
+  {
+   "id": "v1_069",
+   "en": "walk",
+   "ar": "يمشي",
+   "level": 1
+  },
+  {
+   "id": "v1_070",
+   "en": "run",
+   "ar": "يركض",
+   "level": 1
+  },
+  {
+   "id": "v1_071",
+   "en": "read",
+   "ar": "يقرأ",
+   "level": 1
+  },
+  {
+   "id": "v1_072",
+   "en": "write",
+   "ar": "يكتب",
+   "level": 1
+  },
+  {
+   "id": "v1_073",
+   "en": "play",
+   "ar": "يلعب",
+   "level": 1
+  },
+  {
+   "id": "v1_074",
+   "en": "look",
+   "ar": "ينظر",
+   "level": 1
+  },
+  {
+   "id": "v1_075",
+   "en": "love",
+   "ar": "يحب",
+   "level": 1
+  },
+  {
+   "id": "v1_076",
+   "en": "city",
+   "ar": "مدينة",
+   "level": 1
+  },
+  {
+   "id": "v1_077",
+   "en": "sea",
+   "ar": "بحر",
+   "level": 1
+  },
+  {
+   "id": "v1_078",
+   "en": "sky",
+   "ar": "سماء",
+   "level": 1
+  },
+  {
+   "id": "v1_079",
+   "en": "rain",
+   "ar": "مطر",
+   "level": 1
+  },
+  {
+   "id": "v1_080",
+   "en": "snow",
+   "ar": "ثلج",
+   "level": 1
+  },
+  {
+   "id": "v2_000",
+   "en": "engine",
+   "ar": "محرك",
+   "level": 2
+  },
+  {
+   "id": "v2_001",
+   "en": "speed",
+   "ar": "سرعة",
+   "level": 2
+  },
+  {
+   "id": "v2_002",
+   "en": "driver",
+   "ar": "سائق",
+   "level": 2
+  },
+  {
+   "id": "v2_003",
+   "en": "winner",
+   "ar": "فائز",
+   "level": 2
+  },
+  {
+   "id": "v2_004",
+   "en": "teacher",
+   "ar": "معلم",
+   "level": 2
+  },
+  {
+   "id": "v2_005",
+   "en": "student",
+   "ar": "طالب",
+   "level": 2
+  },
+  {
+   "id": "v2_006",
+   "en": "doctor",
+   "ar": "طبيب",
+   "level": 2
+  },
+  {
+   "id": "v2_007",
+   "en": "market",
+   "ar": "سوق",
+   "level": 2
+  },
+  {
+   "id": "v2_008",
+   "en": "street",
+   "ar": "شارع",
+   "level": 2
+  },
+  {
+   "id": "v2_009",
+   "en": "garden",
+   "ar": "حديقة",
+   "level": 2
+  },
+  {
+   "id": "v2_010",
+   "en": "kitchen",
+   "ar": "مطبخ",
+   "level": 2
+  },
+  {
+   "id": "v2_011",
+   "en": "window",
+   "ar": "نافذة",
+   "level": 2
+  },
+  {
+   "id": "v2_012",
+   "en": "mirror",
+   "ar": "مرآة",
+   "level": 2
+  },
+  {
+   "id": "v2_013",
+   "en": "pocket",
+   "ar": "جيب",
+   "level": 2
+  },
+  {
+   "id": "v2_014",
+   "en": "basket",
+   "ar": "سلة",
+   "level": 2
+  },
+  {
+   "id": "v2_015",
+   "en": "bridge",
+   "ar": "جسر",
+   "level": 2
+  },
+  {
+   "id": "v2_016",
+   "en": "island",
+   "ar": "جزيرة",
+   "level": 2
+  },
+  {
+   "id": "v2_017",
+   "en": "desert",
+   "ar": "صحراء",
+   "level": 2
+  },
+  {
+   "id": "v2_018",
+   "en": "forest",
+   "ar": "غابة",
+   "level": 2
+  },
+  {
+   "id": "v2_019",
+   "en": "mountain",
+   "ar": "جبل",
+   "level": 2
+  },
+  {
+   "id": "v2_020",
+   "en": "river",
+   "ar": "نهر",
+   "level": 2
+  },
+  {
+   "id": "v2_021",
+   "en": "season",
+   "ar": "فصل",
+   "level": 2
+  },
+  {
+   "id": "v2_022",
+   "en": "summer",
+   "ar": "صيف",
+   "level": 2
+  },
+  {
+   "id": "v2_023",
+   "en": "winter",
+   "ar": "شتاء",
+   "level": 2
+  },
+  {
+   "id": "v2_024",
+   "en": "spring",
+   "ar": "ربيع",
+   "level": 2
+  },
+  {
+   "id": "v2_025",
+   "en": "autumn",
+   "ar": "خريف",
+   "level": 2
+  },
+  {
+   "id": "v2_026",
+   "en": "morning",
+   "ar": "صباح",
+   "level": 2
+  },
+  {
+   "id": "v2_027",
+   "en": "evening",
+   "ar": "مساء",
+   "level": 2
+  },
+  {
+   "id": "v2_028",
+   "en": "yesterday",
+   "ar": "أمس",
+   "level": 2
+  },
+  {
+   "id": "v2_029",
+   "en": "tomorrow",
+   "ar": "غدا",
+   "level": 2
+  },
+  {
+   "id": "v2_030",
+   "en": "always",
+   "ar": "دائما",
+   "level": 2
+  },
+  {
+   "id": "v2_031",
+   "en": "never",
+   "ar": "أبدا",
+   "level": 2
+  },
+  {
+   "id": "v2_032",
+   "en": "sometimes",
+   "ar": "أحيانا",
+   "level": 2
+  },
+  {
+   "id": "v2_033",
+   "en": "beautiful",
+   "ar": "جميل",
+   "level": 2
+  },
+  {
+   "id": "v2_034",
+   "en": "strong",
+   "ar": "قوي",
+   "level": 2
+  },
+  {
+   "id": "v2_035",
+   "en": "weak",
+   "ar": "ضعيف",
+   "level": 2
+  },
+  {
+   "id": "v2_036",
+   "en": "clever",
+   "ar": "ذكي",
+   "level": 2
+  },
+  {
+   "id": "v2_037",
+   "en": "brave",
+   "ar": "شجاع",
+   "level": 2
+  },
+  {
+   "id": "v2_038",
+   "en": "quiet",
+   "ar": "هادئ",
+   "level": 2
+  },
+  {
+   "id": "v2_039",
+   "en": "noisy",
+   "ar": "صاخب",
+   "level": 2
+  },
+  {
+   "id": "v2_040",
+   "en": "clean",
+   "ar": "نظيف",
+   "level": 2
+  },
+  {
+   "id": "v2_041",
+   "en": "dirty",
+   "ar": "متسخ",
+   "level": 2
+  },
+  {
+   "id": "v2_042",
+   "en": "easy",
+   "ar": "سهل",
+   "level": 2
+  },
+  {
+   "id": "v2_043",
+   "en": "difficult",
+   "ar": "صعب",
+   "level": 2
+  },
+  {
+   "id": "v2_044",
+   "en": "cheap",
+   "ar": "رخيص",
+   "level": 2
+  },
+  {
+   "id": "v2_045",
+   "en": "expensive",
+   "ar": "غالي",
+   "level": 2
+  },
+  {
+   "id": "v2_046",
+   "en": "early",
+   "ar": "مبكر",
+   "level": 2
+  },
+  {
+   "id": "v2_047",
+   "en": "late",
+   "ar": "متأخر",
+   "level": 2
+  },
+  {
+   "id": "v2_048",
+   "en": "learn",
+   "ar": "يتعلم",
+   "level": 2
+  },
+  {
+   "id": "v2_049",
+   "en": "teach",
+   "ar": "يعلّم",
+   "level": 2
+  },
+  {
+   "id": "v2_050",
+   "en": "travel",
+   "ar": "يسافر",
+   "level": 2
+  },
+  {
+   "id": "v2_051",
+   "en": "cook",
+   "ar": "يطبخ",
+   "level": 2
+  },
+  {
+   "id": "v2_052",
+   "en": "buy",
+   "ar": "يشتري",
+   "level": 2
+  },
+  {
+   "id": "v2_053",
+   "en": "sell",
+   "ar": "يبيع",
+   "level": 2
+  },
+  {
+   "id": "v2_054",
+   "en": "open",
+   "ar": "يفتح",
+   "level": 2
+  },
+  {
+   "id": "v2_055",
+   "en": "close",
+   "ar": "يغلق",
+   "level": 2
+  },
+  {
+   "id": "v2_056",
+   "en": "start",
+   "ar": "يبدأ",
+   "level": 2
+  },
+  {
+   "id": "v2_057",
+   "en": "finish",
+   "ar": "ينهي",
+   "level": 2
+  },
+  {
+   "id": "v2_058",
+   "en": "carry",
+   "ar": "يحمل",
+   "level": 2
+  },
+  {
+   "id": "v2_059",
+   "en": "bring",
+   "ar": "يحضر",
+   "level": 2
+  },
+  {
+   "id": "v2_060",
+   "en": "wait",
+   "ar": "ينتظر",
+   "level": 2
+  },
+  {
+   "id": "v2_061",
+   "en": "help",
+   "ar": "يساعد",
+   "level": 2
+  },
+  {
+   "id": "v2_062",
+   "en": "ask",
+   "ar": "يسأل",
+   "level": 2
+  },
+  {
+   "id": "v2_063",
+   "en": "answer",
+   "ar": "يجيب",
+   "level": 2
+  },
+  {
+   "id": "v2_064",
+   "en": "listen",
+   "ar": "يستمع",
+   "level": 2
+  },
+  {
+   "id": "v2_065",
+   "en": "speak",
+   "ar": "يتحدث",
+   "level": 2
+  },
+  {
+   "id": "v2_066",
+   "en": "think",
+   "ar": "يفكر",
+   "level": 2
+  },
+  {
+   "id": "v2_067",
+   "en": "remember",
+   "ar": "يتذكر",
+   "level": 2
+  },
+  {
+   "id": "v2_068",
+   "en": "forget",
+   "ar": "ينسى",
+   "level": 2
+  },
+  {
+   "id": "v2_069",
+   "en": "message",
+   "ar": "رسالة",
+   "level": 2
+  },
+  {
+   "id": "v2_070",
+   "en": "phone",
+   "ar": "هاتف",
+   "level": 2
+  },
+  {
+   "id": "v2_071",
+   "en": "computer",
+   "ar": "حاسوب",
+   "level": 2
+  },
+  {
+   "id": "v2_072",
+   "en": "keyboard",
+   "ar": "لوحة مفاتيح",
+   "level": 2
+  },
+  {
+   "id": "v2_073",
+   "en": "screen",
+   "ar": "شاشة",
+   "level": 2
+  },
+  {
+   "id": "v3_000",
+   "en": "journey",
+   "ar": "رحلة",
+   "level": 3
+  },
+  {
+   "id": "v3_001",
+   "en": "adventure",
+   "ar": "مغامرة",
+   "level": 3
+  },
+  {
+   "id": "v3_002",
+   "en": "challenge",
+   "ar": "تحدٍّ",
+   "level": 3
+  },
+  {
+   "id": "v3_003",
+   "en": "victory",
+   "ar": "انتصار",
+   "level": 3
+  },
+  {
+   "id": "v3_004",
+   "en": "champion",
+   "ar": "بطل",
+   "level": 3
+  },
+  {
+   "id": "v3_005",
+   "en": "strategy",
+   "ar": "استراتيجية",
+   "level": 3
+  },
+  {
+   "id": "v3_006",
+   "en": "practice",
+   "ar": "تدريب",
+   "level": 3
+  },
+  {
+   "id": "v3_007",
+   "en": "patience",
+   "ar": "صبر",
+   "level": 3
+  },
+  {
+   "id": "v3_008",
+   "en": "courage",
+   "ar": "شجاعة",
+   "level": 3
+  },
+  {
+   "id": "v3_009",
+   "en": "honesty",
+   "ar": "صدق",
+   "level": 3
+  },
+  {
+   "id": "v3_010",
+   "en": "kindness",
+   "ar": "لطف",
+   "level": 3
+  },
+  {
+   "id": "v3_011",
+   "en": "freedom",
+   "ar": "حرية",
+   "level": 3
+  },
+  {
+   "id": "v3_012",
+   "en": "health",
+   "ar": "صحة",
+   "level": 3
+  },
+  {
+   "id": "v3_013",
+   "en": "wealth",
+   "ar": "ثروة",
+   "level": 3
+  },
+  {
+   "id": "v3_014",
+   "en": "knowledge",
+   "ar": "معرفة",
+   "level": 3
+  },
+  {
+   "id": "v3_015",
+   "en": "experience",
+   "ar": "خبرة",
+   "level": 3
+  },
+  {
+   "id": "v3_016",
+   "en": "opportunity",
+   "ar": "فرصة",
+   "level": 3
+  },
+  {
+   "id": "v3_017",
+   "en": "decision",
+   "ar": "قرار",
+   "level": 3
+  },
+  {
+   "id": "v3_018",
+   "en": "problem",
+   "ar": "مشكلة",
+   "level": 3
+  },
+  {
+   "id": "v3_019",
+   "en": "solution",
+   "ar": "حل",
+   "level": 3
+  },
+  {
+   "id": "v3_020",
+   "en": "result",
+   "ar": "نتيجة",
+   "level": 3
+  },
+  {
+   "id": "v3_021",
+   "en": "success",
+   "ar": "نجاح",
+   "level": 3
+  },
+  {
+   "id": "v3_022",
+   "en": "failure",
+   "ar": "فشل",
+   "level": 3
+  },
+  {
+   "id": "v3_023",
+   "en": "mistake",
+   "ar": "خطأ",
+   "level": 3
+  },
+  {
+   "id": "v3_024",
+   "en": "progress",
+   "ar": "تقدم",
+   "level": 3
+  },
+  {
+   "id": "v3_025",
+   "en": "target",
+   "ar": "هدف",
+   "level": 3
+  },
+  {
+   "id": "v3_026",
+   "en": "reward",
+   "ar": "مكافأة",
+   "level": 3
+  },
+  {
+   "id": "v3_027",
+   "en": "skill",
+   "ar": "مهارة",
+   "level": 3
+  },
+  {
+   "id": "v3_028",
+   "en": "talent",
+   "ar": "موهبة",
+   "level": 3
+  },
+  {
+   "id": "v3_029",
+   "en": "effort",
+   "ar": "جهد",
+   "level": 3
+  },
+  {
+   "id": "v3_030",
+   "en": "energy",
+   "ar": "طاقة",
+   "level": 3
+  },
+  {
+   "id": "v3_031",
+   "en": "balance",
+   "ar": "توازن",
+   "level": 3
+  },
+  {
+   "id": "v3_032",
+   "en": "control",
+   "ar": "تحكم",
+   "level": 3
+  },
+  {
+   "id": "v3_033",
+   "en": "direction",
+   "ar": "اتجاه",
+   "level": 3
+  },
+  {
+   "id": "v3_034",
+   "en": "distance",
+   "ar": "مسافة",
+   "level": 3
+  },
+  {
+   "id": "v3_035",
+   "en": "traffic",
+   "ar": "مرور",
+   "level": 3
+  },
+  {
+   "id": "v3_036",
+   "en": "tunnel",
+   "ar": "نفق",
+   "level": 3
+  },
+  {
+   "id": "v3_037",
+   "en": "highway",
+   "ar": "طريق سريع",
+   "level": 3
+  },
+  {
+   "id": "v3_038",
+   "en": "engineer",
+   "ar": "مهندس",
+   "level": 3
+  },
+  {
+   "id": "v3_039",
+   "en": "scientist",
+   "ar": "عالم",
+   "level": 3
+  },
+  {
+   "id": "v3_040",
+   "en": "artist",
+   "ar": "فنان",
+   "level": 3
+  },
+  {
+   "id": "v3_041",
+   "en": "musician",
+   "ar": "موسيقي",
+   "level": 3
+  },
+  {
+   "id": "v3_042",
+   "en": "writer",
+   "ar": "كاتب",
+   "level": 3
+  },
+  {
+   "id": "v3_043",
+   "en": "neighbor",
+   "ar": "جار",
+   "level": 3
+  },
+  {
+   "id": "v3_044",
+   "en": "guest",
+   "ar": "ضيف",
+   "level": 3
+  },
+  {
+   "id": "v3_045",
+   "en": "stranger",
+   "ar": "غريب",
+   "level": 3
+  },
+  {
+   "id": "v3_046",
+   "en": "language",
+   "ar": "لغة",
+   "level": 3
+  },
+  {
+   "id": "v3_047",
+   "en": "culture",
+   "ar": "ثقافة",
+   "level": 3
+  },
+  {
+   "id": "v3_048",
+   "en": "tradition",
+   "ar": "تقاليد",
+   "level": 3
+  },
+  {
+   "id": "v3_049",
+   "en": "history",
+   "ar": "تاريخ",
+   "level": 3
+  },
+  {
+   "id": "v3_050",
+   "en": "nature",
+   "ar": "طبيعة",
+   "level": 3
+  },
+  {
+   "id": "v3_051",
+   "en": "weather",
+   "ar": "طقس",
+   "level": 3
+  },
+  {
+   "id": "v3_052",
+   "en": "storm",
+   "ar": "عاصفة",
+   "level": 3
+  },
+  {
+   "id": "v3_053",
+   "en": "thunder",
+   "ar": "رعد",
+   "level": 3
+  },
+  {
+   "id": "v3_054",
+   "en": "lightning",
+   "ar": "برق",
+   "level": 3
+  },
+  {
+   "id": "v3_055",
+   "en": "volcano",
+   "ar": "بركان",
+   "level": 3
+  },
+  {
+   "id": "v3_056",
+   "en": "ocean",
+   "ar": "محيط",
+   "level": 3
+  },
+  {
+   "id": "v3_057",
+   "en": "planet",
+   "ar": "كوكب",
+   "level": 3
+  },
+  {
+   "id": "v3_058",
+   "en": "universe",
+   "ar": "كون",
+   "level": 3
+  },
+  {
+   "id": "v3_059",
+   "en": "borrow",
+   "ar": "يستعير",
+   "level": 3
+  },
+  {
+   "id": "v3_060",
+   "en": "achieve",
+   "ar": "يحقق",
+   "level": 3
+  },
+  {
+   "id": "v3_061",
+   "en": "improve",
+   "ar": "يحسّن",
+   "level": 3
+  },
+  {
+   "id": "v3_062",
+   "en": "compare",
+   "ar": "يقارن",
+   "level": 3
+  },
+  {
+   "id": "v3_063",
+   "en": "choose",
+   "ar": "يختار",
+   "level": 3
+  },
+  {
+   "id": "v3_064",
+   "en": "decide",
+   "ar": "يقرر",
+   "level": 3
+  },
+  {
+   "id": "v3_065",
+   "en": "explore",
+   "ar": "يستكشف",
+   "level": 3
+  },
+  {
+   "id": "v3_066",
+   "en": "protect",
+   "ar": "يحمي",
+   "level": 3
+  },
+  {
+   "id": "v3_067",
+   "en": "discover",
+   "ar": "يكتشف",
+   "level": 3
+  },
+  {
+   "id": "v3_068",
+   "en": "imagine",
+   "ar": "يتخيل",
+   "level": 3
+  },
+  {
+   "id": "v3_069",
+   "en": "believe",
+   "ar": "يؤمن",
+   "level": 3
+  },
+  {
+   "id": "v3_070",
+   "en": "succeed",
+   "ar": "ينجح",
+   "level": 3
+  },
+  {
+   "id": "v3_071",
+   "en": "refuse",
+   "ar": "يرفض",
+   "level": 3
+  },
+  {
+   "id": "v3_072",
+   "en": "accept",
+   "ar": "يقبل",
+   "level": 3
+  },
+  {
+   "id": "v4_000",
+   "en": "acceleration",
+   "ar": "تسارع",
+   "level": 4
+  },
+  {
+   "id": "v4_001",
+   "en": "competition",
+   "ar": "منافسة",
+   "level": 4
+  },
+  {
+   "id": "v4_002",
+   "en": "determination",
+   "ar": "عزيمة",
+   "level": 4
+  },
+  {
+   "id": "v4_003",
+   "en": "concentration",
+   "ar": "تركيز",
+   "level": 4
+  },
+  {
+   "id": "v4_004",
+   "en": "responsibility",
+   "ar": "مسؤولية",
+   "level": 4
+  },
+  {
+   "id": "v4_005",
+   "en": "independence",
+   "ar": "استقلال",
+   "level": 4
+  },
+  {
+   "id": "v4_006",
+   "en": "environment",
+   "ar": "بيئة",
+   "level": 4
+  },
+  {
+   "id": "v4_007",
+   "en": "technology",
+   "ar": "تكنولوجيا",
+   "level": 4
+  },
+  {
+   "id": "v4_008",
+   "en": "communication",
+   "ar": "تواصل",
+   "level": 4
+  },
+  {
+   "id": "v4_009",
+   "en": "imagination",
+   "ar": "خيال",
+   "level": 4
+  },
+  {
+   "id": "v4_010",
+   "en": "appreciation",
+   "ar": "تقدير",
+   "level": 4
+  },
+  {
+   "id": "v4_012",
+   "en": "temperature",
+   "ar": "درجة الحرارة",
+   "level": 4
+  },
+  {
+   "id": "v4_013",
+   "en": "atmosphere",
+   "ar": "غلاف جوي",
+   "level": 4
+  },
+  {
+   "id": "v4_014",
+   "en": "accurate",
+   "ar": "دقيق",
+   "level": 4
+  },
+  {
+   "id": "v4_015",
+   "en": "reliable",
+   "ar": "موثوق",
+   "level": 4
+  },
+  {
+   "id": "v4_016",
+   "en": "generous",
+   "ar": "كريم",
+   "level": 4
+  },
+  {
+   "id": "v4_017",
+   "en": "ambitious",
+   "ar": "طموح",
+   "level": 4
+  },
+  {
+   "id": "v4_018",
+   "en": "enormous",
+   "ar": "هائل",
+   "level": 4
+  },
+  {
+   "id": "v4_019",
+   "en": "fragile",
+   "ar": "هش",
+   "level": 4
+  },
+  {
+   "id": "v4_020",
+   "en": "ancient",
+   "ar": "قديم جدا",
+   "level": 4
+  },
+  {
+   "id": "v4_021",
+   "en": "modern",
+   "ar": "حديث",
+   "level": 4
+  },
+  {
+   "id": "v4_022",
+   "en": "essential",
+   "ar": "أساسي",
+   "level": 4
+  },
+  {
+   "id": "v4_023",
+   "en": "dangerous",
+   "ar": "خطير",
+   "level": 4
+  },
+  {
+   "id": "v4_024",
+   "en": "powerful",
+   "ar": "قوي جدا",
+   "level": 4
+  },
+  {
+   "id": "v4_025",
+   "en": "curious",
+   "ar": "فضولي",
+   "level": 4
+  },
+  {
+   "id": "v4_026",
+   "en": "patient",
+   "ar": "صبور",
+   "level": 4
+  },
+  {
+   "id": "v4_027",
+   "en": "arrogant",
+   "ar": "متكبر",
+   "level": 4
+  },
+  {
+   "id": "v4_028",
+   "en": "humble",
+   "ar": "متواضع",
+   "level": 4
+  },
+  {
+   "id": "v4_029",
+   "en": "whisper",
+   "ar": "يهمس",
+   "level": 4
+  },
+  {
+   "id": "v4_030",
+   "en": "celebrate",
+   "ar": "يحتفل",
+   "level": 4
+  },
+  {
+   "id": "v4_031",
+   "en": "overcome",
+   "ar": "يتغلب",
+   "level": 4
+  },
+  {
+   "id": "v4_032",
+   "en": "persuade",
+   "ar": "يقنع",
+   "level": 4
+  },
+  {
+   "id": "v4_033",
+   "en": "postpone",
+   "ar": "يؤجل",
+   "level": 4
+  },
+  {
+   "id": "v4_034",
+   "en": "negotiate",
+   "ar": "يتفاوض",
+   "level": 4
+  },
+  {
+   "id": "v4_035",
+   "en": "cooperate",
+   "ar": "يتعاون",
+   "level": 4
+  },
+  {
+   "id": "v4_036",
+   "en": "participate",
+   "ar": "يشارك",
+   "level": 4
+  },
+  {
+   "id": "v4_037",
+   "en": "recommend",
+   "ar": "يوصي",
+   "level": 4
+  },
+  {
+   "id": "v4_038",
+   "en": "apologize",
+   "ar": "يعتذر",
+   "level": 4
+  },
+  {
+   "id": "v4_039",
+   "en": "establish",
+   "ar": "يؤسس",
+   "level": 4
+  },
+  {
+   "id": "v4_040",
+   "en": "maintain",
+   "ar": "يحافظ",
+   "level": 4
+  },
+  {
+   "id": "v4_041",
+   "en": "measure",
+   "ar": "يقيس",
+   "level": 4
+  },
+  {
+   "id": "v4_042",
+   "en": "illustrate",
+   "ar": "يوضح",
+   "level": 4
+  },
+  {
+   "id": "v4_043",
+   "en": "permanent",
+   "ar": "دائم",
+   "level": 4
+  },
+  {
+   "id": "v4_044",
+   "en": "temporary",
+   "ar": "مؤقت",
+   "level": 4
+  },
+  {
+   "id": "v4_045",
+   "en": "suddenly",
+   "ar": "فجأة",
+   "level": 4
+  },
+  {
+   "id": "v4_046",
+   "en": "carefully",
+   "ar": "بحذر",
+   "level": 4
+  },
+  {
+   "id": "v4_047",
+   "en": "eventually",
+   "ar": "في النهاية",
+   "level": 4
+  },
+  {
+   "id": "v4_048",
+   "en": "definitely",
+   "ar": "بالتأكيد",
+   "level": 4
+  },
+  {
+   "id": "v4_049",
+   "en": "unfortunately",
+   "ar": "للأسف",
+   "level": 4
+  },
+  {
+   "id": "v4_050",
+   "en": "ordinary",
+   "ar": "عادي",
+   "level": 4
+  },
+  {
+   "id": "v4_051",
+   "en": "extraordinary",
+   "ar": "استثنائي",
+   "level": 4
+  },
+  {
+   "id": "v4_052",
+   "en": "horizon",
+   "ar": "أفق",
+   "level": 4
+  },
+  {
+   "id": "v4_053",
+   "en": "lantern",
+   "ar": "فانوس",
+   "level": 4
+  },
+  {
+   "id": "v4_054",
+   "en": "compass",
+   "ar": "بوصلة",
+   "level": 4
+  },
+  {
+   "id": "v4_055",
+   "en": "treasure",
+   "ar": "كنز",
+   "level": 4
+  },
+  {
+   "id": "v4_056",
+   "en": "mystery",
+   "ar": "لغز",
+   "level": 4
+  },
+  {
+   "id": "v4_057",
+   "en": "memory",
+   "ar": "ذاكرة",
+   "level": 4
+  },
+  {
+   "id": "v4_058",
+   "en": "secret",
+   "ar": "سر",
+   "level": 4
+  },
+  {
+   "id": "v4_059",
+   "en": "gravity",
+   "ar": "جاذبية",
+   "level": 4
+  }
+ ]
+}

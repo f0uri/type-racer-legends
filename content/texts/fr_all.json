@@ -1,0 +1,653 @@
+{
+"version": 1,
+"items": [
+{
+"id": "fs000",
+"t": "Le soleil se lève doucement sur la ville et les rues commencent à se remplir de vie.",
+"cat": "sentence",
+"topic": "general",
+"lang": "fr",
+"diff": 2,
+"len": 84
+},
+{
+"id": "fs001",
+"t": "Chaque matin, le boulanger ouvre sa boutique et l'odeur du pain chaud traverse tout le quartier.",
+"cat": "sentence",
+"topic": "general",
+"lang": "fr",
+"diff": 3,
+"len": 96
+},
+{
+"id": "fs002",
+"t": "Nous avons marché longtemps au bord de la mer, en parlant de nos rêves et de nos projets.",
+"cat": "sentence",
+"topic": "general",
+"lang": "fr",
+"diff": 2,
+"len": 89
+},
+{
+"id": "fs003",
+"t": "La bibliothèque est un endroit calme où chaque livre attend patiemment son prochain lecteur.",
+"cat": "sentence",
+"topic": "general",
+"lang": "fr",
+"diff": 3,
+"len": 92
+},
+{
+"id": "fs004",
+"t": "Il faut toujours garder espoir, même quand le chemin semble long et difficile.",
+"cat": "sentence",
+"topic": "general",
+"lang": "fr",
+"diff": 3,
+"len": 78
+},
+{
+"id": "fs005",
+"t": "Les enfants jouent dans le jardin pendant que leurs parents préparent un grand repas.",
+"cat": "sentence",
+"topic": "general",
+"lang": "fr",
+"diff": 3,
+"len": 85
+},
+{
+"id": "fs006",
+"t": "Le train est arrivé à l'heure, et tous les voyageurs sont montés dans les wagons en souriant.",
+"cat": "sentence",
+"topic": "general",
+"lang": "fr",
+"diff": 3,
+"len": 93
+},
+{
+"id": "fs007",
+"t": "Mon ami m'a offert un vieux livre qui raconte l'histoire d'un voyage autour du monde.",
+"cat": "sentence",
+"topic": "general",
+"lang": "fr",
+"diff": 3,
+"len": 85
+},
+{
+"id": "fs008",
+"t": "La pluie tombe doucement sur les toits et le vent joue avec les feuilles des arbres.",
+"cat": "sentence",
+"topic": "general",
+"lang": "fr",
+"diff": 2,
+"len": 84
+},
+{
+"id": "fs009",
+"t": "Apprendre à taper vite demande de la patience, de la concentration et un peu de pratique chaque jour.",
+"cat": "sentence",
+"topic": "general",
+"lang": "fr",
+"diff": 3,
+"len": 101
+},
+{
+"id": "fs010",
+"t": "Le champion s'est entraîné pendant des mois pour réaliser enfin le rêve de toute sa vie.",
+"cat": "sentence",
+"topic": "general",
+"lang": "fr",
+"diff": 2,
+"len": 88
+},
+{
+"id": "fs011",
+"t": "Dans ce petit village, tout le monde se connaît et chacun salue ses voisins avec un sourire.",
+"cat": "sentence",
+"topic": "general",
+"lang": "fr",
+"diff": 2,
+"len": 92
+},
+{
+"id": "fs012",
+"t": "La voiture rouge a traversé le désert à toute vitesse sous un ciel immense et bleu.",
+"cat": "sentence",
+"topic": "general",
+"lang": "fr",
+"diff": 2,
+"len": 83
+},
+{
+"id": "fs013",
+"t": "Au marché, les couleurs des fruits et des légumes racontent déjà la fin de l'été.",
+"cat": "sentence",
+"topic": "general",
+"lang": "fr",
+"diff": 3,
+"len": 81
+},
+{
+"id": "fs014",
+"t": "Elle a ouvert la fenêtre, respiré l'air frais du matin et commencé une nouvelle journée.",
+"cat": "sentence",
+"topic": "general",
+"lang": "fr",
+"diff": 3,
+"len": 88
+},
+{
+"id": "fs015",
+"t": "Les étoiles brillent dans la nuit comme des lanternes accrochées au plafond du monde.",
+"cat": "sentence",
+"topic": "general",
+"lang": "fr",
+"diff": 3,
+"len": 85
+},
+{
+"id": "fs016",
+"t": "Un bon pilote garde son calme, regarde loin devant lui et reste toujours concentré.",
+"cat": "sentence",
+"topic": "general",
+"lang": "fr",
+"diff": 3,
+"len": 83
+},
+{
+"id": "fs017",
+"t": "Nous préparons une surprise pour l'anniversaire de notre grand-mère, mais chut, c'est un secret.",
+"cat": "sentence",
+"topic": "general",
+"lang": "fr",
+"diff": 4,
+"len": 96
+},
+{
+"id": "fs018",
+"t": "La montagne était couverte de neige, et le silence donnait à la vallée un air de conte.",
+"cat": "sentence",
+"topic": "general",
+"lang": "fr",
+"diff": 2,
+"len": 87
+},
+{
+"id": "fs019",
+"t": "Le jeune musicien a joué sa mélodie préférée et toute la salle est restée silencieuse.",
+"cat": "sentence",
+"topic": "general",
+"lang": "fr",
+"diff": 2,
+"len": 86
+},
+{
+"id": "fs020",
+"t": "Après la course, les pilotes se sont serré la main et ont souri pour les photographes.",
+"cat": "sentence",
+"topic": "general",
+"lang": "fr",
+"diff": 2,
+"len": 86
+},
+{
+"id": "fs021",
+"t": "Le chat dort sur le canapé pendant que la radio joue une chanson douce dans la cuisine.",
+"cat": "sentence",
+"topic": "general",
+"lang": "fr",
+"diff": 2,
+"len": 87
+},
+{
+"id": "fs022",
+"t": "Les vacances approchent, et toute la famille rêve de plage, de soleil et de glaces.",
+"cat": "sentence",
+"topic": "general",
+"lang": "fr",
+"diff": 3,
+"len": 83
+},
+{
+"id": "fs023",
+"t": "Le professeur explique que chaque erreur est une occasion d'apprendre quelque chose de nouveau.",
+"cat": "sentence",
+"topic": "general",
+"lang": "fr",
+"diff": 3,
+"len": 95
+},
+{
+"id": "fs024",
+"t": "Sur la place du village, les habitants dansent et chantent jusqu'à tard dans la nuit.",
+"cat": "sentence",
+"topic": "general",
+"lang": "fr",
+"diff": 3,
+"len": 85
+},
+{
+"id": "fs025",
+"t": "Un petit bateau quitte le port au lever du jour et disparaît lentement dans la brume.",
+"cat": "sentence",
+"topic": "general",
+"lang": "fr",
+"diff": 2,
+"len": 85
+},
+{
+"id": "fs026",
+"t": "La technologie change notre vie, mais elle ne remplace jamais un bon sourire.",
+"cat": "sentence",
+"topic": "general",
+"lang": "fr",
+"diff": 3,
+"len": 77
+},
+{
+"id": "fs027",
+"t": "Le football rassemble les amis, les familles et même les inconnus autour d'une même passion.",
+"cat": "sentence",
+"topic": "general",
+"lang": "fr",
+"diff": 3,
+"len": 92
+},
+{
+"id": "fs028",
+"t": "Il a appuyé sur l'accélérateur, et la moto a bondi comme un cheval libre sur la route.",
+"cat": "sentence",
+"topic": "general",
+"lang": "fr",
+"diff": 2,
+"len": 86
+},
+{
+"id": "fs029",
+"t": "Les voyages nous apprennent que le monde est grand, mais que les gens se ressemblent.",
+"cat": "sentence",
+"topic": "general",
+"lang": "fr",
+"diff": 3,
+"len": 85
+},
+{
+"id": "fq000",
+"t": "Il faut cultiver notre jardin.",
+"cat": "quote",
+"topic": "quotes",
+"lang": "fr",
+"diff": 2,
+"len": 30,
+"src": "Voltaire"
+},
+{
+"id": "fq001",
+"t": "Rien n'est plus puissant qu'une idée dont l'heure est venue.",
+"cat": "quote",
+"topic": "quotes",
+"lang": "fr",
+"diff": 3,
+"len": 60,
+"src": "Victor Hugo"
+},
+{
+"id": "fq002",
+"t": "Le doute n'est pas une condition agréable, mais la certitude est absurde.",
+"cat": "quote",
+"topic": "quotes",
+"lang": "fr",
+"diff": 3,
+"len": 73,
+"src": "Voltaire"
+},
+{
+"id": "fq003",
+"t": "Toute la vie est un apprentissage.",
+"cat": "quote",
+"topic": "quotes",
+"lang": "fr",
+"diff": 2,
+"len": 34,
+"src": "Proverbe"
+},
+{
+"id": "fq004",
+"t": "Petit à petit, l'oiseau fait son nid.",
+"cat": "quote",
+"topic": "quotes",
+"lang": "fr",
+"diff": 3,
+"len": 37,
+"src": "Proverbe"
+},
+{
+"id": "fq005",
+"t": "Qui veut voyager loin ménage sa monture.",
+"cat": "quote",
+"topic": "quotes",
+"lang": "fr",
+"diff": 2,
+"len": 40,
+"src": "Jean Racine"
+},
+{
+"id": "fq006",
+"t": "La patience est amère, mais son fruit est doux.",
+"cat": "quote",
+"topic": "quotes",
+"lang": "fr",
+"diff": 2,
+"len": 47,
+"src": "Jean-Jacques Rousseau"
+},
+{
+"id": "fq007",
+"t": "Rien ne sert de courir; il faut partir à point.",
+"cat": "quote",
+"topic": "quotes",
+"lang": "fr",
+"diff": 2,
+"len": 47,
+"src": "Jean de La Fontaine"
+},
+{
+"id": "fq008",
+"t": "Aide-toi, le ciel t'aidera.",
+"cat": "quote",
+"topic": "quotes",
+"lang": "fr",
+"diff": 4,
+"len": 27,
+"src": "Jean de La Fontaine"
+},
+{
+"id": "fq009",
+"t": "L'appétit vient en mangeant.",
+"cat": "quote",
+"topic": "quotes",
+"lang": "fr",
+"diff": 3,
+"len": 28,
+"src": "François Rabelais"
+},
+{
+"id": "fq010",
+"t": "Tout vient à point à qui sait attendre.",
+"cat": "quote",
+"topic": "quotes",
+"lang": "fr",
+"diff": 2,
+"len": 39,
+"src": "Proverbe"
+},
+{
+"id": "fq011",
+"t": "La raison du plus fort est toujours la meilleure.",
+"cat": "quote",
+"topic": "quotes",
+"lang": "fr",
+"diff": 2,
+"len": 49,
+"src": "Jean de La Fontaine"
+},
+{
+"id": "fq012",
+"t": "Je pense, donc je suis.",
+"cat": "quote",
+"topic": "quotes",
+"lang": "fr",
+"diff": 2,
+"len": 23,
+"src": "René Descartes"
+},
+{
+"id": "fq013",
+"t": "Ce qui se conçoit bien s'énonce clairement.",
+"cat": "quote",
+"topic": "quotes",
+"lang": "fr",
+"diff": 3,
+"len": 43,
+"src": "Nicolas Boileau"
+},
+{
+"id": "fq014",
+"t": "Patience et longueur de temps font plus que force ni que rage.",
+"cat": "quote",
+"topic": "quotes",
+"lang": "fr",
+"diff": 2,
+"len": 62,
+"src": "Jean de La Fontaine"
+},
+{
+"id": "fq015",
+"t": "Mieux vaut tard que jamais.",
+"cat": "quote",
+"topic": "quotes",
+"lang": "fr",
+"diff": 2,
+"len": 27,
+"src": "Proverbe"
+},
+{
+"id": "fq016",
+"t": "Le temps est un grand maître, dit-on; le malheur est qu'il tue ses élèves.",
+"cat": "quote",
+"topic": "quotes",
+"lang": "fr",
+"diff": 3,
+"len": 74,
+"src": "Hector Berlioz"
+},
+{
+"id": "fq017",
+"t": "Il n'y a point de chemin vers le bonheur; le bonheur est le chemin.",
+"cat": "quote",
+"topic": "quotes",
+"lang": "fr",
+"diff": 2,
+"len": 67,
+"src": "Proverbe"
+},
+{
+"id": "fw000",
+"t": "amitié soleil forêt lumière patience voyage rapide moto",
+"cat": "words_short",
+"topic": "general",
+"lang": "fr",
+"diff": 3,
+"len": 55
+},
+{
+"id": "fw001",
+"t": "étoile voyage désert voiture montagne rapide forêt lumière champion",
+"cat": "words_short",
+"topic": "general",
+"lang": "fr",
+"diff": 3,
+"len": 67
+},
+{
+"id": "fw002",
+"t": "montagne victoire courage énergie sourire vent liberté voiture lumière soleil village",
+"cat": "words_short",
+"topic": "general",
+"lang": "fr",
+"diff": 3,
+"len": 85
+},
+{
+"id": "fw003",
+"t": "montagne virage casque désert sourire patience vent lumière liberté",
+"cat": "words_short",
+"topic": "general",
+"lang": "fr",
+"diff": 3,
+"len": 67
+},
+{
+"id": "fw004",
+"t": "liberté moto montagne vitesse casque moteur lumière route virage victoire",
+"cat": "words_short",
+"topic": "general",
+"lang": "fr",
+"diff": 3,
+"len": 73
+},
+{
+"id": "fw005",
+"t": "virage sourire jardin course neige voyage amitié énergie forêt",
+"cat": "words_short",
+"topic": "general",
+"lang": "fr",
+"diff": 3,
+"len": 62
+},
+{
+"id": "fw006",
+"t": "musique jardin voyage vent chemin village équipe moto",
+"cat": "words_short",
+"topic": "general",
+"lang": "fr",
+"diff": 3,
+"len": 53
+},
+{
+"id": "fw007",
+"t": "courage énergie désert sourire virage moto pluie champion village",
+"cat": "words_short",
+"topic": "general",
+"lang": "fr",
+"diff": 3,
+"len": 65
+},
+{
+"id": "fw008",
+"t": "vent forêt patience équipe virage soleil piste chemin",
+"cat": "words_short",
+"topic": "general",
+"lang": "fr",
+"diff": 3,
+"len": 53
+},
+{
+"id": "fw009",
+"t": "vent désert casque océan étoile soleil neige montagne village amitié pluie",
+"cat": "words_short",
+"topic": "general",
+"lang": "fr",
+"diff": 3,
+"len": 74
+},
+{
+"id": "fw010",
+"t": "océan énergie forêt musique patience courage étoile course",
+"cat": "words_short",
+"topic": "general",
+"lang": "fr",
+"diff": 3,
+"len": 58
+},
+{
+"id": "fw011",
+"t": "village moto course énergie pluie champion rapide étoile voiture marché",
+"cat": "words_short",
+"topic": "general",
+"lang": "fr",
+"diff": 3,
+"len": 71
+},
+{
+"id": "fw012",
+"t": "montagne moteur énergie liberté patience soleil champion étoile",
+"cat": "words_short",
+"topic": "general",
+"lang": "fr",
+"diff": 3,
+"len": 63
+},
+{
+"id": "fw013",
+"t": "voyage voiture soleil océan virage équipe victoire course musique forêt",
+"cat": "words_short",
+"topic": "general",
+"lang": "fr",
+"diff": 3,
+"len": 71
+},
+{
+"id": "fw014",
+"t": "montagne patience voyage vitesse liberté route marché course lumière",
+"cat": "words_short",
+"topic": "general",
+"lang": "fr",
+"diff": 3,
+"len": 68
+},
+{
+"id": "fw015",
+"t": "course victoire voiture équipe rapide virage moteur sourire jardin",
+"cat": "words_short",
+"topic": "general",
+"lang": "fr",
+"diff": 3,
+"len": 66
+},
+{
+"id": "fw016",
+"t": "forêt courage village désert équipe voyage lumière champion",
+"cat": "words_short",
+"topic": "general",
+"lang": "fr",
+"diff": 3,
+"len": 59
+},
+{
+"id": "fw017",
+"t": "équipe patience pluie casque sourire route course voiture piste musique",
+"cat": "words_short",
+"topic": "general",
+"lang": "fr",
+"diff": 3,
+"len": 71
+},
+{
+"id": "fw018",
+"t": "étoile patience énergie vent voiture océan voyage chemin lumière piste",
+"cat": "words_short",
+"topic": "general",
+"lang": "fr",
+"diff": 3,
+"len": 70
+},
+{
+"id": "fw019",
+"t": "courage forêt neige marché liberté moto sourire moteur virage casque",
+"cat": "words_short",
+"topic": "general",
+"lang": "fr",
+"diff": 3,
+"len": 68
+},
+{
+"id": "fw020",
+"t": "champion musique casque chemin virage moteur vent courage liberté marché",
+"cat": "words_short",
+"topic": "general",
+"lang": "fr",
+"diff": 3,
+"len": 72
+},
+{
+"id": "fw021",
+"t": "casque course soleil équipe village voyage énergie victoire moteur chemin",
+"cat": "words_short",
+"topic": "general",
+"lang": "fr",
+"diff": 3,
+"len": 73
+}
+]
+}

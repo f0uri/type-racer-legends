@@ -1,0 +1,2532 @@
+{
+ "version": 1,
+ "items": [
+  {
+   "id": "p_red",
+   "type": "skin",
+   "slot": "paint",
+   "name": {
+    "ar": "أحمر السباق",
+    "en": "Racing Red",
+    "fr": "Rouge Course"
+   },
+   "rarity": "common",
+   "price": {},
+   "unlock": {},
+   "enabled": true,
+   "startsAt": null,
+   "endsAt": null,
+   "params": {
+    "pattern": "solid",
+    "colors": [
+     "#e5383b"
+    ]
+   },
+   "kinds": [
+    "car",
+    "bike"
+   ],
+   "tags": []
+  },
+  {
+   "id": "p_blue",
+   "type": "skin",
+   "slot": "paint",
+   "name": {
+    "ar": "أزرق المحيط",
+    "en": "Ocean Blue",
+    "fr": "Bleu Océan"
+   },
+   "rarity": "common",
+   "price": {
+    "coins": 300
+   },
+   "unlock": {},
+   "enabled": true,
+   "startsAt": null,
+   "endsAt": null,
+   "params": {
+    "pattern": "solid",
+    "colors": [
+     "#1d6ff2"
+    ]
+   },
+   "kinds": [
+    "car",
+    "bike"
+   ],
+   "tags": []
+  },
+  {
+   "id": "p_lime",
+   "type": "skin",
+   "slot": "paint",
+   "name": {
+    "ar": "أخضر ليموني",
+    "en": "Lime Green",
+    "fr": "Vert Citron"
+   },
+   "rarity": "common",
+   "price": {
+    "coins": 300
+   },
+   "unlock": {},
+   "enabled": true,
+   "startsAt": null,
+   "endsAt": null,
+   "params": {
+    "pattern": "solid",
+    "colors": [
+     "#8ac926"
+    ]
+   },
+   "kinds": [
+    "car",
+    "bike"
+   ],
+   "tags": []
+  },
+  {
+   "id": "p_yellow",
+   "type": "skin",
+   "slot": "paint",
+   "name": {
+    "ar": "أصفر الشمس",
+    "en": "Sun Yellow",
+    "fr": "Jaune Soleil"
+   },
+   "rarity": "common",
+   "price": {
+    "coins": 300
+   },
+   "unlock": {},
+   "enabled": true,
+   "startsAt": null,
+   "endsAt": null,
+   "params": {
+    "pattern": "solid",
+    "colors": [
+     "#ffca3a"
+    ]
+   },
+   "kinds": [
+    "car",
+    "bike"
+   ],
+   "tags": []
+  },
+  {
+   "id": "p_white",
+   "type": "skin",
+   "slot": "paint",
+   "name": {
+    "ar": "أبيض لؤلؤي",
+    "en": "Pearl White",
+    "fr": "Blanc Perle"
+   },
+   "rarity": "common",
+   "price": {
+    "coins": 400
+   },
+   "unlock": {},
+   "enabled": true,
+   "startsAt": null,
+   "endsAt": null,
+   "params": {
+    "pattern": "solid",
+    "colors": [
+     "#f1f3f5"
+    ],
+    "metallic": true
+   },
+   "kinds": [
+    "car",
+    "bike"
+   ],
+   "tags": []
+  },
+  {
+   "id": "p_black",
+   "type": "skin",
+   "slot": "paint",
+   "name": {
+    "ar": "أسود منتصف الليل",
+    "en": "Midnight Black",
+    "fr": "Noir Minuit"
+   },
+   "rarity": "common",
+   "price": {
+    "coins": 400
+   },
+   "unlock": {},
+   "enabled": true,
+   "startsAt": null,
+   "endsAt": null,
+   "params": {
+    "pattern": "solid",
+    "colors": [
+     "#15161a"
+    ],
+    "metallic": true
+   },
+   "kinds": [
+    "car",
+    "bike"
+   ],
+   "tags": []
+  },
+  {
+   "id": "p_orange",
+   "type": "skin",
+   "slot": "paint",
+   "name": {
+    "ar": "برتقالي لهّاب",
+    "en": "Orange Blaze",
+    "fr": "Orange Flamme"
+   },
+   "rarity": "common",
+   "price": {
+    "coins": 500
+   },
+   "unlock": {},
+   "enabled": true,
+   "startsAt": null,
+   "endsAt": null,
+   "params": {
+    "pattern": "solid",
+    "colors": [
+     "#ff6b00"
+    ]
+   },
+   "kinds": [
+    "car",
+    "bike"
+   ],
+   "tags": []
+  },
+  {
+   "id": "p_violet",
+   "type": "skin",
+   "slot": "paint",
+   "name": {
+    "ar": "بنفسجي حالم",
+    "en": "Violet Dream",
+    "fr": "Violet Rêve"
+   },
+   "rarity": "common",
+   "price": {
+    "coins": 500
+   },
+   "unlock": {},
+   "enabled": true,
+   "startsAt": null,
+   "endsAt": null,
+   "params": {
+    "pattern": "solid",
+    "colors": [
+     "#9d4edd"
+    ],
+    "metallic": true
+   },
+   "kinds": [
+    "car",
+    "bike"
+   ],
+   "tags": []
+  },
+  {
+   "id": "p_stripes",
+   "type": "skin",
+   "slot": "paint",
+   "name": {
+    "ar": "خطان متوازيان",
+    "en": "Twin Stripes",
+    "fr": "Double Bande"
+   },
+   "rarity": "rare",
+   "price": {
+    "coins": 1800
+   },
+   "unlock": {
+    "level": 3
+   },
+   "enabled": true,
+   "startsAt": null,
+   "endsAt": null,
+   "params": {
+    "pattern": "stripes",
+    "colors": [
+     "#1d3557",
+     "#f1faee",
+     "#e63946"
+    ]
+   },
+   "kinds": [
+    "car",
+    "bike"
+   ],
+   "tags": []
+  },
+  {
+   "id": "p_checker",
+   "type": "skin",
+   "slot": "paint",
+   "name": {
+    "ar": "علم السباق",
+    "en": "Checker Flag",
+    "fr": "Damier"
+   },
+   "rarity": "rare",
+   "price": {
+    "coins": 2200
+   },
+   "unlock": {
+    "level": 4
+   },
+   "enabled": true,
+   "startsAt": null,
+   "endsAt": null,
+   "params": {
+    "pattern": "checker",
+    "colors": [
+     "#f8f9fa",
+     "#111111"
+    ]
+   },
+   "kinds": [
+    "car",
+    "bike"
+   ],
+   "tags": []
+  },
+  {
+   "id": "p_carbon",
+   "type": "skin",
+   "slot": "paint",
+   "name": {
+    "ar": "ألياف الكربون",
+    "en": "Carbon Fiber",
+    "fr": "Fibre de Carbone"
+   },
+   "rarity": "rare",
+   "price": {
+    "coins": 2600
+   },
+   "unlock": {
+    "level": 6
+   },
+   "enabled": true,
+   "startsAt": null,
+   "endsAt": null,
+   "params": {
+    "pattern": "carbon",
+    "colors": [
+     "#23262b",
+     "#3b4048"
+    ]
+   },
+   "kinds": [
+    "car",
+    "bike"
+   ],
+   "tags": []
+  },
+  {
+   "id": "p_camo",
+   "type": "skin",
+   "slot": "paint",
+   "name": {
+    "ar": "تمويه الصحراء",
+    "en": "Desert Camo",
+    "fr": "Camouflage Désert"
+   },
+   "rarity": "rare",
+   "price": {
+    "coins": 2400
+   },
+   "unlock": {
+    "level": 5
+   },
+   "enabled": true,
+   "startsAt": null,
+   "endsAt": null,
+   "params": {
+    "pattern": "camo",
+    "colors": [
+     "#c2a878",
+     "#8c7a4f",
+     "#5e5034"
+    ]
+   },
+   "kinds": [
+    "car",
+    "bike"
+   ],
+   "tags": []
+  },
+  {
+   "id": "p_fade",
+   "type": "skin",
+   "slot": "paint",
+   "name": {
+    "ar": "تدرج الغروب",
+    "en": "Sunset Fade",
+    "fr": "Dégradé Coucher"
+   },
+   "rarity": "rare",
+   "price": {
+    "coins": 3000
+   },
+   "unlock": {
+    "level": 7
+   },
+   "enabled": true,
+   "startsAt": null,
+   "endsAt": null,
+   "params": {
+    "pattern": "gradient",
+    "colors": [
+     "#ff9e00",
+     "#ff2e63",
+     "#3a0ca3"
+    ]
+   },
+   "kinds": [
+    "car",
+    "bike"
+   ],
+   "tags": []
+  },
+  {
+   "id": "p_flames",
+   "type": "skin",
+   "slot": "paint",
+   "name": {
+    "ar": "لهب حارق",
+    "en": "Hot Flames",
+    "fr": "Flammes Ardentes"
+   },
+   "rarity": "rare",
+   "price": {
+    "coins": 3600
+   },
+   "unlock": {
+    "level": 8
+   },
+   "enabled": true,
+   "startsAt": null,
+   "endsAt": null,
+   "params": {
+    "pattern": "flames",
+    "colors": [
+     "#1b1b1b",
+     "#ff6b00",
+     "#ffd60a"
+    ]
+   },
+   "kinds": [
+    "car",
+    "bike"
+   ],
+   "tags": []
+  },
+  {
+   "id": "p_chevron",
+   "type": "skin",
+   "slot": "paint",
+   "name": {
+    "ar": "شيفرون",
+    "en": "Chevron",
+    "fr": "Chevron"
+   },
+   "rarity": "rare",
+   "price": {
+    "coins": 3200
+   },
+   "unlock": {
+    "level": 9
+   },
+   "enabled": true,
+   "startsAt": null,
+   "endsAt": null,
+   "params": {
+    "pattern": "chevron",
+    "colors": [
+     "#0b132b",
+     "#3a86ff",
+     "#ffffff"
+    ]
+   },
+   "kinds": [
+    "car",
+    "bike"
+   ],
+   "tags": []
+  },
+  {
+   "id": "p_dots",
+   "type": "skin",
+   "slot": "paint",
+   "name": {
+    "ar": "نقاط البوب",
+    "en": "Pop Dots",
+    "fr": "Pois Pop"
+   },
+   "rarity": "rare",
+   "price": {
+    "coins": 2800
+   },
+   "unlock": {
+    "level": 6
+   },
+   "enabled": true,
+   "startsAt": null,
+   "endsAt": null,
+   "params": {
+    "pattern": "dots",
+    "colors": [
+     "#ff006e",
+     "#ffbe0b",
+     "#ffffff"
+    ]
+   },
+   "kinds": [
+    "car",
+    "bike"
+   ],
+   "tags": []
+  },
+  {
+   "id": "p_aurora",
+   "type": "skin",
+   "slot": "paint",
+   "name": {
+    "ar": "شفق قطبي",
+    "en": "Aurora",
+    "fr": "Aurore"
+   },
+   "rarity": "legendary",
+   "price": {
+    "gems": 250
+   },
+   "unlock": {
+    "level": 12
+   },
+   "enabled": true,
+   "startsAt": null,
+   "endsAt": null,
+   "params": {
+    "pattern": "gradient",
+    "colors": [
+     "#00f5d4",
+     "#7209b7",
+     "#3a86ff"
+    ],
+    "shimmer": true
+   },
+   "kinds": [
+    "car",
+    "bike"
+   ],
+   "tags": []
+  },
+  {
+   "id": "p_galaxy",
+   "type": "skin",
+   "slot": "paint",
+   "name": {
+    "ar": "مجرة",
+    "en": "Galaxy",
+    "fr": "Galaxie"
+   },
+   "rarity": "legendary",
+   "price": {
+    "gems": 350
+   },
+   "unlock": {
+    "level": 15
+   },
+   "enabled": true,
+   "startsAt": null,
+   "endsAt": null,
+   "params": {
+    "pattern": "galaxy",
+    "colors": [
+     "#10002b",
+     "#5a189a",
+     "#e0aaff"
+    ],
+    "shimmer": true
+   },
+   "kinds": [
+    "car",
+    "bike"
+   ],
+   "tags": []
+  },
+  {
+   "id": "p_gold",
+   "type": "skin",
+   "slot": "paint",
+   "name": {
+    "ar": "كروم ذهبي",
+    "en": "Gold Chrome",
+    "fr": "Chrome Doré"
+   },
+   "rarity": "legendary",
+   "price": {
+    "gems": 400
+   },
+   "unlock": {
+    "level": 18
+   },
+   "enabled": true,
+   "startsAt": null,
+   "endsAt": null,
+   "params": {
+    "pattern": "solid",
+    "colors": [
+     "#ffd700"
+    ],
+    "metallic": true,
+    "shimmer": true
+   },
+   "kinds": [
+    "car",
+    "bike"
+   ],
+   "tags": []
+  },
+  {
+   "id": "p_holo",
+   "type": "skin",
+   "slot": "paint",
+   "name": {
+    "ar": "هولو بريزم",
+    "en": "Holo Prism",
+    "fr": "Prisme Holo"
+   },
+   "rarity": "legendary",
+   "price": {
+    "gems": 450
+   },
+   "unlock": {
+    "level": 20
+   },
+   "enabled": true,
+   "startsAt": null,
+   "endsAt": null,
+   "params": {
+    "pattern": "rainbow",
+    "colors": [
+     "#ff0054",
+     "#ffbd00",
+     "#00f5d4",
+     "#3a86ff"
+    ],
+    "shimmer": true
+   },
+   "kinds": [
+    "car",
+    "bike"
+   ],
+   "tags": []
+  },
+  {
+   "id": "p_crescent",
+   "type": "skin",
+   "slot": "paint",
+   "name": {
+    "ar": "هلال رمضان",
+    "en": "Ramadan Crescent",
+    "fr": "Croissant Ramadan"
+   },
+   "rarity": "legendary",
+   "price": {},
+   "unlock": {
+    "event": "ramadan_2027"
+   },
+   "enabled": true,
+   "startsAt": null,
+   "endsAt": null,
+   "params": {
+    "pattern": "crescent",
+    "colors": [
+     "#0b6e4f",
+     "#ffd60a",
+     "#ffffff"
+    ]
+   },
+   "kinds": [
+    "car",
+    "bike"
+   ],
+   "tags": [
+    "event",
+    "ramadan"
+   ]
+  },
+  {
+   "id": "p_worldcup",
+   "type": "skin",
+   "slot": "paint",
+   "name": {
+    "ar": "ذهب البطولة",
+    "en": "Champion Gold",
+    "fr": "Or du Champion"
+   },
+   "rarity": "legendary",
+   "price": {},
+   "unlock": {
+    "event": "worldcup_2026"
+   },
+   "enabled": true,
+   "startsAt": null,
+   "endsAt": null,
+   "params": {
+    "pattern": "checker",
+    "colors": [
+     "#ffd700",
+     "#0a0a0a"
+    ]
+   },
+   "kinds": [
+    "car",
+    "bike"
+   ],
+   "tags": [
+    "event",
+    "football"
+   ]
+  },
+  {
+   "id": "p_school",
+   "type": "skin",
+   "slot": "paint",
+   "name": {
+    "ar": "دفتر المدرسة",
+    "en": "Notebook",
+    "fr": "Cahier"
+   },
+   "rarity": "rare",
+   "price": {},
+   "unlock": {
+    "event": "back_to_school_2026"
+   },
+   "enabled": true,
+   "startsAt": null,
+   "endsAt": null,
+   "params": {
+    "pattern": "stripes",
+    "colors": [
+     "#f8f9fa",
+     "#4361ee",
+     "#ef476f"
+    ]
+   },
+   "kinds": [
+    "car",
+    "bike"
+   ],
+   "tags": [
+    "event",
+    "school"
+   ]
+  },
+  {
+   "id": "p_legend",
+   "type": "skin",
+   "slot": "paint",
+   "name": {
+    "ar": "ذهب الأساطير",
+    "en": "Legend Gold",
+    "fr": "Or Légende"
+   },
+   "rarity": "legendary",
+   "price": {},
+   "unlock": {
+    "achievement": "a_rank_legend"
+   },
+   "enabled": true,
+   "startsAt": null,
+   "endsAt": null,
+   "params": {
+    "pattern": "galaxy",
+    "colors": [
+     "#3d2c00",
+     "#ffd700",
+     "#fff3b0"
+    ],
+    "shimmer": true
+   },
+   "kinds": [
+    "car",
+    "bike"
+   ],
+   "tags": [
+    "achievement"
+   ]
+  },
+  {
+   "id": "p_season1",
+   "type": "skin",
+   "slot": "paint",
+   "name": {
+    "ar": "سكن الموسم الأول",
+    "en": "Season 1 Blaze",
+    "fr": "Flamme Saison 1"
+   },
+   "rarity": "legendary",
+   "price": {},
+   "unlock": {
+    "season": {
+     "id": 1,
+     "level": 30,
+     "premium": true
+    }
+   },
+   "enabled": true,
+   "startsAt": null,
+   "endsAt": null,
+   "params": {
+    "pattern": "flames",
+    "colors": [
+     "#10002b",
+     "#00f5d4",
+     "#ffffff"
+    ],
+    "shimmer": true
+   },
+   "kinds": [
+    "car",
+    "bike"
+   ],
+   "tags": [
+    "season"
+   ]
+  },
+  {
+   "id": "r_classic",
+   "type": "skin",
+   "slot": "rims",
+   "name": {
+    "ar": "كلاسيك ٥",
+    "en": "Classic 5",
+    "fr": "Classique 5"
+   },
+   "rarity": "common",
+   "price": {},
+   "unlock": {},
+   "enabled": true,
+   "startsAt": null,
+   "endsAt": null,
+   "params": {
+    "style": "spoke5",
+    "color": "#dfe3e8"
+   },
+   "kinds": [
+    "car",
+    "bike"
+   ],
+   "tags": []
+  },
+  {
+   "id": "r_mesh",
+   "type": "skin",
+   "slot": "rims",
+   "name": {
+    "ar": "ميش برو",
+    "en": "Mesh Pro",
+    "fr": "Mesh Pro"
+   },
+   "rarity": "common",
+   "price": {
+    "coins": 600
+   },
+   "unlock": {
+    "level": 2
+   },
+   "enabled": true,
+   "startsAt": null,
+   "endsAt": null,
+   "params": {
+    "style": "mesh",
+    "color": "#c0c6cf"
+   },
+   "kinds": [
+    "car",
+    "bike"
+   ],
+   "tags": []
+  },
+  {
+   "id": "r_disc",
+   "type": "skin",
+   "slot": "rims",
+   "name": {
+    "ar": "قرص فولاذي",
+    "en": "Disc Steel",
+    "fr": "Disque Acier"
+   },
+   "rarity": "common",
+   "price": {
+    "coins": 700
+   },
+   "unlock": {
+    "level": 3
+   },
+   "enabled": true,
+   "startsAt": null,
+   "endsAt": null,
+   "params": {
+    "style": "disc",
+    "color": "#9aa4b2"
+   },
+   "kinds": [
+    "car",
+    "bike"
+   ],
+   "tags": []
+  },
+  {
+   "id": "r_star",
+   "type": "skin",
+   "slot": "rims",
+   "name": {
+    "ar": "نجمة متوهجة",
+    "en": "Star Burst",
+    "fr": "Étoile"
+   },
+   "rarity": "rare",
+   "price": {
+    "coins": 1600
+   },
+   "unlock": {
+    "level": 5
+   },
+   "enabled": true,
+   "startsAt": null,
+   "endsAt": null,
+   "params": {
+    "style": "star",
+    "color": "#ffd166"
+   },
+   "kinds": [
+    "car",
+    "bike"
+   ],
+   "tags": []
+  },
+  {
+   "id": "r_split",
+   "type": "skin",
+   "slot": "rims",
+   "name": {
+    "ar": "سبليت ٦",
+    "en": "Split Six",
+    "fr": "Split Six"
+   },
+   "rarity": "rare",
+   "price": {
+    "coins": 1800
+   },
+   "unlock": {
+    "level": 7
+   },
+   "enabled": true,
+   "startsAt": null,
+   "endsAt": null,
+   "params": {
+    "style": "split",
+    "color": "#e0e1dd"
+   },
+   "kinds": [
+    "car",
+    "bike"
+   ],
+   "tags": []
+  },
+  {
+   "id": "r_turbine",
+   "type": "skin",
+   "slot": "rims",
+   "name": {
+    "ar": "توربين",
+    "en": "Turbine",
+    "fr": "Turbine"
+   },
+   "rarity": "rare",
+   "price": {
+    "coins": 2200
+   },
+   "unlock": {
+    "level": 9
+   },
+   "enabled": true,
+   "startsAt": null,
+   "endsAt": null,
+   "params": {
+    "style": "turbine",
+    "color": "#b9e6ff"
+   },
+   "kinds": [
+    "car",
+    "bike"
+   ],
+   "tags": []
+  },
+  {
+   "id": "r_neonring",
+   "type": "skin",
+   "slot": "rims",
+   "name": {
+    "ar": "حلقة نيون",
+    "en": "Neon Ring",
+    "fr": "Anneau Néon"
+   },
+   "rarity": "legendary",
+   "price": {
+    "gems": 180
+   },
+   "unlock": {
+    "level": 12
+   },
+   "enabled": true,
+   "startsAt": null,
+   "endsAt": null,
+   "params": {
+    "style": "mesh",
+    "color": "#0b132b",
+    "glow": "#00f5ff"
+   },
+   "kinds": [
+    "car",
+    "bike"
+   ],
+   "tags": []
+  },
+  {
+   "id": "r_fire",
+   "type": "skin",
+   "slot": "rims",
+   "name": {
+    "ar": "جنوط نارية",
+    "en": "Fire Rims",
+    "fr": "Jantes de Feu"
+   },
+   "rarity": "legendary",
+   "price": {
+    "gems": 220
+   },
+   "unlock": {
+    "level": 16
+   },
+   "enabled": true,
+   "startsAt": null,
+   "endsAt": null,
+   "params": {
+    "style": "turbine",
+    "color": "#2b0a00",
+    "glow": "#ff6b00"
+   },
+   "kinds": [
+    "car",
+    "bike"
+   ],
+   "tags": []
+  },
+  {
+   "id": "n_cyan",
+   "type": "skin",
+   "slot": "neon",
+   "name": {
+    "ar": "نيون سماوي",
+    "en": "Cyan Glow",
+    "fr": "Néon Cyan"
+   },
+   "rarity": "common",
+   "price": {
+    "coins": 800
+   },
+   "unlock": {
+    "level": 3
+   },
+   "enabled": true,
+   "startsAt": null,
+   "endsAt": null,
+   "params": {
+    "color": "#00f5ff"
+   },
+   "kinds": [
+    "car",
+    "bike"
+   ],
+   "tags": []
+  },
+  {
+   "id": "n_pink",
+   "type": "skin",
+   "slot": "neon",
+   "name": {
+    "ar": "نيون وردي",
+    "en": "Magenta Glow",
+    "fr": "Néon Rose"
+   },
+   "rarity": "common",
+   "price": {
+    "coins": 800
+   },
+   "unlock": {
+    "level": 3
+   },
+   "enabled": true,
+   "startsAt": null,
+   "endsAt": null,
+   "params": {
+    "color": "#ff2bd6"
+   },
+   "kinds": [
+    "car",
+    "bike"
+   ],
+   "tags": []
+  },
+  {
+   "id": "n_green",
+   "type": "skin",
+   "slot": "neon",
+   "name": {
+    "ar": "نيون أخضر",
+    "en": "Toxic Green",
+    "fr": "Vert Toxique"
+   },
+   "rarity": "common",
+   "price": {
+    "coins": 900
+   },
+   "unlock": {
+    "level": 4
+   },
+   "enabled": true,
+   "startsAt": null,
+   "endsAt": null,
+   "params": {
+    "color": "#39ff14"
+   },
+   "kinds": [
+    "car",
+    "bike"
+   ],
+   "tags": []
+  },
+  {
+   "id": "n_orange",
+   "type": "skin",
+   "slot": "neon",
+   "name": {
+    "ar": "نيون برتقالي",
+    "en": "Amber Glow",
+    "fr": "Néon Ambre"
+   },
+   "rarity": "rare",
+   "price": {
+    "coins": 1500
+   },
+   "unlock": {
+    "level": 6
+   },
+   "enabled": true,
+   "startsAt": null,
+   "endsAt": null,
+   "params": {
+    "color": "#ff9100"
+   },
+   "kinds": [
+    "car",
+    "bike"
+   ],
+   "tags": []
+  },
+  {
+   "id": "n_white",
+   "type": "skin",
+   "slot": "neon",
+   "name": {
+    "ar": "نيون أبيض",
+    "en": "Ice White",
+    "fr": "Blanc Glacé"
+   },
+   "rarity": "rare",
+   "price": {
+    "coins": 1500
+   },
+   "unlock": {
+    "level": 8
+   },
+   "enabled": true,
+   "startsAt": null,
+   "endsAt": null,
+   "params": {
+    "color": "#f5faff",
+    "pulse": true
+   },
+   "kinds": [
+    "car",
+    "bike"
+   ],
+   "tags": []
+  },
+  {
+   "id": "n_rainbow",
+   "type": "skin",
+   "slot": "neon",
+   "name": {
+    "ar": "نيون قوس قزح",
+    "en": "Rainbow Pulse",
+    "fr": "Pulsation Arc-en-ciel"
+   },
+   "rarity": "legendary",
+   "price": {
+    "gems": 200
+   },
+   "unlock": {
+    "level": 14
+   },
+   "enabled": true,
+   "startsAt": null,
+   "endsAt": null,
+   "params": {
+    "color": "#ff00ff",
+    "pulse": true,
+    "rainbow": true
+   },
+   "kinds": [
+    "car",
+    "bike"
+   ],
+   "tags": []
+  },
+  {
+   "id": "e_smoke",
+   "type": "skin",
+   "slot": "exhaust",
+   "name": {
+    "ar": "دخان عادي",
+    "en": "Plain Smoke",
+    "fr": "Fumée Simple"
+   },
+   "rarity": "common",
+   "price": {},
+   "unlock": {},
+   "enabled": true,
+   "startsAt": null,
+   "endsAt": null,
+   "params": {
+    "effect": "smoke",
+    "color": "#c9ced6"
+   },
+   "kinds": [
+    "car",
+    "bike"
+   ],
+   "tags": []
+  },
+  {
+   "id": "e_sparks",
+   "type": "skin",
+   "slot": "exhaust",
+   "name": {
+    "ar": "شرر",
+    "en": "Sparks",
+    "fr": "Étincelles"
+   },
+   "rarity": "common",
+   "price": {
+    "coins": 900
+   },
+   "unlock": {
+    "level": 3
+   },
+   "enabled": true,
+   "startsAt": null,
+   "endsAt": null,
+   "params": {
+    "effect": "sparks",
+    "color": "#ffd166"
+   },
+   "kinds": [
+    "car",
+    "bike"
+   ],
+   "tags": []
+  },
+  {
+   "id": "e_fire",
+   "type": "skin",
+   "slot": "exhaust",
+   "name": {
+    "ar": "نار العادم",
+    "en": "Backfire",
+    "fr": "Backfire"
+   },
+   "rarity": "rare",
+   "price": {
+    "coins": 1800
+   },
+   "unlock": {
+    "level": 6
+   },
+   "enabled": true,
+   "startsAt": null,
+   "endsAt": null,
+   "params": {
+    "effect": "fire",
+    "color": "#ff6b00"
+   },
+   "kinds": [
+    "car",
+    "bike"
+   ],
+   "tags": []
+  },
+  {
+   "id": "e_electric",
+   "type": "skin",
+   "slot": "exhaust",
+   "name": {
+    "ar": "كهرباء",
+    "en": "Electric",
+    "fr": "Électrique"
+   },
+   "rarity": "rare",
+   "price": {
+    "coins": 2000
+   },
+   "unlock": {
+    "level": 8
+   },
+   "enabled": true,
+   "startsAt": null,
+   "endsAt": null,
+   "params": {
+    "effect": "electric",
+    "color": "#7df9ff"
+   },
+   "kinds": [
+    "car",
+    "bike"
+   ],
+   "tags": []
+  },
+  {
+   "id": "e_bubbles",
+   "type": "skin",
+   "slot": "exhaust",
+   "name": {
+    "ar": "فقاعات",
+    "en": "Bubbles",
+    "fr": "Bulles"
+   },
+   "rarity": "rare",
+   "price": {
+    "coins": 1600
+   },
+   "unlock": {
+    "level": 5
+   },
+   "enabled": true,
+   "startsAt": null,
+   "endsAt": null,
+   "params": {
+    "effect": "bubbles",
+    "color": "#9bf6ff"
+   },
+   "kinds": [
+    "car",
+    "bike"
+   ],
+   "tags": []
+  },
+  {
+   "id": "e_stars",
+   "type": "skin",
+   "slot": "exhaust",
+   "name": {
+    "ar": "نجوم",
+    "en": "Stardust",
+    "fr": "Poussière d'étoiles"
+   },
+   "rarity": "legendary",
+   "price": {
+    "gems": 160
+   },
+   "unlock": {
+    "level": 11
+   },
+   "enabled": true,
+   "startsAt": null,
+   "endsAt": null,
+   "params": {
+    "effect": "stars",
+    "color": "#fff3b0"
+   },
+   "kinds": [
+    "car",
+    "bike"
+   ],
+   "tags": []
+  },
+  {
+   "id": "e_rainbow",
+   "type": "skin",
+   "slot": "exhaust",
+   "name": {
+    "ar": "قوس قزح",
+    "en": "Rainbow Trail",
+    "fr": "Traînée Arc-en-ciel"
+   },
+   "rarity": "legendary",
+   "price": {
+    "gems": 240
+   },
+   "unlock": {
+    "level": 15
+   },
+   "enabled": true,
+   "startsAt": null,
+   "endsAt": null,
+   "params": {
+    "effect": "rainbow",
+    "color": "#ff00ff"
+   },
+   "kinds": [
+    "car",
+    "bike"
+   ],
+   "tags": []
+  },
+  {
+   "id": "f_blue",
+   "type": "skin",
+   "slot": "nitroFlame",
+   "name": {
+    "ar": "لهب أزرق",
+    "en": "Blue Flame",
+    "fr": "Flamme Bleue"
+   },
+   "rarity": "common",
+   "price": {},
+   "unlock": {},
+   "enabled": true,
+   "startsAt": null,
+   "endsAt": null,
+   "params": {
+    "colors": [
+     "#7df9ff",
+     "#2a6bff",
+     "#ffffff"
+    ],
+    "shape": "cone"
+   },
+   "kinds": [
+    "car",
+    "bike"
+   ],
+   "tags": []
+  },
+  {
+   "id": "f_purple",
+   "type": "skin",
+   "slot": "nitroFlame",
+   "name": {
+    "ar": "لهب بنفسجي",
+    "en": "Purple Flame",
+    "fr": "Flamme Violette"
+   },
+   "rarity": "common",
+   "price": {
+    "coins": 1200
+   },
+   "unlock": {
+    "level": 4
+   },
+   "enabled": true,
+   "startsAt": null,
+   "endsAt": null,
+   "params": {
+    "colors": [
+     "#e0aaff",
+     "#7b2cbf",
+     "#ffffff"
+    ],
+    "shape": "cone"
+   },
+   "kinds": [
+    "car",
+    "bike"
+   ],
+   "tags": []
+  },
+  {
+   "id": "f_green",
+   "type": "skin",
+   "slot": "nitroFlame",
+   "name": {
+    "ar": "لهب سام",
+    "en": "Toxic Flame",
+    "fr": "Flamme Toxique"
+   },
+   "rarity": "rare",
+   "price": {
+    "coins": 1800
+   },
+   "unlock": {
+    "level": 7
+   },
+   "enabled": true,
+   "startsAt": null,
+   "endsAt": null,
+   "params": {
+    "colors": [
+     "#b9fbc0",
+     "#38b000",
+     "#ffffff"
+    ],
+    "shape": "dual"
+   },
+   "kinds": [
+    "car",
+    "bike"
+   ],
+   "tags": []
+  },
+  {
+   "id": "f_gold",
+   "type": "skin",
+   "slot": "nitroFlame",
+   "name": {
+    "ar": "لهب ذهبي",
+    "en": "Golden Flame",
+    "fr": "Flamme Dorée"
+   },
+   "rarity": "rare",
+   "price": {
+    "coins": 2400
+   },
+   "unlock": {
+    "level": 9
+   },
+   "enabled": true,
+   "startsAt": null,
+   "endsAt": null,
+   "params": {
+    "colors": [
+     "#fff3b0",
+     "#ffb703",
+     "#ff6b00"
+    ],
+    "shape": "wave"
+   },
+   "kinds": [
+    "car",
+    "bike"
+   ],
+   "tags": []
+  },
+  {
+   "id": "f_pink",
+   "type": "skin",
+   "slot": "nitroFlame",
+   "name": {
+    "ar": "لهب وردي",
+    "en": "Pink Flame",
+    "fr": "Flamme Rose"
+   },
+   "rarity": "rare",
+   "price": {
+    "coins": 2200
+   },
+   "unlock": {
+    "level": 8
+   },
+   "enabled": true,
+   "startsAt": null,
+   "endsAt": null,
+   "params": {
+    "colors": [
+     "#ffc8dd",
+     "#ff006e",
+     "#ffffff"
+    ],
+    "shape": "spark"
+   },
+   "kinds": [
+    "car",
+    "bike"
+   ],
+   "tags": []
+  },
+  {
+   "id": "f_white",
+   "type": "skin",
+   "slot": "nitroFlame",
+   "name": {
+    "ar": "لهب أبيض",
+    "en": "White-hot",
+    "fr": "Blanc Brûlant"
+   },
+   "rarity": "legendary",
+   "price": {
+    "gems": 200
+   },
+   "unlock": {
+    "level": 13
+   },
+   "enabled": true,
+   "startsAt": null,
+   "endsAt": null,
+   "params": {
+    "colors": [
+     "#ffffff",
+     "#b9e6ff",
+     "#7df9ff"
+    ],
+    "shape": "dual"
+   },
+   "kinds": [
+    "car",
+    "bike"
+   ],
+   "tags": []
+  },
+  {
+   "id": "f_ice",
+   "type": "skin",
+   "slot": "nitroFlame",
+   "name": {
+    "ar": "لهب جليدي",
+    "en": "Ice Flame",
+    "fr": "Flamme de Glace"
+   },
+   "rarity": "legendary",
+   "price": {
+    "gems": 260
+   },
+   "unlock": {
+    "level": 17
+   },
+   "enabled": true,
+   "startsAt": null,
+   "endsAt": null,
+   "params": {
+    "colors": [
+     "#e0fbfc",
+     "#3a86ff",
+     "#00f5ff"
+    ],
+    "shape": "wave"
+   },
+   "kinds": [
+    "car",
+    "bike"
+   ],
+   "tags": []
+  },
+  {
+   "id": "s_star",
+   "type": "skin",
+   "slot": "sticker",
+   "name": {
+    "ar": "نجمة",
+    "en": "Star",
+    "fr": "Étoile"
+   },
+   "rarity": "common",
+   "price": {
+    "coins": 300
+   },
+   "unlock": {},
+   "enabled": true,
+   "startsAt": null,
+   "endsAt": null,
+   "params": {
+    "shape": "star",
+    "color": "#ffd166"
+   },
+   "kinds": [
+    "car",
+    "bike"
+   ],
+   "tags": []
+  },
+  {
+   "id": "s_bolt",
+   "type": "skin",
+   "slot": "sticker",
+   "name": {
+    "ar": "صاعقة",
+    "en": "Bolt",
+    "fr": "Éclair"
+   },
+   "rarity": "common",
+   "price": {
+    "coins": 300
+   },
+   "unlock": {
+    "level": 2
+   },
+   "enabled": true,
+   "startsAt": null,
+   "endsAt": null,
+   "params": {
+    "shape": "bolt",
+    "color": "#ffea00"
+   },
+   "kinds": [
+    "car",
+    "bike"
+   ],
+   "tags": []
+  },
+  {
+   "id": "s_flame",
+   "type": "skin",
+   "slot": "sticker",
+   "name": {
+    "ar": "لهب",
+    "en": "Flame",
+    "fr": "Flamme"
+   },
+   "rarity": "common",
+   "price": {
+    "coins": 400
+   },
+   "unlock": {
+    "level": 3
+   },
+   "enabled": true,
+   "startsAt": null,
+   "endsAt": null,
+   "params": {
+    "shape": "flame",
+    "color": "#ff6b00"
+   },
+   "kinds": [
+    "car",
+    "bike"
+   ],
+   "tags": []
+  },
+  {
+   "id": "s_heart",
+   "type": "skin",
+   "slot": "sticker",
+   "name": {
+    "ar": "قلب",
+    "en": "Heart",
+    "fr": "Cœur"
+   },
+   "rarity": "common",
+   "price": {
+    "coins": 400
+   },
+   "unlock": {
+    "level": 3
+   },
+   "enabled": true,
+   "startsAt": null,
+   "endsAt": null,
+   "params": {
+    "shape": "heart",
+    "color": "#ff4d6d"
+   },
+   "kinds": [
+    "car",
+    "bike"
+   ],
+   "tags": []
+  },
+  {
+   "id": "s_seven",
+   "type": "skin",
+   "slot": "sticker",
+   "name": {
+    "ar": "رقم ٧",
+    "en": "Number 7",
+    "fr": "Numéro 7"
+   },
+   "rarity": "rare",
+   "price": {
+    "coins": 900
+   },
+   "unlock": {
+    "level": 5
+   },
+   "enabled": true,
+   "startsAt": null,
+   "endsAt": null,
+   "params": {
+    "shape": "number",
+    "color": "#ffffff",
+    "number": 7
+   },
+   "kinds": [
+    "car",
+    "bike"
+   ],
+   "tags": []
+  },
+  {
+   "id": "s_arrow",
+   "type": "skin",
+   "slot": "sticker",
+   "name": {
+    "ar": "سهم",
+    "en": "Arrow",
+    "fr": "Flèche"
+   },
+   "rarity": "rare",
+   "price": {
+    "coins": 900
+   },
+   "unlock": {
+    "level": 5
+   },
+   "enabled": true,
+   "startsAt": null,
+   "endsAt": null,
+   "params": {
+    "shape": "arrow",
+    "color": "#00f5ff"
+   },
+   "kinds": [
+    "car",
+    "bike"
+   ],
+   "tags": []
+  },
+  {
+   "id": "s_wing",
+   "type": "skin",
+   "slot": "sticker",
+   "name": {
+    "ar": "جناحان",
+    "en": "Wings",
+    "fr": "Ailes"
+   },
+   "rarity": "rare",
+   "price": {
+    "coins": 1400
+   },
+   "unlock": {
+    "level": 8
+   },
+   "enabled": true,
+   "startsAt": null,
+   "endsAt": null,
+   "params": {
+    "shape": "wing",
+    "color": "#e0e1dd"
+   },
+   "kinds": [
+    "car",
+    "bike"
+   ],
+   "tags": []
+  },
+  {
+   "id": "s_skull",
+   "type": "skin",
+   "slot": "sticker",
+   "name": {
+    "ar": "جمجمة",
+    "en": "Skull",
+    "fr": "Crâne"
+   },
+   "rarity": "rare",
+   "price": {
+    "coins": 1500
+   },
+   "unlock": {
+    "level": 10
+   },
+   "enabled": true,
+   "startsAt": null,
+   "endsAt": null,
+   "params": {
+    "shape": "skull",
+    "color": "#f8f9fa"
+   },
+   "kinds": [
+    "car",
+    "bike"
+   ],
+   "tags": []
+  },
+  {
+   "id": "s_crown",
+   "type": "skin",
+   "slot": "sticker",
+   "name": {
+    "ar": "تاج",
+    "en": "Crown",
+    "fr": "Couronne"
+   },
+   "rarity": "legendary",
+   "price": {
+    "gems": 120
+   },
+   "unlock": {
+    "level": 14
+   },
+   "enabled": true,
+   "startsAt": null,
+   "endsAt": null,
+   "params": {
+    "shape": "crown",
+    "color": "#ffd700"
+   },
+   "kinds": [
+    "car",
+    "bike"
+   ],
+   "tags": []
+  },
+  {
+   "id": "s_crescent",
+   "type": "skin",
+   "slot": "sticker",
+   "name": {
+    "ar": "هلال",
+    "en": "Crescent",
+    "fr": "Croissant"
+   },
+   "rarity": "legendary",
+   "price": {},
+   "unlock": {},
+   "enabled": true,
+   "startsAt": null,
+   "endsAt": null,
+   "params": {
+    "shape": "crescent",
+    "color": "#ffd60a",
+    "unlock": {
+     "event": "ramadan_2027"
+    },
+    "tags": [
+     "event",
+     "ramadan"
+    ]
+   },
+   "kinds": [
+    "car",
+    "bike"
+   ],
+   "tags": []
+  },
+  {
+   "id": "s_ball",
+   "type": "skin",
+   "slot": "sticker",
+   "name": {
+    "ar": "كرة",
+    "en": "Ball",
+    "fr": "Ballon"
+   },
+   "rarity": "rare",
+   "price": {},
+   "unlock": {},
+   "enabled": true,
+   "startsAt": null,
+   "endsAt": null,
+   "params": {
+    "shape": "ball",
+    "color": "#ffffff",
+    "unlock": {
+     "event": "worldcup_2026"
+    },
+    "tags": [
+     "event",
+     "football"
+    ]
+   },
+   "kinds": [
+    "car",
+    "bike"
+   ],
+   "tags": []
+  },
+  {
+   "id": "pl_classic",
+   "type": "skin",
+   "slot": "plate",
+   "name": {
+    "ar": "لوحة كلاسيكية",
+    "en": "Classic Plate",
+    "fr": "Plaque Classique"
+   },
+   "rarity": "common",
+   "price": {},
+   "unlock": {},
+   "enabled": true,
+   "startsAt": null,
+   "endsAt": null,
+   "params": {
+    "bg": "#f8f9fa",
+    "fg": "#111111",
+    "border": "#111111"
+   },
+   "kinds": [
+    "car",
+    "bike"
+   ],
+   "tags": []
+  },
+  {
+   "id": "pl_gold",
+   "type": "skin",
+   "slot": "plate",
+   "name": {
+    "ar": "لوحة ذهبية",
+    "en": "Black Gold",
+    "fr": "Noir & Or"
+   },
+   "rarity": "rare",
+   "price": {
+    "coins": 1000
+   },
+   "unlock": {
+    "level": 5
+   },
+   "enabled": true,
+   "startsAt": null,
+   "endsAt": null,
+   "params": {
+    "bg": "#111111",
+    "fg": "#ffd700",
+    "border": "#ffd700"
+   },
+   "kinds": [
+    "car",
+    "bike"
+   ],
+   "tags": []
+  },
+  {
+   "id": "pl_neon",
+   "type": "skin",
+   "slot": "plate",
+   "name": {
+    "ar": "لوحة نيون",
+    "en": "Neon Plate",
+    "fr": "Plaque Néon"
+   },
+   "rarity": "rare",
+   "price": {
+    "coins": 1400
+   },
+   "unlock": {
+    "level": 8
+   },
+   "enabled": true,
+   "startsAt": null,
+   "endsAt": null,
+   "params": {
+    "bg": "#0b132b",
+    "fg": "#00f5ff",
+    "border": "#00f5ff",
+    "glow": true
+   },
+   "kinds": [
+    "car",
+    "bike"
+   ],
+   "tags": []
+  },
+  {
+   "id": "pl_flag",
+   "type": "skin",
+   "slot": "plate",
+   "name": {
+    "ar": "لوحة الأبطال",
+    "en": "Champion Plate",
+    "fr": "Plaque Champion"
+   },
+   "rarity": "legendary",
+   "price": {
+    "gems": 100
+   },
+   "unlock": {
+    "level": 12
+   },
+   "enabled": true,
+   "startsAt": null,
+   "endsAt": null,
+   "params": {
+    "bg": "#ffd700",
+    "fg": "#111111",
+    "border": "#ffffff"
+   },
+   "kinds": [
+    "car",
+    "bike"
+   ],
+   "tags": []
+  },
+  {
+   "id": "h_classic",
+   "type": "skin",
+   "slot": "horn",
+   "name": {
+    "ar": "بوق عادي",
+    "en": "Classic Beep",
+    "fr": "Klaxon Classique"
+   },
+   "rarity": "common",
+   "price": {},
+   "unlock": {},
+   "enabled": true,
+   "startsAt": null,
+   "endsAt": null,
+   "params": {
+    "wave": "square",
+    "seq": [
+     [
+      440,
+      220
+     ]
+    ]
+   },
+   "kinds": [
+    "car",
+    "bike"
+   ],
+   "tags": []
+  },
+  {
+   "id": "h_deep",
+   "type": "skin",
+   "slot": "horn",
+   "name": {
+    "ar": "بوق عميق",
+    "en": "Deep Horn",
+    "fr": "Klaxon Grave"
+   },
+   "rarity": "common",
+   "price": {
+    "coins": 700
+   },
+   "unlock": {
+    "level": 2
+   },
+   "enabled": true,
+   "startsAt": null,
+   "endsAt": null,
+   "params": {
+    "wave": "saw",
+    "seq": [
+     [
+      196,
+      450
+     ]
+    ]
+   },
+   "kinds": [
+    "car",
+    "bike"
+   ],
+   "tags": []
+  },
+  {
+   "id": "h_double",
+   "type": "skin",
+   "slot": "horn",
+   "name": {
+    "ar": "بوق مزدوج",
+    "en": "Double Beep",
+    "fr": "Double Klaxon"
+   },
+   "rarity": "common",
+   "price": {
+    "coins": 900
+   },
+   "unlock": {
+    "level": 3
+   },
+   "enabled": true,
+   "startsAt": null,
+   "endsAt": null,
+   "params": {
+    "wave": "square",
+    "seq": [
+     [
+      523,
+      120
+     ],
+     [
+      0,
+      60
+     ],
+     [
+      523,
+      120
+     ]
+    ]
+   },
+   "kinds": [
+    "car",
+    "bike"
+   ],
+   "tags": []
+  },
+  {
+   "id": "h_sport",
+   "type": "skin",
+   "slot": "horn",
+   "name": {
+    "ar": "بوق رياضي",
+    "en": "Sport Horn",
+    "fr": "Klaxon Sport"
+   },
+   "rarity": "rare",
+   "price": {
+    "coins": 1500
+   },
+   "unlock": {
+    "level": 6
+   },
+   "enabled": true,
+   "startsAt": null,
+   "endsAt": null,
+   "params": {
+    "wave": "saw",
+    "seq": [
+     [
+      330,
+      100
+     ],
+     [
+      440,
+      100
+     ],
+     [
+      587,
+      200
+     ]
+    ]
+   },
+   "kinds": [
+    "car",
+    "bike"
+   ],
+   "tags": []
+  },
+  {
+   "id": "h_retro",
+   "type": "skin",
+   "slot": "horn",
+   "name": {
+    "ar": "بوق قديم",
+    "en": "Ooga Retro",
+    "fr": "Klaxon Rétro"
+   },
+   "rarity": "rare",
+   "price": {
+    "coins": 1600
+   },
+   "unlock": {
+    "level": 7
+   },
+   "enabled": true,
+   "startsAt": null,
+   "endsAt": null,
+   "params": {
+    "wave": "sine",
+    "seq": [
+     [
+      220,
+      260
+     ],
+     [
+      165,
+      360
+     ]
+    ]
+   },
+   "kinds": [
+    "car",
+    "bike"
+   ],
+   "tags": []
+  },
+  {
+   "id": "h_fanfare",
+   "type": "skin",
+   "slot": "horn",
+   "name": {
+    "ar": "فانفير النصر",
+    "en": "Victory Fanfare",
+    "fr": "Fanfare"
+   },
+   "rarity": "legendary",
+   "price": {
+    "gems": 150
+   },
+   "unlock": {
+    "level": 12
+   },
+   "enabled": true,
+   "startsAt": null,
+   "endsAt": null,
+   "params": {
+    "wave": "square",
+    "seq": [
+     [
+      392,
+      120
+     ],
+     [
+      392,
+      120
+     ],
+     [
+      392,
+      120
+     ],
+     [
+      523,
+      400
+     ]
+    ]
+   },
+   "kinds": [
+    "car",
+    "bike"
+   ],
+   "tags": []
+  },
+  {
+   "id": "ce_confetti",
+   "type": "skin",
+   "slot": "celebration",
+   "name": {
+    "ar": "قصاصات ملونة",
+    "en": "Confetti",
+    "fr": "Confettis"
+   },
+   "rarity": "common",
+   "price": {},
+   "unlock": {},
+   "enabled": true,
+   "startsAt": null,
+   "endsAt": null,
+   "params": {
+    "type": "confetti",
+    "colors": [
+     "#ff006e",
+     "#ffbe0b",
+     "#3a86ff",
+     "#8338ec"
+    ]
+   },
+   "kinds": [
+    "car",
+    "bike"
+   ],
+   "tags": []
+  },
+  {
+   "id": "ce_fireworks",
+   "type": "skin",
+   "slot": "celebration",
+   "name": {
+    "ar": "ألعاب نارية",
+    "en": "Fireworks",
+    "fr": "Feux d'artifice"
+   },
+   "rarity": "common",
+   "price": {
+    "coins": 1200
+   },
+   "unlock": {
+    "level": 4
+   },
+   "enabled": true,
+   "startsAt": null,
+   "endsAt": null,
+   "params": {
+    "type": "fireworks",
+    "colors": [
+     "#ffd166",
+     "#ef476f",
+     "#06d6a0"
+    ]
+   },
+   "kinds": [
+    "car",
+    "bike"
+   ],
+   "tags": []
+  },
+  {
+   "id": "ce_donut",
+   "type": "skin",
+   "slot": "celebration",
+   "name": {
+    "ar": "دوران الدونات",
+    "en": "Donut Spin",
+    "fr": "Donut"
+   },
+   "rarity": "rare",
+   "price": {
+    "coins": 2000
+   },
+   "unlock": {
+    "level": 7
+   },
+   "enabled": true,
+   "startsAt": null,
+   "endsAt": null,
+   "params": {
+    "type": "donut",
+    "colors": [
+     "#e0e1dd",
+     "#ff6b00"
+    ]
+   },
+   "kinds": [
+    "car",
+    "bike"
+   ],
+   "tags": []
+  },
+  {
+   "id": "ce_wheelie",
+   "type": "skin",
+   "slot": "celebration",
+   "name": {
+    "ar": "وقوف على عجلة",
+    "en": "Wheelie",
+    "fr": "Cabrage"
+   },
+   "rarity": "rare",
+   "price": {
+    "coins": 2200
+   },
+   "unlock": {
+    "level": 9
+   },
+   "enabled": true,
+   "startsAt": null,
+   "endsAt": null,
+   "params": {
+    "type": "wheelie",
+    "colors": [
+     "#ffd60a",
+     "#ffffff"
+    ]
+   },
+   "kinds": [
+    "car",
+    "bike"
+   ],
+   "tags": []
+  },
+  {
+   "id": "ce_lightning",
+   "type": "skin",
+   "slot": "celebration",
+   "name": {
+    "ar": "صواعق",
+    "en": "Lightning",
+    "fr": "Éclairs"
+   },
+   "rarity": "legendary",
+   "price": {
+    "gems": 180
+   },
+   "unlock": {
+    "level": 13
+   },
+   "enabled": true,
+   "startsAt": null,
+   "endsAt": null,
+   "params": {
+    "type": "lightning",
+    "colors": [
+     "#7df9ff",
+     "#ffffff"
+    ]
+   },
+   "kinds": [
+    "car",
+    "bike"
+   ],
+   "tags": []
+  },
+  {
+   "id": "ce_flags",
+   "type": "skin",
+   "slot": "celebration",
+   "name": {
+    "ar": "أعلام السباق",
+    "en": "Racing Flags",
+    "fr": "Drapeaux"
+   },
+   "rarity": "rare",
+   "price": {
+    "coins": 1800
+   },
+   "unlock": {
+    "level": 6
+   },
+   "enabled": true,
+   "startsAt": null,
+   "endsAt": null,
+   "params": {
+    "type": "flags",
+    "colors": [
+     "#ffffff",
+     "#111111"
+    ]
+   },
+   "kinds": [
+    "car",
+    "bike"
+   ],
+   "tags": []
+  },
+  {
+   "id": "ce_smoke",
+   "type": "skin",
+   "slot": "celebration",
+   "name": {
+    "ar": "حلقات الدخان",
+    "en": "Smoke Rings",
+    "fr": "Anneaux de Fumée"
+   },
+   "rarity": "rare",
+   "price": {
+    "coins": 1900
+   },
+   "unlock": {
+    "level": 8
+   },
+   "enabled": true,
+   "startsAt": null,
+   "endsAt": null,
+   "params": {
+    "type": "smoke",
+    "colors": [
+     "#dee2e6",
+     "#adb5bd"
+    ]
+   },
+   "kinds": [
+    "car",
+    "bike"
+   ],
+   "tags": []
+  }
+ ]
+}

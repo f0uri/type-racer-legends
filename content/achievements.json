@@ -1,0 +1,2212 @@
+{
+ "version": 1,
+ "titles": {
+  "t_races": {
+   "ar": "أسطورة الطريق",
+   "en": "Road Legend",
+   "fr": "Légende de la Route"
+  },
+  "t_wins": {
+   "ar": "سيد الانتصارات",
+   "en": "Victory Master",
+   "fr": "Maître des Victoires"
+  },
+  "t_best_wpm": {
+   "ar": "خارق السرعة",
+   "en": "Supersonic",
+   "fr": "Supersonique"
+  },
+  "t_best_acc": {
+   "ar": "بلا أخطاء",
+   "en": "Flawless",
+   "fr": "Sans Faute"
+  },
+  "t_combo_max": {
+   "ar": "لا يُكسر",
+   "en": "Unbreakable",
+   "fr": "Incassable"
+  },
+  "t_perfect_races": {
+   "ar": "آلة الدقة",
+   "en": "Precision Machine",
+   "fr": "Machine de Précision"
+  },
+  "t_nitro_count": {
+   "ar": "سيد النيترو",
+   "en": "Nitro Master",
+   "fr": "Maître du Nitro"
+  },
+  "t_chars": {
+   "ar": "ماراثون الأصابع",
+   "en": "Keyboard Marathon",
+   "fr": "Marathon du Clavier"
+  },
+  "t_streak_best": {
+   "ar": "شهر من الالتزام",
+   "en": "Month of Dedication",
+   "fr": "Mois de Dévouement"
+  },
+  "t_stages_cleared": {
+   "ar": "قاهر الحملة",
+   "en": "Campaign Conqueror",
+   "fr": "Conquérant de la Campagne"
+  },
+  "t_campaign_stars": {
+   "ar": "كل النجوم",
+   "en": "All the Stars",
+   "fr": "Toutes les Étoiles"
+  },
+  "t_boss_defeated": {
+   "ar": "ملك الزعماء",
+   "en": "Boss Slayer",
+   "fr": "Tueur de Boss"
+  },
+  "t_vehicles_owned": {
+   "ar": "متحف متنقل",
+   "en": "Moving Museum",
+   "fr": "Musée Roulant"
+  },
+  "t_skins_owned": {
+   "ar": "خزانة الأناقة",
+   "en": "Wardrobe Master",
+   "fr": "Maître de la Garde-robe"
+  },
+  "t_level": {
+   "ar": "مستوى ٥٠",
+   "en": "Level 50",
+   "fr": "Niveau 50"
+  },
+  "t_tournaments_won": {
+   "ar": "ملك البطولات",
+   "en": "Tournament King",
+   "fr": "Roi des Tournois"
+  },
+  "t_daily_done": {
+   "ar": "شهر من التحديات",
+   "en": "Month of Challenges",
+   "fr": "Mois de Défis"
+  },
+  "t_lessons_done": {
+   "ar": "خريج الكتابة باللمس",
+   "en": "Touch Typing Graduate",
+   "fr": "Diplômé de la Dactylo"
+  },
+  "t_vocab_words": {
+   "ar": "بطل المفردات",
+   "en": "Vocabulary Hero",
+   "fr": "Héros du Vocabulaire"
+  },
+  "t_powerups_used": {
+   "ar": "سيد القوى",
+   "en": "Power Lord",
+   "fr": "Seigneur des Pouvoirs"
+  },
+  "t_pit_perfect": {
+   "ar": "ميكانيكي مثالي",
+   "en": "Master Mechanic",
+   "fr": "Mécanicien Parfait"
+  },
+  "t_survival_best": {
+   "ar": "لا يُقهر",
+   "en": "Invincible",
+   "fr": "Invincible"
+  },
+  "t_world_stops": {
+   "ar": "حول العالم",
+   "en": "Around the World",
+   "fr": "Tour du Monde"
+  },
+  "t_upgrades": {
+   "ar": "عبقري المحركات",
+   "en": "Engine Genius",
+   "fr": "Génie des Moteurs"
+  },
+  "t_legend": {
+   "ar": "الأسطورة",
+   "en": "The Legend",
+   "fr": "La Légende"
+  },
+  "t_tourn_daily": {
+   "ar": "بطل اليوم",
+   "en": "Daily Champion",
+   "fr": "Champion du Jour"
+  },
+  "t_tourn_weekly": {
+   "ar": "بطل الأسبوع",
+   "en": "Weekly Champion",
+   "fr": "Champion de la Semaine"
+  },
+  "t_rookie": {
+   "ar": "مبتدئ",
+   "en": "Rookie",
+   "fr": "Débutant"
+  }
+ },
+ "items": [
+  {
+   "id": "a_races_1",
+   "metric": "races",
+   "target": 10,
+   "icon": "races",
+   "tier": 1,
+   "of": 4,
+   "name": {
+    "ar": "متسابق مبتدئ",
+    "en": "Rookie Racer",
+    "fr": "Pilote Débutant"
+   },
+   "desc": {
+    "ar": "أكمل 10 سباقاً",
+    "en": "Finish 10 races",
+    "fr": "Terminez 10 courses"
+   },
+   "reward": {
+    "coins": 250
+   },
+   "enabled": true
+  },
+  {
+   "id": "a_races_2",
+   "metric": "races",
+   "target": 50,
+   "icon": "races",
+   "tier": 2,
+   "of": 4,
+   "name": {
+    "ar": "متسابق منتظم",
+    "en": "Regular Racer",
+    "fr": "Pilote Régulier"
+   },
+   "desc": {
+    "ar": "أكمل 50 سباقاً",
+    "en": "Finish 50 races",
+    "fr": "Terminez 50 courses"
+   },
+   "reward": {
+    "coins": 700,
+    "gems": 15
+   },
+   "enabled": true
+  },
+  {
+   "id": "a_races_3",
+   "metric": "races",
+   "target": 250,
+   "icon": "races",
+   "tier": 3,
+   "of": 4,
+   "name": {
+    "ar": "محترف الطريق",
+    "en": "Road Veteran",
+    "fr": "Vétéran de la Route"
+   },
+   "desc": {
+    "ar": "أكمل 250 سباقاً",
+    "en": "Finish 250 races",
+    "fr": "Terminez 250 courses"
+   },
+   "reward": {
+    "coins": 1450,
+    "gems": 45
+   },
+   "enabled": true
+  },
+  {
+   "id": "a_races_4",
+   "metric": "races",
+   "target": 1000,
+   "icon": "races",
+   "tier": 4,
+   "of": 4,
+   "name": {
+    "ar": "أسطورة الطريق",
+    "en": "Road Legend",
+    "fr": "Légende de la Route"
+   },
+   "desc": {
+    "ar": "أكمل 1000 سباقاً",
+    "en": "Finish 1000 races",
+    "fr": "Terminez 1000 courses"
+   },
+   "reward": {
+    "coins": 2500,
+    "gems": 95
+   },
+   "enabled": true,
+   "title": "t_races"
+  },
+  {
+   "id": "a_wins_1",
+   "metric": "wins",
+   "target": 5,
+   "icon": "trophy",
+   "tier": 1,
+   "of": 4,
+   "name": {
+    "ar": "أول الانتصارات",
+    "en": "First Wins",
+    "fr": "Premières Victoires"
+   },
+   "desc": {
+    "ar": "افز في 5 سباقاً",
+    "en": "Win 5 races",
+    "fr": "Gagnez 5 courses"
+   },
+   "reward": {
+    "coins": 250
+   },
+   "enabled": true
+  },
+  {
+   "id": "a_wins_2",
+   "metric": "wins",
+   "target": 25,
+   "icon": "trophy",
+   "tier": 2,
+   "of": 4,
+   "name": {
+    "ar": "فائز متمرس",
+    "en": "Seasoned Winner",
+    "fr": "Gagnant Expérimenté"
+   },
+   "desc": {
+    "ar": "افز في 25 سباقاً",
+    "en": "Win 25 races",
+    "fr": "Gagnez 25 courses"
+   },
+   "reward": {
+    "coins": 700,
+    "gems": 15
+   },
+   "enabled": true
+  },
+  {
+   "id": "a_wins_3",
+   "metric": "wins",
+   "target": 100,
+   "icon": "trophy",
+   "tier": 3,
+   "of": 4,
+   "name": {
+    "ar": "بطل الحلبة",
+    "en": "Track Champion",
+    "fr": "Champion de Piste"
+   },
+   "desc": {
+    "ar": "افز في 100 سباقاً",
+    "en": "Win 100 races",
+    "fr": "Gagnez 100 courses"
+   },
+   "reward": {
+    "coins": 1450,
+    "gems": 45
+   },
+   "enabled": true
+  },
+  {
+   "id": "a_wins_4",
+   "metric": "wins",
+   "target": 500,
+   "icon": "trophy",
+   "tier": 4,
+   "of": 4,
+   "name": {
+    "ar": "سيد الانتصارات",
+    "en": "Victory Master",
+    "fr": "Maître des Victoires"
+   },
+   "desc": {
+    "ar": "افز في 500 سباقاً",
+    "en": "Win 500 races",
+    "fr": "Gagnez 500 courses"
+   },
+   "reward": {
+    "coins": 2500,
+    "gems": 95
+   },
+   "enabled": true,
+   "title": "t_wins"
+  },
+  {
+   "id": "a_best_wpm_1",
+   "metric": "best_wpm",
+   "target": 30,
+   "icon": "speed",
+   "tier": 1,
+   "of": 5,
+   "name": {
+    "ar": "أصابع دافئة",
+    "en": "Warm Fingers",
+    "fr": "Doigts Chauds"
+   },
+   "desc": {
+    "ar": "اصل إلى 30 كلمة في الدقيقة",
+    "en": "Reach 30 WPM",
+    "fr": "Atteignez 30 MPM"
+   },
+   "reward": {
+    "coins": 250
+   },
+   "enabled": true
+  },
+  {
+   "id": "a_best_wpm_2",
+   "metric": "best_wpm",
+   "target": 50,
+   "icon": "speed",
+   "tier": 2,
+   "of": 5,
+   "name": {
+    "ar": "كاتب سريع",
+    "en": "Fast Typist",
+    "fr": "Dactylo Rapide"
+   },
+   "desc": {
+    "ar": "اصل إلى 50 كلمة في الدقيقة",
+    "en": "Reach 50 WPM",
+    "fr": "Atteignez 50 MPM"
+   },
+   "reward": {
+    "coins": 700,
+    "gems": 15
+   },
+   "enabled": true
+  },
+  {
+   "id": "a_best_wpm_3",
+   "metric": "best_wpm",
+   "target": 75,
+   "icon": "speed",
+   "tier": 3,
+   "of": 5,
+   "name": {
+    "ar": "برق الأصابع",
+    "en": "Finger Lightning",
+    "fr": "Éclair des Doigts"
+   },
+   "desc": {
+    "ar": "اصل إلى 75 كلمة في الدقيقة",
+    "en": "Reach 75 WPM",
+    "fr": "Atteignez 75 MPM"
+   },
+   "reward": {
+    "coins": 1450,
+    "gems": 45
+   },
+   "enabled": true
+  },
+  {
+   "id": "a_best_wpm_4",
+   "metric": "best_wpm",
+   "target": 100,
+   "icon": "speed",
+   "tier": 4,
+   "of": 5,
+   "name": {
+    "ar": "مئة كلمة!",
+    "en": "Century Typist",
+    "fr": "Cent Mots !"
+   },
+   "desc": {
+    "ar": "اصل إلى 100 كلمة في الدقيقة",
+    "en": "Reach 100 WPM",
+    "fr": "Atteignez 100 MPM"
+   },
+   "reward": {
+    "coins": 2500,
+    "gems": 95
+   },
+   "enabled": true
+  },
+  {
+   "id": "a_best_wpm_5",
+   "metric": "best_wpm",
+   "target": 130,
+   "icon": "speed",
+   "tier": 5,
+   "of": 5,
+   "name": {
+    "ar": "خارق السرعة",
+    "en": "Supersonic",
+    "fr": "Supersonique"
+   },
+   "desc": {
+    "ar": "اصل إلى 130 كلمة في الدقيقة",
+    "en": "Reach 130 WPM",
+    "fr": "Atteignez 130 MPM"
+   },
+   "reward": {
+    "coins": 3850,
+    "gems": 165
+   },
+   "enabled": true,
+   "title": "t_best_wpm"
+  },
+  {
+   "id": "a_best_acc_1",
+   "metric": "best_acc",
+   "target": 95,
+   "icon": "target",
+   "tier": 1,
+   "of": 3,
+   "name": {
+    "ar": "دقيق",
+    "en": "Precise",
+    "fr": "Précis"
+   },
+   "desc": {
+    "ar": "أنهِ سباقاً بدقة 95%",
+    "en": "Finish a race with 95% accuracy",
+    "fr": "Terminez une course avec 95 % de précision"
+   },
+   "reward": {
+    "coins": 250
+   },
+   "enabled": true
+  },
+  {
+   "id": "a_best_acc_2",
+   "metric": "best_acc",
+   "target": 98,
+   "icon": "target",
+   "tier": 2,
+   "of": 3,
+   "name": {
+    "ar": "شبه مثالي",
+    "en": "Almost Perfect",
+    "fr": "Presque Parfait"
+   },
+   "desc": {
+    "ar": "أنهِ سباقاً بدقة 98%",
+    "en": "Finish a race with 98% accuracy",
+    "fr": "Terminez une course avec 98 % de précision"
+   },
+   "reward": {
+    "coins": 700,
+    "gems": 15
+   },
+   "enabled": true
+  },
+  {
+   "id": "a_best_acc_3",
+   "metric": "best_acc",
+   "target": 100,
+   "icon": "target",
+   "tier": 3,
+   "of": 3,
+   "name": {
+    "ar": "بلا أخطاء",
+    "en": "Flawless",
+    "fr": "Sans Faute"
+   },
+   "desc": {
+    "ar": "أنهِ سباقاً بدقة 100%",
+    "en": "Finish a race with 100% accuracy",
+    "fr": "Terminez une course avec 100 % de précision"
+   },
+   "reward": {
+    "coins": 1450,
+    "gems": 45
+   },
+   "enabled": true,
+   "title": "t_best_acc"
+  },
+  {
+   "id": "a_combo_max_1",
+   "metric": "combo_max",
+   "target": 25,
+   "icon": "combo",
+   "tier": 1,
+   "of": 4,
+   "name": {
+    "ar": "بداية الكومبو",
+    "en": "Combo Starter",
+    "fr": "Débutant Combo"
+   },
+   "desc": {
+    "ar": "حقق كومبو 25",
+    "en": "Reach a 25 combo",
+    "fr": "Atteignez un combo de 25"
+   },
+   "reward": {
+    "coins": 250
+   },
+   "enabled": true
+  },
+  {
+   "id": "a_combo_max_2",
+   "metric": "combo_max",
+   "target": 50,
+   "icon": "combo",
+   "tier": 2,
+   "of": 4,
+   "name": {
+    "ar": "سلسلة نارية",
+    "en": "Fire Streak",
+    "fr": "Série de Feu"
+   },
+   "desc": {
+    "ar": "حقق كومبو 50",
+    "en": "Reach a 50 combo",
+    "fr": "Atteignez un combo de 50"
+   },
+   "reward": {
+    "coins": 700,
+    "gems": 15
+   },
+   "enabled": true
+  },
+  {
+   "id": "a_combo_max_3",
+   "metric": "combo_max",
+   "target": 100,
+   "icon": "combo",
+   "tier": 3,
+   "of": 4,
+   "name": {
+    "ar": "ملك الكومبو",
+    "en": "Combo King",
+    "fr": "Roi du Combo"
+   },
+   "desc": {
+    "ar": "حقق كومبو 100",
+    "en": "Reach a 100 combo",
+    "fr": "Atteignez un combo de 100"
+   },
+   "reward": {
+    "coins": 1450,
+    "gems": 45
+   },
+   "enabled": true
+  },
+  {
+   "id": "a_combo_max_4",
+   "metric": "combo_max",
+   "target": 200,
+   "icon": "combo",
+   "tier": 4,
+   "of": 4,
+   "name": {
+    "ar": "لا يُكسر",
+    "en": "Unbreakable",
+    "fr": "Incassable"
+   },
+   "desc": {
+    "ar": "حقق كومبو 200",
+    "en": "Reach a 200 combo",
+    "fr": "Atteignez un combo de 200"
+   },
+   "reward": {
+    "coins": 2500,
+    "gems": 95
+   },
+   "enabled": true,
+   "title": "t_combo_max"
+  },
+  {
+   "id": "a_perfect_races_1",
+   "metric": "perfect_races",
+   "target": 1,
+   "icon": "perfect",
+   "tier": 1,
+   "of": 3,
+   "name": {
+    "ar": "سباق مثالي",
+    "en": "Perfect Run",
+    "fr": "Course Parfaite"
+   },
+   "desc": {
+    "ar": "أنهِ 1 سباقات بدون أخطاء",
+    "en": "Finish 1 races without errors",
+    "fr": "Terminez 1 courses sans erreur"
+   },
+   "reward": {
+    "coins": 250
+   },
+   "enabled": true
+  },
+  {
+   "id": "a_perfect_races_2",
+   "metric": "perfect_races",
+   "target": 10,
+   "icon": "perfect",
+   "tier": 2,
+   "of": 3,
+   "name": {
+    "ar": "مثالي متكرر",
+    "en": "Perfectionist",
+    "fr": "Perfectionniste"
+   },
+   "desc": {
+    "ar": "أنهِ 10 سباقات بدون أخطاء",
+    "en": "Finish 10 races without errors",
+    "fr": "Terminez 10 courses sans erreur"
+   },
+   "reward": {
+    "coins": 700,
+    "gems": 15
+   },
+   "enabled": true
+  },
+  {
+   "id": "a_perfect_races_3",
+   "metric": "perfect_races",
+   "target": 50,
+   "icon": "perfect",
+   "tier": 3,
+   "of": 3,
+   "name": {
+    "ar": "آلة الدقة",
+    "en": "Precision Machine",
+    "fr": "Machine de Précision"
+   },
+   "desc": {
+    "ar": "أنهِ 50 سباقات بدون أخطاء",
+    "en": "Finish 50 races without errors",
+    "fr": "Terminez 50 courses sans erreur"
+   },
+   "reward": {
+    "coins": 1450,
+    "gems": 45
+   },
+   "enabled": true,
+   "title": "t_perfect_races"
+  },
+  {
+   "id": "a_nitro_count_1",
+   "metric": "nitro_count",
+   "target": 10,
+   "icon": "nitro",
+   "tier": 1,
+   "of": 3,
+   "name": {
+    "ar": "شرارة نيترو",
+    "en": "Nitro Spark",
+    "fr": "Étincelle Nitro"
+   },
+   "desc": {
+    "ar": "فعّل النيترو 10 مرة",
+    "en": "Trigger nitro 10 times",
+    "fr": "Activez le nitro 10 fois"
+   },
+   "reward": {
+    "coins": 250
+   },
+   "enabled": true
+  },
+  {
+   "id": "a_nitro_count_2",
+   "metric": "nitro_count",
+   "target": 100,
+   "icon": "nitro",
+   "tier": 2,
+   "of": 3,
+   "name": {
+    "ar": "مدمن النيترو",
+    "en": "Nitro Addict",
+    "fr": "Accro au Nitro"
+   },
+   "desc": {
+    "ar": "فعّل النيترو 100 مرة",
+    "en": "Trigger nitro 100 times",
+    "fr": "Activez le nitro 100 fois"
+   },
+   "reward": {
+    "coins": 700,
+    "gems": 15
+   },
+   "enabled": true
+  },
+  {
+   "id": "a_nitro_count_3",
+   "metric": "nitro_count",
+   "target": 500,
+   "icon": "nitro",
+   "tier": 3,
+   "of": 3,
+   "name": {
+    "ar": "سيد النيترو",
+    "en": "Nitro Master",
+    "fr": "Maître du Nitro"
+   },
+   "desc": {
+    "ar": "فعّل النيترو 500 مرة",
+    "en": "Trigger nitro 500 times",
+    "fr": "Activez le nitro 500 fois"
+   },
+   "reward": {
+    "coins": 1450,
+    "gems": 45
+   },
+   "enabled": true,
+   "title": "t_nitro_count"
+  },
+  {
+   "id": "a_chars_1",
+   "metric": "chars",
+   "target": 1000,
+   "icon": "keys",
+   "tier": 1,
+   "of": 3,
+   "name": {
+    "ar": "ألف حرف",
+    "en": "Thousand Keys",
+    "fr": "Mille Touches"
+   },
+   "desc": {
+    "ar": "اكتب 1000 حرفاً صحيحاً",
+    "en": "Type 1000 correct characters",
+    "fr": "Tapez 1000 caractères corrects"
+   },
+   "reward": {
+    "coins": 250
+   },
+   "enabled": true
+  },
+  {
+   "id": "a_chars_2",
+   "metric": "chars",
+   "target": 10000,
+   "icon": "keys",
+   "tier": 2,
+   "of": 3,
+   "name": {
+    "ar": "عشرة آلاف حرف",
+    "en": "Ten Thousand Keys",
+    "fr": "Dix Mille Touches"
+   },
+   "desc": {
+    "ar": "اكتب 10000 حرفاً صحيحاً",
+    "en": "Type 10000 correct characters",
+    "fr": "Tapez 10000 caractères corrects"
+   },
+   "reward": {
+    "coins": 700,
+    "gems": 15
+   },
+   "enabled": true
+  },
+  {
+   "id": "a_chars_3",
+   "metric": "chars",
+   "target": 100000,
+   "icon": "keys",
+   "tier": 3,
+   "of": 3,
+   "name": {
+    "ar": "ماراثون الأصابع",
+    "en": "Keyboard Marathon",
+    "fr": "Marathon du Clavier"
+   },
+   "desc": {
+    "ar": "اكتب 100000 حرفاً صحيحاً",
+    "en": "Type 100000 correct characters",
+    "fr": "Tapez 100000 caractères corrects"
+   },
+   "reward": {
+    "coins": 1450,
+    "gems": 45
+   },
+   "enabled": true,
+   "title": "t_chars"
+  },
+  {
+   "id": "a_streak_best_1",
+   "metric": "streak_best",
+   "target": 3,
+   "icon": "streak",
+   "tier": 1,
+   "of": 3,
+   "name": {
+    "ar": "ثلاثة أيام",
+    "en": "Three Days",
+    "fr": "Trois Jours"
+   },
+   "desc": {
+    "ar": "حافظ على سلسلة 3 أيام",
+    "en": "Keep a 3-day streak",
+    "fr": "Gardez une série de 3 jours"
+   },
+   "reward": {
+    "coins": 250
+   },
+   "enabled": true
+  },
+  {
+   "id": "a_streak_best_2",
+   "metric": "streak_best",
+   "target": 7,
+   "icon": "streak",
+   "tier": 2,
+   "of": 3,
+   "name": {
+    "ar": "أسبوع كامل",
+    "en": "Full Week",
+    "fr": "Semaine Complète"
+   },
+   "desc": {
+    "ar": "حافظ على سلسلة 7 أيام",
+    "en": "Keep a 7-day streak",
+    "fr": "Gardez une série de 7 jours"
+   },
+   "reward": {
+    "coins": 700,
+    "gems": 15
+   },
+   "enabled": true
+  },
+  {
+   "id": "a_streak_best_3",
+   "metric": "streak_best",
+   "target": 30,
+   "icon": "streak",
+   "tier": 3,
+   "of": 3,
+   "name": {
+    "ar": "شهر من الالتزام",
+    "en": "Month of Dedication",
+    "fr": "Mois de Dévouement"
+   },
+   "desc": {
+    "ar": "حافظ على سلسلة 30 أيام",
+    "en": "Keep a 30-day streak",
+    "fr": "Gardez une série de 30 jours"
+   },
+   "reward": {
+    "coins": 1450,
+    "gems": 45
+   },
+   "enabled": true,
+   "title": "t_streak_best"
+  },
+  {
+   "id": "a_stages_cleared_1",
+   "metric": "stages_cleared",
+   "target": 10,
+   "icon": "map",
+   "tier": 1,
+   "of": 3,
+   "name": {
+    "ar": "مستكشف الحملة",
+    "en": "Campaign Explorer",
+    "fr": "Explorateur de Campagne"
+   },
+   "desc": {
+    "ar": "أنهِ 10 مرحلة في الحملة",
+    "en": "Clear 10 campaign stages",
+    "fr": "Terminez 10 étapes de campagne"
+   },
+   "reward": {
+    "coins": 250
+   },
+   "enabled": true
+  },
+  {
+   "id": "a_stages_cleared_2",
+   "metric": "stages_cleared",
+   "target": 25,
+   "icon": "map",
+   "tier": 2,
+   "of": 3,
+   "name": {
+    "ar": "نصف الطريق",
+    "en": "Halfway There",
+    "fr": "À Mi-chemin"
+   },
+   "desc": {
+    "ar": "أنهِ 25 مرحلة في الحملة",
+    "en": "Clear 25 campaign stages",
+    "fr": "Terminez 25 étapes de campagne"
+   },
+   "reward": {
+    "coins": 700,
+    "gems": 15
+   },
+   "enabled": true
+  },
+  {
+   "id": "a_stages_cleared_3",
+   "metric": "stages_cleared",
+   "target": 50,
+   "icon": "map",
+   "tier": 3,
+   "of": 3,
+   "name": {
+    "ar": "قاهر الحملة",
+    "en": "Campaign Conqueror",
+    "fr": "Conquérant de la Campagne"
+   },
+   "desc": {
+    "ar": "أنهِ 50 مرحلة في الحملة",
+    "en": "Clear 50 campaign stages",
+    "fr": "Terminez 50 étapes de campagne"
+   },
+   "reward": {
+    "coins": 1450,
+    "gems": 45
+   },
+   "enabled": true,
+   "title": "t_stages_cleared"
+  },
+  {
+   "id": "a_campaign_stars_1",
+   "metric": "campaign_stars",
+   "target": 30,
+   "icon": "star",
+   "tier": 1,
+   "of": 3,
+   "name": {
+    "ar": "جامع النجوم",
+    "en": "Star Collector",
+    "fr": "Collectionneur d'Étoiles"
+   },
+   "desc": {
+    "ar": "اجمع 30 نجمة",
+    "en": "Collect 30 stars",
+    "fr": "Collectez 30 étoiles"
+   },
+   "reward": {
+    "coins": 250
+   },
+   "enabled": true
+  },
+  {
+   "id": "a_campaign_stars_2",
+   "metric": "campaign_stars",
+   "target": 90,
+   "icon": "star",
+   "tier": 2,
+   "of": 3,
+   "name": {
+    "ar": "سماء من النجوم",
+    "en": "Sky of Stars",
+    "fr": "Ciel d'Étoiles"
+   },
+   "desc": {
+    "ar": "اجمع 90 نجمة",
+    "en": "Collect 90 stars",
+    "fr": "Collectez 90 étoiles"
+   },
+   "reward": {
+    "coins": 700,
+    "gems": 15
+   },
+   "enabled": true
+  },
+  {
+   "id": "a_campaign_stars_3",
+   "metric": "campaign_stars",
+   "target": 150,
+   "icon": "star",
+   "tier": 3,
+   "of": 3,
+   "name": {
+    "ar": "كل النجوم",
+    "en": "All the Stars",
+    "fr": "Toutes les Étoiles"
+   },
+   "desc": {
+    "ar": "اجمع 150 نجمة",
+    "en": "Collect 150 stars",
+    "fr": "Collectez 150 étoiles"
+   },
+   "reward": {
+    "coins": 1450,
+    "gems": 45
+   },
+   "enabled": true,
+   "title": "t_campaign_stars"
+  },
+  {
+   "id": "a_boss_defeated_1",
+   "metric": "boss_defeated",
+   "target": 1,
+   "icon": "boss",
+   "tier": 1,
+   "of": 3,
+   "name": {
+    "ar": "صائد الزعماء",
+    "en": "Boss Hunter",
+    "fr": "Chasseur de Boss"
+   },
+   "desc": {
+    "ar": "اهزم 1 زعيماً",
+    "en": "Defeat 1 bosses",
+    "fr": "Battez 1 boss"
+   },
+   "reward": {
+    "coins": 250
+   },
+   "enabled": true
+  },
+  {
+   "id": "a_boss_defeated_2",
+   "metric": "boss_defeated",
+   "target": 3,
+   "icon": "boss",
+   "tier": 2,
+   "of": 3,
+   "name": {
+    "ar": "قاهر الزعماء",
+    "en": "Boss Crusher",
+    "fr": "Briseur de Boss"
+   },
+   "desc": {
+    "ar": "اهزم 3 زعيماً",
+    "en": "Defeat 3 bosses",
+    "fr": "Battez 3 boss"
+   },
+   "reward": {
+    "coins": 700,
+    "gems": 15
+   },
+   "enabled": true
+  },
+  {
+   "id": "a_boss_defeated_3",
+   "metric": "boss_defeated",
+   "target": 6,
+   "icon": "boss",
+   "tier": 3,
+   "of": 3,
+   "name": {
+    "ar": "ملك الزعماء",
+    "en": "Boss Slayer",
+    "fr": "Tueur de Boss"
+   },
+   "desc": {
+    "ar": "اهزم 6 زعيماً",
+    "en": "Defeat 6 bosses",
+    "fr": "Battez 6 boss"
+   },
+   "reward": {
+    "coins": 1450,
+    "gems": 45
+   },
+   "enabled": true,
+   "title": "t_boss_defeated"
+  },
+  {
+   "id": "a_vehicles_owned_1",
+   "metric": "vehicles_owned",
+   "target": 3,
+   "icon": "garage",
+   "tier": 1,
+   "of": 3,
+   "name": {
+    "ar": "بداية الكراج",
+    "en": "Small Garage",
+    "fr": "Petit Garage"
+   },
+   "desc": {
+    "ar": "امتلك 3 مركبة",
+    "en": "Own 3 vehicles",
+    "fr": "Possédez 3 véhicules"
+   },
+   "reward": {
+    "coins": 250
+   },
+   "enabled": true
+  },
+  {
+   "id": "a_vehicles_owned_2",
+   "metric": "vehicles_owned",
+   "target": 8,
+   "icon": "garage",
+   "tier": 2,
+   "of": 3,
+   "name": {
+    "ar": "جامع المركبات",
+    "en": "Vehicle Collector",
+    "fr": "Collectionneur"
+   },
+   "desc": {
+    "ar": "امتلك 8 مركبة",
+    "en": "Own 8 vehicles",
+    "fr": "Possédez 8 véhicules"
+   },
+   "reward": {
+    "coins": 700,
+    "gems": 15
+   },
+   "enabled": true
+  },
+  {
+   "id": "a_vehicles_owned_3",
+   "metric": "vehicles_owned",
+   "target": 15,
+   "icon": "garage",
+   "tier": 3,
+   "of": 3,
+   "name": {
+    "ar": "متحف متنقل",
+    "en": "Moving Museum",
+    "fr": "Musée Roulant"
+   },
+   "desc": {
+    "ar": "امتلك 15 مركبة",
+    "en": "Own 15 vehicles",
+    "fr": "Possédez 15 véhicules"
+   },
+   "reward": {
+    "coins": 1450,
+    "gems": 45
+   },
+   "enabled": true,
+   "title": "t_vehicles_owned"
+  },
+  {
+   "id": "a_skins_owned_1",
+   "metric": "skins_owned",
+   "target": 5,
+   "icon": "paint",
+   "tier": 1,
+   "of": 3,
+   "name": {
+    "ar": "لمسة لون",
+    "en": "A Touch of Color",
+    "fr": "Touche de Couleur"
+   },
+   "desc": {
+    "ar": "امتلك 5 عنصر تخصيص",
+    "en": "Own 5 customization items",
+    "fr": "Possédez 5 éléments de personnalisation"
+   },
+   "reward": {
+    "coins": 250
+   },
+   "enabled": true
+  },
+  {
+   "id": "a_skins_owned_2",
+   "metric": "skins_owned",
+   "target": 20,
+   "icon": "paint",
+   "tier": 2,
+   "of": 3,
+   "name": {
+    "ar": "مصمم",
+    "en": "Stylist",
+    "fr": "Styliste"
+   },
+   "desc": {
+    "ar": "امتلك 20 عنصر تخصيص",
+    "en": "Own 20 customization items",
+    "fr": "Possédez 20 éléments de personnalisation"
+   },
+   "reward": {
+    "coins": 700,
+    "gems": 15
+   },
+   "enabled": true
+  },
+  {
+   "id": "a_skins_owned_3",
+   "metric": "skins_owned",
+   "target": 50,
+   "icon": "paint",
+   "tier": 3,
+   "of": 3,
+   "name": {
+    "ar": "خزانة الأناقة",
+    "en": "Wardrobe Master",
+    "fr": "Maître de la Garde-robe"
+   },
+   "desc": {
+    "ar": "امتلك 50 عنصر تخصيص",
+    "en": "Own 50 customization items",
+    "fr": "Possédez 50 éléments de personnalisation"
+   },
+   "reward": {
+    "coins": 1450,
+    "gems": 45
+   },
+   "enabled": true,
+   "title": "t_skins_owned"
+  },
+  {
+   "id": "a_level_1",
+   "metric": "level",
+   "target": 5,
+   "icon": "level",
+   "tier": 1,
+   "of": 4,
+   "name": {
+    "ar": "مستوى ٥",
+    "en": "Level 5",
+    "fr": "Niveau 5"
+   },
+   "desc": {
+    "ar": "اصل إلى المستوى 5",
+    "en": "Reach level 5",
+    "fr": "Atteignez le niveau 5"
+   },
+   "reward": {
+    "coins": 250
+   },
+   "enabled": true
+  },
+  {
+   "id": "a_level_2",
+   "metric": "level",
+   "target": 15,
+   "icon": "level",
+   "tier": 2,
+   "of": 4,
+   "name": {
+    "ar": "مستوى ١٥",
+    "en": "Level 15",
+    "fr": "Niveau 15"
+   },
+   "desc": {
+    "ar": "اصل إلى المستوى 15",
+    "en": "Reach level 15",
+    "fr": "Atteignez le niveau 15"
+   },
+   "reward": {
+    "coins": 700,
+    "gems": 15
+   },
+   "enabled": true
+  },
+  {
+   "id": "a_level_3",
+   "metric": "level",
+   "target": 30,
+   "icon": "level",
+   "tier": 3,
+   "of": 4,
+   "name": {
+    "ar": "مستوى ٣٠",
+    "en": "Level 30",
+    "fr": "Niveau 30"
+   },
+   "desc": {
+    "ar": "اصل إلى المستوى 30",
+    "en": "Reach level 30",
+    "fr": "Atteignez le niveau 30"
+   },
+   "reward": {
+    "coins": 1450,
+    "gems": 45
+   },
+   "enabled": true
+  },
+  {
+   "id": "a_level_4",
+   "metric": "level",
+   "target": 50,
+   "icon": "level",
+   "tier": 4,
+   "of": 4,
+   "name": {
+    "ar": "مستوى ٥٠",
+    "en": "Level 50",
+    "fr": "Niveau 50"
+   },
+   "desc": {
+    "ar": "اصل إلى المستوى 50",
+    "en": "Reach level 50",
+    "fr": "Atteignez le niveau 50"
+   },
+   "reward": {
+    "coins": 2500,
+    "gems": 95
+   },
+   "enabled": true,
+   "title": "t_level"
+  },
+  {
+   "id": "a_rank_tier_1",
+   "metric": "rank_tier",
+   "target": 2,
+   "icon": "rank",
+   "tier": 1,
+   "of": 2,
+   "name": {
+    "ar": "فضي",
+    "en": "Silver League",
+    "fr": "Ligue Argent"
+   },
+   "desc": {
+    "ar": "اصل إلى الدوري رقم 2",
+    "en": "Reach league tier 2",
+    "fr": "Atteignez le palier 2"
+   },
+   "reward": {
+    "coins": 250
+   },
+   "enabled": true
+  },
+  {
+   "id": "a_rank_tier_2",
+   "metric": "rank_tier",
+   "target": 4,
+   "icon": "rank",
+   "tier": 2,
+   "of": 2,
+   "name": {
+    "ar": "بلاتيني",
+    "en": "Platinum League",
+    "fr": "Ligue Platine"
+   },
+   "desc": {
+    "ar": "اصل إلى الدوري رقم 4",
+    "en": "Reach league tier 4",
+    "fr": "Atteignez le palier 4"
+   },
+   "reward": {
+    "coins": 700,
+    "gems": 15
+   },
+   "enabled": true
+  },
+  {
+   "id": "a_tournaments_won_1",
+   "metric": "tournaments_won",
+   "target": 1,
+   "icon": "cup",
+   "tier": 1,
+   "of": 3,
+   "name": {
+    "ar": "بطل البطولة",
+    "en": "Tournament Champion",
+    "fr": "Champion du Tournoi"
+   },
+   "desc": {
+    "ar": "افز بـ 1 بطولات",
+    "en": "Win 1 tournaments",
+    "fr": "Gagnez 1 tournois"
+   },
+   "reward": {
+    "coins": 250
+   },
+   "enabled": true
+  },
+  {
+   "id": "a_tournaments_won_2",
+   "metric": "tournaments_won",
+   "target": 5,
+   "icon": "cup",
+   "tier": 2,
+   "of": 3,
+   "name": {
+    "ar": "بطل متكرر",
+    "en": "Serial Champion",
+    "fr": "Champion en Série"
+   },
+   "desc": {
+    "ar": "افز بـ 5 بطولات",
+    "en": "Win 5 tournaments",
+    "fr": "Gagnez 5 tournois"
+   },
+   "reward": {
+    "coins": 700,
+    "gems": 15
+   },
+   "enabled": true
+  },
+  {
+   "id": "a_tournaments_won_3",
+   "metric": "tournaments_won",
+   "target": 20,
+   "icon": "cup",
+   "tier": 3,
+   "of": 3,
+   "name": {
+    "ar": "ملك البطولات",
+    "en": "Tournament King",
+    "fr": "Roi des Tournois"
+   },
+   "desc": {
+    "ar": "افز بـ 20 بطولات",
+    "en": "Win 20 tournaments",
+    "fr": "Gagnez 20 tournois"
+   },
+   "reward": {
+    "coins": 1450,
+    "gems": 45
+   },
+   "enabled": true,
+   "title": "t_tournaments_won"
+  },
+  {
+   "id": "a_daily_done_1",
+   "metric": "daily_done",
+   "target": 1,
+   "icon": "calendar",
+   "tier": 1,
+   "of": 3,
+   "name": {
+    "ar": "تحدي اليوم",
+    "en": "Daily Challenger",
+    "fr": "Défi du Jour"
+   },
+   "desc": {
+    "ar": "أكمل 1 من التحديات اليومية",
+    "en": "Complete 1 daily challenges",
+    "fr": "Terminez 1 défis quotidiens"
+   },
+   "reward": {
+    "coins": 250
+   },
+   "enabled": true
+  },
+  {
+   "id": "a_daily_done_2",
+   "metric": "daily_done",
+   "target": 7,
+   "icon": "calendar",
+   "tier": 2,
+   "of": 3,
+   "name": {
+    "ar": "أسبوع من التحديات",
+    "en": "Week of Challenges",
+    "fr": "Semaine de Défis"
+   },
+   "desc": {
+    "ar": "أكمل 7 من التحديات اليومية",
+    "en": "Complete 7 daily challenges",
+    "fr": "Terminez 7 défis quotidiens"
+   },
+   "reward": {
+    "coins": 700,
+    "gems": 15
+   },
+   "enabled": true
+  },
+  {
+   "id": "a_daily_done_3",
+   "metric": "daily_done",
+   "target": 30,
+   "icon": "calendar",
+   "tier": 3,
+   "of": 3,
+   "name": {
+    "ar": "شهر من التحديات",
+    "en": "Month of Challenges",
+    "fr": "Mois de Défis"
+   },
+   "desc": {
+    "ar": "أكمل 30 من التحديات اليومية",
+    "en": "Complete 30 daily challenges",
+    "fr": "Terminez 30 défis quotidiens"
+   },
+   "reward": {
+    "coins": 1450,
+    "gems": 45
+   },
+   "enabled": true,
+   "title": "t_daily_done"
+  },
+  {
+   "id": "a_lessons_done_1",
+   "metric": "lessons_done",
+   "target": 1,
+   "icon": "lesson",
+   "tier": 1,
+   "of": 3,
+   "name": {
+    "ar": "أول درس",
+    "en": "First Lesson",
+    "fr": "Première Leçon"
+   },
+   "desc": {
+    "ar": "أكمل 1 من دروس الكتابة",
+    "en": "Complete 1 typing lessons",
+    "fr": "Terminez 1 leçons de frappe"
+   },
+   "reward": {
+    "coins": 250
+   },
+   "enabled": true
+  },
+  {
+   "id": "a_lessons_done_2",
+   "metric": "lessons_done",
+   "target": 10,
+   "icon": "lesson",
+   "tier": 2,
+   "of": 3,
+   "name": {
+    "ar": "طالب مجتهد",
+    "en": "Diligent Student",
+    "fr": "Élève Assidu"
+   },
+   "desc": {
+    "ar": "أكمل 10 من دروس الكتابة",
+    "en": "Complete 10 typing lessons",
+    "fr": "Terminez 10 leçons de frappe"
+   },
+   "reward": {
+    "coins": 700,
+    "gems": 15
+   },
+   "enabled": true
+  },
+  {
+   "id": "a_lessons_done_3",
+   "metric": "lessons_done",
+   "target": 30,
+   "icon": "lesson",
+   "tier": 3,
+   "of": 3,
+   "name": {
+    "ar": "خريج الكتابة باللمس",
+    "en": "Touch Typing Graduate",
+    "fr": "Diplômé de la Dactylo"
+   },
+   "desc": {
+    "ar": "أكمل 30 من دروس الكتابة",
+    "en": "Complete 30 typing lessons",
+    "fr": "Terminez 30 leçons de frappe"
+   },
+   "reward": {
+    "coins": 1450,
+    "gems": 45
+   },
+   "enabled": true,
+   "title": "t_lessons_done"
+  },
+  {
+   "id": "a_vocab_words_1",
+   "metric": "vocab_words",
+   "target": 25,
+   "icon": "vocab",
+   "tier": 1,
+   "of": 3,
+   "name": {
+    "ar": "مترجم صغير",
+    "en": "Little Translator",
+    "fr": "Petit Traducteur"
+   },
+   "desc": {
+    "ar": "اكتب ترجمة 25 كلمة صحيحة",
+    "en": "Translate 25 words correctly",
+    "fr": "Traduisez 25 mots correctement"
+   },
+   "reward": {
+    "coins": 250
+   },
+   "enabled": true
+  },
+  {
+   "id": "a_vocab_words_2",
+   "metric": "vocab_words",
+   "target": 100,
+   "icon": "vocab",
+   "tier": 2,
+   "of": 3,
+   "name": {
+    "ar": "قاموس متحرك",
+    "en": "Walking Dictionary",
+    "fr": "Dictionnaire Vivant"
+   },
+   "desc": {
+    "ar": "اكتب ترجمة 100 كلمة صحيحة",
+    "en": "Translate 100 words correctly",
+    "fr": "Traduisez 100 mots correctement"
+   },
+   "reward": {
+    "coins": 700,
+    "gems": 15
+   },
+   "enabled": true
+  },
+  {
+   "id": "a_vocab_words_3",
+   "metric": "vocab_words",
+   "target": 300,
+   "icon": "vocab",
+   "tier": 3,
+   "of": 3,
+   "name": {
+    "ar": "بطل المفردات",
+    "en": "Vocabulary Hero",
+    "fr": "Héros du Vocabulaire"
+   },
+   "desc": {
+    "ar": "اكتب ترجمة 300 كلمة صحيحة",
+    "en": "Translate 300 words correctly",
+    "fr": "Traduisez 300 mots correctement"
+   },
+   "reward": {
+    "coins": 1450,
+    "gems": 45
+   },
+   "enabled": true,
+   "title": "t_vocab_words"
+  },
+  {
+   "id": "a_powerups_used_1",
+   "metric": "powerups_used",
+   "target": 10,
+   "icon": "power",
+   "tier": 1,
+   "of": 3,
+   "name": {
+    "ar": "مجرّب القوى",
+    "en": "Power Tester",
+    "fr": "Testeur de Pouvoirs"
+   },
+   "desc": {
+    "ar": "استخدم 10 قوة بالكتابة",
+    "en": "Use 10 typed power-ups",
+    "fr": "Utilisez 10 bonus tapés"
+   },
+   "reward": {
+    "coins": 250
+   },
+   "enabled": true
+  },
+  {
+   "id": "a_powerups_used_2",
+   "metric": "powerups_used",
+   "target": 50,
+   "icon": "power",
+   "tier": 2,
+   "of": 3,
+   "name": {
+    "ar": "خبير القوى",
+    "en": "Power Expert",
+    "fr": "Expert en Pouvoirs"
+   },
+   "desc": {
+    "ar": "استخدم 50 قوة بالكتابة",
+    "en": "Use 50 typed power-ups",
+    "fr": "Utilisez 50 bonus tapés"
+   },
+   "reward": {
+    "coins": 700,
+    "gems": 15
+   },
+   "enabled": true
+  },
+  {
+   "id": "a_powerups_used_3",
+   "metric": "powerups_used",
+   "target": 200,
+   "icon": "power",
+   "tier": 3,
+   "of": 3,
+   "name": {
+    "ar": "سيد القوى",
+    "en": "Power Lord",
+    "fr": "Seigneur des Pouvoirs"
+   },
+   "desc": {
+    "ar": "استخدم 200 قوة بالكتابة",
+    "en": "Use 200 typed power-ups",
+    "fr": "Utilisez 200 bonus tapés"
+   },
+   "reward": {
+    "coins": 1450,
+    "gems": 45
+   },
+   "enabled": true,
+   "title": "t_powerups_used"
+  },
+  {
+   "id": "a_pit_perfect_1",
+   "metric": "pit_perfect",
+   "target": 1,
+   "icon": "pit",
+   "tier": 1,
+   "of": 3,
+   "name": {
+    "ar": "صيانة سريعة",
+    "en": "Quick Pit",
+    "fr": "Arrêt Rapide"
+   },
+   "desc": {
+    "ar": "أتمم 1 صيانة (Pit Stop) بدقة 100%",
+    "en": "Complete 1 perfect pit stops",
+    "fr": "Réussissez 1 arrêts aux stands parfaits"
+   },
+   "reward": {
+    "coins": 250
+   },
+   "enabled": true
+  },
+  {
+   "id": "a_pit_perfect_2",
+   "metric": "pit_perfect",
+   "target": 10,
+   "icon": "pit",
+   "tier": 2,
+   "of": 3,
+   "name": {
+    "ar": "فريق الصيانة",
+    "en": "Pit Crew",
+    "fr": "Équipe des Stands"
+   },
+   "desc": {
+    "ar": "أتمم 10 صيانة (Pit Stop) بدقة 100%",
+    "en": "Complete 10 perfect pit stops",
+    "fr": "Réussissez 10 arrêts aux stands parfaits"
+   },
+   "reward": {
+    "coins": 700,
+    "gems": 15
+   },
+   "enabled": true
+  },
+  {
+   "id": "a_pit_perfect_3",
+   "metric": "pit_perfect",
+   "target": 50,
+   "icon": "pit",
+   "tier": 3,
+   "of": 3,
+   "name": {
+    "ar": "ميكانيكي مثالي",
+    "en": "Master Mechanic",
+    "fr": "Mécanicien Parfait"
+   },
+   "desc": {
+    "ar": "أتمم 50 صيانة (Pit Stop) بدقة 100%",
+    "en": "Complete 50 perfect pit stops",
+    "fr": "Réussissez 50 arrêts aux stands parfaits"
+   },
+   "reward": {
+    "coins": 1450,
+    "gems": 45
+   },
+   "enabled": true,
+   "title": "t_pit_perfect"
+  },
+  {
+   "id": "a_combat_kills_1",
+   "metric": "combat_kills",
+   "target": 25,
+   "icon": "combat",
+   "tier": 1,
+   "of": 2,
+   "name": {
+    "ar": "مقاتل الطريق",
+    "en": "Road Fighter",
+    "fr": "Combattant de la Route"
+   },
+   "desc": {
+    "ar": "دمّر 25 هدفاً في قتال الطريق",
+    "en": "Destroy 25 targets in Road Combat",
+    "fr": "Détruisez 25 cibles au Combat Routier"
+   },
+   "reward": {
+    "coins": 250
+   },
+   "enabled": true
+  },
+  {
+   "id": "a_combat_kills_2",
+   "metric": "combat_kills",
+   "target": 250,
+   "icon": "combat",
+   "tier": 2,
+   "of": 2,
+   "name": {
+    "ar": "آلة الحرب",
+    "en": "War Machine",
+    "fr": "Machine de Guerre"
+   },
+   "desc": {
+    "ar": "دمّر 250 هدفاً في قتال الطريق",
+    "en": "Destroy 250 targets in Road Combat",
+    "fr": "Détruisez 250 cibles au Combat Routier"
+   },
+   "reward": {
+    "coins": 700,
+    "gems": 15
+   },
+   "enabled": true
+  },
+  {
+   "id": "a_survival_best_1",
+   "metric": "survival_best",
+   "target": 20,
+   "icon": "survive",
+   "tier": 1,
+   "of": 3,
+   "name": {
+    "ar": "ناجٍ",
+    "en": "Survivor",
+    "fr": "Survivant"
+   },
+   "desc": {
+    "ar": "اجتز 20 كلمة في سباق البقاء",
+    "en": "Survive 20 words in Survival",
+    "fr": "Survivez à 20 mots"
+   },
+   "reward": {
+    "coins": 250
+   },
+   "enabled": true
+  },
+  {
+   "id": "a_survival_best_2",
+   "metric": "survival_best",
+   "target": 50,
+   "icon": "survive",
+   "tier": 2,
+   "of": 3,
+   "name": {
+    "ar": "صامد",
+    "en": "Endurer",
+    "fr": "Endurant"
+   },
+   "desc": {
+    "ar": "اجتز 50 كلمة في سباق البقاء",
+    "en": "Survive 50 words in Survival",
+    "fr": "Survivez à 50 mots"
+   },
+   "reward": {
+    "coins": 700,
+    "gems": 15
+   },
+   "enabled": true
+  },
+  {
+   "id": "a_survival_best_3",
+   "metric": "survival_best",
+   "target": 100,
+   "icon": "survive",
+   "tier": 3,
+   "of": 3,
+   "name": {
+    "ar": "لا يُقهر",
+    "en": "Invincible",
+    "fr": "Invincible"
+   },
+   "desc": {
+    "ar": "اجتز 100 كلمة في سباق البقاء",
+    "en": "Survive 100 words in Survival",
+    "fr": "Survivez à 100 mots"
+   },
+   "reward": {
+    "coins": 1450,
+    "gems": 45
+   },
+   "enabled": true,
+   "title": "t_survival_best"
+  },
+  {
+   "id": "a_world_stops_1",
+   "metric": "world_stops",
+   "target": 3,
+   "icon": "globe",
+   "tier": 1,
+   "of": 3,
+   "name": {
+    "ar": "مسافر",
+    "en": "Traveler",
+    "fr": "Voyageur"
+   },
+   "desc": {
+    "ar": "أنهِ 3 محطات في رحلة العالم",
+    "en": "Finish 3 World Tour stops",
+    "fr": "Terminez 3 étapes du Tour du Monde"
+   },
+   "reward": {
+    "coins": 250
+   },
+   "enabled": true
+  },
+  {
+   "id": "a_world_stops_2",
+   "metric": "world_stops",
+   "target": 6,
+   "icon": "globe",
+   "tier": 2,
+   "of": 3,
+   "name": {
+    "ar": "جوّاب آفاق",
+    "en": "Globetrotter",
+    "fr": "Globe-trotter"
+   },
+   "desc": {
+    "ar": "أنهِ 6 محطات في رحلة العالم",
+    "en": "Finish 6 World Tour stops",
+    "fr": "Terminez 6 étapes du Tour du Monde"
+   },
+   "reward": {
+    "coins": 700,
+    "gems": 15
+   },
+   "enabled": true
+  },
+  {
+   "id": "a_world_stops_3",
+   "metric": "world_stops",
+   "target": 12,
+   "icon": "globe",
+   "tier": 3,
+   "of": 3,
+   "name": {
+    "ar": "حول العالم",
+    "en": "Around the World",
+    "fr": "Tour du Monde"
+   },
+   "desc": {
+    "ar": "أنهِ 12 محطات في رحلة العالم",
+    "en": "Finish 12 World Tour stops",
+    "fr": "Terminez 12 étapes du Tour du Monde"
+   },
+   "reward": {
+    "coins": 1450,
+    "gems": 45
+   },
+   "enabled": true,
+   "title": "t_world_stops"
+  },
+  {
+   "id": "a_challenges_sent_1",
+   "metric": "challenges_sent",
+   "target": 1,
+   "icon": "link",
+   "tier": 1,
+   "of": 2,
+   "name": {
+    "ar": "أول تحدٍّ",
+    "en": "First Challenge",
+    "fr": "Premier Défi"
+   },
+   "desc": {
+    "ar": "شارك 1 من روابط التحدي",
+    "en": "Share 1 challenge links",
+    "fr": "Partagez 1 liens de défi"
+   },
+   "reward": {
+    "coins": 250
+   },
+   "enabled": true
+  },
+  {
+   "id": "a_challenges_sent_2",
+   "metric": "challenges_sent",
+   "target": 10,
+   "icon": "link",
+   "tier": 2,
+   "of": 2,
+   "name": {
+    "ar": "صانع التحديات",
+    "en": "Challenge Maker",
+    "fr": "Créateur de Défis"
+   },
+   "desc": {
+    "ar": "شارك 10 من روابط التحدي",
+    "en": "Share 10 challenge links",
+    "fr": "Partagez 10 liens de défi"
+   },
+   "reward": {
+    "coins": 700,
+    "gems": 15
+   },
+   "enabled": true
+  },
+  {
+   "id": "a_certificates_1",
+   "metric": "certificates",
+   "target": 1,
+   "icon": "cert",
+   "tier": 1,
+   "of": 1,
+   "name": {
+    "ar": "حامل الشهادة",
+    "en": "Certified Typist",
+    "fr": "Dactylo Certifié"
+   },
+   "desc": {
+    "ar": "احصل على شهادة WPM",
+    "en": "Earn a WPM certificate",
+    "fr": "Obtenez un certificat MPM"
+   },
+   "reward": {
+    "coins": 250
+   },
+   "enabled": true
+  },
+  {
+   "id": "a_photo_finish_wins_1",
+   "metric": "photo_finish_wins",
+   "target": 1,
+   "icon": "camera",
+   "tier": 1,
+   "of": 2,
+   "name": {
+    "ar": "فوز بالصورة",
+    "en": "Photo Finish",
+    "fr": "Photo-finish"
+   },
+   "desc": {
+    "ar": "افز بفارق ضئيل 1 مرة",
+    "en": "Win a photo finish 1 time(s)",
+    "fr": "Gagnez 1 photo-finish"
+   },
+   "reward": {
+    "coins": 250
+   },
+   "enabled": true
+  },
+  {
+   "id": "a_photo_finish_wins_2",
+   "metric": "photo_finish_wins",
+   "target": 10,
+   "icon": "camera",
+   "tier": 2,
+   "of": 2,
+   "name": {
+    "ar": "صياد اللحظات",
+    "en": "Split-second Hunter",
+    "fr": "Chasseur de Secondes"
+   },
+   "desc": {
+    "ar": "افز بفارق ضئيل 10 مرة",
+    "en": "Win a photo finish 10 time(s)",
+    "fr": "Gagnez 10 photo-finish"
+   },
+   "reward": {
+    "coins": 700,
+    "gems": 15
+   },
+   "enabled": true
+  },
+  {
+   "id": "a_upgrades_1",
+   "metric": "upgrades",
+   "target": 5,
+   "icon": "wrench",
+   "tier": 1,
+   "of": 3,
+   "name": {
+    "ar": "ميكانيكي",
+    "en": "Mechanic",
+    "fr": "Mécanicien"
+   },
+   "desc": {
+    "ar": "نفّذ 5 ترقية للمركبات",
+    "en": "Perform 5 vehicle upgrades",
+    "fr": "Effectuez 5 améliorations"
+   },
+   "reward": {
+    "coins": 250
+   },
+   "enabled": true
+  },
+  {
+   "id": "a_upgrades_2",
+   "metric": "upgrades",
+   "target": 20,
+   "icon": "wrench",
+   "tier": 2,
+   "of": 3,
+   "name": {
+    "ar": "مهندس",
+    "en": "Engineer",
+    "fr": "Ingénieur"
+   },
+   "desc": {
+    "ar": "نفّذ 20 ترقية للمركبات",
+    "en": "Perform 20 vehicle upgrades",
+    "fr": "Effectuez 20 améliorations"
+   },
+   "reward": {
+    "coins": 700,
+    "gems": 15
+   },
+   "enabled": true
+  },
+  {
+   "id": "a_upgrades_3",
+   "metric": "upgrades",
+   "target": 50,
+   "icon": "wrench",
+   "tier": 3,
+   "of": 3,
+   "name": {
+    "ar": "عبقري المحركات",
+    "en": "Engine Genius",
+    "fr": "Génie des Moteurs"
+   },
+   "desc": {
+    "ar": "نفّذ 50 ترقية للمركبات",
+    "en": "Perform 50 vehicle upgrades",
+    "fr": "Effectuez 50 améliorations"
+   },
+   "reward": {
+    "coins": 1450,
+    "gems": 45
+   },
+   "enabled": true,
+   "title": "t_upgrades"
+  },
+  {
+   "id": "a_quests_done_1",
+   "metric": "quests_done",
+   "target": 10,
+   "icon": "quest",
+   "tier": 1,
+   "of": 2,
+   "name": {
+    "ar": "منفذ المهام",
+    "en": "Quest Runner",
+    "fr": "Chasseur de Quêtes"
+   },
+   "desc": {
+    "ar": "أكمل 10 مهمة",
+    "en": "Complete 10 quests",
+    "fr": "Terminez 10 quêtes"
+   },
+   "reward": {
+    "coins": 250
+   },
+   "enabled": true
+  },
+  {
+   "id": "a_quests_done_2",
+   "metric": "quests_done",
+   "target": 50,
+   "icon": "quest",
+   "tier": 2,
+   "of": 2,
+   "name": {
+    "ar": "سيد المهام",
+    "en": "Quest Master",
+    "fr": "Maître des Quêtes"
+   },
+   "desc": {
+    "ar": "أكمل 50 مهمة",
+    "en": "Complete 50 quests",
+    "fr": "Terminez 50 quêtes"
+   },
+   "reward": {
+    "coins": 700,
+    "gems": 15
+   },
+   "enabled": true
+  },
+  {
+   "id": "a_rank_legend",
+   "metric": "rank_tier",
+   "target": 6,
+   "icon": "legend",
+   "tier": 1,
+   "of": 1,
+   "name": {
+    "ar": "أسطورة الدوري",
+    "en": "League Legend",
+    "fr": "Légende de la Ligue"
+   },
+   "desc": {
+    "ar": "اصل إلى الدوري الأسطوري",
+    "en": "Reach the Legendary league",
+    "fr": "Atteignez la ligue légendaire"
+   },
+   "reward": {
+    "coins": 5000,
+    "gems": 200
+   },
+   "title": "t_legend",
+   "enabled": true
+  }
+ ]
+}

@@ -1,0 +1,140 @@
+{
+"version": 1,
+"items": [
+{
+"id": "est000",
+"t": "Mina found a tiny robot in the garden, covered in mud and blinking a weak green light. She carried it home, cleaned it with a soft cloth, and gave it a cup of warm water for its battery. By morning it was humming and rolling around the kitchen, and from that day on it followed her everywhere.",
+"cat": "story",
+"topic": "stories",
+"lang": "en",
+"diff": 4,
+"len": 293
+},
+{
+"id": "est001",
+"t": "The lighthouse keeper had never seen a ship in the storm until that night. A small boat fought the waves, and he climbed the stairs two at a time to turn the big lamp. The beam swept across the water, and the boat slowly found its way to the harbor.",
+"cat": "story",
+"topic": "stories",
+"lang": "en",
+"diff": 3,
+"len": 249
+},
+{
+"id": "est002",
+"t": "Omar opened the old wooden chest and found a compass that pointed in a strange direction. Curious, he followed it past the market, across the bridge, and into a quiet park. Under a large tree he discovered a small box with a note that said: well done, explorer.",
+"cat": "story",
+"topic": "stories",
+"lang": "en",
+"diff": 4,
+"len": 261
+},
+{
+"id": "est003",
+"t": "In a village at the edge of the desert, a little girl planted one seed every morning. People laughed and said the sand was too dry. Years later, a green garden stood there, and travelers stopped to rest in the shade of her patient work.",
+"cat": "story",
+"topic": "stories",
+"lang": "en",
+"diff": 4,
+"len": 236
+},
+{
+"id": "est004",
+"t": "The racer stood at the starting line with his hands shaking a little. He took a deep breath, whispered a short promise to himself, and pressed the pedal when the lights changed. The road became a silver river, and for the first time he felt completely free.",
+"cat": "story",
+"topic": "stories",
+"lang": "en",
+"diff": 4,
+"len": 257
+},
+{
+"id": "est005",
+"t": "A fox and a crow met under a tall tree. The crow held a piece of bread in her beak, and the fox praised her voice until she opened her mouth to sing. The bread fell, the fox ran away, and the crow learned that flattery is rarely free.",
+"cat": "story",
+"topic": "stories",
+"lang": "en",
+"diff": 3,
+"len": 234
+},
+{
+"id": "est006",
+"t": "Every night the old clock in the square struck thirteen instead of twelve. Nobody knew why, and nobody dared to fix it. One winter the clockmaker finally climbed up and found a small bird living inside, keeping its nest warm among the gears.",
+"cat": "story",
+"topic": "stories",
+"lang": "en",
+"diff": 4,
+"len": 241
+},
+{
+"id": "est007",
+"t": "Lina wanted to learn the violin, but her first notes sounded like a cat in a storm. She practiced every day for a month, then for a year. At the school concert, the room fell silent, and her song floated out like a bright ribbon.",
+"cat": "story",
+"topic": "stories",
+"lang": "en",
+"diff": 3,
+"len": 229
+},
+{
+"id": "est008",
+"t": "The astronaut looked through the small window at the blue planet far below. Everything she loved was in that tiny circle, and all the borders were invisible from here. She smiled, checked her instruments, and whispered thank you to everyone on Earth.",
+"cat": "story",
+"topic": "stories",
+"lang": "en",
+"diff": 4,
+"len": 250
+},
+{
+"id": "est009",
+"t": "Yassine opened his shop early every day, even when no customers came. He cleaned the shelves, arranged the fruit, and greeted the street like a friend. After a year the street greeted him back, and his little shop became the heart of the neighborhood.",
+"cat": "story",
+"topic": "stories",
+"lang": "en",
+"diff": 4,
+"len": 251
+},
+{
+"id": "est010",
+"t": "A traveler reached a river with no bridge and sat down to think. A heron stood nearby, patient and silent. The traveler watched how it walked only on the stones, and soon he crossed safely, stepping carefully from one stone to the next.",
+"cat": "story",
+"topic": "stories",
+"lang": "en",
+"diff": 4,
+"len": 236
+},
+{
+"id": "est011",
+"t": "The mountain village received snow only once every ten years, and the children had never seen it. When the first flakes fell, they ran outside with open hands, laughing and catching the cold stars until their cheeks turned red.",
+"cat": "story",
+"topic": "stories",
+"lang": "en",
+"diff": 4,
+"len": 227
+},
+{
+"id": "est012",
+"t": "The baker woke at three in the morning, long before the birds. He mixed the dough, lit the oven, and shaped the loaves by hand. When the sun came up, the whole street smelled like warm bread and welcome.",
+"cat": "story",
+"topic": "stories",
+"lang": "en",
+"diff": 3,
+"len": 203
+},
+{
+"id": "est013",
+"t": "Nora built a kite from old paper and thin sticks. The first three flights ended in the bushes, but the fourth caught the wind and climbed high above the roofs. She held the string tightly and felt like she was touching the clouds.",
+"cat": "story",
+"topic": "stories",
+"lang": "en",
+"diff": 3,
+"len": 230
+},
+{
+"id": "est014",
+"t": "A little submarine explored the dark sea, where strange fish glowed like lanterns. Its captain, a young scientist, wrote down every discovery. On the last day, a giant whale passed slowly by, and the ocean seemed to say hello.",
+"cat": "story",
+"topic": "stories",
+"lang": "en",
+"diff": 4,
+"len": 226
+}
+]
+}

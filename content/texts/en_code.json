@@ -1,0 +1,374 @@
+{
+"version": 1,
+"items": [
+{
+"id": "ecd000",
+"t": "for (int i = 0; i < 10; i++) { print(i); }",
+"cat": "code",
+"topic": "code",
+"lang": "en",
+"diff": 4,
+"len": 42
+},
+{
+"id": "ecd001",
+"t": "if (score >= 100 && lives > 0) { levelUp(); }",
+"cat": "code",
+"topic": "code",
+"lang": "en",
+"diff": 4,
+"len": 45
+},
+{
+"id": "ecd002",
+"t": "const sum = (a, b) => a + b;",
+"cat": "code",
+"topic": "code",
+"lang": "en",
+"diff": 4,
+"len": 28
+},
+{
+"id": "ecd003",
+"t": "def greet(name): return 'Hello, ' + name",
+"cat": "code",
+"topic": "code",
+"lang": "en",
+"diff": 4,
+"len": 40
+},
+{
+"id": "ecd004",
+"t": "final list = [1, 2, 3].map((e) => e * 2).toList();",
+"cat": "code",
+"topic": "code",
+"lang": "en",
+"diff": 5,
+"len": 50
+},
+{
+"id": "ecd005",
+"t": "while (running) { update(dt); render(); }",
+"cat": "code",
+"topic": "code",
+"lang": "en",
+"diff": 5,
+"len": 41
+},
+{
+"id": "ecd006",
+"t": "SELECT name, score FROM players WHERE score > 500 ORDER BY score DESC;",
+"cat": "code",
+"topic": "code",
+"lang": "en",
+"diff": 3,
+"len": 70
+},
+{
+"id": "ecd007",
+"t": "void main() { runApp(const MyApp()); }",
+"cat": "code",
+"topic": "code",
+"lang": "en",
+"diff": 5,
+"len": 38
+},
+{
+"id": "ecd008",
+"t": "let speed = Math.max(0, base - penalty);",
+"cat": "code",
+"topic": "code",
+"lang": "en",
+"diff": 4,
+"len": 40
+},
+{
+"id": "ecd009",
+"t": "class Car extends Vehicle { int gear = 1; }",
+"cat": "code",
+"topic": "code",
+"lang": "en",
+"diff": 2,
+"len": 43
+},
+{
+"id": "ecd010",
+"t": "import 'package:flutter/material.dart';",
+"cat": "code",
+"topic": "code",
+"lang": "en",
+"diff": 5,
+"len": 39
+},
+{
+"id": "ecd011",
+"t": "git commit -m \"Add nitro effect\" && git push origin main",
+"cat": "code",
+"topic": "code",
+"lang": "en",
+"diff": 3,
+"len": 56
+},
+{
+"id": "ecd012",
+"t": "function isEven(n) { return n % 2 === 0; }",
+"cat": "code",
+"topic": "code",
+"lang": "en",
+"diff": 4,
+"len": 42
+},
+{
+"id": "ecd013",
+"t": "var total = items.reduce((a, b) => a + b.price, 0);",
+"cat": "code",
+"topic": "code",
+"lang": "en",
+"diff": 5,
+"len": 51
+},
+{
+"id": "ecd014",
+"t": "try { await save(); } catch (e) { log(e); }",
+"cat": "code",
+"topic": "code",
+"lang": "en",
+"diff": 4,
+"len": 43
+},
+{
+"id": "ecd015",
+"t": "<div class=\"car\"><span>Turbo</span></div>",
+"cat": "code",
+"topic": "code",
+"lang": "en",
+"diff": 5,
+"len": 41
+},
+{
+"id": "ecd016",
+"t": "for x in range(5): print(x * x)",
+"cat": "code",
+"topic": "code",
+"lang": "en",
+"diff": 3,
+"len": 31
+},
+{
+"id": "ecd017",
+"t": "public static void main(String[] args) { }",
+"cat": "code",
+"topic": "code",
+"lang": "en",
+"diff": 4,
+"len": 42
+},
+{
+"id": "ecd018",
+"t": "npm install && npm run build",
+"cat": "code",
+"topic": "code",
+"lang": "en",
+"diff": 2,
+"len": 28
+},
+{
+"id": "ecd019",
+"t": "if (!list.isEmpty) return list.first;",
+"cat": "code",
+"topic": "code",
+"lang": "en",
+"diff": 5,
+"len": 37
+},
+{
+"id": "ecd020",
+"t": "const user = { name: 'Sara', level: 12 };",
+"cat": "code",
+"topic": "code",
+"lang": "en",
+"diff": 4,
+"len": 41
+},
+{
+"id": "ecd021",
+"t": "int fib(int n) => n < 2 ? n : fib(n - 1) + fib(n - 2);",
+"cat": "code",
+"topic": "code",
+"lang": "en",
+"diff": 4,
+"len": 54
+},
+{
+"id": "ecd022",
+"t": "await Future.delayed(Duration(seconds: 2));",
+"cat": "code",
+"topic": "code",
+"lang": "en",
+"diff": 5,
+"len": 43
+},
+{
+"id": "ecd023",
+"t": "result = [x for x in data if x % 2 == 0]",
+"cat": "code",
+"topic": "code",
+"lang": "en",
+"diff": 2,
+"len": 40
+},
+{
+"id": "ecd024",
+"t": "docker run -p 8080:80 --name web nginx",
+"cat": "code",
+"topic": "code",
+"lang": "en",
+"diff": 3,
+"len": 38
+},
+{
+"id": "ecd025",
+"t": "switch (state) { case 0: start(); break; default: stop(); }",
+"cat": "code",
+"topic": "code",
+"lang": "en",
+"diff": 5,
+"len": 59
+},
+{
+"id": "ecd026",
+"t": "String label = isWinner ? 'Winner' : 'Try again';",
+"cat": "code",
+"topic": "code",
+"lang": "en",
+"diff": 4,
+"len": 49
+},
+{
+"id": "ecd027",
+"t": "#include <stdio.h> int main() { return 0; }",
+"cat": "code",
+"topic": "code",
+"lang": "en",
+"diff": 4,
+"len": 43
+},
+{
+"id": "ecd028",
+"t": "body { margin: 0; background: #101020; color: #fff; }",
+"cat": "code",
+"topic": "code",
+"lang": "en",
+"diff": 4,
+"len": 53
+},
+{
+"id": "ecd029",
+"t": "Future<void> load() async { data = await fetch(url); }",
+"cat": "code",
+"topic": "code",
+"lang": "en",
+"diff": 4,
+"len": 54
+},
+{
+"id": "ecd030",
+"t": "map.forEach((key, value) => print('$key: $value'));",
+"cat": "code",
+"topic": "code",
+"lang": "en",
+"diff": 5,
+"len": 51
+},
+{
+"id": "ecd031",
+"t": "arr.sort((a, b) => b.score - a.score);",
+"cat": "code",
+"topic": "code",
+"lang": "en",
+"diff": 5,
+"len": 38
+},
+{
+"id": "ecd032",
+"t": "if (x == null) { throw Exception('missing value'); }",
+"cat": "code",
+"topic": "code",
+"lang": "en",
+"diff": 4,
+"len": 52
+},
+{
+"id": "ecd033",
+"t": "let wpm = (chars / 5) / minutes;",
+"cat": "code",
+"topic": "code",
+"lang": "en",
+"diff": 3,
+"len": 32
+},
+{
+"id": "ecd034",
+"t": "enum Gear { first, second, third, fourth }",
+"cat": "code",
+"topic": "code",
+"lang": "en",
+"diff": 3,
+"len": 42
+},
+{
+"id": "ecd035",
+"t": "SELECT COUNT(*) FROM races WHERE won = 1;",
+"cat": "code",
+"topic": "code",
+"lang": "en",
+"diff": 3,
+"len": 41
+},
+{
+"id": "ecd036",
+"t": "pip install flame riverpod",
+"cat": "code",
+"topic": "code",
+"lang": "en",
+"diff": 2,
+"len": 26
+},
+{
+"id": "ecd037",
+"t": "final accuracy = correct / total * 100;",
+"cat": "code",
+"topic": "code",
+"lang": "en",
+"diff": 3,
+"len": 39
+},
+{
+"id": "ecd038",
+"t": "echo \"Race finished\" >> log.txt",
+"cat": "code",
+"topic": "code",
+"lang": "en",
+"diff": 4,
+"len": 31
+},
+{
+"id": "ecd039",
+"t": "@override Widget build(BuildContext context) { return Container(); }",
+"cat": "code",
+"topic": "code",
+"lang": "en",
+"diff": 5,
+"len": 68
+},
+{
+"id": "ecd040",
+"t": "const items = await db.collection('users').get();",
+"cat": "code",
+"topic": "code",
+"lang": "en",
+"diff": 5,
+"len": 49
+}
+]
+}

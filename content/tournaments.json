@@ -1,0 +1,79 @@
+{
+ "version": 1,
+ "items": [
+  {
+   "id": "daily8",
+   "period": "daily",
+   "size": 8,
+   "rounds": 3,
+   "name": {
+    "ar": "بطولة اليوم",
+    "en": "Daily Cup",
+    "fr": "Coupe du Jour"
+   },
+   "cats": [
+    "sentence",
+    "quote"
+   ],
+   "rewards": {
+    "r1": {
+     "coins": 150
+    },
+    "r2": {
+     "coins": 300,
+     "xp": 60
+    },
+    "r3": {
+     "coins": 600,
+     "xp": 120,
+     "gems": 10
+    },
+    "win": {
+     "coins": 1200,
+     "gems": 30,
+     "title": "t_tourn_daily",
+     "xp": 250
+    }
+   }
+  },
+  {
+   "id": "weekly16",
+   "period": "weekly",
+   "size": 16,
+   "rounds": 4,
+   "name": {
+    "ar": "بطولة الأسبوع",
+    "en": "Weekly Championship",
+    "fr": "Championnat de la Semaine"
+   },
+   "cats": [
+    "sentence",
+    "quote",
+    "story"
+   ],
+   "rewards": {
+    "r1": {
+     "coins": 250
+    },
+    "r2": {
+     "coins": 500
+    },
+    "r3": {
+     "coins": 900,
+     "gems": 10
+    },
+    "r4": {
+     "coins": 1500,
+     "gems": 25
+    },
+    "win": {
+     "coins": 3500,
+     "gems": 120,
+     "title": "t_tourn_weekly",
+     "skin": "s_crown",
+     "xp": 600
+    }
+   }
+  }
+ ]
+}

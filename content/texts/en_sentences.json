@@ -1,0 +1,1679 @@
+{
+"version": 1,
+"items": [
+{
+"id": "es_gen000",
+"t": "The morning sun rose slowly over the quiet town while the baker opened his little shop.",
+"cat": "sentence",
+"topic": "general",
+"lang": "en",
+"diff": 2,
+"len": 87
+},
+{
+"id": "es_gen001",
+"t": "She packed a small bag, locked the door, and walked to the station without looking back.",
+"cat": "sentence",
+"topic": "general",
+"lang": "en",
+"diff": 3,
+"len": 88
+},
+{
+"id": "es_gen002",
+"t": "A gentle breeze moved through the orchard and shook the last apples from the old trees.",
+"cat": "sentence",
+"topic": "general",
+"lang": "en",
+"diff": 2,
+"len": 87
+},
+{
+"id": "es_gen003",
+"t": "Every evening the children gathered by the river to watch the boats drift toward the sea.",
+"cat": "sentence",
+"topic": "general",
+"lang": "en",
+"diff": 2,
+"len": 89
+},
+{
+"id": "es_gen004",
+"t": "He found an old map in the attic, and suddenly the whole summer felt like an adventure.",
+"cat": "sentence",
+"topic": "general",
+"lang": "en",
+"diff": 2,
+"len": 87
+},
+{
+"id": "es_gen005",
+"t": "The market was full of colors, voices, and the warm smell of fresh bread and mint tea.",
+"cat": "sentence",
+"topic": "general",
+"lang": "en",
+"diff": 2,
+"len": 86
+},
+{
+"id": "es_gen006",
+"t": "After the rain, the streets shone like mirrors and the air smelled of earth and flowers.",
+"cat": "sentence",
+"topic": "general",
+"lang": "en",
+"diff": 2,
+"len": 88
+},
+{
+"id": "es_gen007",
+"t": "My grandmother tells the best stories, and she always ends them with a clever question.",
+"cat": "sentence",
+"topic": "general",
+"lang": "en",
+"diff": 3,
+"len": 87
+},
+{
+"id": "es_gen008",
+"t": "The train arrived exactly on time, which surprised everyone who had been waiting on the platform.",
+"cat": "sentence",
+"topic": "general",
+"lang": "en",
+"diff": 3,
+"len": 97
+},
+{
+"id": "es_gen009",
+"t": "We climbed the hill before sunrise to see the valley wake up under a blanket of soft fog.",
+"cat": "sentence",
+"topic": "general",
+"lang": "en",
+"diff": 2,
+"len": 89
+},
+{
+"id": "es_gen010",
+"t": "A small lamp glowed in the window, and the whole street seemed a little less lonely.",
+"cat": "sentence",
+"topic": "general",
+"lang": "en",
+"diff": 2,
+"len": 84
+},
+{
+"id": "es_gen011",
+"t": "They painted the fence bright blue, and the neighbors smiled every time they walked by.",
+"cat": "sentence",
+"topic": "general",
+"lang": "en",
+"diff": 3,
+"len": 87
+},
+{
+"id": "es_gen012",
+"t": "The library was silent except for the sound of turning pages and a distant clock.",
+"cat": "sentence",
+"topic": "general",
+"lang": "en",
+"diff": 2,
+"len": 81
+},
+{
+"id": "es_gen013",
+"t": "On Sunday we cook together, laugh too loudly, and forget about the week that just passed.",
+"cat": "sentence",
+"topic": "general",
+"lang": "en",
+"diff": 3,
+"len": 89
+},
+{
+"id": "es_gen014",
+"t": "The cat watched the rain from the windowsill as if it were a very boring television show.",
+"cat": "sentence",
+"topic": "general",
+"lang": "en",
+"diff": 2,
+"len": 89
+},
+{
+"id": "es_gen015",
+"t": "He carried the heavy box up three flights of stairs and then realized it was empty.",
+"cat": "sentence",
+"topic": "general",
+"lang": "en",
+"diff": 2,
+"len": 83
+},
+{
+"id": "es_gen016",
+"t": "Stars appeared one by one, and the desert became a huge quiet room with a glowing ceiling.",
+"cat": "sentence",
+"topic": "general",
+"lang": "en",
+"diff": 2,
+"len": 90
+},
+{
+"id": "es_gen017",
+"t": "Please remember that a good habit is built slowly, one ordinary day after another.",
+"cat": "sentence",
+"topic": "general",
+"lang": "en",
+"diff": 3,
+"len": 82
+},
+{
+"id": "es_gen018",
+"t": "The old fisherman mended his net and hummed a song that nobody else remembered.",
+"cat": "sentence",
+"topic": "general",
+"lang": "en",
+"diff": 2,
+"len": 79
+},
+{
+"id": "es_gen019",
+"t": "Our teacher said that curiosity is a muscle, and the more we use it, the stronger it grows.",
+"cat": "sentence",
+"topic": "general",
+"lang": "en",
+"diff": 2,
+"len": 91
+},
+{
+"id": "es_gen020",
+"t": "Two friends shared one umbrella and somehow both of them still got completely wet.",
+"cat": "sentence",
+"topic": "general",
+"lang": "en",
+"diff": 2,
+"len": 82
+},
+{
+"id": "es_gen021",
+"t": "The festival began at dusk with music, lanterns, and a long table full of generous food.",
+"cat": "sentence",
+"topic": "general",
+"lang": "en",
+"diff": 3,
+"len": 88
+},
+{
+"id": "es_gen022",
+"t": "Somewhere in the city a street musician played a melody that made strangers slow down.",
+"cat": "sentence",
+"topic": "general",
+"lang": "en",
+"diff": 2,
+"len": 86
+},
+{
+"id": "es_gen023",
+"t": "Breakfast was simple: warm bread, olive oil, honey, and a glass of sweet orange juice.",
+"cat": "sentence",
+"topic": "general",
+"lang": "en",
+"diff": 3,
+"len": 86
+},
+{
+"id": "es_gen024",
+"t": "When the power went out, we lit candles and told stories until the house felt like a castle.",
+"cat": "sentence",
+"topic": "general",
+"lang": "en",
+"diff": 2,
+"len": 92
+},
+{
+"id": "es_gen025",
+"t": "The bridge connects two parts of the city, and every morning thousands of people cross it.",
+"cat": "sentence",
+"topic": "general",
+"lang": "en",
+"diff": 3,
+"len": 90
+},
+{
+"id": "es_gen026",
+"t": "A quick brown fox jumps over the lazy dog near the bank of the river.",
+"cat": "sentence",
+"topic": "general",
+"lang": "en",
+"diff": 2,
+"len": 69
+},
+{
+"id": "es_gen027",
+"t": "Pack my box with five dozen liquor jugs, then send them quickly across the bay.",
+"cat": "sentence",
+"topic": "general",
+"lang": "en",
+"diff": 2,
+"len": 79
+},
+{
+"id": "es_gen028",
+"t": "The explorer wrote in her journal every night, even when her hands were cold and tired.",
+"cat": "sentence",
+"topic": "general",
+"lang": "en",
+"diff": 2,
+"len": 87
+},
+{
+"id": "es_gen029",
+"t": "Slowly the ferry left the harbor, and the white city turned into a line of tiny lights.",
+"cat": "sentence",
+"topic": "general",
+"lang": "en",
+"diff": 2,
+"len": 87
+},
+{
+"id": "es_tec000",
+"t": "A computer program is a list of instructions that a machine follows with perfect obedience.",
+"cat": "sentence",
+"topic": "tech",
+"lang": "en",
+"diff": 3,
+"len": 91
+},
+{
+"id": "es_tec001",
+"t": "Good software is written for humans to read, and only incidentally for computers to run.",
+"cat": "sentence",
+"topic": "tech",
+"lang": "en",
+"diff": 3,
+"len": 88
+},
+{
+"id": "es_tec002",
+"t": "The network was slow because one small cable had been loose for three long months.",
+"cat": "sentence",
+"topic": "tech",
+"lang": "en",
+"diff": 2,
+"len": 82
+},
+{
+"id": "es_tec003",
+"t": "Before you optimize the code, measure it, because the slow part is rarely where you expect.",
+"cat": "sentence",
+"topic": "tech",
+"lang": "en",
+"diff": 3,
+"len": 91
+},
+{
+"id": "es_tec004",
+"t": "Artificial intelligence learns patterns from data, but people still decide what matters.",
+"cat": "sentence",
+"topic": "tech",
+"lang": "en",
+"diff": 3,
+"len": 88
+},
+{
+"id": "es_tec005",
+"t": "A strong password is long, unique, and stored safely in a trusted password manager.",
+"cat": "sentence",
+"topic": "tech",
+"lang": "en",
+"diff": 3,
+"len": 83
+},
+{
+"id": "es_tec006",
+"t": "The team released a new version every Friday and fixed the bugs before the weekend.",
+"cat": "sentence",
+"topic": "tech",
+"lang": "en",
+"diff": 2,
+"len": 83
+},
+{
+"id": "es_tec007",
+"t": "Cloud servers let small teams build big products without owning a single physical machine.",
+"cat": "sentence",
+"topic": "tech",
+"lang": "en",
+"diff": 3,
+"len": 90
+},
+{
+"id": "es_tec008",
+"t": "Every pixel on the screen is just a tiny light that obeys a number stored in memory.",
+"cat": "sentence",
+"topic": "tech",
+"lang": "en",
+"diff": 2,
+"len": 84
+},
+{
+"id": "es_tec009",
+"t": "When the application crashed, the logs told a clear story about a missing configuration file.",
+"cat": "sentence",
+"topic": "tech",
+"lang": "en",
+"diff": 3,
+"len": 93
+},
+{
+"id": "es_tec010",
+"t": "An algorithm is a recipe: a clear list of steps that turns input into a useful result.",
+"cat": "sentence",
+"topic": "tech",
+"lang": "en",
+"diff": 2,
+"len": 86
+},
+{
+"id": "es_tec011",
+"t": "Keep your phone updated, because many security problems are fixed in the newest version.",
+"cat": "sentence",
+"topic": "tech",
+"lang": "en",
+"diff": 3,
+"len": 88
+},
+{
+"id": "es_tec012",
+"t": "The developer drank coffee, stared at the error message, and finally found the missing comma.",
+"cat": "sentence",
+"topic": "tech",
+"lang": "en",
+"diff": 3,
+"len": 93
+},
+{
+"id": "es_tec013",
+"t": "Encryption scrambles information so that only the person with the right key can read it.",
+"cat": "sentence",
+"topic": "tech",
+"lang": "en",
+"diff": 3,
+"len": 88
+},
+{
+"id": "es_tec014",
+"t": "Modern phones contain more computing power than the machines that sent people to the moon.",
+"cat": "sentence",
+"topic": "tech",
+"lang": "en",
+"diff": 3,
+"len": 90
+},
+{
+"id": "es_tec015",
+"t": "A database stores information in tables, and a query asks it a precise question.",
+"cat": "sentence",
+"topic": "tech",
+"lang": "en",
+"diff": 3,
+"len": 80
+},
+{
+"id": "es_tec016",
+"t": "Testing your code feels slow at first, but it saves you from painful surprises later.",
+"cat": "sentence",
+"topic": "tech",
+"lang": "en",
+"diff": 3,
+"len": 85
+},
+{
+"id": "es_tec017",
+"t": "The robot followed the line on the floor and stopped exactly where the light turned red.",
+"cat": "sentence",
+"topic": "tech",
+"lang": "en",
+"diff": 2,
+"len": 88
+},
+{
+"id": "es_tec018",
+"t": "Open source means that anyone can read, improve, and share the code that powers a project.",
+"cat": "sentence",
+"topic": "tech",
+"lang": "en",
+"diff": 3,
+"len": 90
+},
+{
+"id": "es_tec019",
+"t": "Fast typing is a superpower for programmers because ideas move at the speed of the keyboard.",
+"cat": "sentence",
+"topic": "tech",
+"lang": "en",
+"diff": 3,
+"len": 92
+},
+{
+"id": "es_tec020",
+"t": "A backup that you never tested is only a hopeful story about your important files.",
+"cat": "sentence",
+"topic": "tech",
+"lang": "en",
+"diff": 2,
+"len": 82
+},
+{
+"id": "es_tec021",
+"t": "Wireless signals travel through the air as invisible waves carrying music, video, and messages.",
+"cat": "sentence",
+"topic": "tech",
+"lang": "en",
+"diff": 3,
+"len": 95
+},
+{
+"id": "es_tec022",
+"t": "Battery life improves when screens are dimmed, apps are closed, and updates are scheduled wisely.",
+"cat": "sentence",
+"topic": "tech",
+"lang": "en",
+"diff": 3,
+"len": 97
+},
+{
+"id": "es_tec023",
+"t": "Version control remembers every change, so you can travel back in time when something breaks.",
+"cat": "sentence",
+"topic": "tech",
+"lang": "en",
+"diff": 3,
+"len": 93
+},
+{
+"id": "es_tec024",
+"t": "The search engine read millions of pages and returned the answer in less than a second.",
+"cat": "sentence",
+"topic": "tech",
+"lang": "en",
+"diff": 2,
+"len": 87
+},
+{
+"id": "es_foo000",
+"t": "The striker controlled the ball with his chest and fired a shot into the top corner.",
+"cat": "sentence",
+"topic": "football",
+"lang": "en",
+"diff": 2,
+"len": 84
+},
+{
+"id": "es_foo001",
+"t": "Fans sang together for ninety minutes, and the whole stadium shook with every goal.",
+"cat": "sentence",
+"topic": "football",
+"lang": "en",
+"diff": 3,
+"len": 83
+},
+{
+"id": "es_foo002",
+"t": "A perfect pass split the defense, and the winger raced toward the goal with open space ahead.",
+"cat": "sentence",
+"topic": "football",
+"lang": "en",
+"diff": 2,
+"len": 93
+},
+{
+"id": "es_foo003",
+"t": "The goalkeeper dived to his left and pushed the penalty onto the post with his fingertips.",
+"cat": "sentence",
+"topic": "football",
+"lang": "en",
+"diff": 2,
+"len": 90
+},
+{
+"id": "es_foo004",
+"t": "Our captain never stops running, talking, and encouraging everyone until the final whistle.",
+"cat": "sentence",
+"topic": "football",
+"lang": "en",
+"diff": 3,
+"len": 91
+},
+{
+"id": "es_foo005",
+"t": "The referee checked the video screen and decided that the goal was clean and fair.",
+"cat": "sentence",
+"topic": "football",
+"lang": "en",
+"diff": 2,
+"len": 82
+},
+{
+"id": "es_foo006",
+"t": "She scored twice in the second half and lifted the trophy in front of a roaring crowd.",
+"cat": "sentence",
+"topic": "football",
+"lang": "en",
+"diff": 2,
+"len": 86
+},
+{
+"id": "es_foo007",
+"t": "The coach changed the formation at halftime, and suddenly the midfield controlled the game.",
+"cat": "sentence",
+"topic": "football",
+"lang": "en",
+"diff": 3,
+"len": 91
+},
+{
+"id": "es_foo008",
+"t": "A late corner kick found the tall defender, and his header won the match in stoppage time.",
+"cat": "sentence",
+"topic": "football",
+"lang": "en",
+"diff": 2,
+"len": 90
+},
+{
+"id": "es_foo009",
+"t": "Young players train every day on dusty fields and dream of playing in the biggest stadiums.",
+"cat": "sentence",
+"topic": "football",
+"lang": "en",
+"diff": 2,
+"len": 91
+},
+{
+"id": "es_foo010",
+"t": "The crowd held its breath while the midfielder placed the ball carefully for the free kick.",
+"cat": "sentence",
+"topic": "football",
+"lang": "en",
+"diff": 2,
+"len": 91
+},
+{
+"id": "es_foo011",
+"t": "Teamwork wins tournaments: one great player can shine, but a united team becomes unstoppable.",
+"cat": "sentence",
+"topic": "football",
+"lang": "en",
+"diff": 3,
+"len": 93
+},
+{
+"id": "es_foo012",
+"t": "The ball curved around the wall, kissed the crossbar, and dropped gently into the net.",
+"cat": "sentence",
+"topic": "football",
+"lang": "en",
+"diff": 3,
+"len": 86
+},
+{
+"id": "es_foo013",
+"t": "After ninety tense minutes and thirty more in extra time, the match went to penalties.",
+"cat": "sentence",
+"topic": "football",
+"lang": "en",
+"diff": 3,
+"len": 86
+},
+{
+"id": "es_foo014",
+"t": "He practiced free kicks every evening until the sun went down and the lights came on.",
+"cat": "sentence",
+"topic": "football",
+"lang": "en",
+"diff": 2,
+"len": 85
+},
+{
+"id": "es_foo015",
+"t": "The home team pressed high, won the ball back, and scored within ten seconds.",
+"cat": "sentence",
+"topic": "football",
+"lang": "en",
+"diff": 3,
+"len": 77
+},
+{
+"id": "es_foo016",
+"t": "A clean tackle at the right moment can feel as exciting as a goal for true defenders.",
+"cat": "sentence",
+"topic": "football",
+"lang": "en",
+"diff": 2,
+"len": 85
+},
+{
+"id": "es_foo017",
+"t": "The whole neighborhood gathered around one small television to watch the final together.",
+"cat": "sentence",
+"topic": "football",
+"lang": "en",
+"diff": 3,
+"len": 88
+},
+{
+"id": "es_foo018",
+"t": "Their defense was a wall, their midfield an engine, and their attack pure lightning.",
+"cat": "sentence",
+"topic": "football",
+"lang": "en",
+"diff": 3,
+"len": 84
+},
+{
+"id": "es_foo019",
+"t": "With a quick turn and a sharp step, the dribbler left three defenders behind him.",
+"cat": "sentence",
+"topic": "football",
+"lang": "en",
+"diff": 2,
+"len": 81
+},
+{
+"id": "es_foo020",
+"t": "The league table changes every week, and one lucky goal can rewrite the whole story.",
+"cat": "sentence",
+"topic": "football",
+"lang": "en",
+"diff": 3,
+"len": 84
+},
+{
+"id": "es_foo021",
+"t": "Nobody in the stadium left early, because this team had already won late games before.",
+"cat": "sentence",
+"topic": "football",
+"lang": "en",
+"diff": 3,
+"len": 86
+},
+{
+"id": "es_foo022",
+"t": "The new stadium has a grass pitch, bright lights, and seats close enough to hear every shout.",
+"cat": "sentence",
+"topic": "football",
+"lang": "en",
+"diff": 3,
+"len": 93
+},
+{
+"id": "es_foo023",
+"t": "Every great comeback starts with one small goal and a crowd that refuses to go quiet.",
+"cat": "sentence",
+"topic": "football",
+"lang": "en",
+"diff": 2,
+"len": 85
+},
+{
+"id": "es_foo024",
+"t": "She wore number ten, played with her head up, and saw passes that nobody else could see.",
+"cat": "sentence",
+"topic": "football",
+"lang": "en",
+"diff": 2,
+"len": 88
+},
+{
+"id": "es_gam000",
+"t": "The hero collected three golden keys and opened the secret door at the end of the dungeon.",
+"cat": "sentence",
+"topic": "games",
+"lang": "en",
+"diff": 2,
+"len": 90
+},
+{
+"id": "es_gam001",
+"t": "In this level you must jump carefully, because the floating platforms disappear after one second.",
+"cat": "sentence",
+"topic": "games",
+"lang": "en",
+"diff": 3,
+"len": 97
+},
+{
+"id": "es_gam002",
+"t": "The final boss has three health bars, a giant sword, and a very dramatic entrance.",
+"cat": "sentence",
+"topic": "games",
+"lang": "en",
+"diff": 3,
+"len": 82
+},
+{
+"id": "es_gam003",
+"t": "Save your game before entering the castle, because nobody survives the first room without a plan.",
+"cat": "sentence",
+"topic": "games",
+"lang": "en",
+"diff": 3,
+"len": 97
+},
+{
+"id": "es_gam004",
+"t": "A perfect combo fills the power meter, and the whole screen explodes with color and sound.",
+"cat": "sentence",
+"topic": "games",
+"lang": "en",
+"diff": 3,
+"len": 90
+},
+{
+"id": "es_gam005",
+"t": "The racing game lets you upgrade your engine, change your paint, and add glowing wheels.",
+"cat": "sentence",
+"topic": "games",
+"lang": "en",
+"diff": 3,
+"len": 88
+},
+{
+"id": "es_gam006",
+"t": "He unlocked the legendary car after winning twenty races without a single mistake.",
+"cat": "sentence",
+"topic": "games",
+"lang": "en",
+"diff": 3,
+"len": 82
+},
+{
+"id": "es_gam007",
+"t": "Coins spin in the air, music gets faster, and the timer reminds you that every second counts.",
+"cat": "sentence",
+"topic": "games",
+"lang": "en",
+"diff": 3,
+"len": 93
+},
+{
+"id": "es_gam008",
+"t": "The puzzle looked impossible until she noticed that the shadows pointed to the hidden switch.",
+"cat": "sentence",
+"topic": "games",
+"lang": "en",
+"diff": 3,
+"len": 93
+},
+{
+"id": "es_gam009",
+"t": "Good game design teaches the player without a single long tutorial or a boring lecture.",
+"cat": "sentence",
+"topic": "games",
+"lang": "en",
+"diff": 2,
+"len": 87
+},
+{
+"id": "es_gam010",
+"t": "Players gather in the virtual city to trade items, explore caves, and build tall towers.",
+"cat": "sentence",
+"topic": "games",
+"lang": "en",
+"diff": 3,
+"len": 88
+},
+{
+"id": "es_gam011",
+"t": "The speedrunner knew every corner, every shortcut, and every pixel of the map by heart.",
+"cat": "sentence",
+"topic": "games",
+"lang": "en",
+"diff": 3,
+"len": 87
+},
+{
+"id": "es_gam012",
+"t": "Press the button at the right moment and your character will leap over the glowing lava.",
+"cat": "sentence",
+"topic": "games",
+"lang": "en",
+"diff": 2,
+"len": 88
+},
+{
+"id": "es_gam013",
+"t": "A quiet forest level with soft music can be as exciting as a fast chase through a city.",
+"cat": "sentence",
+"topic": "games",
+"lang": "en",
+"diff": 2,
+"len": 87
+},
+{
+"id": "es_gam014",
+"t": "The dragon sleeps on a mountain of gold, and only a careful hero can sneak past it.",
+"cat": "sentence",
+"topic": "games",
+"lang": "en",
+"diff": 2,
+"len": 83
+},
+{
+"id": "es_gam015",
+"t": "Level up your skills, choose your gear, and prepare for the tournament at the end of the season.",
+"cat": "sentence",
+"topic": "games",
+"lang": "en",
+"diff": 3,
+"len": 96
+},
+{
+"id": "es_gam016",
+"t": "The map shows five islands, three secret caves, and one mysterious lighthouse in the fog.",
+"cat": "sentence",
+"topic": "games",
+"lang": "en",
+"diff": 3,
+"len": 89
+},
+{
+"id": "es_gam017",
+"t": "Her score climbed higher with every clean stroke, and soon the leaderboard had a new leader.",
+"cat": "sentence",
+"topic": "games",
+"lang": "en",
+"diff": 3,
+"len": 92
+},
+{
+"id": "es_gam018",
+"t": "When the lights turned green, every engine roared and the crowd leaned forward together.",
+"cat": "sentence",
+"topic": "games",
+"lang": "en",
+"diff": 3,
+"len": 88
+},
+{
+"id": "es_gam019",
+"t": "A rare skin appeared in the shop for just one weekend, and everyone rushed to get it.",
+"cat": "sentence",
+"topic": "games",
+"lang": "en",
+"diff": 2,
+"len": 85
+},
+{
+"id": "es_gam020",
+"t": "The arcade smelled like popcorn, and every machine blinked with bright invitations to play.",
+"cat": "sentence",
+"topic": "games",
+"lang": "en",
+"diff": 3,
+"len": 91
+},
+{
+"id": "es_gam021",
+"t": "He practiced the same jump for an hour until it finally became smooth and automatic.",
+"cat": "sentence",
+"topic": "games",
+"lang": "en",
+"diff": 2,
+"len": 84
+},
+{
+"id": "es_gam022",
+"t": "In cooperative mode, one player guards the gate while the other solves the ancient riddle.",
+"cat": "sentence",
+"topic": "games",
+"lang": "en",
+"diff": 3,
+"len": 90
+},
+{
+"id": "es_gam023",
+"t": "Victory feels sweeter when you lose five times first and learn something new from each defeat.",
+"cat": "sentence",
+"topic": "games",
+"lang": "en",
+"diff": 3,
+"len": 94
+},
+{
+"id": "es_gam024",
+"t": "The pixel art was simple, but every tiny animation was full of humor and heart.",
+"cat": "sentence",
+"topic": "games",
+"lang": "en",
+"diff": 2,
+"len": 79
+},
+{
+"id": "es_spo000",
+"t": "The marathon runner kept a steady rhythm, breathing slowly and focusing on the next kilometer.",
+"cat": "sentence",
+"topic": "sports",
+"lang": "en",
+"diff": 3,
+"len": 94
+},
+{
+"id": "es_spo001",
+"t": "In tennis, the match can change in a single point, so you must stay calm and keep moving.",
+"cat": "sentence",
+"topic": "sports",
+"lang": "en",
+"diff": 2,
+"len": 89
+},
+{
+"id": "es_spo002",
+"t": "The swimmer pushed off the wall, glided under the water, and exploded into a powerful stroke.",
+"cat": "sentence",
+"topic": "sports",
+"lang": "en",
+"diff": 3,
+"len": 93
+},
+{
+"id": "es_spo003",
+"t": "A strong team of cyclists rides in a line, sharing the wind and saving energy for the final sprint.",
+"cat": "sentence",
+"topic": "sports",
+"lang": "en",
+"diff": 2,
+"len": 99
+},
+{
+"id": "es_spo004",
+"t": "She trained before school and after school, and the gold medal was earned in the quiet hours.",
+"cat": "sentence",
+"topic": "sports",
+"lang": "en",
+"diff": 2,
+"len": 93
+},
+{
+"id": "es_spo005",
+"t": "The basketball bounced twice, rolled around the rim, and finally dropped through the net.",
+"cat": "sentence",
+"topic": "sports",
+"lang": "en",
+"diff": 3,
+"len": 89
+},
+{
+"id": "es_spo006",
+"t": "Stretching before exercise protects your muscles and prepares your body for hard work.",
+"cat": "sentence",
+"topic": "sports",
+"lang": "en",
+"diff": 3,
+"len": 86
+},
+{
+"id": "es_spo007",
+"t": "The sprinter crouched at the line, listened for the signal, and flew down the track.",
+"cat": "sentence",
+"topic": "sports",
+"lang": "en",
+"diff": 3,
+"len": 84
+},
+{
+"id": "es_spo008",
+"t": "Sleep, water, and healthy food are as important to an athlete as hours of training.",
+"cat": "sentence",
+"topic": "sports",
+"lang": "en",
+"diff": 3,
+"len": 83
+},
+{
+"id": "es_spo009",
+"t": "The mountain climbers started at midnight so they could reach the summit before the morning storm.",
+"cat": "sentence",
+"topic": "sports",
+"lang": "en",
+"diff": 3,
+"len": 98
+},
+{
+"id": "es_spo010",
+"t": "A good coach sees potential before the athlete does and patiently helps it grow.",
+"cat": "sentence",
+"topic": "sports",
+"lang": "en",
+"diff": 2,
+"len": 80
+},
+{
+"id": "es_spo011",
+"t": "On the last lap, the crowd stood up and cheered every single runner across the finish line.",
+"cat": "sentence",
+"topic": "sports",
+"lang": "en",
+"diff": 2,
+"len": 91
+},
+{
+"id": "es_spo012",
+"t": "The volleyball soared over the net, and the defender dived full length to save it.",
+"cat": "sentence",
+"topic": "sports",
+"lang": "en",
+"diff": 2,
+"len": 82
+},
+{
+"id": "es_spo013",
+"t": "Boxers move lightly on their feet, keep their hands high, and watch their opponent's shoulders.",
+"cat": "sentence",
+"topic": "sports",
+"lang": "en",
+"diff": 3,
+"len": 95
+},
+{
+"id": "es_spo014",
+"t": "Throwing a javelin needs speed, balance, and the perfect angle at the exact right moment.",
+"cat": "sentence",
+"topic": "sports",
+"lang": "en",
+"diff": 3,
+"len": 89
+},
+{
+"id": "es_spo015",
+"t": "Gymnasts make difficult moves look easy only after thousands of patient repetitions.",
+"cat": "sentence",
+"topic": "sports",
+"lang": "en",
+"diff": 3,
+"len": 84
+},
+{
+"id": "es_spo016",
+"t": "The rowing team moved as one, and the boat slid across the lake like a silver needle.",
+"cat": "sentence",
+"topic": "sports",
+"lang": "en",
+"diff": 2,
+"len": 85
+},
+{
+"id": "es_spo017",
+"t": "Winning is great, but finishing a hard race you once thought impossible is even better.",
+"cat": "sentence",
+"topic": "sports",
+"lang": "en",
+"diff": 3,
+"len": 87
+},
+{
+"id": "es_spo018",
+"t": "A skateboard, a flat street, and a few friends are all you need for a wonderful afternoon.",
+"cat": "sentence",
+"topic": "sports",
+"lang": "en",
+"diff": 3,
+"len": 90
+},
+{
+"id": "es_spo019",
+"t": "The referee raised the flag, the timer stopped, and the whole arena exhaled at once.",
+"cat": "sentence",
+"topic": "sports",
+"lang": "en",
+"diff": 3,
+"len": 84
+},
+{
+"id": "es_mot000",
+"t": "Small steps every day will take you farther than a giant leap you never actually take.",
+"cat": "sentence",
+"topic": "motivation",
+"lang": "en",
+"diff": 2,
+"len": 86
+},
+{
+"id": "es_mot001",
+"t": "You do not need to be perfect; you only need to be a little better than yesterday.",
+"cat": "sentence",
+"topic": "motivation",
+"lang": "en",
+"diff": 2,
+"len": 82
+},
+{
+"id": "es_mot002",
+"t": "Mistakes are proof that you are trying, and every expert was once a confused beginner.",
+"cat": "sentence",
+"topic": "motivation",
+"lang": "en",
+"diff": 3,
+"len": 86
+},
+{
+"id": "es_mot003",
+"t": "Start where you are, use what you have, and do what you can, then repeat tomorrow.",
+"cat": "sentence",
+"topic": "motivation",
+"lang": "en",
+"diff": 3,
+"len": 82
+},
+{
+"id": "es_mot004",
+"t": "Confidence grows from practice, and practice begins with the courage to do it badly first.",
+"cat": "sentence",
+"topic": "motivation",
+"lang": "en",
+"diff": 3,
+"len": 90
+},
+{
+"id": "es_mot005",
+"t": "The road is long, but the view from the top belongs to those who keep walking.",
+"cat": "sentence",
+"topic": "motivation",
+"lang": "en",
+"diff": 2,
+"len": 78
+},
+{
+"id": "es_mot006",
+"t": "Stay patient with yourself, because real progress is quiet and slow and absolutely worth it.",
+"cat": "sentence",
+"topic": "motivation",
+"lang": "en",
+"diff": 3,
+"len": 92
+},
+{
+"id": "es_mot007",
+"t": "Do not compare your first chapter with someone else's final chapter.",
+"cat": "sentence",
+"topic": "motivation",
+"lang": "en",
+"diff": 3,
+"len": 68
+},
+{
+"id": "es_mot008",
+"t": "When you feel like stopping, remember why you started and take one more step.",
+"cat": "sentence",
+"topic": "motivation",
+"lang": "en",
+"diff": 2,
+"len": 77
+},
+{
+"id": "es_mot009",
+"t": "Discipline is choosing what you want most over what you want right now.",
+"cat": "sentence",
+"topic": "motivation",
+"lang": "en",
+"diff": 2,
+"len": 71
+},
+{
+"id": "es_mot010",
+"t": "Every champion was once a beginner who refused to give up on the hard days.",
+"cat": "sentence",
+"topic": "motivation",
+"lang": "en",
+"diff": 2,
+"len": 75
+},
+{
+"id": "es_mot011",
+"t": "Your only competition is the person you were yesterday, so race against that one.",
+"cat": "sentence",
+"topic": "motivation",
+"lang": "en",
+"diff": 3,
+"len": 81
+},
+{
+"id": "es_mot012",
+"t": "Focus on the next word, then the next, and soon you will reach the finish line.",
+"cat": "sentence",
+"topic": "motivation",
+"lang": "en",
+"diff": 2,
+"len": 79
+},
+{
+"id": "es_mot013",
+"t": "Hard work beats talent when talent does not work hard, and you can work hard today.",
+"cat": "sentence",
+"topic": "motivation",
+"lang": "en",
+"diff": 2,
+"len": 83
+},
+{
+"id": "es_mot014",
+"t": "Breathe, reset, and try again; a calm mind is faster than an angry one.",
+"cat": "sentence",
+"topic": "motivation",
+"lang": "en",
+"diff": 3,
+"len": 71
+},
+{
+"id": "es_mot015",
+"t": "Dream big, plan small, and act today, because tomorrow is made of what you do now.",
+"cat": "sentence",
+"topic": "motivation",
+"lang": "en",
+"diff": 3,
+"len": 82
+},
+{
+"id": "es_mot016",
+"t": "A strong mind is trained like a strong body: with patience, repetition, and rest.",
+"cat": "sentence",
+"topic": "motivation",
+"lang": "en",
+"diff": 3,
+"len": 81
+},
+{
+"id": "es_mot017",
+"t": "Fall seven times, stand up eight, and learn something useful on every fall.",
+"cat": "sentence",
+"topic": "motivation",
+"lang": "en",
+"diff": 3,
+"len": 75
+},
+{
+"id": "es_mot018",
+"t": "Be kind to yourself when you fail and strict with yourself when you make excuses.",
+"cat": "sentence",
+"topic": "motivation",
+"lang": "en",
+"diff": 2,
+"len": 81
+},
+{
+"id": "es_mot019",
+"t": "The best time to begin was yesterday; the second best time is right now.",
+"cat": "sentence",
+"topic": "motivation",
+"lang": "en",
+"diff": 2,
+"len": 72
+},
+{
+"id": "es_mot020",
+"t": "Progress is not a straight line, but it always moves forward for those who stay.",
+"cat": "sentence",
+"topic": "motivation",
+"lang": "en",
+"diff": 2,
+"len": 80
+},
+{
+"id": "es_mot021",
+"t": "You are stronger than your doubts and faster than your fears, so keep on typing.",
+"cat": "sentence",
+"topic": "motivation",
+"lang": "en",
+"diff": 2,
+"len": 80
+},
+{
+"id": "es_mot022",
+"t": "Success is the sum of small efforts repeated day in and day out with love.",
+"cat": "sentence",
+"topic": "motivation",
+"lang": "en",
+"diff": 2,
+"len": 74
+},
+{
+"id": "es_mot023",
+"t": "Turn your obstacles into stepping stones and your lessons into wings.",
+"cat": "sentence",
+"topic": "motivation",
+"lang": "en",
+"diff": 3,
+"len": 69
+},
+{
+"id": "es_mot024",
+"t": "If it is important to you, you will find a way; if not, you will find an excuse.",
+"cat": "sentence",
+"topic": "motivation",
+"lang": "en",
+"diff": 2,
+"len": 80
+},
+{
+"id": "em_gen000",
+"t": "He found an old map in the attic, and suddenly the whole summer felt like an adventure. A gentle breeze moved through the orchard and shook the last apples from the old trees.",
+"cat": "sentence",
+"topic": "general",
+"lang": "en",
+"diff": 3,
+"len": 175
+},
+{
+"id": "em_gen001",
+"t": "They painted the fence bright blue, and the neighbors smiled every time they walked by. Stars appeared one by one, and the desert became a huge quiet room with a glowing ceiling.",
+"cat": "sentence",
+"topic": "general",
+"lang": "en",
+"diff": 3,
+"len": 178
+},
+{
+"id": "em_gen002",
+"t": "A gentle breeze moved through the orchard and shook the last apples from the old trees. Our teacher said that curiosity is a muscle, and the more we use it, the stronger it grows.",
+"cat": "sentence",
+"topic": "general",
+"lang": "en",
+"diff": 3,
+"len": 179
+},
+{
+"id": "em_gen003",
+"t": "When the power went out, we lit candles and told stories until the house felt like a castle. My grandmother tells the best stories, and she always ends them with a clever question.",
+"cat": "sentence",
+"topic": "general",
+"lang": "en",
+"diff": 3,
+"len": 180
+},
+{
+"id": "em_gen004",
+"t": "The bridge connects two parts of the city, and every morning thousands of people cross it. When the power went out, we lit candles and told stories until the house felt like a castle.",
+"cat": "sentence",
+"topic": "general",
+"lang": "en",
+"diff": 3,
+"len": 183
+},
+{
+"id": "em_gen005",
+"t": "The market was full of colors, voices, and the warm smell of fresh bread and mint tea. He found an old map in the attic, and suddenly the whole summer felt like an adventure.",
+"cat": "sentence",
+"topic": "general",
+"lang": "en",
+"diff": 3,
+"len": 174
+},
+{
+"id": "em_tec000",
+"t": "Fast typing is a superpower for programmers because ideas move at the speed of the keyboard. Before you optimize the code, measure it, because the slow part is rarely where you expect.",
+"cat": "sentence",
+"topic": "tech",
+"lang": "en",
+"diff": 3,
+"len": 184
+},
+{
+"id": "em_tec001",
+"t": "Before you optimize the code, measure it, because the slow part is rarely where you expect. A database stores information in tables, and a query asks it a precise question.",
+"cat": "sentence",
+"topic": "tech",
+"lang": "en",
+"diff": 3,
+"len": 172
+},
+{
+"id": "em_tec002",
+"t": "The search engine read millions of pages and returned the answer in less than a second. Artificial intelligence learns patterns from data, but people still decide what matters.",
+"cat": "sentence",
+"topic": "tech",
+"lang": "en",
+"diff": 3,
+"len": 176
+},
+{
+"id": "em_tec003",
+"t": "A computer program is a list of instructions that a machine follows with perfect obedience. The team released a new version every Friday and fixed the bugs before the weekend.",
+"cat": "sentence",
+"topic": "tech",
+"lang": "en",
+"diff": 3,
+"len": 175
+},
+{
+"id": "em_tec004",
+"t": "When the application crashed, the logs told a clear story about a missing configuration file. A computer program is a list of instructions that a machine follows with perfect obedience.",
+"cat": "sentence",
+"topic": "tech",
+"lang": "en",
+"diff": 3,
+"len": 185
+},
+{
+"id": "em_tec005",
+"t": "Fast typing is a superpower for programmers because ideas move at the speed of the keyboard. A database stores information in tables, and a query asks it a precise question.",
+"cat": "sentence",
+"topic": "tech",
+"lang": "en",
+"diff": 3,
+"len": 173
+},
+{
+"id": "em_foo000",
+"t": "Nobody in the stadium left early, because this team had already won late games before. The whole neighborhood gathered around one small television to watch the final together.",
+"cat": "sentence",
+"topic": "football",
+"lang": "en",
+"diff": 3,
+"len": 175
+},
+{
+"id": "em_foo001",
+"t": "Fans sang together for ninety minutes, and the whole stadium shook with every goal. With a quick turn and a sharp step, the dribbler left three defenders behind him.",
+"cat": "sentence",
+"topic": "football",
+"lang": "en",
+"diff": 3,
+"len": 165
+},
+{
+"id": "em_foo002",
+"t": "Their defense was a wall, their midfield an engine, and their attack pure lightning. She scored twice in the second half and lifted the trophy in front of a roaring crowd.",
+"cat": "sentence",
+"topic": "football",
+"lang": "en",
+"diff": 3,
+"len": 171
+},
+{
+"id": "em_foo003",
+"t": "A perfect pass split the defense, and the winger raced toward the goal with open space ahead. The home team pressed high, won the ball back, and scored within ten seconds.",
+"cat": "sentence",
+"topic": "football",
+"lang": "en",
+"diff": 3,
+"len": 171
+},
+{
+"id": "em_foo004",
+"t": "Every great comeback starts with one small goal and a crowd that refuses to go quiet. She wore number ten, played with her head up, and saw passes that nobody else could see.",
+"cat": "sentence",
+"topic": "football",
+"lang": "en",
+"diff": 3,
+"len": 174
+},
+{
+"id": "em_foo005",
+"t": "After ninety tense minutes and thirty more in extra time, the match went to penalties. Young players train every day on dusty fields and dream of playing in the biggest stadiums.",
+"cat": "sentence",
+"topic": "football",
+"lang": "en",
+"diff": 3,
+"len": 178
+},
+{
+"id": "em_gam000",
+"t": "Coins spin in the air, music gets faster, and the timer reminds you that every second counts. He unlocked the legendary car after winning twenty races without a single mistake.",
+"cat": "sentence",
+"topic": "games",
+"lang": "en",
+"diff": 3,
+"len": 176
+},
+{
+"id": "em_gam001",
+"t": "In this level you must jump carefully, because the floating platforms disappear after one second. The racing game lets you upgrade your engine, change your paint, and add glowing wheels.",
+"cat": "sentence",
+"topic": "games",
+"lang": "en",
+"diff": 4,
+"len": 186
+},
+{
+"id": "em_gam002",
+"t": "Her score climbed higher with every clean stroke, and soon the leaderboard had a new leader. The hero collected three golden keys and opened the secret door at the end of the dungeon.",
+"cat": "sentence",
+"topic": "games",
+"lang": "en",
+"diff": 3,
+"len": 183
+},
+{
+"id": "em_gam003",
+"t": "A rare skin appeared in the shop for just one weekend, and everyone rushed to get it. Coins spin in the air, music gets faster, and the timer reminds you that every second counts.",
+"cat": "sentence",
+"topic": "games",
+"lang": "en",
+"diff": 3,
+"len": 179
+},
+{
+"id": "em_gam004",
+"t": "The map shows five islands, three secret caves, and one mysterious lighthouse in the fog. Players gather in the virtual city to trade items, explore caves, and build tall towers.",
+"cat": "sentence",
+"topic": "games",
+"lang": "en",
+"diff": 3,
+"len": 178
+},
+{
+"id": "em_gam005",
+"t": "A rare skin appeared in the shop for just one weekend, and everyone rushed to get it. Her score climbed higher with every clean stroke, and soon the leaderboard had a new leader.",
+"cat": "sentence",
+"topic": "games",
+"lang": "en",
+"diff": 3,
+"len": 178
+},
+{
+"id": "em_spo000",
+"t": "Sleep, water, and healthy food are as important to an athlete as hours of training. A good coach sees potential before the athlete does and patiently helps it grow.",
+"cat": "sentence",
+"topic": "sports",
+"lang": "en",
+"diff": 3,
+"len": 164
+},
+{
+"id": "em_spo001",
+"t": "The mountain climbers started at midnight so they could reach the summit before the morning storm. In tennis, the match can change in a single point, so you must stay calm and keep moving.",
+"cat": "sentence",
+"topic": "sports",
+"lang": "en",
+"diff": 3,
+"len": 188
+},
+{
+"id": "em_spo002",
+"t": "The basketball bounced twice, rolled around the rim, and finally dropped through the net. Sleep, water, and healthy food are as important to an athlete as hours of training.",
+"cat": "sentence",
+"topic": "sports",
+"lang": "en",
+"diff": 3,
+"len": 173
+},
+{
+"id": "em_spo003",
+"t": "The sprinter crouched at the line, listened for the signal, and flew down the track. Throwing a javelin needs speed, balance, and the perfect angle at the exact right moment.",
+"cat": "sentence",
+"topic": "sports",
+"lang": "en",
+"diff": 3,
+"len": 174
+},
+{
+"id": "em_spo004",
+"t": "Gymnasts make difficult moves look easy only after thousands of patient repetitions. Boxers move lightly on their feet, keep their hands high, and watch their opponent's shoulders.",
+"cat": "sentence",
+"topic": "sports",
+"lang": "en",
+"diff": 4,
+"len": 180
+},
+{
+"id": "em_spo005",
+"t": "The volleyball soared over the net, and the defender dived full length to save it. Sleep, water, and healthy food are as important to an athlete as hours of training.",
+"cat": "sentence",
+"topic": "sports",
+"lang": "en",
+"diff": 3,
+"len": 166
+},
+{
+"id": "em_mot000",
+"t": "Your only competition is the person you were yesterday, so race against that one. Success is the sum of small efforts repeated day in and day out with love.",
+"cat": "sentence",
+"topic": "motivation",
+"lang": "en",
+"diff": 3,
+"len": 156
+},
+{
+"id": "em_mot001",
+"t": "Discipline is choosing what you want most over what you want right now. Confidence grows from practice, and practice begins with the courage to do it badly first.",
+"cat": "sentence",
+"topic": "motivation",
+"lang": "en",
+"diff": 3,
+"len": 162
+},
+{
+"id": "em_mot002",
+"t": "Discipline is choosing what you want most over what you want right now. Stay patient with yourself, because real progress is quiet and slow and absolutely worth it.",
+"cat": "sentence",
+"topic": "motivation",
+"lang": "en",
+"diff": 3,
+"len": 164
+},
+{
+"id": "em_mot003",
+"t": "Stay patient with yourself, because real progress is quiet and slow and absolutely worth it. Fall seven times, stand up eight, and learn something useful on every fall.",
+"cat": "sentence",
+"topic": "motivation",
+"lang": "en",
+"diff": 3,
+"len": 168
+},
+{
+"id": "em_mot004",
+"t": "Do not compare your first chapter with someone else's final chapter. Mistakes are proof that you are trying, and every expert was once a confused beginner.",
+"cat": "sentence",
+"topic": "motivation",
+"lang": "en",
+"diff": 3,
+"len": 155
+},
+{
+"id": "em_mot005",
+"t": "Fall seven times, stand up eight, and learn something useful on every fall. You are stronger than your doubts and faster than your fears, so keep on typing.",
+"cat": "sentence",
+"topic": "motivation",
+"lang": "en",
+"diff": 3,
+"len": 156
+}
+]
+}
