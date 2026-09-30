@@ -5,6 +5,7 @@ import '../../data/models/content_models.dart';
 import '../../data/models/profile.dart';
 import '../ai/ai_driver.dart';
 import '../content/content_db.dart';
+import 'progress.dart';
 
 class BracketEntry {
   final String id, name, cc;
@@ -153,9 +154,10 @@ class TournamentLogic {
   }
 
   /// Records the player's match result; returns rewards {coins,gems,xp,title,skin} earned now.
-  static Map<String, dynamic> recordResult(PlayerProfile p, TournamentDef d, TournamentState s, bool won) {
+  static Map<String, dynamic> recordResult(PlayerProfile p, TournamentDef d, TournamentState s, bool won, {ContentDb? db}) {
     final earned = <String, dynamic>{};
     s.results.add(won);
+    if (db != null && won) Season.addPoints(p, db, s.round + 1 >= d.rounds ? 100 : 25);
     if (!won) {
       s.alive = false;
     } else {

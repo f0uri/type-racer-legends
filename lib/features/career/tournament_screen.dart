@@ -241,7 +241,7 @@ class TournamentScreen extends ConsumerWidget {
         c.read(profileProvider.notifier).update((p) {
           final cur = TournamentLogic.stateOf(p, def) ?? s;
           if (result.suspicious) return;
-          earned = TournamentLogic.recordResult(p, def, cur, result.won);
+          earned = TournamentLogic.recordResult(p, def, cur, result.won, db: db);
         });
         final now = TournamentLogic.stateOf(c.read(profileProvider), def);
         return _MatchResult(

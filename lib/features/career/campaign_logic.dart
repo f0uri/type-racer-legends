@@ -7,6 +7,7 @@ import '../../data/models/profile.dart';
 import '../ai/ai_driver.dart';
 import '../content/content_db.dart';
 import '../race/engine/race_models.dart';
+import 'progress.dart';
 
 class StageOutcome {
   int stars = 0, bestBefore = 0;
@@ -69,6 +70,7 @@ class CampaignLogic {
       // improving your stars pays a quarter of the coins per extra star
       o.coins = (coins * 0.25 * (o.stars - o.bestBefore)).round();
     }
+    if (o.firstClear) Season.addPoints(p, db, s.isBoss ? 60 : 20);
     if (o.coins > 0) p.addCoins(o.coins);
     if (o.xp > 0) p.addXp(o.xp);
     if (o.gems > 0) p.addGems(o.gems);

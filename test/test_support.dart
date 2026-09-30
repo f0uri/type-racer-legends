@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:type_racer_legends/core/services/audio_service.dart';
@@ -22,7 +23,25 @@ class GameSettingsStub {
 }
 
 /// Creates a provider container backed by a temp Hive store and the seed content (for widget tests).
+bool _fontsLoaded = false;
+
+/// Loads the bundled fonts so widget tests lay text out like the real app (the default test font is one em wide per glyph).
+Future<void> loadTestFonts() async {
+  if (_fontsLoaded) return;
+  _fontsLoaded = true;
+  for (final f in {'Tajawal': ['assets/fonts/Tajawal-Regular.ttf', 'assets/fonts/Tajawal-Bold.ttf'], 'FiraMono': ['assets/fonts/FiraMono-Regular.ttf', 'assets/fonts/FiraMono-Bold.ttf']}.entries) {
+    final loader = FontLoader(f.key);
+    for (final path in f.value) {
+      try {
+        loader.addFont(rootBundle.load(path));
+      } catch (_) {}
+    }
+    await loader.load();
+  }
+}
+
 Future<ProviderContainer> testContainer(WidgetTester tester) async {
+  await tester.runAsync(loadTestFonts);
   final store = await tester.runAsync(() async {
     final dir = await Directory.systemTemp.createTemp('trl_test');
     return LocalStore.forTest(dir.path);

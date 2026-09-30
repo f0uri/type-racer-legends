@@ -11,8 +11,10 @@ import '../../data/models/content_models.dart';
 import '../../data/models/profile.dart';
 import '../garage/garage_widgets.dart';
 import '../garage/look.dart';
+import '../career/progress.dart';
 import 'chest_open_screen.dart';
 import 'economy.dart';
+import 'iap_service.dart';
 
 class ShopScreen extends ConsumerWidget {
   const ShopScreen({super.key, this.embedded = false});
@@ -48,6 +50,8 @@ class ShopScreen extends ConsumerWidget {
                 const SizedBox(height: 18),
                 _title('🎁 الصناديق', 'نسب الحصول على الجوائز معروضة بشفافية — تُشترى بالعملات أو الجواهر داخل اللعبة فقط'),
                 for (final c in chests) _ChestCard(def: c),
+                const SizedBox(height: 18),
+                const PremiumSection(),
                 const SizedBox(height: 18),
                 _title('💱 تحويل الجواهر إلى عملات', null),
                 for (final b in bundles) _bundle(context, ref, b, p),
@@ -211,5 +215,61 @@ class ChestFlow {
     });
     if (reward == null || !context.mounted) return;
     await Navigator.of(context).push<void>(MaterialPageRoute(builder: (_) => ChestOpenScreen(def: def, reward: reward!)));
+  }
+}
+
+/// Real-money items (Google Play Billing): remove ads, gem packs and the Battle Pass. No randomised items are sold for money.
+class PremiumSection extends ConsumerStatefulWidget {
+  const PremiumSection({super.key});
+  @override
+  ConsumerState<PremiumSection> createState() => _PremiumSectionState();
+}
+
+class _PremiumSectionState extends ConsumerState<PremiumSection> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) ref.read(iapProvider.notifier).start();
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final db = ref.watch(contentProvider);
+    final p = ref.watch(profileProvider);
+    final iap = ref.watch(iapProvider);
+    if (!db.featureOn('iap')) return const SizedBox.shrink();
+    final packs = ((db.shop['gemPacks'] as List?) ?? const []).cast<Map<String, dynamic>>();
+    final products = (db.shop['products'] as Map?) ?? const {};
+    final removeAds = products['removeAds'] as String? ?? 'remove_ads';
+    final pass = db.season['premiumProduct'] as String? ?? 'battle_pass_premium';
+    ref.listen<IapState>(iapProvider, (prev, next) {
+      if (next.message != null && next.message != prev?.message && context.mounted) toast(context, next.message!);
+    });
+    Widget row(String icon, String title, String sub, String id, {bool owned = false}) => Padding(
+          padding: const EdgeInsets.only(bottom: 8),
+          child: Panel(
+            child: Row(children: [
+              Text(icon, style: const TextStyle(fontSize: 28)),
+              const SizedBox(width: 10),
+              Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Text(title, style: const TextStyle(fontWeight: FontWeight.w900)), Text(sub, style: const TextStyle(color: C.textDim, fontSize: 11))])),
+              SizedBox(
+                width: 112,
+                child: owned
+                    ? const Center(child: Text('✓ مفعّل', style: TextStyle(color: C.green, fontWeight: FontWeight.w900)))
+                    : NeonButton(label: iap.priceOf(id) ?? '—', height: 38, color: C.gold, busy: iap.loading, onPressed: iap.canBuy(id) ? () => ref.read(iapProvider.notifier).buy(id) : null),
+              ),
+            ]),
+          ),
+        );
+    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+      const Padding(padding: EdgeInsets.only(bottom: 8), child: Text('👑 العروض المميزة', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w900))),
+      if (!iap.available) Padding(padding: const EdgeInsets.only(bottom: 8), child: Text(iap.message ?? 'جارٍ الاتصال بالمتجر...', style: const TextStyle(color: C.textDim, fontSize: 12))),
+      row('🚫', 'إزالة الإعلانات', 'الإعلانات اختيارية أصلاً؛ هذا يخفيها نهائياً', removeAds, owned: p.flag('adsRemoved')),
+      row('🎟️', 'Battle Pass المميز', 'مكافآت إضافية طوال الموسم', pass, owned: Season.isPremium(db, p)),
+      for (final g in packs) row('💎', '${g['gems']} جوهرة', loc(g['name']), g['id'] as String),
+      TextButton(onPressed: () => ref.read(iapProvider.notifier).restore(), child: const Text('استعادة المشتريات')),
+    ]);
   }
 }

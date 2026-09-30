@@ -5,8 +5,11 @@ import '../../core/theme/app_theme.dart';
 import '../../core/util/dates.dart';
 import '../../core/widgets/common.dart';
 import '../../data/models/profile.dart';
+import '../content/content_db.dart';
 import '../race/engine/race_models.dart';
+import 'progress.dart';
 import '../race/ui/result_screen.dart';
+import '../leaderboard/leaderboard_service.dart';
 import 'mode_flow.dart';
 
 class DailyLogic {
@@ -37,7 +40,7 @@ class DailyLogic {
   static bool qualifies(RaceResult r) => !r.suspicious && !r.timeUp && r.accuracy >= 90 && r.chars >= 30;
 
   /// Records the attempt. Returns the bonus granted (first qualifying completion of the period only).
-  static Map<String, int> apply(PlayerProfile p, RaceResult r, {bool weekly = false, DateTime? now}) {
+  static Map<String, int> apply(PlayerProfile p, RaceResult r, {bool weekly = false, DateTime? now, ContentDb? db}) {
     final rec = weekly ? weeklyRec(p, now) : dailyRec(p, now);
     final out = {'coins': 0, 'xp': 0, 'gems': 0, 'first': 0};
     if (!qualifies(r)) return out;
@@ -60,6 +63,7 @@ class DailyLogic {
     p.addCoins(out['coins']!);
     p.addXp(out['xp']!);
     if (out['gems']! > 0) p.addGems(out['gems']!);
+    if (db != null) Season.addPoints(p, db, weekly ? 100 : 30, now: now);
     return out;
   }
 }
@@ -120,7 +124,8 @@ class DailyScreen extends ConsumerWidget {
       },
       finish: (ctx, result, outcome, rebuild) {
         late Map<String, int> got;
-        c.read(profileProvider.notifier).update((p) => got = DailyLogic.apply(p, result, weekly: weekly));
+        c.read(profileProvider.notifier).update((p) => got = DailyLogic.apply(p, result, weekly: weekly, db: c.read(contentProvider)));
+        maybeSubmitScore(c, result);
         return ResultScreen(
           result: result,
           outcome: outcome,

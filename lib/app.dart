@@ -4,6 +4,7 @@ import 'core/providers.dart';
 import 'core/theme/app_theme.dart';
 import 'features/auth/auth_controller.dart';
 import 'features/auth/login_screen.dart';
+import 'features/career/progress_watcher.dart';
 import 'features/home/home_shell.dart';
 import 'features/lifecycle/app_lifecycle.dart';
 import 'features/update/update_ui.dart';
@@ -30,7 +31,7 @@ class TypeRacerApp extends ConsumerWidget {
         textDirection: TextDirection.rtl,
         child: MediaQuery(
           data: MediaQuery.of(context).copyWith(textScaler: const TextScaler.linear(1.0)),
-          child: AppLifecycleHost(child: UpdateGate(child: child ?? const SizedBox())),
+          child: AppLifecycleHost(child: UpdateGate(child: ProgressWatcher(child: child ?? const SizedBox()))),
         ),
       ),
       home: auth.signedIn ? const HomeShell() : const LoginScreen(),

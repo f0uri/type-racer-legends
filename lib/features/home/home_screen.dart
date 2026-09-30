@@ -14,6 +14,7 @@ import '../career/mode_flow.dart';
 import '../career/modes_support.dart';
 import '../career/tournament_screen.dart';
 import '../career/world_tour_screen.dart';
+import '../leaderboard/leaderboard_screen.dart';
 import '../race/quick_race_sheet.dart';
 import '../settings/settings_screen.dart';
 
@@ -36,6 +37,7 @@ class HomeScreen extends ConsumerWidget {
         _Mode('💥', 'قتال الطريق', 'أطلق الصواريخ بكلماتك', _combat, feature: 'combat'),
         _Mode('📅', 'التحديات', 'يومي وأسبوعي', (c) => ModeFlow.push<void>(c, const DailyScreen()), feature: 'daily'),
         _Mode('🌍', 'جولة العالم', '12 مدينة وختم', (c) => ModeFlow.push<void>(c, const WorldTourScreen()), feature: 'world_tour'),
+        _Mode('🥇', 'المتصدرون', 'عالمي • بلدي • أسبوعي', (c) => ModeFlow.push<void>(c, const LeaderboardScreen()), feature: 'leaderboard'),
         _Mode('✍️', 'نص مخصص', 'تدرّب على نصك', (c) => ModeFlow.push<void>(c, const CustomTextScreen())),
       ];
 

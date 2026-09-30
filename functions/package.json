@@ -1,0 +1,17 @@
+{
+  "name": "type-racer-legends-functions",
+  "description": "Cloud Functions for Type Racer Legends (score validation, leaderboards, purchases, referrals, backups)",
+  "private": true,
+  "main": "index.js",
+  "engines": { "node": "20" },
+  "scripts": {
+    "test": "node --test test/",
+    "serve": "firebase emulators:start --only functions",
+    "deploy": "firebase deploy --only functions"
+  },
+  "dependencies": {
+    "firebase-admin": "^12.6.0",
+    "firebase-functions": "^6.1.0",
+    "googleapis": "^144.0.0"
+  }
+}

@@ -49,7 +49,11 @@ class ProfileMerger {
     final r = _mm(ly > lx ? y : x);
     r['claimed'] = _orMap(x['claimed'], y['claimed']);
     r['base'] = _maxMap(x['base'], y['base']);
-    r['best'] = _maxMap({'v': x['best'] ?? 0}, {'v': y['best'] ?? 0})['v'];
+    if (x['best'] is Map || y['best'] is Map) {
+      r['best'] = _maxMap(x['best'], y['best']);
+    } else {
+      r['best'] = _maxMap({'v': x['best'] ?? 0}, {'v': y['best'] ?? 0})['v'];
+    }
     if (x['done'] == true || y['done'] == true) r['done'] = true;
     return r;
   }
@@ -119,7 +123,7 @@ class ProfileMerger {
     } else {
       st = _i(ta['count']) >= _i(tb['count']) ? ta : tb;
     }
-    r['streak'] = {'count': _i(st['count']), 'last': st['last'] ?? '', 'best': _i(ta['best']) > _i(tb['best']) ? _i(ta['best']) : _i(tb['best'])};
+    r['streak'] = {'claimed': ((ta['claimed'] ?? '').toString().compareTo((tb['claimed'] ?? '').toString()) >= 0 ? ta['claimed'] : tb['claimed']) ?? '', 'count': _i(st['count']), 'last': st['last'] ?? '', 'best': _i(ta['best']) > _i(tb['best']) ? _i(ta['best']) : _i(tb['best'])};
 
     // season
     final ea = _mm(a['season']), eb = _mm(b['season']);
@@ -173,7 +177,7 @@ class ProfileMerger {
     final ev = <String, dynamic>{};
     for (final k in {...evA.keys, ...evB.keys}) {
       final x = _mm(evA[k]), y = _mm(evB[k]);
-      ev[k] = {'claimed': _orMap(x['claimed'], y['claimed']), 'base': _maxMap(x['base'], y['base'])};
+      ev[k] = {'claimed': _orMap(x['claimed'], y['claimed']), 'base': _maxMap(x['base'], y['base']), 'best': _maxMap(x['best'], y['best'])};
     }
     r['events'] = ev;
     final tA = _mm(a['tourn']), tB = _mm(b['tourn']);
@@ -200,7 +204,7 @@ class ProfileMerger {
       'xp': p.xp,
       'coins': p.coins < 0 ? 0 : p.coins,
       'gems': p.gems < 0 ? 0 : p.gems,
-      'bestWpm': p.best('bestWpm').round(),
+      'bestWpm': p.best('best_wpm').round().clamp(0, 300),
       'rankPoints': p.rankPoints,
       'streak': p.streak,
       'lastPlayedAt': p.streakLast,

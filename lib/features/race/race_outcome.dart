@@ -1,6 +1,7 @@
 import 'dart:math';
 import '../../core/util/dates.dart';
 import '../../data/models/profile.dart';
+import '../career/progress.dart';
 import '../career/rank.dart';
 import '../content/content_db.dart';
 import 'engine/race_models.dart';
@@ -62,6 +63,8 @@ class RaceRewards {
         cs[key] = [((cur[0] as num) + st[0]).toInt(), ((cur[1] as num) + st[1]).toInt(), ((cur[2] as num) + st[2]).toInt()];
       });
     }
+
+    if (!r.suspicious && r.chars >= 10) Quests.recordBests(db, p, Quests.bestsFromRace(r), now: now);
 
     if (!r.config.rewards || r.suspicious || r.chars < 10) {
       o.rewarded = false;
@@ -126,6 +129,7 @@ class RaceRewards {
       p.addRankPoints(d);
       o.rpDelta = p.rankPoints - before;
     }
+    Season.addPoints(p, db, Progression.racePoints(r), now: now);
     o.rpAfter = p.rankPoints;
     final tb = Ranks.tierIndex(db, o.rpBefore), ta = Ranks.tierIndex(db, o.rpAfter);
     o.tierBefore = Ranks.tiers(db)[tb].id;

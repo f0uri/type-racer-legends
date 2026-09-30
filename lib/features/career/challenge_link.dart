@@ -49,6 +49,7 @@ class ChallengeLink {
     final text = 'تحدّيتك في Type Racer Legends! 🏁 سرعتي ${link.wpm} WPM — هل تتفوق عليّ؟\n${link.webUri}';
     try {
       await SharePlus.instance.share(ShareParams(text: text, subject: 'تحدٍّ في Type Racer Legends'));
+      ProviderScope.containerOf(context, listen: false).read(profileProvider.notifier).update((p) => p.addCounter('challenges_sent', 1));
     } catch (e) {
       debugPrint('share failed: $e');
       if (context.mounted) toast(context, 'تعذّرت المشاركة');
@@ -200,6 +201,7 @@ class _ChallengeHubState extends ConsumerState<ChallengeHubScreen> {
                         final link = ChallengeLink(textId: t.id, wpm: w, name: p.name, cc: p.country, lang: t.lang);
                         try {
                           await SharePlus.instance.share(ShareParams(text: 'تحدّيتك في Type Racer Legends! 🏁 سرعتي $w WPM — هل تتفوق عليّ؟\n${link.webUri}'));
+                          ref.read(profileProvider.notifier).update((pp) => pp.addCounter('challenges_sent', 1));
                         } catch (_) {
                           if (context.mounted) toast(context, 'تعذّرت المشاركة');
                         }

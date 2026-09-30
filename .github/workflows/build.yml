@@ -29,6 +29,8 @@ jobs:
         run: flutter analyze --no-fatal-infos
       - name: flutter test
         run: flutter test --reporter expanded
+      - name: Cloud Functions unit tests (anti-cheat)
+        run: node --test functions/test/
 
   build:
     name: Build APK + AAB

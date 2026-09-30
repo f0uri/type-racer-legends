@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../core/providers.dart';
 import '../career/challenge_link.dart';
 import '../content/content_updater.dart';
+import '../leaderboard/leaderboard_service.dart';
 
 /// Hooks lifecycle + connectivity: sync on background/foreground and when the network returns.
 /// Other features register callbacks through [lifecycleHooksProvider].
@@ -43,6 +44,7 @@ class _AppLifecycleHostState extends ConsumerState<AppLifecycleHost> with Widget
         if (_wasOffline && !offline) {
           ref.read(profileProvider.notifier).syncNow();
           ref.read(contentUpdaterProvider.notifier).refresh(force: true);
+          ref.read(leaderboardProvider).flush();
           for (final f in ref.read(lifecycleHooksProvider).onOnline) {
             f();
           }
@@ -63,6 +65,7 @@ class _AppLifecycleHostState extends ConsumerState<AppLifecycleHost> with Widget
     } else if (state == AppLifecycleState.resumed) {
       ref.read(profileProvider.notifier).syncNow();
       ref.read(contentUpdaterProvider.notifier).refresh();
+      ref.read(leaderboardProvider).flush();
       for (final f in hooks.onResume) {
         f();
       }
