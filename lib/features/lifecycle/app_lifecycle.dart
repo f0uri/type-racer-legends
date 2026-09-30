@@ -6,6 +6,7 @@ import '../../core/providers.dart';
 import '../career/challenge_link.dart';
 import '../content/content_updater.dart';
 import '../leaderboard/leaderboard_service.dart';
+import '../notifications/engagement.dart';
 
 /// Hooks lifecycle + connectivity: sync on background/foreground and when the network returns.
 /// Other features register callbacks through [lifecycleHooksProvider].
@@ -59,6 +60,7 @@ class _AppLifecycleHostState extends ConsumerState<AppLifecycleHost> with Widget
     final hooks = ref.read(lifecycleHooksProvider);
     if (state == AppLifecycleState.paused) {
       ref.read(profileProvider.notifier).syncNow();
+      ref.read(engagementProvider).refresh();
       for (final f in hooks.onPause) {
         f();
       }

@@ -11,6 +11,7 @@ class RaceOutcome {
   int coins = 0, gems = 0, xp = 0, rpDelta = 0;
   int oldLevel = 1, newLevel = 1;
   int rpBefore = 0, rpAfter = 0;
+  bool breakDue = false;
   bool capped = false, rewarded = true, newGhost = false, tierUp = false, tierDown = false;
   String? tierBefore, tierAfter;
   final List<String> records = []; // best_wpm, best_acc, combo_max

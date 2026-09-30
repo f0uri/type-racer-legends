@@ -48,6 +48,17 @@
                 <data android:scheme="https" android:host="f0uri.github.io" android:pathPrefix="/type-racer-legends/c"/>
             </intent-filter>
         </activity>
+        <receiver
+            android:name=".TypeRacerWidgetProvider"
+            android:exported="true"
+            android:label="Type Racer Legends">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/trl_widget_info"/>
+        </receiver>
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />

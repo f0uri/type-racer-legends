@@ -150,6 +150,21 @@ exports.claimReferralRewards = onCall(async (req) => {
   return { coins, gems, invitees };
 });
 
+// ---------------------------------------------------------------------------------------------------- announcements (FCM)
+/**
+ * Writing config/announcement = { id, title, body, topic? } in the Firebase console sends a push to the topic
+ * (default "events"; use "all" for everyone). The app subscribes to both topics (events only if the player allows it).
+ */
+exports.onAnnouncement = onDocumentWritten('config/announcement', async (event) => {
+  const after = event.data && event.data.after && event.data.after.exists ? event.data.after.data() : null;
+  const before = event.data && event.data.before && event.data.before.exists ? event.data.before.data() : null;
+  if (!after || !after.title || !after.body) return;
+  if (before && before.id === after.id && after.id) return; // same announcement: do not resend
+  const topic = ['all', 'events'].includes(after.topic) ? after.topic : 'events';
+  await admin.messaging().send({ topic, notification: { title: String(after.title).slice(0, 80), body: String(after.body).slice(0, 240) }, android: { priority: 'normal', notification: { channelId: 'trl_main' } } });
+  logger.info('announcement sent', { topic, id: after.id });
+});
+
 // ---------------------------------------------------------------------------------------------------- backups + deletion
 /** Keeps three rotating cloud backups of every user profile (restore from the app). */
 exports.onUserWrite = onDocumentWritten('users/{uid}', async (event) => {

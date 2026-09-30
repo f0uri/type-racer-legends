@@ -9,12 +9,13 @@ import 'package:type_racer_legends/core/providers.dart';
 import 'package:type_racer_legends/features/content/content_db.dart';
 
 /// Loads the real seed content from /content for tests.
-ContentDb loadSeedContent() {
+ContentDb loadSeedContent([void Function(Map<String, dynamic> files)? tweak]) {
   final cat = jsonDecode(File('content/catalog.json').readAsStringSync()) as Map<String, dynamic>;
   final files = <String, dynamic>{'catalog': cat};
   for (final e in (cat['files'] as Map<String, dynamic>).entries) {
     files[e.key] = jsonDecode(File('content/${e.value['path']}').readAsStringSync());
   }
+  tweak?.call(files);
   return ContentDb.parse(files);
 }
 
@@ -42,9 +43,15 @@ Future<void> loadTestFonts() async {
 
 Future<ProviderContainer> testContainer(WidgetTester tester) async {
   await tester.runAsync(loadTestFonts);
+  Directory? tmp;
   final store = await tester.runAsync(() async {
-    final dir = await Directory.systemTemp.createTemp('trl_test');
+    final dir = tmp = await Directory.systemTemp.createTemp('trl_test');
     return LocalStore.forTest(dir.path);
+  });
+  addTearDown(() {
+    try {
+      tmp?.deleteSync(recursive: true); // keep /tmp (tmpfs on CI and in the sandbox) from filling up
+    } catch (_) {}
   });
   final c = ProviderContainer(overrides: [
     storeProvider.overrideWithValue(store!),

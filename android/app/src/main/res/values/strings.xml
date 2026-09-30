@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="widget_streak_label">أيام متتالية 🔥</string>
+    <string name="widget_best_label">أفضل WPM ⚡</string>
+    <string name="widget_description">سلسلتك اليومية وأفضل سرعة لك في Type Racer Legends</string>
+</resources>

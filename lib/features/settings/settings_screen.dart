@@ -1,3 +1,5 @@
+import 'licenses_screen.dart';
+import '../tutorial/tutorial_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../core/providers.dart';
@@ -146,11 +148,8 @@ class SettingsScreen extends ConsumerWidget {
           Panel(child: Column(children: [
             ListTile(contentPadding: EdgeInsets.zero, title: const Text('سياسة الخصوصية'), trailing: const Icon(Icons.chevron_left), onTap: () => _text(context, 'سياسة الخصوصية', privacyPolicyAr)),
             ListTile(contentPadding: EdgeInsets.zero, title: const Text('شروط الاستخدام'), trailing: const Icon(Icons.chevron_left), onTap: () => _text(context, 'شروط الاستخدام', termsAr)),
-            ListTile(contentPadding: EdgeInsets.zero, title: const Text('التراخيص والمصادر'), trailing: const Icon(Icons.chevron_left), onTap: () => _text(context, 'التراخيص', licensesAr)),
-            ListTile(contentPadding: EdgeInsets.zero, title: const Text('إعادة الشرح التفاعلي'), trailing: const Icon(Icons.chevron_left), onTap: () {
-              ref.read(profileProvider.notifier).update((p) => p.setFlag('tutorialDone', false));
-              toast(context, 'سيظهر الشرح في بداية سباقك القادم');
-            }),
+            ListTile(contentPadding: EdgeInsets.zero, title: const Text('التراخيص والمصادر'), trailing: const Icon(Icons.chevron_left), onTap: () => Navigator.push(context, MaterialPageRoute<void>(builder: (_) => const LicensesScreen()))),
+            ListTile(contentPadding: EdgeInsets.zero, title: const Text('إعادة الشرح التفاعلي'), trailing: const Icon(Icons.chevron_left), onTap: () => Navigator.push(context, MaterialPageRoute<void>(builder: (_) => const TutorialScreen()))),
             Text(FirebaseBoot.available ? 'Firebase: متصل بالإعدادات' : 'Firebase: غير مُعدّ (وضع Offline)', style: const TextStyle(color: C.textDim, fontSize: 12)),
           ])),
           const SizedBox(height: 40),

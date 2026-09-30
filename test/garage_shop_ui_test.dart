@@ -89,8 +89,20 @@ void main() {
     await t.pumpWidget(const SizedBox());
   });
 
+  testWidgets('new players are offered the interactive tutorial; skipping it is remembered', (t) async {
+    final c = await testContainer(t);
+    await show(t, c, const HomeShell());
+    await t.pump(const Duration(milliseconds: 500));
+    expect(find.text('🏁 جديد في اللعبة؟'), findsOneWidget);
+    await t.tap(find.text('تخطّي'));
+    await t.pump(const Duration(milliseconds: 500));
+    expect(c.read(profileProvider).flag('tutorialDone'), isTrue);
+    await t.pumpWidget(const SizedBox());
+  });
+
   testWidgets('home shell switches between race, garage and shop tabs', (t) async {
     final c = await testContainer(t);
+    c.read(profileProvider.notifier).update((p) => p.setFlag('tutorialDone'));
     await show(t, c, const HomeShell());
     await t.tap(find.text('الكراج').last);
     await t.pump(const Duration(milliseconds: 500));

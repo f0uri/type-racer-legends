@@ -1,7 +1,11 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../core/providers.dart';
+import '../ads/ads_service.dart';
 import '../career/progress.dart';
+import '../notifications/engagement.dart';
+import '../tutorial/tutorial_screen.dart';
 import '../career/progress_screen.dart';
 import '../content/content_updater.dart';
 import '../shop/iap_service.dart';
@@ -22,6 +26,13 @@ class HomeShell extends ConsumerStatefulWidget {
 
 class _HomeShellState extends ConsumerState<HomeShell> {
   late int _i = widget.initialTab;
+  Timer? _adsTimer;
+
+  @override
+  void dispose() {
+    _adsTimer?.cancel();
+    super.dispose();
+  }
 
   @override
   void initState() {
@@ -37,7 +48,38 @@ class _HomeShellState extends ConsumerState<HomeShell> {
       ref.read(profileProvider.notifier).update((pp) => LoginStreak.register(pp));
       if (LoginStreak.claimable(ref.read(profileProvider))) _showLoginReward();
       ref.read(iapProvider.notifier).start();
+      if (!ref.read(profileProvider).flag('tutorialDone')) {
+        _offerTutorial();
+      } else {
+        ref.read(engagementProvider).startup();
+      }
+      // ads start a few seconds later so they never compete with the first screen
+      _adsTimer = Timer(const Duration(seconds: 6), () {
+        if (mounted) ref.read(adsProvider).init();
+      });
     });
+  }
+
+  Future<void> _offerTutorial() async {
+    final go = await showDialog<bool>(
+      context: context,
+      barrierDismissible: false,
+      builder: (ctx) => AlertDialog(
+        title: const Text('🏁 جديد في اللعبة؟'),
+        content: const Text('جرّب الشرح التفاعلي (دقيقة واحدة) واحصل على 200 عملة هدية. يمكنك إعادته من الإعدادات.'),
+        actions: [
+          TextButton(onPressed: () => Navigator.pop(ctx, false), child: const Text('تخطّي')),
+          FilledButton(onPressed: () => Navigator.pop(ctx, true), child: const Text('ابدأ الشرح')),
+        ],
+      ),
+    );
+    if (!mounted) return;
+    if (go == true) {
+      await Navigator.of(context).push(MaterialPageRoute<void>(builder: (_) => const TutorialScreen()));
+    } else {
+      ref.read(profileProvider.notifier).update((p) => p.setFlag('tutorialDone'));
+    }
+    if (mounted) ref.read(engagementProvider).startup();
   }
 
   void _showLoginReward() {

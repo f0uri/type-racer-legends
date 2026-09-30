@@ -1,3 +1,4 @@
+import '../ads/ads_ui.dart';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -41,6 +42,8 @@ class ShopScreen extends ConsumerWidget {
         child: !enabled
             ? const Center(child: Text('المتجر متوقف مؤقتاً', style: TextStyle(color: C.textDim)))
             : ListView(padding: const EdgeInsets.fromLTRB(14, 8, 14, 24), children: [
+                const RewardedAdCard(),
+                const SizedBox(height: 12),
                 _title('🔥 عروض اليوم', 'خصم 25% — تتجدد كل يوم'),
                 if (deals.isEmpty) const Panel(child: Text('امتلكت كل العروض المتاحة 🎉', style: TextStyle(color: C.textDim))),
                 SizedBox(

@@ -6,6 +6,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/providers.dart';
+import '../../../core/services/analytics_provider.dart';
 import '../../../core/services/audio_service.dart';
 import '../../../core/theme/app_theme.dart';
 import '../../../core/util/misc.dart';
@@ -14,6 +15,7 @@ import '../../ai/ai_driver.dart';
 import '../../ai/taunts.dart';
 import '../../learn/keyboard_guide.dart';
 import '../../garage/look.dart';
+import '../../notifications/engagement.dart';
 import '../engine/metrics.dart';
 import '../engine/race_models.dart';
 import '../engine/race_session.dart';
@@ -190,6 +192,7 @@ class _RaceScreenState extends ConsumerState<RaceScreen> with WidgetsBindingObse
       final c = widget.config;
       _setup(RaceConfig(modeId: c.modeId, title: c.title, text: c.text, biomeId: c.biomeId, mod: c.mod, opponents: c.opponents, ghosts: c.ghosts, rules: c.rules, riskMul: max(2.0, c.riskMul * 2), ranked: c.ranked, rewards: c.rewards, meta: c.meta, vocabHints: c.vocabHints, timeLimitMs: c.timeLimitMs, playerLookOverride: c.playerLookOverride, bossId: c.bossId));
     }
+    ref.read(analyticsProvider).log('race_start', {'mode': cfg.modeId});
     setState(() {
       phase = _Phase.countdown;
       countdown = 3;
@@ -388,7 +391,13 @@ class _RaceScreenState extends ConsumerState<RaceScreen> with WidgetsBindingObse
     if (!result.suspicious && result.chars >= RaceRewards.minCharsForStats && cfg.modeId != 'lesson') {
       ref.read(storeProvider).saveGhostIfBetter('${cfg.text.id}|${cfg.text.lang}', result.wpm, result.samples).then((v) => outcome.newGhost = v);
     }
+    if (!result.suspicious && result.chars >= RaceRewards.minCharsForStats) {
+      final s = ref.read(settingsProvider);
+      outcome.breakDue = s.breakReminder && ref.read(breakTrackerProvider).recordRace(raceMs: (result.time * 1000).round(), nowMs: DateTime.now().millisecondsSinceEpoch, breakMinutes: (db.economy['breakMinutes'] as num?)?.toInt() ?? 45);
+    }
+    ref.read(analyticsProvider).log('race_complete', {'mode': cfg.modeId, 'wpm': result.wpm.round(), 'acc': result.accuracy.round(), 'rank': result.playerRank, 'suspicious': result.suspicious ? 1 : 0});
     unawaited(ctl.syncNow());
+    unawaited(ref.read(engagementProvider).refresh());
     if (!mounted) return;
     Widget? next;
     if (widget.onFinished != null) next = await widget.onFinished!(context, result, outcome);

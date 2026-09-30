@@ -88,6 +88,9 @@ flutter:
   assets:
     - content/
     - content/texts/
+    - assets/fonts/OFL-tajawal.txt
+    - assets/fonts/OFL-firamono.txt
+    - assets/fonts/OFL-opendyslexic.txt
   fonts:
     - family: Tajawal
       fonts:

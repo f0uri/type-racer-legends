@@ -53,6 +53,7 @@ void main() {
 
   testWidgets('home shell shows the progress tab with a badge and offers the daily login reward', (t) async {
     final c = await testContainer(t);
+    c.read(profileProvider.notifier).update((p) => p.setFlag('tutorialDone'));
     await show(t, c, const HomeShell());
     for (var i = 0; i < 6; i++) {
       await t.pump(const Duration(milliseconds: 200));

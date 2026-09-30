@@ -4,6 +4,8 @@ import '../../../core/providers.dart';
 import '../../../core/theme/app_theme.dart';
 import '../../../core/util/misc.dart';
 import '../../../core/widgets/common.dart';
+import '../../ads/ads_service.dart';
+import '../../ads/ads_ui.dart';
 import '../../career/rank.dart';
 import '../../career/challenge_link.dart';
 import '../../profile/card_builder.dart';
@@ -28,6 +30,24 @@ class ResultScreen extends ConsumerStatefulWidget {
 }
 
 class _ResultScreenState extends ConsumerState<ResultScreen> {
+  @override
+  void initState() {
+    super.initState();
+    if (widget.outcome.breakDue) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (!mounted) return;
+        showDialog<void>(
+          context: context,
+          builder: (ctx) => AlertDialog(
+            title: const Text('🌿 وقت الاستراحة'),
+            content: const Text('تلعب منذ وقت طويل. خذ استراحة قصيرة: مدّ يديك، انظر بعيداً عن الشاشة واشرب الماء. تقدّمك محفوظ.'),
+            actions: [TextButton(onPressed: () => Navigator.pop(ctx), child: const Text('حسناً'))],
+          ),
+        );
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final r = widget.result, o = widget.outcome;
@@ -88,6 +108,7 @@ class _ResultScreenState extends ConsumerState<ResultScreen> {
                   if (o.tierDown) Padding(padding: const EdgeInsets.only(top: 6), child: Text('⬇️ انخفض تصنيفك إلى ${Ranks.tierOf(db, o.rpAfter).label}', style: const TextStyle(color: C.red, fontWeight: FontWeight.w800))),
                 ]),
               ),
+            if (o.rewarded && o.coins > 0 && !r.suspicious) ...[const SizedBox(height: 12), RewardedAdCard(doubleCoins: o.coins)],
             if (widget.extra != null) ...[const SizedBox(height: 12), ...widget.extra!],
             if (r.standings.length > 1) ...[
               const SizedBox(height: 12),
@@ -127,7 +148,12 @@ class _ResultScreenState extends ConsumerState<ResultScreen> {
                 icon: Icons.replay_rounded,
                 filled: widget.onPrimary == null,
                 color: widget.onPrimary == null ? C.cyan : C.magenta,
-                onPressed: () => Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) => RaceScreen(config: widget.rebuild!(), rebuild: widget.rebuild))),
+                onPressed: () async {
+                  // the only place an interstitial can appear: between two races, at the player's own request
+                  await ref.read(adsProvider).betweenRaces(tutorialOrLesson: r.config.modeId == 'lesson');
+                  if (!context.mounted) return;
+                  Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) => RaceScreen(config: widget.rebuild!(), rebuild: widget.rebuild)));
+                },
               ),
             ],
             if (!r.suspicious && r.chars >= RaceRewards.minCharsForStats && db.textById(r.config.text.id) != null && db.featureOn('link_challenge')) ...[
