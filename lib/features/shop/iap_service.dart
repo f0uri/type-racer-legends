@@ -1,3 +1,4 @@
+import '../../core/config/app_config.dart';
 import '../../core/services/analytics_provider.dart';
 import 'dart:async';
 import 'package:cloud_functions/cloud_functions.dart';
@@ -141,7 +142,7 @@ class IapController extends Notifier<IapState> {
   Future<bool> _verify(PurchaseDetails pd) async {
     if (!FirebaseBoot.available) return true;
     try {
-      final r = await FirebaseFunctions.instance.httpsCallable('verifyPurchase', options: HttpsCallableOptions(timeout: const Duration(seconds: 12))).call<Map<dynamic, dynamic>>({
+      final r = await FirebaseFunctions.instanceFor(region: AppConfig.functionsRegion).httpsCallable('verifyPurchase', options: HttpsCallableOptions(timeout: const Duration(seconds: 12))).call<Map<dynamic, dynamic>>({
         'productId': pd.productID,
         'purchaseToken': pd.verificationData.serverVerificationData,
         'source': pd.verificationData.source,

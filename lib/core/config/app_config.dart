@@ -5,6 +5,8 @@ class AppConfig {
   static const contentBaseUrl = String.fromEnvironment('CONTENT_BASE_URL', defaultValue: 'https://f0uri.github.io/type-racer-legends/content');
   static const updateJsonUrl = String.fromEnvironment('UPDATE_JSON_URL', defaultValue: 'https://f0uri.github.io/type-racer-legends/version.json');
   static const challengeLandingUrl = String.fromEnvironment('CHALLENGE_URL', defaultValue: 'https://f0uri.github.io/type-racer-legends/c/');
+  /// Must match setGlobalOptions({ region }) in functions/index.js.
+  static const functionsRegion = 'europe-west1';
   static const deepLinkScheme = 'typeracerlegends';
   static const privacyUrl = String.fromEnvironment('PRIVACY_URL', defaultValue: '');
 

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import '../../core/config/app_config.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -79,7 +80,7 @@ class CloudSync {
   Future<T?> callFn<T>(String name, Map<String, dynamic> data) async {
     if (!FirebaseBoot.available) return null;
     try {
-      final r = await FirebaseFunctions.instance.httpsCallable(name, options: HttpsCallableOptions(timeout: const Duration(seconds: 20))).call<dynamic>(data);
+      final r = await FirebaseFunctions.instanceFor(region: AppConfig.functionsRegion).httpsCallable(name, options: HttpsCallableOptions(timeout: const Duration(seconds: 20))).call<dynamic>(data);
       return r.data as T?;
     } on FirebaseFunctionsException catch (e) {
       debugPrint('fn $name failed: ${e.code} ${e.message}');
