@@ -1,0 +1,15 @@
+{
+  "versionCode": 10000,
+  "versionName": "1.0.0",
+  "apkUrl": "https://github.com/f0uri/type-racer-legends/releases/download/v1.0.0/TypeRacerLegends-1.0.0.apk",
+  "size": 82307076,
+  "sha256": "407ec4499919c5c7ae14fcc2ca4cdb20f003076ddd68923c94f28b75acfff0bf",
+  "notes": {
+    "ar": "## الجديد في هذه النسخة\n- النسخة الأولى من Type Racer Legends: سباقات كتابة ضد منافسين بالذكاء الاصطناعي، حملة من 50 مرحلة، كراج وتخصيص، ومحتوى حي يُحدَّث بدون تحديث التطبيق.",
+    "en": "Improvements and bug fixes.",
+    "fr": "Améliorations et corrections."
+  },
+  "minSupportedVersion": 1,
+  "mandatory": false,
+  "publishedAt": "2026-09-30T16:13:43Z"
+}
