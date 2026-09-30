@@ -30,7 +30,7 @@ jobs:
       - name: flutter test
         run: flutter test --reporter expanded
       - name: Cloud Functions unit tests (anti-cheat)
-        run: node --test functions/test/
+        run: node --test functions/test/*.test.js
 
   build:
     name: Build APK + AAB

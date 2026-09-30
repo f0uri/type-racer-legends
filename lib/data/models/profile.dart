@@ -71,6 +71,11 @@ class PlayerProfile {
         'tourn': <String, dynamic>{},
         'pendingPurchases': <dynamic>[],
         'lessons': <String, dynamic>{},
+        'vocab': <String, dynamic>{},
+        'sdays': <String, dynamic>{},
+        'goal': <String, dynamic>{},
+        'placement': <String, dynamic>{},
+        'certs': <String, dynamic>{},
         'seenItems': <String, dynamic>{},
         'chests': <String, dynamic>{},
       });

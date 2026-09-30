@@ -285,3 +285,25 @@ class VocabWord {
         ar = _req<String>(m, 'ar'),
         level = (m['level'] as num?)?.toInt() ?? 1;
 }
+
+
+/// One touch-typing lesson (content/lessons.json).
+class Lesson {
+  final String id, kind, focus, allowed, hint, text;
+  final int n, targetWpm, minAcc;
+  final Map<String, dynamic> title, reward;
+  Lesson(Map<String, dynamic> m)
+      : id = _req<String>(m, 'id'),
+        kind = (m['kind'] as String?) ?? 'keys',
+        focus = (m['focus'] as String?) ?? '',
+        allowed = (m['allowed'] as String?) ?? '',
+        hint = (m['hint'] as String?) ?? '',
+        text = _req<String>(m, 'text'),
+        n = _req<num>(m, 'n').toInt(),
+        targetWpm = (m['targetWpm'] as num?)?.toInt() ?? 20,
+        minAcc = (m['minAcc'] as num?)?.toInt() ?? 92,
+        title = _map(m['title']),
+        reward = _map(m['reward']) {
+    if (text.trim().length < 20) throw const FormatException('lesson text too short');
+  }
+}

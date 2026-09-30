@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:math';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/providers.dart';
@@ -11,6 +12,7 @@ import '../../../core/util/misc.dart';
 import '../../../core/widgets/common.dart';
 import '../../ai/ai_driver.dart';
 import '../../ai/taunts.dart';
+import '../../learn/keyboard_guide.dart';
 import '../../garage/look.dart';
 import '../engine/metrics.dart';
 import '../engine/race_models.dart';
@@ -50,7 +52,7 @@ class RaceScreen extends ConsumerStatefulWidget {
   ConsumerState<RaceScreen> createState() => _RaceScreenState();
 }
 
-class _RaceScreenState extends ConsumerState<RaceScreen> with WidgetsBindingObserver {
+class _RaceScreenState extends ConsumerState<RaceScreen> with WidgetsBindingObserver, SingleTickerProviderStateMixin {
   static const _guard = '\u200B\u200B';
   late RaceConfig cfg;
   late TypingEngine engine;
@@ -80,6 +82,11 @@ class _RaceScreenState extends ConsumerState<RaceScreen> with WidgetsBindingObse
   int _bulkInputs = 0;
   final Random _rnd = Random();
   final Stopwatch _sw = Stopwatch();
+  Ticker? _ticker;
+  Duration _lastTick = Duration.zero;
+
+  /// Lessons and smart training show the keyboard + finger guide instead of the animated track.
+  bool get _guideMode => cfg.modeId == 'lesson' || cfg.modeId == 'training';
 
   @override
   void initState() {
@@ -92,6 +99,18 @@ class _RaceScreenState extends ConsumerState<RaceScreen> with WidgetsBindingObse
       if (!_disposed) tick.value++;
     });
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+    if (_guideMode) {
+      // no GameWidget in guide mode: drive the session from a ticker
+      _ticker = createTicker((d) {
+        final dt = (d - _lastTick).inMicroseconds / 1e6;
+        _lastTick = d;
+        if (_disposed || _paused || game.frozen) return;
+        session.update(min(dt, 1 / 20));
+        final ev = session.drainEvents();
+        if (ev.isNotEmpty) _onEvents(ev);
+      })
+        ..start();
+    }
   }
 
   void _setup(RaceConfig c) {
@@ -139,6 +158,7 @@ class _RaceScreenState extends ConsumerState<RaceScreen> with WidgetsBindingObse
   void dispose() {
     _disposed = true;
     WidgetsBinding.instance.removeObserver(this);
+    _ticker?.dispose();
     _hud?.cancel();
     _storm?.cancel();
     _tauntTimer?.cancel();
@@ -490,8 +510,32 @@ class _RaceScreenState extends ConsumerState<RaceScreen> with WidgetsBindingObse
         ),
       );
 
+  Widget _guideArea() {
+    final focus = (cfg.meta['focus'] as String? ?? '').toLowerCase();
+    final weak = ((cfg.meta['weak'] as List?) ?? const []).map((e) => e.toString().toLowerCase()).toList();
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(10, 50, 10, 4),
+      child: ValueListenableBuilder<int>(
+        valueListenable: tick,
+        builder: (_, _, _) {
+          final next = engine.nextChar;
+          final show = phase == _Phase.racing || phase == _Phase.finishing;
+          return Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+            KeyboardGuide(
+              next: show ? next : null,
+              learned: {...focus.split('').where((c) => c.trim().isNotEmpty)},
+              heat: weak.isEmpty ? null : {for (final w in weak) w: 1.0},
+            ),
+            const SizedBox(height: 6),
+            Text(show && next != null ? Fingers.describe(next) : 'ضع أصابعك على الصف الرئيسي: ASDF — JKL;', textAlign: TextAlign.center, style: const TextStyle(color: C.gold, fontWeight: FontWeight.w800, fontSize: 14)),
+          ]);
+        },
+      ),
+    );
+  }
+
   Widget _trackArea() => Stack(children: [
-        Positioned.fill(child: GameWidget(game: game)),
+        Positioned.fill(child: _guideMode ? _guideArea() : GameWidget(game: game)),
         // nitro meter + combo
         Positioned(
           left: 10,

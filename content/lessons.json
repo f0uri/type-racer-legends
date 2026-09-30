@@ -1,0 +1,606 @@
+{
+ "version": 1,
+ "items": [
+  {
+   "id": "l01",
+   "n": 1,
+   "kind": "keys",
+   "title": {
+    "ar": "مفتاحا السبابة: F و J",
+    "en": "Index fingers: F and J"
+   },
+   "focus": "fj",
+   "allowed": " fj",
+   "hint": "ضع السبابتين على F و J (بروزان صغيران).",
+   "text": "ff fjjj ffj fff ffjj jf jfj ff fjj fjf jfff jjf jjf fj jj jj jfff jjf ff fjfff ffjfj fjjj jj fjjf jjf jj fjj fjfj fjf jfff jf ffj",
+   "len": 129,
+   "targetWpm": 13,
+   "minAcc": 92,
+   "reward": {
+    "coins": 72,
+    "xp": 29
+   }
+  },
+  {
+   "id": "l02",
+   "n": 2,
+   "kind": "keys",
+   "title": {
+    "ar": "الوسطى: D و K",
+    "en": "Middle fingers: D and K"
+   },
+   "focus": "dk",
+   "allowed": " dfjk",
+   "hint": "الوسطى على D و K.",
+   "text": "dddk ddkd ddk dd kkd kddk dk dkd dddd kd kddd dd kkj dfk jkdk dj kj jkffk djjkj ddd fkdk jd dfkj kdkd fdkf ddj kdk ddkd dkdk df dkdk fk",
+   "len": 135,
+   "targetWpm": 14,
+   "minAcc": 92,
+   "reward": {
+    "coins": 84,
+    "xp": 33
+   }
+  },
+  {
+   "id": "l03",
+   "n": 3,
+   "kind": "keys",
+   "title": {
+    "ar": "البنصر: S و L",
+    "en": "Ring fingers: S and L"
+   },
+   "focus": "sl",
+   "allowed": " dfjkls",
+   "hint": "البنصر على S و L.",
+   "text": "lsll lsls lsll ss sss lssl ll lll sll ssl lll lsl sll kfskl llslj ljljl ss ssl sll fjs sjls lsf slk sl sss ljsss ldljs sll jjl lsj ld lsk",
+   "len": 137,
+   "targetWpm": 15,
+   "minAcc": 92,
+   "reward": {
+    "coins": 96,
+    "xp": 37
+   }
+  },
+  {
+   "id": "l04",
+   "n": 4,
+   "kind": "keys",
+   "title": {
+    "ar": "الخنصر: A و ;",
+    "en": "Pinkies: A and ;"
+   },
+   "focus": "a;",
+   "allowed": " ;adfjkls",
+   "hint": "الخنصر على A و ;.",
+   "text": "aaa; a; aa aaa ;; aa; ;a aaa ;;aa ;;;; fad lafa kakaf sak faka sad la jad fa dafa lak jalaf da las sal jaka sal ja dakas saf sas kafaj",
+   "len": 134,
+   "targetWpm": 15,
+   "minAcc": 92,
+   "reward": {
+    "coins": 108,
+    "xp": 41
+   }
+  },
+  {
+   "id": "l05",
+   "n": 5,
+   "kind": "keys",
+   "title": {
+    "ar": "السبابة الممتدة: G و H",
+    "en": "Reaching index: G and H"
+   },
+   "focus": "gh",
+   "allowed": " ;adfghjkls",
+   "hint": "السبابة تتحرك للجانب: G باليسرى و H باليمنى.",
+   "text": "hhhh hgh ggg ghh hg hg ghhg hhh hhhh gh hasa ha gak hag gaga lala daga ha kaha ga gag ha dash has glass half shall flag had",
+   "len": 123,
+   "targetWpm": 16,
+   "minAcc": 92,
+   "reward": {
+    "coins": 120,
+    "xp": 45
+   }
+  },
+  {
+   "id": "l06",
+   "n": 6,
+   "kind": "review",
+   "title": {
+    "ar": "مراجعة الصف الرئيسي",
+    "en": "Home row review"
+   },
+   "focus": "",
+   "allowed": " ;adfghjkls",
+   "hint": "ابقِ أصابعك على الصف الرئيسي وانظر إلى الشاشة لا إلى لوحة المفاتيح.",
+   "text": "agl gj gs fdk ha aha hh dk lk jjkd gaja fa kad kada saha lafa sasaf fal gaga da kas ja has half glass ll all ss flag had add df",
+   "len": 127,
+   "targetWpm": 17,
+   "minAcc": 92,
+   "reward": {
+    "coins": 132,
+    "xp": 49
+   }
+  },
+  {
+   "id": "l07",
+   "n": 7,
+   "kind": "keys",
+   "title": {
+    "ar": "الصف العلوي: E و I",
+    "en": "Top row: E and I"
+   },
+   "focus": "ei",
+   "allowed": " ;adefghijkls",
+   "hint": "E بالوسطى اليسرى، I بالوسطى اليمنى.",
+   "text": "ei eee ii ei eee ii iee iee ei ii jel dig higi lifih has kefe si sah sil ges fih leha fill feel high safe skill sell fills seed she hills",
+   "len": 137,
+   "targetWpm": 18,
+   "minAcc": 92,
+   "reward": {
+    "coins": 144,
+    "xp": 53
+   }
+  },
+  {
+   "id": "l08",
+   "n": 8,
+   "kind": "keys",
+   "title": {
+    "ar": "الصف العلوي: R و U",
+    "en": "Top row: R and U"
+   },
+   "focus": "ru",
+   "allowed": " ;adefghijklrsu",
+   "hint": "R بالسبابة اليسرى، U بالسبابة اليمنى.",
+   "text": "urrr rur uru rrr ru rrr urr uu uru uuu kudur ru raru rur rirur kus diru lugu rur re rukuj ruru ferries reads guards useful share far us radar dared",
+   "len": 147,
+   "targetWpm": 19,
+   "minAcc": 92,
+   "reward": {
+    "coins": 156,
+    "xp": 57
+   }
+  },
+  {
+   "id": "l09",
+   "n": 9,
+   "kind": "keys",
+   "title": {
+    "ar": "الصف العلوي: T و Y",
+    "en": "Top row: T and Y"
+   },
+   "focus": "ty",
+   "allowed": " ;adefghijklrstuy",
+   "hint": "T باليسرى و Y باليمنى (امتداد للداخل).",
+   "text": "tyt ttty tt tyt yy ty tyt ttyy yyt yyyt yeyi feley yu yige tuti ta yari ta haku te ta yay their tiles it yesterday day flat daily key rests stairs",
+   "len": 146,
+   "targetWpm": 20,
+   "minAcc": 92,
+   "reward": {
+    "coins": 168,
+    "xp": 61
+   }
+  },
+  {
+   "id": "l10",
+   "n": 10,
+   "kind": "keys",
+   "title": {
+    "ar": "الصف العلوي: W و O",
+    "en": "Top row: W and O"
+   },
+   "focus": "wo",
+   "allowed": " ;adefghijklorstuwy",
+   "hint": "W بالبنصر الأيسر، O بالبنصر الأيمن.",
+   "text": "woo wwow oo ooo wo www oww ww ow wwo wofo wora wi dok wo tudew wih wow wogew hu wowor wowo gold hot told thought whether shot rewrite dough doors hero",
+   "len": 150,
+   "targetWpm": 20,
+   "minAcc": 92,
+   "reward": {
+    "coins": 180,
+    "xp": 65
+   }
+  },
+  {
+   "id": "l11",
+   "n": 11,
+   "kind": "keys",
+   "title": {
+    "ar": "الصف العلوي: Q و P",
+    "en": "Top row: Q and P"
+   },
+   "focus": "qp",
+   "allowed": " ;adefghijklopqrstuwy",
+   "hint": "Q و P بالخنصرين.",
+   "text": "pqp ppp qqp pqp qpp qpqq qqp qppq qqpq pqq sape qij pepep popas ja riqi poqod yop jalu fip qo tipuq happy password pages paths speed repeated sharp",
+   "len": 147,
+   "targetWpm": 21,
+   "minAcc": 92,
+   "reward": {
+    "coins": 192,
+    "xp": 69
+   }
+  },
+  {
+   "id": "l12",
+   "n": 12,
+   "kind": "review",
+   "title": {
+    "ar": "مراجعة الصف العلوي",
+    "en": "Top row review"
+   },
+   "focus": "",
+   "allowed": " ;adefghijklopqrstuwy",
+   "hint": "ابقِ أصابعك على الصف الرئيسي وانظر إلى الشاشة لا إلى لوحة المفاتيح.",
+   "text": "hgq apk wyig raqs tj tphi wgtw jfh ke ju haw yeyiq kuke he yi waq rili jeje pigeg rojil safu wat together this goal greeted rose tea split foot ship",
+   "len": 148,
+   "targetWpm": 22,
+   "minAcc": 92,
+   "reward": {
+    "coins": 204,
+    "xp": 73
+   }
+  },
+  {
+   "id": "l13",
+   "n": 13,
+   "kind": "keys",
+   "title": {
+    "ar": "الصف السفلي: V و M",
+    "en": "Bottom row: V and M"
+   },
+   "focus": "vm",
+   "allowed": " ;adefghijklmopqrstuvwy",
+   "hint": "V بالسبابة اليسرى، M باليمنى.",
+   "text": "mvvm mv vmv mvvm vmm vvv vmvm vvmm vvm mmv mom mim vur qes hupal wuf hulov vofam duvow miva rogav mivo miles stadiums divided move heavy message",
+   "len": 144,
+   "targetWpm": 23,
+   "minAcc": 92,
+   "reward": {
+    "coins": 216,
+    "xp": 77
+   }
+  },
+  {
+   "id": "l14",
+   "n": 14,
+   "kind": "keys",
+   "title": {
+    "ar": "الصف السفلي: C و الفاصلة",
+    "en": "Bottom row: C and comma"
+   },
+   "focus": "c,",
+   "allowed": " ,;acdefghijklmopqrstuvwy",
+   "hint": "C بالوسطى اليسرى، الفاصلة بالوسطى اليمنى.",
+   "text": "c, ,, ,,, ,ccc cc, ccc ,, ,,cc cc, cc wo co kapor ga caca cicac cacoc ceci cocuw cec sa waquj quick pack scheduled curiouser clock comma voices",
+   "len": 143,
+   "targetWpm": 24,
+   "minAcc": 92,
+   "reward": {
+    "coins": 228,
+    "xp": 81
+   }
+  },
+  {
+   "id": "l15",
+   "n": 15,
+   "kind": "keys",
+   "title": {
+    "ar": "الصف السفلي: X و النقطة",
+    "en": "Bottom row: X and period"
+   },
+   "focus": "x.",
+   "allowed": " ,.;acdefghijklmopqrstuvwxy",
+   "hint": "X بالبنصر الأيسر، النقطة بالبنصر الأيمن.",
+   "text": ".. .... x. ..xx xx. x. .... .xx xx .xxx xax xoxu xixo jexik juv xixe xuwux fuxi xu kuyi xox xuxox exhaled exercise mixed explodes explored example",
+   "len": 146,
+   "targetWpm": 25,
+   "minAcc": 92,
+   "reward": {
+    "coins": 240,
+    "xp": 85
+   }
+  },
+  {
+   "id": "l16",
+   "n": 16,
+   "kind": "keys",
+   "title": {
+    "ar": "الصف السفلي: Z و /",
+    "en": "Bottom row: Z and slash"
+   },
+   "focus": "z/",
+   "allowed": " ,./;acdefghijklmopqrstuvwxyz",
+   "hint": "Z و / بالخنصرين.",
+   "text": "//z // // z/zz /// /// //z zzz/ //z /// yo zuzo zez se cosa welu lov zuz tudi zozur foz zuzoz puzzle realized maze prize zoom optimize lazy",
+   "len": 139,
+   "targetWpm": 26,
+   "minAcc": 92,
+   "reward": {
+    "coins": 252,
+    "xp": 89
+   }
+  },
+  {
+   "id": "l17",
+   "n": 17,
+   "kind": "keys",
+   "title": {
+    "ar": "الصف السفلي: B و N",
+    "en": "Bottom row: B and N"
+   },
+   "focus": "bn",
+   "allowed": " ,./;abcdefghijklmnopqrstuvwxyz",
+   "hint": "B باليسرى و N باليمنى.",
+   "text": "nbbn bnn nn nnnn nb nnbb nbn bbn nnbb nbbb nobe noce nunup jo nim buca dali bel bepo na xu buguy learns popcorn building bazaar around centuries",
+   "len": 144,
+   "targetWpm": 26,
+   "minAcc": 92,
+   "reward": {
+    "coins": 264,
+    "xp": 93
+   }
+  },
+  {
+   "id": "l18",
+   "n": 18,
+   "kind": "review",
+   "title": {
+    "ar": "مراجعة الصف السفلي",
+    "en": "Bottom row review"
+   },
+   "focus": "",
+   "allowed": " ,./;abcdefghijklmnopqrstuvwxyz",
+   "hint": "ابقِ أصابعك على الصف الرئيسي وانظر إلى الشاشة لا إلى لوحة المفاتيح.",
+   "text": "uymw vh hxz qxx gzyd yrvf smb ettm dgb tkp pene juqe haz gocu wova loz mu cizo foro bo se zabih shows material chapter leap carried happy companion",
+   "len": 147,
+   "targetWpm": 27,
+   "minAcc": 92,
+   "reward": {
+    "coins": 276,
+    "xp": 97
+   }
+  },
+  {
+   "id": "l19",
+   "n": 19,
+   "kind": "caps",
+   "title": {
+    "ar": "الحروف الكبيرة (Shift)",
+    "en": "Capital letters (Shift)"
+   },
+   "focus": "",
+   "allowed": " ,./;abcdefghijklmnopqrstuvwxyz",
+   "hint": "ابقِ أصابعك على الصف الرئيسي وانظر إلى الشاشة لا إلى لوحة المفاتيح.",
+   "text": "Yet Throw Station Error Args Champion Coffee meets Extra phones Screen wall The Quick Brown Fox Jumps Over The Lazy Dog Near Paris And Rome",
+   "len": 139,
+   "targetWpm": 28,
+   "minAcc": 92,
+   "reward": {
+    "coins": 288,
+    "xp": 101
+   }
+  },
+  {
+   "id": "l20",
+   "n": 20,
+   "kind": "numbers",
+   "title": {
+    "ar": "الأرقام 1 إلى 5",
+    "en": "Numbers 1 to 5"
+   },
+   "focus": "12345",
+   "allowed": " ,./12345;abcdefghijklmnopqrstuvwxyz",
+   "hint": "ابقِ أصابعك على الصف الرئيسي وانظر إلى الشاشة لا إلى لوحة المفاتيح.",
+   "text": "14 523 53 455 341 215 4245 1124 514 44 room 23 22 233 floor 53 13 2542 call 1253 512 313 3215 now",
+   "len": 97,
+   "targetWpm": 29,
+   "minAcc": 92,
+   "reward": {
+    "coins": 300,
+    "xp": 105
+   }
+  },
+  {
+   "id": "l21",
+   "n": 21,
+   "kind": "numbers",
+   "title": {
+    "ar": "الأرقام 6 إلى 0",
+    "en": "Numbers 6 to 0"
+   },
+   "focus": "67890",
+   "allowed": " ,./0123456789;abcdefghijklmnopqrstuvwxyz",
+   "hint": "ابقِ أصابعك على الصف الرئيسي وانظر إلى الشاشة لا إلى لوحة المفاتيح.",
+   "text": "0707 090 986 98 90 86 09 967 899 966 room 90 6608 877 floor 9969 060 086 call 68 760 867 80 now",
+   "len": 95,
+   "targetWpm": 30,
+   "minAcc": 92,
+   "reward": {
+    "coins": 312,
+    "xp": 109
+   }
+  },
+  {
+   "id": "l22",
+   "n": 22,
+   "kind": "punct",
+   "title": {
+    "ar": "علامات الترقيم",
+    "en": "Punctuation"
+   },
+   "focus": "?!",
+   "allowed": " !,./0123456789;?abcdefghijklmnopqrstuvwxyz",
+   "hint": "ابقِ أصابعك على الصف الرئيسي وانظر إلى الشاشة لا إلى لوحة المفاتيح.",
+   "text": "Yes, no, maybe. Go, stop, wait. Why? Now! Well, fine. Hello, world! Are you ready? Yes, I am. Let us go! First, plan. Then, act. Finally, learn! Why",
+   "len": 148,
+   "targetWpm": 31,
+   "minAcc": 92,
+   "reward": {
+    "coins": 324,
+    "xp": 113
+   }
+  },
+  {
+   "id": "l23",
+   "n": 23,
+   "kind": "punct2",
+   "title": {
+    "ar": "علامات الاقتباس والشرطة",
+    "en": "Quotes and dashes"
+   },
+   "focus": "'\"-",
+   "allowed": " !\"',-./0123456789;?abcdefghijklmnopqrstuvwxyz",
+   "hint": "ابقِ أصابعك على الصف الرئيسي وانظر إلى الشاشة لا إلى لوحة المفاتيح.",
+   "text": "it's I'm don't can't we're they'll she's He said \"go\" and she said \"wait\" - then we left. A well-known fact: it's hard-earned; don't stop - keep",
+   "len": 144,
+   "targetWpm": 32,
+   "minAcc": 92,
+   "reward": {
+    "coins": 336,
+    "xp": 117
+   }
+  },
+  {
+   "id": "l24",
+   "n": 24,
+   "kind": "common",
+   "title": {
+    "ar": "الكلمات الشائعة",
+    "en": "Common words"
+   },
+   "focus": "",
+   "allowed": " !\"',-./0123456789;?abcdefghijklmnopqrstuvwxyz",
+   "hint": "ابقِ أصابعك على الصف الرئيسي وانظر إلى الشاشة لا إلى لوحة المفاتيح.",
+   "text": "an well want there good now all after these your then she than one some have because my us you take will get most make we two people other time also",
+   "len": 148,
+   "targetWpm": 32,
+   "minAcc": 92,
+   "reward": {
+    "coins": 348,
+    "xp": 121
+   }
+  },
+  {
+   "id": "l25",
+   "n": 25,
+   "kind": "sentences",
+   "title": {
+    "ar": "جمل قصيرة",
+    "en": "Short sentences"
+   },
+   "focus": "",
+   "allowed": " !\"',-./0123456789;?abcdefghijklmnopqrstuvwxyz",
+   "hint": "ابقِ أصابعك على الصف الرئيسي وانظر إلى الشاشة لا إلى لوحة المفاتيح.",
+   "text": "Success is the sum of small efforts repeated day in and day out with love. Every champion was once a beginner who refused to give up on the hard days. The best time to begin was yesterday; the second best time is right now.",
+   "len": 223,
+   "targetWpm": 33,
+   "minAcc": 94,
+   "reward": {
+    "coins": 360,
+    "xp": 125
+   }
+  },
+  {
+   "id": "l26",
+   "n": 26,
+   "kind": "sentences",
+   "title": {
+    "ar": "بناء السرعة",
+    "en": "Speed building"
+   },
+   "focus": "",
+   "allowed": " !\"',-./0123456789;?abcdefghijklmnopqrstuvwxyz",
+   "hint": "ابقِ أصابعك على الصف الرئيسي وانظر إلى الشاشة لا إلى لوحة المفاتيح.",
+   "text": "Turn your obstacles into stepping stones and your lessons into wings. Fall seven times, stand up eight, and learn something useful on every fall. Breathe, reset, and try again; a calm mind is faster than an angry one.",
+   "len": 217,
+   "targetWpm": 34,
+   "minAcc": 94,
+   "reward": {
+    "coins": 372,
+    "xp": 129
+   }
+  },
+  {
+   "id": "l27",
+   "n": 27,
+   "kind": "symbols",
+   "title": {
+    "ar": "الرموز @ # $ % & *",
+    "en": "Symbols @ # $ % & *"
+   },
+   "focus": "@#$%&*",
+   "allowed": " !\"#$%&'*,-./0123456789;?@abcdefghijklmnopqrstuvwxyz",
+   "hint": "ابقِ أصابعك على الصف الرئيسي وانظر إلى الشاشة لا إلى لوحة المفاتيح.",
+   "text": "user@mail.com #tag 50% $20 R&D *note* Save 25% on $40 - email me@site.org & #win *now* C&A 100% #1 $9.99 team@club.io *star* & more",
+   "len": 131,
+   "targetWpm": 35,
+   "minAcc": 94,
+   "reward": {
+    "coins": 384,
+    "xp": 133
+   }
+  },
+  {
+   "id": "l28",
+   "n": 28,
+   "kind": "brackets",
+   "title": {
+    "ar": "الأقواس",
+    "en": "Brackets"
+   },
+   "focus": "()[]{}",
+   "allowed": " !\"#$%&'()*,-./0123456789;?@[]abcdefghijklmnopqrstuvwxyz{}",
+   "hint": "ابقِ أصابعك على الصف الرئيسي وانظر إلى الشاشة لا إلى لوحة المفاتيح.",
+   "text": "(one) [two] {three} (four) [five] {six} list[0] = (a + b) * {c}; call(x, [y], {z}); (first (second [third {fourth}]))",
+   "len": 117,
+   "targetWpm": 36,
+   "minAcc": 94,
+   "reward": {
+    "coins": 396,
+    "xp": 137
+   }
+  },
+  {
+   "id": "l29",
+   "n": 29,
+   "kind": "code",
+   "title": {
+    "ar": "كود برمجي بسيط",
+    "en": "Simple code"
+   },
+   "focus": "=+<>_",
+   "allowed": " !\"#$%&'()*+,-./0123456789;<=>?@[]_abcdefghijklmnopqrstuvwxyz{}",
+   "hint": "ابقِ أصابعك على الصف الرئيسي وانظر إلى الشاشة لا إلى لوحة المفاتيح.",
+   "text": "x = a + b; y = x * 2; z = y - 1; if (n > 0) { total = total + n; } else { total = 0; } for (i = 0; i < 10; i++) { sum += i; } a_b = c_d;",
+   "len": 136,
+   "targetWpm": 37,
+   "minAcc": 94,
+   "reward": {
+    "coins": 408,
+    "xp": 141
+   }
+  },
+  {
+   "id": "l30",
+   "n": 30,
+   "kind": "final",
+   "title": {
+    "ar": "الاختبار النهائي",
+    "en": "Final exam"
+   },
+   "focus": "",
+   "allowed": " !\"#$%&'()*+,-./0123456789;<=>?@[]_abcdefghijklmnopqrstuvwxyz{}",
+   "hint": "ابقِ أصابعك على الصف الرئيسي وانظر إلى الشاشة لا إلى لوحة المفاتيح.",
+   "text": "The train arrived exactly on time, which surprised everyone who had been waiting on the platform. He practiced free kicks every evening until the sun went down and the lights came on. The striker controlled the ball with his chest and fired a shot into the top corner.",
+   "len": 268,
+   "targetWpm": 44,
+   "minAcc": 94,
+   "reward": {
+    "coins": 420,
+    "xp": 145,
+    "gems": 15
+   }
+  }
+ ]
+}

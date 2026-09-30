@@ -1,7 +1,7 @@
 {
  "schema": 1,
- "version": 1,
- "generatedAt": "2026-09-30T12:49:40Z",
+ "version": 2,
+ "generatedAt": "2026-09-30T14:18:46Z",
  "minAppVersion": 1,
  "killSwitch": {
   "features": [],
@@ -167,6 +167,12 @@
    "version": 1,
    "sha256": "912f398ef4aa357e5b42d0fa7291b2cd8973c1cd7cafba632dd73590560aff67",
    "bytes": 5531
+  },
+  "lessons": {
+   "path": "lessons.json",
+   "version": 1,
+   "sha256": "5ef34adf7cd09a7f41ada101c9c09e9b9cafb46db40ce5622e2898f34e273268",
+   "bytes": 17503
   },
   "outfits": {
    "path": "outfits.json",

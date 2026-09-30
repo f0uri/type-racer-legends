@@ -102,7 +102,7 @@ class ProfileMerger {
       };
     }
     r['vehicles'] = v;
-    for (final k in ['skins', 'outfits', 'titles', 'ach', 'achClaimed', 'bossWon', 'lessons', 'seenItems']) {
+    for (final k in ['skins', 'outfits', 'titles', 'ach', 'achClaimed', 'bossWon', 'seenItems', 'certs']) {
       r[k] = _unionMin(a[k], b[k]);
     }
     final sa = _mm(a['sel']), sb = _mm(b['sel']);
@@ -140,6 +140,19 @@ class ProfileMerger {
       };
     }
 
+    r['lessons'] = _maxMap(a['lessons'], b['lessons']);
+    r['vocab'] = _maxMap(a['vocab'], b['vocab']);
+    // per-day activity [races, chars, playMs, bestWpmX10, wpmSumX10]: element-wise max
+    final da = _mm(a['sdays']), db2 = _mm(b['sdays']);
+    final days = <String, dynamic>{};
+    for (final k in {...da.keys, ...db2.keys}) {
+      final x = (da[k] as List?) ?? const [], y = (db2[k] as List?) ?? const [];
+      days[k] = List.generate(5, (i) => (i < x.length ? _i(x[i]) : 0) > (i < y.length ? _i(y[i]) : 0) ? _i(x[i]) : (i < y.length ? _i(y[i]) : 0));
+    }
+    r['sdays'] = days;
+    r['goal'] = _period(a['goal'], b['goal']);
+    final pla = _mm(a['placement']), plb = _mm(b['placement']);
+    r['placement'] = _i(pla['at']) >= _i(plb['at']) ? pla : plb;
     r['campaign'] = _maxMap(a['campaign'], b['campaign']);
     r['world'] = _maxMap(a['world'], b['world']);
 

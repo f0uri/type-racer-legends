@@ -6,6 +6,8 @@ import '../../../core/util/misc.dart';
 import '../../../core/widgets/common.dart';
 import '../../career/rank.dart';
 import '../../career/challenge_link.dart';
+import '../../profile/card_builder.dart';
+import '../../profile/share_card.dart';
 import '../engine/race_models.dart';
 import '../race_outcome.dart';
 import 'race_screen.dart';
@@ -136,6 +138,22 @@ class _ResultScreenState extends ConsumerState<ResultScreen> {
                 filled: false,
                 color: C.magenta,
                 onPressed: () => ChallengeLink.share(context, r, ref.read(profileProvider).name, ref.read(profileProvider).country),
+              ),
+            ],
+            if (!r.suspicious && r.chars >= RaceRewards.minCharsForStats) ...[
+              const SizedBox(height: 10),
+              NeonButton(
+                label: r.won && hasOpp ? 'شارك صورة الفوز' : 'شارك صورة النتيجة',
+                icon: Icons.photo_camera_rounded,
+                filled: false,
+                color: C.gold,
+                onPressed: () async {
+                  try {
+                    await ShareCardRenderer.share(CardBuilder.race(db, ref.read(profileProvider), r), text: '${r.wpm.round()} WPM بدقة ${r.accuracy.round()}% في Type Racer Legends 🏁');
+                  } catch (_) {
+                    if (context.mounted) toast(context, 'تعذّرت المشاركة');
+                  }
+                },
               ),
             ],
             const SizedBox(height: 10),

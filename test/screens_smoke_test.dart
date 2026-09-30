@@ -29,8 +29,8 @@ void main() {
   testWidgets('home lists the game modes and opens the quick race sheet', (t) async {
     final c = await testContainer(t);
     await show(t, c, const HomeScreen());
-    for (final s in ['الحملة', 'الأشباح', 'البطولات', 'البقاء', 'قتال الطريق', 'التحديات', 'جولة العالم', 'نص مخصص', 'سباق سريع']) {
-      expect(find.text(s), findsWidgets, reason: s);
+    for (final s in ['الحملة', 'الأشباح', 'البطولات', 'البقاء', 'قتال الطريق', 'التحديات', 'جولة العالم', 'نص مخصص', 'التعلّم', 'التدريب الذكي', 'سباق سريع']) {
+      expect(find.text(s, skipOffstage: false), findsWidgets, reason: s);
     }
     await t.tap(find.text('سباق سريع').first);
     await t.pump(const Duration(milliseconds: 500));

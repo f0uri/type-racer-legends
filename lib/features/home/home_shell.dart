@@ -9,6 +9,7 @@ import '../content/new_items.dart';
 import '../../core/theme/app_theme.dart';
 import '../garage/garage_screen.dart';
 import '../shop/shop_screen.dart';
+import '../profile/profile_screen.dart';
 import 'home_screen.dart';
 
 /// Bottom navigation hosting the main tabs.
@@ -67,6 +68,7 @@ class _HomeShellState extends ConsumerState<HomeShell> {
       const GarageScreen(embedded: true),
       const ShopScreen(embedded: true),
       const ProgressScreen(),
+      const ProfileScreen(),
     ];
     return Scaffold(
       body: IndexedStack(index: _i, children: tabs),
@@ -80,6 +82,7 @@ class _HomeShellState extends ConsumerState<HomeShell> {
           NavigationDestination(icon: Badge(isLabelVisible: unseen > 0, label: Text('$unseen'), child: const Icon(Icons.directions_car_outlined)), selectedIcon: const Icon(Icons.directions_car_rounded), label: 'الكراج'),
           const NavigationDestination(icon: Icon(Icons.storefront_outlined), selectedIcon: Icon(Icons.storefront_rounded), label: 'المتجر'),
           NavigationDestination(icon: Badge(isLabelVisible: badge > 0, label: Text('$badge'), child: const Icon(Icons.emoji_events_outlined)), selectedIcon: const Icon(Icons.emoji_events_rounded), label: 'التقدم'),
+          const NavigationDestination(icon: Icon(Icons.person_outline_rounded), selectedIcon: Icon(Icons.person_rounded), label: 'ملفي'),
         ],
       ),
     );

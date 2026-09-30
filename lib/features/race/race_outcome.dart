@@ -3,6 +3,7 @@ import '../../core/util/dates.dart';
 import '../../data/models/profile.dart';
 import '../career/progress.dart';
 import '../career/rank.dart';
+import '../stats/stats_logic.dart';
 import '../content/content_db.dart';
 import 'engine/race_models.dart';
 
@@ -55,6 +56,7 @@ class RaceRewards {
       if (r.chars >= 60 && p.setBest('best_acc', double.parse(r.accuracy.toStringAsFixed(1)))) o.records.add('best_acc');
       if (p.setBest('combo_max', r.maxCombo)) o.records.add('combo_max');
       p.pushHistory(r.wpm);
+      StatsLogic.recordRace(p, r, now: now);
       final lang = r.config.text.lang;
       final cs = p.m('charStats');
       r.charStats.forEach((ch, st) {
@@ -84,6 +86,7 @@ class RaceRewards {
     final accFrom = (econ['accBonusFrom'] as num?)?.toDouble() ?? 95;
     final accBonus = (econ['accBonus'] as num?)?.toDouble() ?? 0.15;
     var coins = (base + r.wpm * perWpm) * (r.opponents > 0 ? rankMultiplier(db, r.playerRank) : 0.8) * r.config.riskMul * earningsMul;
+    if (r.config.modeId == 'training' || r.config.modeId == 'vocab') coins *= 0.5; // practice modes pay less
     if (survived != null) coins *= 1 + min(2.0, survived / 60);
     if (kills > 0) coins *= 1 + min(1.0, kills * 0.15);
     if (r.accuracy >= accFrom) coins *= 1 + accBonus;

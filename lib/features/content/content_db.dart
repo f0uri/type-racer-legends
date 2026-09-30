@@ -20,6 +20,7 @@ class ContentDb {
   final List<City> cities;
   final List<TournamentDef> tournaments;
   final List<VocabWord> vocab;
+  final List<Lesson> lessons;
   final Map<String, dynamic> economy, shop, season, ai, titles;
   final Set<String> killedItems;
   final Set<String> killedFeatures;
@@ -27,7 +28,7 @@ class ContentDb {
   final Map<String, dynamic> _byId;
 
   ContentDb._(this.catalogVersion, this.catalog, this.vehicles, this.skins, this.outfits, this.events, this.texts, this.biomes, this.bosses, this.stages,
-      this.achievements, this.quests, this.cities, this.tournaments, this.vocab, this.economy, this.shop, this.season, this.ai, this.titles, this.killedItems,
+      this.achievements, this.quests, this.cities, this.tournaments, this.vocab, this.lessons, this.economy, this.shop, this.season, this.ai, this.titles, this.killedItems,
       this.killedFeatures, this._textById, this._byId);
 
   factory ContentDb.empty() => ContentDb.parse({'catalog': <String, dynamic>{}});
@@ -80,6 +81,7 @@ class ContentDb {
       _parseList(_m(files['world'])['items'], City.new)..sort((a, b) => a.idx.compareTo(b.idx)),
       _parseList(_m(files['tournaments'])['items'], TournamentDef.new),
       _parseList(_m(files['vocab'])['items'], VocabWord.new),
+      _parseList(_m(files['lessons'])['items'], Lesson.new)..sort((a, b) => a.n.compareTo(b.n)),
       _m(files['economy']),
       _m(files['shop']),
       _m(files['season']),
@@ -98,7 +100,7 @@ class ContentDb {
     economyPatch?.forEach((group, patch) {
       eco[group] = {..._m(eco[group]), ...patch};
     });
-    return ContentDb._(catalogVersion, catalog, vehicles, skins, outfits, events, texts, biomes, bosses, stages, achievements, quests, cities, tournaments, vocab, eco, shop, season, ai,
+    return ContentDb._(catalogVersion, catalog, vehicles, skins, outfits, events, texts, biomes, bosses, stages, achievements, quests, cities, tournaments, vocab, lessons, eco, shop, season, ai,
         titles, {...killedItems, ...killItems}, {...killedFeatures, ...killFeatures}, _textById, _byId);
   }
 
@@ -111,6 +113,7 @@ class ContentDb {
   GameEvent? event(String id) => firstWhereOrNull(events, (e) => e.id == id);
   Boss? boss(String id) => firstWhereOrNull(bosses, (b) => b.id == id);
   Biome biomeOf(String id) => firstWhereOrNull(biomes, (b) => b.id == id) ?? (biomes.isNotEmpty ? biomes.first : Biome({'id': 'city', 'name': {'ar': 'المدينة'}}));
+  Lesson? lesson(String id) => firstWhereOrNull(lessons, (l) => l.id == id);
   Stage? stage(int n) => firstWhereOrNull(stages, (s) => s.n == n);
   Achievement? achievement(String id) => firstWhereOrNull(achievements, (a) => a.id == id);
 
