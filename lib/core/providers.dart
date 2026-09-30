@@ -6,7 +6,10 @@ import '../data/merge/profile_merge.dart';
 import '../data/models/profile.dart';
 import '../data/remote/cloud_sync.dart';
 import '../data/remote/firebase_boot.dart';
+import '../features/ai/ai_driver.dart';
 import '../features/content/content_db.dart';
+import 'services/audio_service.dart';
+import 'services/haptics_service.dart';
 import 'util/dates.dart';
 
 final storeProvider = Provider<LocalStore>((ref) => throw UnimplementedError('storeProvider must be overridden'));
@@ -15,8 +18,15 @@ final cloudSyncProvider = Provider<CloudSync>((ref) => CloudSync());
 
 class ContentController extends Notifier<ContentDb> {
   @override
-  ContentDb build() => ref.read(initialContentProvider);
-  void set(ContentDb db) => state = db;
+  ContentDb build() => _apply(ref.read(initialContentProvider));
+  void set(ContentDb db) => state = _apply(db);
+
+  /// Pushes data-driven AI personality parameters into the AI engine.
+  ContentDb _apply(ContentDb db) {
+    final pp = db.ai['personalities'];
+    if (pp is Map) Persona.applyContent(pp.cast<String, dynamic>());
+    return db;
+  }
 }
 
 final contentProvider = NotifierProvider<ContentController, ContentDb>(ContentController.new);
@@ -167,3 +177,20 @@ final levelInfoProvider = Provider<LevelInfo>((ref) {
 
 /// Daily key provider that refreshes at midnight (used to rebuild daily UI).
 final todayProvider = Provider<String>((ref) => dayKey());
+
+final audioProvider = Provider<AudioService>((ref) {
+  final a = AudioService();
+  ref.onDispose(a.dispose);
+  final s = ref.read(settingsProvider);
+  a.configure(sfx: s.sound, music: s.music, sfxVolume: s.sfxVolume, musicVolume: s.musicVolume);
+  ref.listen(settingsProvider, (_, n) => a.configure(sfx: n.sound, music: n.music, sfxVolume: n.sfxVolume, musicVolume: n.musicVolume));
+  return a;
+});
+
+final hapticsProvider = Provider<Haptics>((ref) {
+  final h = Haptics();
+  final s = ref.read(settingsProvider);
+  h.enabled = s.haptics;
+  ref.listen(settingsProvider, (_, n) => h.enabled = n.haptics);
+  return h;
+});

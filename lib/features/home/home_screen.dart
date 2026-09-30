@@ -5,6 +5,7 @@ import '../../core/theme/app_theme.dart';
 import '../../core/util/countries.dart';
 import '../../core/util/misc.dart';
 import '../../core/widgets/common.dart';
+import '../race/quick_race_sheet.dart';
 import '../settings/settings_screen.dart';
 
 class HomeScreen extends ConsumerWidget {
@@ -35,6 +36,8 @@ class HomeScreen extends ConsumerWidget {
               ]),
               const Spacer(),
               const Text('جاهز للانطلاق', style: TextStyle(fontSize: 22, fontWeight: FontWeight.w900)),
+              const SizedBox(height: 18),
+              NeonButton(label: 'سباق سريع', icon: Icons.bolt_rounded, onPressed: () => showModalBottomSheet<void>(context: context, isScrollControlled: true, builder: (_) => const QuickRaceSheet())),
               const Spacer(),
             ]),
           ),

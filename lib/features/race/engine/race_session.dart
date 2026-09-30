@@ -98,7 +98,9 @@ class RaceSession {
   bool over = false;
   bool timeUp = false;
   bool photoFinish = false;
-  int get timeMs => (time * 1000).round();
+  /// Optional wall clock (ms) so key timestamps are not quantised to frames.
+  int Function()? clock;
+  int get timeMs => clock != null ? clock!() : (time * 1000).round();
 
   // --- player mechanics state
   double brake = 0; // seconds of reduced gain after an error
@@ -130,6 +132,7 @@ class RaceSession {
   final Map<String, List<double>> history = {};
   double _histAcc = 0;
 
+  bool riskBadge(RaceConfig c) => c.riskMul > 1.5;
   int get total => config.text.len;
   double fractionOf(RacerState r) => total == 0 ? 1 : (r.eff / total).clamp(0.0, 1.0);
 
@@ -237,7 +240,8 @@ class RaceSession {
     final w = engine.text.substring(engine.wordStart, engine.wordEnd);
     wordErrorMap[w] = (wordErrorMap[w] ?? 0) + 1;
     _emit(RaceEventType.keyWrong);
-    nitroMeter *= 0.5;
+    final risky = config.riskMul > 1.5;
+    nitroMeter = risky ? 0 : nitroMeter * 0.5;
     comboTierShown = 1;
     if (config.rules.pure || !config.rules.penalties) return;
     if (player.shielded) {
@@ -245,7 +249,7 @@ class RaceSession {
       _emit(RaceEventType.shieldBlocked);
       return;
     }
-    brake = 0.6 * (1 - (config.rules.vehicleStats ? mods.stability : 0));
+    brake = 0.6 * (1 - (config.rules.vehicleStats ? mods.stability : 0)) * (risky ? 1.8 : 1.0);
   }
 
   // ------------------------------------------------------------ challenges

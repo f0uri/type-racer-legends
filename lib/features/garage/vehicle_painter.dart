@@ -7,6 +7,8 @@ import 'look.dart';
 /// Procedural vehicle renderer (cars and motorcycles). Everything is drawn from the JSON `shape`
 /// parameters plus the resolved [Look], so new vehicles/skins need no code.
 /// Origin: rear-left ground point, +x forward, y up is negative. [L] is the vehicle length in pixels.
+enum VLayer { all, body, wheels }
+
 class VehiclePainter {
   static final Paint _p = Paint()..isAntiAlias = true;
   static final Map<String, TextPainter> _tp = {};
@@ -17,6 +19,8 @@ class VehiclePainter {
     ..style = PaintingStyle.fill
     ..strokeCap = StrokeCap.butt
     ..color = c;
+
+  static List<double> _stops(int n) => List.generate(n, (i) => n == 1 ? 0.0 : i / (n - 1));
 
   static Paint _stroke(Color c, double w, {StrokeCap cap = StrokeCap.round}) => _p
     ..shader = null
@@ -80,12 +84,30 @@ class VehiclePainter {
     return Offset(wb[i] * L, -_n(s, 'wr', 0.09) * L);
   }
 
-  static void paint(Canvas c, Look look, double L, {double wheelAngle = 0, double t = 0, bool braking = false, bool showRider = true, bool underglow = true}) {
+  /// [layer] lets callers cache the (static) body as a Picture and draw spinning wheels every frame.
+  static void paint(Canvas c, Look look, double L, {double wheelAngle = 0, double t = 0, bool braking = false, bool showRider = true, bool underglow = true, VLayer layer = VLayer.all}) {
+    if (layer == VLayer.wheels) {
+      _wheelsOnly(c, look, L, wheelAngle);
+      return;
+    }
     if (look.neon != null && underglow) _underglow(c, look, L, t);
+    final wheels = layer == VLayer.all;
     if (look.vehicle.isBike) {
-      _bike(c, look, L, wheelAngle, t, braking, showRider);
+      _bike(c, look, L, wheelAngle, t, braking, showRider, wheels);
     } else {
-      _car(c, look, L, wheelAngle, t, braking);
+      _car(c, look, L, wheelAngle, t, braking, wheels);
+    }
+  }
+
+  static void _wheelsOnly(Canvas c, Look look, double L, double wa) {
+    final s = look.vehicle.shape;
+    final wb = (s['wb'] as List).map((e) => (e as num).toDouble()).toList();
+    final wr = _n(s, 'wr', 0.09);
+    for (final w in wb) {
+      _wheel(c, look, Offset(w * L, -wr * L), wr * L, wa);
+      if (look.vehicle.isBike && s['tron'] == 1) {
+        c.drawCircle(Offset(w * L, -wr * L), wr * L * 0.98, _stroke(look.accent.withValues(alpha: 0.85), L * 0.01));
+      }
     }
   }
 
@@ -104,7 +126,7 @@ class VehiclePainter {
   }
 
   // ------------------------------------------------------------------ car
-  static void _car(Canvas c, Look look, double L, double wa, double t, bool braking) {
+  static void _car(Canvas c, Look look, double L, double wa, double t, bool braking, bool drawWheels) {
     final s = look.vehicle.shape;
     final wb = (s['wb'] as List).map((e) => (e as num).toDouble()).toList();
     final wr = _n(s, 'wr', 0.09), ride = _n(s, 'ride', 0.05), belt = _n(s, 'belt', 0.2), roof = _n(s, 'roof', 0.34);
@@ -210,8 +232,10 @@ class VehiclePainter {
     // exhaust pipe
     c.drawRRect(RRect.fromRectAndRadius(Rect.fromLTWH(-0.02 * L, -(ride + 0.06) * L, 0.035 * L, 0.022 * L), Radius.circular(L * 0.008)), _fill(const Color(0xFF8D99AE)));
 
-    for (final w in wb) {
-      _wheel(c, look, Offset(w * L, -wr * L), wr * L, wa);
+    if (drawWheels) {
+      for (final w in wb) {
+        _wheel(c, look, Offset(w * L, -wr * L), wr * L, wa);
+      }
     }
   }
 
@@ -259,12 +283,12 @@ class VehiclePainter {
     switch (look.pattern) {
       case 'gradient':
         final cs = cols.length >= 2 ? cols : [look.primary, shade(look.primary, 0.5)];
-        c.drawRect(b, _p..shader = Gradient.linear(b.centerLeft, b.centerRight, cs));
+        c.drawRect(b, _p..shader = Gradient.linear(b.centerLeft, b.centerRight, cs, _stops(cs.length)));
         break;
       case 'rainbow':
         final shift = (t * 40) % 360;
         final cs = List.generate(7, (i) => HSVColor.fromAHSV(1, (shift + i * 55) % 360, 0.8, 1).toColor());
-        c.drawRect(b, _p..shader = Gradient.linear(b.centerLeft, b.centerRight, cs));
+        c.drawRect(b, _p..shader = Gradient.linear(b.centerLeft, b.centerRight, cs, _stops(cs.length)));
         break;
       case 'carbon':
         c.drawRect(b, _fill(const Color(0xFF16181D)));
@@ -280,7 +304,7 @@ class VehiclePainter {
         if (cols.length > 1) c.drawRect(Rect.fromLTRB(b.left, b.bottom - b.height * 0.3, b.right, b.bottom - b.height * 0.26), _fill(cols[1]));
         break;
       case 'galaxy':
-        c.drawRect(b, _p..shader = Gradient.linear(b.topLeft, b.bottomRight, cols.length >= 2 ? cols : const [Color(0xFF10002B), Color(0xFF5A189A)]));
+        c.drawRect(b, _p..shader = Gradient.linear(b.topLeft, b.bottomRight, cols.length >= 2 ? cols : const [Color(0xFF10002B), Color(0xFF5A189A)], cols.length >= 2 ? _stops(cols.length) : null));
         final r = Random(7);
         for (var i = 0; i < 26; i++) {
           final tw = 0.5 + 0.5 * sin(t * 3 + i);
@@ -457,7 +481,7 @@ class VehiclePainter {
   }
 
   // ------------------------------------------------------------------ bike
-  static void _bike(Canvas c, Look look, double L, double wa, double t, bool braking, bool showRider) {
+  static void _bike(Canvas c, Look look, double L, double wa, double t, bool braking, bool showRider, bool drawWheels) {
     final s = look.vehicle.shape;
     final wb = (s['wb'] as List).map((e) => (e as num).toDouble()).toList();
     final wr = _n(s, 'wr', 0.15);
@@ -570,12 +594,14 @@ class VehiclePainter {
     _plate(c, look, L, wb[0] - 0.02, wr * 2 + 0.06, 0.1, 0.04);
 
     // wheels
-    for (final w in wb) {
-      _wheel(c, look, P(w, wr), wr * L, wa);
-    }
-    if (tron) {
+    if (drawWheels) {
       for (final w in wb) {
-        c.drawCircle(P(w, wr), wr * L * 0.98, _stroke(look.accent.withValues(alpha: 0.85), L * 0.01));
+        _wheel(c, look, P(w, wr), wr * L, wa);
+      }
+      if (tron) {
+        for (final w in wb) {
+          c.drawCircle(P(w, wr), wr * L * 0.98, _stroke(look.accent.withValues(alpha: 0.85), L * 0.01));
+        }
       }
     }
     // rider
