@@ -123,7 +123,7 @@ void main() {
     });
 
     test('summary mirrors key values for Firestore rules', () {
-      final p = mk('A')..addCoins(300)..addXp(130)..setBest('bestWpm', 88.6);
+      final p = mk('A')..addCoins(300)..addXp(130)..setBest('best_wpm', 88.6);
       final s = ProfileMerger.summary(p);
       expect(s['coins'], 300);
       expect(s['level'], 2);
