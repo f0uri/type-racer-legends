@@ -33,6 +33,14 @@ String fmtInt(num n) {
   return (n < 0 ? '-' : '') + b.toString();
 }
 
+/// 1.2K / 3.4M style numbers for tight spaces (currency chips).
+String fmtCompact(num n) {
+  final a = n.abs();
+  if (a < 10000) return fmtInt(n);
+  if (a < 1000000) return '${(n / 1000).toStringAsFixed(a < 100000 ? 1 : 0).replaceAll('.0', '')}K';
+  return '${(n / 1000000).toStringAsFixed(1).replaceAll('.0', '')}M';
+}
+
 double clampD(double v, double lo, double hi) => v < lo ? lo : (v > hi ? hi : v);
 
 /// Deterministic hash (FNV-1a) used for daily seeds; stable across platforms.

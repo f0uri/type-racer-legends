@@ -21,7 +21,8 @@ class PlayerRig {
     var v = db.vehicle(p.selVehicle);
     if (v == null || !p.ownsVehicle(v.id)) v = db.starterCar;
     final lo = p.loadout(v.id);
-    final look = Look.resolve(db, v, lo, outfitId: p.selOutfit, plateName: p.name);
+    final customPlate = (p.settings['plateText'] as String?) ?? '';
+    final look = Look.resolve(db, v, lo, outfitId: p.selOutfit, plateName: customPlate.isNotEmpty ? customPlate : p.name);
     final up = db.econ('upgrade');
     final per = (up['bonusPerLevel'] as num?)?.toDouble() ?? 0.03;
     int st(String k) => (v!.stats[k] as num?)?.toInt() ?? 3;

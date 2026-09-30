@@ -1,6 +1,8 @@
 import 'dart:ui';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:type_racer_legends/features/garage/look.dart';
+import 'package:type_racer_legends/features/garage/turntable.dart';
+import 'package:type_racer_legends/features/garage/vehicle_end_painter.dart';
 import 'package:type_racer_legends/features/garage/vehicle_painter.dart';
 import 'package:type_racer_legends/features/race/game/env_painter.dart';
 import 'package:type_racer_legends/features/race/game/particles.dart';
@@ -68,6 +70,24 @@ void main() {
       for (var x = 0.0; x < 5000; x += 500) {
         final rec = PictureRecorder();
         env.paint(Canvas(rec), size, x, 1);
+        rec.endRecording().dispose();
+      }
+    }
+  });
+
+  test('the 360 turntable renders every vehicle at every angle (front, side, rear, 3/4)', () {
+    var i = 0;
+    final paints = db.skins.where((s) => s.slot == 'paint').toList();
+    for (final v in db.vehicles) {
+      final look = Look.resolve(db, v, {'paint': paints[i++ % paints.length].id, 'neon': db.skins.firstWhere((s) => s.slot == 'neon').id}, outfitId: db.outfits.last.id, plateName: 'ABC123');
+      for (var a = 0.0; a < 6.3; a += 0.45) {
+        final rec = PictureRecorder();
+        TurntablePainter(look, a, a * 3, true).paint(Canvas(rec), const Size(360, 230));
+        rec.endRecording().dispose();
+      }
+      for (final rear in [false, true]) {
+        final rec = PictureRecorder();
+        VehicleEndPainter.paint(Canvas(rec), look, 200, rear: rear, t: 1);
         rec.endRecording().dispose();
       }
     }

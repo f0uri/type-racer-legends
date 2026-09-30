@@ -1,12 +1,13 @@
 import 'dart:math';
 import 'dart:ui';
 import 'package:flame/game.dart';
-import 'package:flutter/painting.dart' show TextPainter, TextSpan, TextStyle, TextDirection, FontWeight, HSVColor;
+import 'package:flutter/painting.dart' show TextPainter, TextSpan, TextStyle, TextDirection, FontWeight;
 import '../../../core/services/audio_service.dart';
 import '../../../core/services/haptics_service.dart';
 import '../../garage/look.dart';
 import '../../garage/vehicle_painter.dart';
 import '../engine/race_session.dart';
+import 'effects.dart';
 import 'env_painter.dart';
 import 'particles.dart';
 
@@ -250,34 +251,11 @@ class RaceGame extends FlameGame {
 
   void _celebrate() {
     final look = looks['player'];
-    final pp = playerScreenPos;
     final cols = look?.celebrationColors ?? const [Color(0xFFFF006E), Color(0xFFFFBE0B), Color(0xFF3A86FF)];
-    switch (look?.celebration ?? 'confetti') {
-      case 'fireworks':
-        for (var i = 0; i < 4; i++) {
-          final cx = _size.width * (0.25 + 0.15 * i), cy = _size.height * (0.15 + 0.12 * (i % 2));
-          particles.burst(PKind.spark, cx, cy, 36, speed: 170, colors: cols, life: 1.2, size: 3, g: 120);
-        }
-        break;
-      case 'flags':
-        particles.burst(PKind.confetti, _size.width * 0.5, -10, 70, speed: 60, colors: const [Color(0xFF111111), Color(0xFFFFFFFF)], life: 2.5, size: 6, g: 80, spread: 3.14, angle: 1.57);
-        break;
-      case 'lightning':
-        flash = 1;
-        particles.burst(PKind.spark, pp.dx + 30, pp.dy - 30, 40, speed: 260, colors: cols, life: 0.6, size: 3, g: 0);
-        break;
-      case 'smoke':
-      case 'donut':
-        particles.burst(PKind.smoke, pp.dx + 10, pp.dy - 8, 40, speed: 70, colors: cols, life: 1.6, size: 10, g: -25, spread: 3.14, angle: 3.14);
-        break;
-      case 'wheelie':
-        _v('player').wobble = 2;
-        particles.burst(PKind.star, pp.dx + 30, pp.dy - 50, 24, speed: 120, colors: cols, life: 1.2, size: 4, g: 60);
-        break;
-      default:
-        particles.burst(PKind.confetti, _size.width * 0.5, -10, 90, speed: 80, colors: cols, life: 2.6, size: 6, g: 100, spread: 3.14, angle: 1.57);
-        particles.burst(PKind.confetti, pp.dx + 30, pp.dy - 40, 40, speed: 160, colors: cols, life: 1.8, size: 5, g: 160, spread: 3.14, angle: -1.57);
-    }
+    final type = look?.celebration ?? 'confetti';
+    if (type == 'lightning') flash = 1;
+    if (type == 'wheelie') _v('player').wobble = 2;
+    Effects.celebrate(particles, type, cols, _size, playerScreenPos);
   }
 
   void _emitEffects(double dt) {
@@ -291,28 +269,7 @@ class RaceGame extends FlameGame {
     final intensity = (speed01 * 0.8 + nitroFx);
     if (s.started && _rnd.nextDouble() < dt * (20 + 50 * intensity)) {
       final back = -scrollSpeed * 0.8 - 40;
-      switch (look.exhaustEffect) {
-        case 'fire':
-          particles.emit(PKind.dot, ox, oy, back, (_rnd.nextDouble() - 0.5) * 30, 0.35, 3.5, _rnd.nextBool() ? const Color(0xFFFF9E00) : const Color(0xFFFF4D00));
-          break;
-        case 'sparks':
-          particles.emit(PKind.spark, ox, oy, back, (_rnd.nextDouble() - 0.6) * 90, 0.45, 2.5, look.exhaustColor, g: 160);
-          break;
-        case 'electric':
-          particles.emit(PKind.spark, ox, oy, back, (_rnd.nextDouble() - 0.5) * 140, 0.3, 2.5, const Color(0xFF7DF9FF));
-          break;
-        case 'bubbles':
-          particles.emit(PKind.ring, ox, oy, back * 0.6, -20 - _rnd.nextDouble() * 30, 0.9, 6, const Color(0xFFB8F2FF));
-          break;
-        case 'rainbow':
-          particles.emit(PKind.dot, ox, oy, back, (_rnd.nextDouble() - 0.5) * 20, 0.6, 4, HSVColor.fromAHSV(1, (sceneT * 240) % 360, 0.9, 1).toColor());
-          break;
-        case 'stars':
-          particles.emit(PKind.star, ox, oy, back * 0.8, (_rnd.nextDouble() - 0.5) * 40, 0.8, 3.5, const Color(0xFFFFD166));
-          break;
-        default:
-          particles.emit(PKind.smoke, ox, oy, back * 0.6, -10 - _rnd.nextDouble() * 20, 0.7, 4, const Color(0xFFB0B7C3));
-      }
+      Effects.exhaust(particles, look, ox, oy, back, sceneT, _rnd);
     }
     if (nitroFx > 0.3 && _rnd.nextDouble() < dt * 60) {
       final c = look.flameColors.isEmpty ? const Color(0xFF7DF9FF) : look.flameColors[_rnd.nextInt(look.flameColors.length)];
@@ -556,60 +513,7 @@ class RaceGame extends FlameGame {
     c.restore();
   }
 
-  void _flame(Canvas c, Look look, double L, double fx, double turbo) {
-    final ex = VehiclePainter.exhaustAnchor(look, L);
-    final cols = look.flameColors.length >= 2 ? look.flameColors : const [Color(0xFF7DF9FF), Color(0xFF2A6BFF), Color(0xFFFFFFFF)];
-    final len = L * (0.35 + 0.25 * sin(sceneT * 60).abs()) * fx * (1 + turbo * 0.4);
-    final w = L * 0.05;
-    c.save();
-    c.translate(ex.dx, ex.dy);
-    final shape = look.flameShape;
-    final p = Paint();
-    void cone(double scale, Color col) {
-      final path = Path()
-        ..moveTo(0, -w * scale)
-        ..quadraticBezierTo(-len * 0.5 * scale, -w * 0.4 * scale, -len * scale, 0)
-        ..quadraticBezierTo(-len * 0.5 * scale, w * 0.4 * scale, 0, w * scale)
-        ..close();
-      c.drawPath(path, p..color = col);
-    }
-
-    switch (shape) {
-      case 'dual':
-        c.save();
-        c.translate(0, -w * 0.9);
-        cone(0.7, cols[0].withValues(alpha: 0.9));
-        c.translate(0, w * 1.8);
-        cone(0.7, cols[0].withValues(alpha: 0.9));
-        c.restore();
-        cone(0.4, cols.last);
-        break;
-      case 'wave':
-        final path = Path()..moveTo(0, -w * 0.6);
-        for (var i = 1; i <= 6; i++) {
-          path.lineTo(-len * i / 6, sin(sceneT * 40 + i) * w * (1 - i / 7));
-        }
-        for (var i = 6; i >= 0; i--) {
-          path.lineTo(-len * i / 6, w * 0.6 * (1 - i / 7) + sin(sceneT * 40 + i + 2) * w * 0.3);
-        }
-        c.drawPath(path, p..color = cols[0].withValues(alpha: 0.85));
-        cone(0.4, cols.last);
-        break;
-      case 'spark':
-        cone(0.55, cols[0].withValues(alpha: 0.85));
-        for (var i = 0; i < 6; i++) {
-          final a = (i / 6) * 2 - 1;
-          c.drawLine(Offset(-len * 0.3, 0), Offset(-len * (0.7 + 0.4 * ((sceneT * 7 + i) % 1)), a * w * 3), p..style = PaintingStyle.stroke..strokeWidth = 2..color = cols[1]);
-        }
-        p.style = PaintingStyle.fill;
-        break;
-      default:
-        cone(1.0, cols[0].withValues(alpha: 0.75));
-        cone(0.62, cols[1 % cols.length]);
-        cone(0.3, cols.last);
-    }
-    c.restore();
-  }
+  void _flame(Canvas c, Look look, double L, double fx, double turbo) => Effects.flame(c, look, L, fx, turbo, sceneT);
 
   void _tag(Canvas c, RacerState r, double x, double gy, double L, Look look) {
     if (r.isPlayer) return;

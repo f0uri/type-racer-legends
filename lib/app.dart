@@ -4,7 +4,7 @@ import 'core/providers.dart';
 import 'core/theme/app_theme.dart';
 import 'features/auth/auth_controller.dart';
 import 'features/auth/login_screen.dart';
-import 'features/home/home_screen.dart';
+import 'features/home/home_shell.dart';
 import 'features/lifecycle/app_lifecycle.dart';
 
 final navigatorKey = GlobalKey<NavigatorState>();
@@ -32,7 +32,7 @@ class TypeRacerApp extends ConsumerWidget {
           child: AppLifecycleHost(child: child ?? const SizedBox()),
         ),
       ),
-      home: auth.signedIn ? const HomeScreen() : const LoginScreen(),
+      home: auth.signedIn ? const HomeShell() : const LoginScreen(),
     );
   }
 }
