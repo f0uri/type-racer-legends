@@ -84,12 +84,34 @@ class RacerResult {
   const RacerResult({required this.id, required this.name, required this.cc, required this.isPlayer, required this.isAi, this.isGhost = false, this.isBoss = false, required this.rank, required this.time, required this.wpm, required this.accuracy});
 }
 
+/// Mode-specific result values in a typed shape (survival / combat). Serialised in [RaceResult.extra]
+/// so old profiles and tests keep working, but read through named fields to avoid typos.
+class RaceExtras {
+  final int kills;
+  final double? survived;
+  final bool caught;
+  const RaceExtras({this.kills = 0, this.survived, this.caught = false});
+  factory RaceExtras.fromMap(Map<String, dynamic> m) => RaceExtras(
+        kills: (m['kills'] as num?)?.toInt() ?? 0,
+        survived: (m['survived'] as num?)?.toDouble(),
+        caught: m['caught'] == true,
+      );
+  Map<String, dynamic> toMap() => {
+        if (kills > 0) 'kills': kills,
+        if (survived != null) 'survived': double.parse(survived!.toStringAsFixed(1)),
+        if (caught) 'caught': true,
+      };
+}
+
 class RaceResult {
   final RaceConfig config;
   final List<RacerResult> standings;
   final int playerRank;
   final double wpm, accuracy, time, rawWpm;
   final int maxCombo, errors, chars, nitroUses, perfectWords, powerupsUsed;
+  /// Active typing span (first key → last key) in ms. This is the value that must match [wpm];
+  /// [time] is the wall-clock race duration from GO, which also contains reaction/reading time.
+  final int typingMs;
   final bool pitPerfect, photoFinish, timeUp, suspicious;
   final List<int> intervals;
   final List<List<num>> samples; // [tSec, pos] for ghost saving
@@ -117,10 +139,40 @@ class RaceResult {
     required this.intervals,
     required this.samples,
     required this.charStats,
+    this.typingMs = 0,
     this.wordStats = const {},
     this.extra = const {},
   });
   bool get won => playerRank == 1 && extra['caught'] != true;
-  RaceResult flagged({bool suspicious = true}) => RaceResult(config: config, standings: standings, playerRank: playerRank, wpm: wpm, rawWpm: rawWpm, accuracy: accuracy, time: time, maxCombo: maxCombo, errors: errors, chars: chars, nitroUses: nitroUses, perfectWords: perfectWords, powerupsUsed: powerupsUsed, pitPerfect: pitPerfect, photoFinish: photoFinish, timeUp: timeUp, suspicious: suspicious, intervals: intervals, samples: samples, charStats: charStats, wordStats: wordStats, extra: extra);
+  RaceExtras get extras => RaceExtras.fromMap(extra);
   int get opponents => standings.length - 1;
+
+  /// Single source of truth for "the same result, but flagged/cleared as suspicious".
+  /// Never rebuild a RaceResult field by field: every new field would silently be lost.
+  RaceResult copyWith({bool? suspicious, Map<String, dynamic>? extra, int? typingMs}) => RaceResult(
+        config: config,
+        standings: standings,
+        playerRank: playerRank,
+        wpm: wpm,
+        rawWpm: rawWpm,
+        accuracy: accuracy,
+        time: time,
+        maxCombo: maxCombo,
+        errors: errors,
+        chars: chars,
+        nitroUses: nitroUses,
+        perfectWords: perfectWords,
+        powerupsUsed: powerupsUsed,
+        pitPerfect: pitPerfect,
+        photoFinish: photoFinish,
+        timeUp: timeUp,
+        suspicious: suspicious ?? this.suspicious,
+        intervals: intervals,
+        samples: samples,
+        charStats: charStats,
+        typingMs: typingMs ?? this.typingMs,
+        wordStats: wordStats,
+        extra: extra ?? this.extra,
+      );
+  RaceResult flagged({bool suspicious = true}) => copyWith(suspicious: suspicious);
 }

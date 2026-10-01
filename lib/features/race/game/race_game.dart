@@ -107,7 +107,9 @@ class RaceGame extends FlameGame {
     final cps = s.started ? p.speedCps : 0.0;
     final targetSpeed = s.started ? 150 + cps * 40 + (s.nitroActive ? 140 : 0) + (s.turboLeft > 0 ? 100 : 0) : 40;
     scrollSpeed += (targetSpeed - scrollSpeed) * min(1, dt * 3);
-    if (p.finished && s.over) scrollSpeed += (90 - scrollSpeed) * min(1, dt * 1.5);
+    // Crossing the line slows the world down immediately (time-dilation) — even before the
+    // post-finish window ranks the pack: this is the "you won" feeling, not a freeze.
+    if (p.finished) scrollSpeed += (55 - scrollSpeed) * min(1, dt * 1.6);
     speed01 = ((scrollSpeed - 40) / 360).clamp(0.0, 1.0);
     _dist += scrollSpeed * dt;
     camX = _dist;

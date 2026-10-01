@@ -78,7 +78,8 @@ class RaceSession {
     }
     if (survival && drivers.isNotEmpty) {
       drivers.values.first.pos = -14; // the hunter starts behind the player
-      racers[1].eff = -14;
+      hunter = racers.firstWhere((r) => drivers.containsKey(r.id), orElse: () => racers.first);
+      hunter!.eff = -14;
     }
     for (final o in config.opponents) {
       hp[o.id] = o.isBoss ? 6 : 3;
@@ -107,6 +108,10 @@ class RaceSession {
   bool over = false;
   bool timeUp = false;
   bool photoFinish = false;
+  /// How long the pack keeps racing after the player crosses the line (seconds).
+  static const postFinishWindow = 1.6;
+  /// Time elapsed since the player crossed the line (0 while still racing).
+  double postFinishT = 0;
   /// Optional wall clock (ms) so key timestamps are not quantised to frames.
   int Function()? clock;
   int get timeMs => clock != null ? clock!() : (time * 1000).round();
@@ -148,8 +153,10 @@ class RaceSession {
   int kills = 0;
   bool caught = false;
   double _attackCd = 10;
+  /// The survival chaser (only one opponent exists in that mode).
+  RacerState? hunter;
   /// Gap (characters) between the survival hunter and the player; negative = hunter ahead.
-  double get hunterGap => survival && racers.length > 1 ? player.eff - racers[1].eff : 99;
+  double get hunterGap => survival && hunter != null ? player.eff - hunter!.eff : 99;
   int get total => config.text.len;
   double fractionOf(RacerState r) => total == 0 ? 1 : (r.eff / total).clamp(0.0, 1.0);
 
@@ -428,14 +435,24 @@ class RaceSession {
 
   // ---------------------------------------------------------------- update
   void update(double dt) {
-    if (!started) return;
-    if (over) {
+    if (!started || over) return;
+    player.speedCps = engine.rollingWpm(timeMs) * 5 / 60;
+
+    // After the player crosses the line the pack keeps racing for a short window so the
+    // final standings, the photo-finish detection and the slow-motion replay are real
+    // (before this, every AI froze mid-track the instant the player finished).
+    if (player.finished) {
+      postFinishT += dt;
+      time += dt;
+      _advanceRacers(dt, rubber: false);
+      _sample(dt);
+      if (postFinishT >= postFinishWindow) _finalize();
       return;
     }
+
     time += dt;
     final playerFrac = fractionOf(player);
     final playerWpm = engine.rollingWpm(timeMs);
-    player.speedCps = playerWpm * 5 / 60;
 
     if (brake > 0) brake -= dt;
     if (nitroActive) {
@@ -468,6 +485,28 @@ class RaceSession {
     if (!player.finished && player.eff >= total - 1e-6) _finish(player);
 
     // AI and ghosts
+    _advanceRacers(dt);
+    if (survival && !player.finished && hunterGap <= 0.3) {
+      caught = true;
+      _finish(player);
+    }
+    _combatAttacks(dt);
+    _updateSlipstream();
+    _updateOvertakes();
+    _updateTaunts(dt);
+    _sample(dt);
+
+    final limit = config.timeLimitMs;
+    if (limit != null && timeMs >= limit && !player.finished) {
+      timeUp = true;
+      _finish(player);
+    }
+  }
+
+  /// Advances every non-player racer (ghosts replay, AI simulates). [rubber] off after the finish.
+  void _advanceRacers(double dt, {bool rubber = true}) {
+    final playerFrac = fractionOf(player);
+    final playerWpm = engine.rollingWpm(timeMs);
     for (final r in racers) {
       if (r.isPlayer) continue;
       if (r.isGhost) {
@@ -489,23 +528,17 @@ class RaceSession {
       if (survival) d.wpmScale = min(3.0, 0.5 + time * 0.012);
       if (!r.finished) {
         final before = d.pos;
-        d.update(dt, playerFrac: playerFrac, playerWpm: playerWpm, rubberEnabled: !survival);
+        d.update(dt, playerFrac: playerFrac, playerWpm: playerWpm, rubberEnabled: rubber && !survival);
         r.eff = d.pos;
         r.stunLeft = d.stunLeft;
         r.speedCps = (d.pos - before) / max(dt, 1e-6);
         if (d.finished) _finish(r);
       }
     }
-    if (survival && !player.finished && hunterGap <= 0.3) {
-      caught = true;
-      _finish(player);
-    }
-    _combatAttacks(dt);
-    _updateSlipstream();
-    _updateOvertakes();
-    _updateTaunts(dt);
+  }
 
-    // sampling for ghost + replay
+  /// Ghost samples (for personal ghosts) + 30 Hz replay buffer (for the photo finish).
+  void _sample(double dt) {
     _sampleAcc += dt;
     if (_sampleAcc >= 0.25) {
       _sampleAcc = 0;
@@ -519,16 +552,6 @@ class RaceSession {
         h.add(fractionOf(r));
         if (h.length > 240) h.removeRange(0, h.length - 240);
       }
-    }
-
-    final limit = config.timeLimitMs;
-    if (limit != null && timeMs >= limit && !player.finished) {
-      timeUp = true;
-      _finish(player);
-    }
-    if (player.finished && !over) {
-      // race ends for results once the player crossed the line (others are ranked by current progress)
-      _finalize();
     }
   }
 
@@ -601,16 +624,27 @@ class RaceSession {
     for (var i = 0; i < ordered.length; i++) {
       ordered[i].rank = i + 1;
     }
+    // Photo finish: two racers within 0.4 s at the line (the player must be one of them).
     if (finishOrder.length >= 2) {
       final gap = finishOrder[1].finishTime - finishOrder[0].finishTime;
-      if (gap < 0.4 && (finishOrder[0].isPlayer || finishOrder[1].isPlayer)) {
+      final involvesPlayer = finishOrder[0].isPlayer || finishOrder[1].isPlayer;
+      if (gap < 0.4 && involvesPlayer) {
         photoFinish = true;
         _emit(RaceEventType.photoFinish, value: gap);
       }
-    } else if (finishOrder.length == 1 && ordered.length > 1) {
-      final gapChars = (ordered[1].eff - ordered[0].eff).abs();
-      final cps = max(1.0, player.speedCps);
-      if (gapChars / cps < 0.4 && ordered[0].isPlayer) photoFinish = true;
+    }
+    // The pack did not reach the line inside the post-finish window: still a photo finish when
+    // the runner-up was less than half a second of typing behind the player's wheel.
+    if (!photoFinish && ordered.length > 1) {
+      final pi = ordered.indexWhere((r) => r.isPlayer);
+      if (pi == 0 || pi == 1) {
+        final gapChars = (ordered[1].eff - ordered[0].eff).abs();
+        final cps = max(1.0, ordered[pi].isPlayer ? player.speedCps : ordered[0].speedCps);
+        if (gapChars / cps < 0.4) {
+          photoFinish = true;
+          _emit(RaceEventType.photoFinish, value: gapChars);
+        }
+      }
     }
   }
 
@@ -661,6 +695,7 @@ class RaceSession {
       photoFinish: photoFinish,
       timeUp: timeUp,
       suspicious: false,
+      typingMs: elapsedMs,
       intervals: iv.length > 600 ? iv.sublist(0, 600) : iv,
       samples: samples,
       charStats: engine.charStats,

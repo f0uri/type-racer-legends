@@ -202,15 +202,65 @@ void main() {
     expect(r.wpm, closeTo(60, 4));
   });
 
-  test('perfect words award bonus only for clean words', () {
-    final s = make(text: 'alpha beta gamma delta epsilon zeta eta theta iota kappa lambda', rules: const RaceRules(powerups: false, pit: false));
-    var guard = 0;
-    while (s.engine.nextChar != null && guard++ < 2000) {
-      s.update(0.12);
-      s.onChar(s.engine.nextChar!);
+  test('a typo really blocks the perfect-word bonus (regression: it used to always fire)', () {
+    final s = make(text: 'alpha beta gamma delta epsilon', rules: const RaceRules(powerups: false, pit: false));
+    // warm up slowly so a fast, clean word counts as a genuine burst
+    for (final ch in 'alpha ') {
+      s.update(0.35);
+      s.onChar(ch);
     }
-    expect(s.perfectWords, greaterThanOrEqualTo(0));
+    for (final ch in 'beta ') {
+      s.update(0.05);
+      s.onChar(ch); // fast + clean -> perfect word
+    }
+    expect(s.perfectWords, 1, reason: 'a fast clean word earns the bonus');
+    // the same fast word, now with a typo that is fixed immediately
+    for (final ch in 'ga') {
+      s.update(0.05);
+      s.onChar(ch);
+    }
+    s.update(0.05);
+    s.onChar('x');
+    s.onBackspace();
+    for (final ch in 'mma ') {
+      s.update(0.05);
+      s.onChar(ch);
+    }
+    expect(s.perfectWords, 1, reason: 'the typo must cancel the bonus (it used to fire anyway)');
+  });
+
+  test('the pack keeps racing after the player crosses the line (photo finish window)', () {
+    final s = make(opp: [ai('rival', 60)]);
+    var acc = 0.0, guard = 0;
+    while (!s.player.finished && guard++ < 200000) {
+      const dt = 1 / 60;
+      s.update(dt);
+      acc += 60 * 5 / 60 * dt;
+      while (acc >= 1) {
+        acc -= 1;
+        final n = s.engine.nextChar;
+        if (n != null) s.onChar(n);
+      }
+    }
+    expect(s.player.finished, isTrue);
+    expect(s.over, isFalse, reason: 'the race is not ranked the instant the player finishes');
+    expect(s.postFinishT, 0);
+    for (var i = 0; i < 60; i++) {
+      s.update(1 / 60); // ~1 s: the window is still open
+    }
+    expect(s.over, isFalse);
+    for (var i = 0; i < 60; i++) {
+      s.update(1 / 60);
+    }
+    expect(s.over, isTrue, reason: 'the post-finish window closes after ~1.6 s');
+    expect(s.postFinishT, greaterThanOrEqualTo(RaceSession.postFinishWindow));
+  });
+
+  test('results carry the active typing span used by anti-cheat', () {
+    final s = make();
+    play(s, 60);
     final r = s.buildResult();
-    expect(r.errors, 0);
+    expect(r.typingMs, greaterThan(0));
+    expect(r.typingMs, lessThanOrEqualTo((r.time * 1000).round() + 1));
   });
 }

@@ -41,6 +41,15 @@ test('wpm must match the keystroke rhythm', () => {
   const slowKeys = humanIntervals(300, 600);
   assert.strictEqual(validateScore(payload({ intervals: slowKeys })).reason, 'wpm-interval-mismatch');
 });
+test('reading the text before typing is not punished (typing span vs wall clock)', () => {
+  // 300 chars at 60 wpm = 60 s of typing; the player studied the text for 9 s first.
+  assert.deepStrictEqual(validateScore(payload({ typingMs: 60000, timeMs: 69000 })), { ok: true });
+  // typing faster than the race is impossible (clock skew would show up here)
+  assert.strictEqual(validateScore(payload({ typingMs: 60000, timeMs: 5000 })).reason, 'time-inconsistent');
+  // a nonsense typing span is rejected
+  assert.strictEqual(validateScore(payload({ typingMs: 500 })).reason, 'typing-duration');
+});
+
 test('limits can be tightened remotely', () => { assert.strictEqual(validateScore(payload({ wpm: 60 }), { maxWpm: 50 }).reason, 'wpm-above-human-limit'); });
 test('boards: global + weekly + monthly (+ country)', () => {
   const ids = boardIds('ma', new Date(Date.UTC(2026, 9, 7)));

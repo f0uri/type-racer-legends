@@ -8,6 +8,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/providers.dart';
 import '../../../core/services/analytics_provider.dart';
 import '../../../core/services/audio_service.dart';
+import '../../../core/services/haptics_service.dart';
+import '../../../core/services/screen_awake.dart';
 import '../../../core/theme/app_theme.dart';
 import '../../../core/util/misc.dart';
 import '../../../core/widgets/common.dart';
@@ -64,7 +66,9 @@ class _RaceScreenState extends ConsumerState<RaceScreen> with WidgetsBindingObse
   late PlayerRig rig;
   final input = TextEditingController(text: _guard);
   final focus = FocusNode();
-  final tick = ValueNotifier<int>(0);
+  final tick = ValueNotifier<int>(0); // HUD pulse (10 Hz)
+  final inputTick = ValueNotifier<int>(0); // bumped on every key: repaints the text panel only
+  late final Listenable _panelTick = Listenable.merge([tick, inputTick]);
   Timer? _hud;
   Timer? _storm;
   _Phase phase = _Phase.lobby;
@@ -81,6 +85,8 @@ class _RaceScreenState extends ConsumerState<RaceScreen> with WidgetsBindingObse
   Timer? _tauntTimer;
   bool photoReplay = false;
   late AudioService audio;
+  late Haptics haptics;
+  bool _layoutHintShown = false;
   int _bulkInputs = 0;
   final Random _rnd = Random();
   final Stopwatch _sw = Stopwatch();
@@ -96,6 +102,7 @@ class _RaceScreenState extends ConsumerState<RaceScreen> with WidgetsBindingObse
     WidgetsBinding.instance.addObserver(this);
     audio = ref.read(audioProvider);
     _setup(widget.config);
+    ScreenAwake.acquire();
     audio.startMusic();
     _hud = Timer.periodic(const Duration(milliseconds: 100), (_) {
       if (!_disposed) tick.value++;
@@ -119,6 +126,7 @@ class _RaceScreenState extends ConsumerState<RaceScreen> with WidgetsBindingObse
     final db = ref.read(contentProvider);
     final p = ref.read(profileProvider);
     final s = ref.read(settingsProvider);
+    haptics = ref.read(hapticsProvider);
     cfg = c;
     rig = c.playerLookOverride != null ? PlayerRig(c.playerLookOverride!, const VehicleMods(), c.playerLookOverride!.vehicle) : PlayerRig.from(db, p);
     engine = TypingEngine(c.text.text, allowBackspace: s.backspace, foldAccents: s.foldAccents || c.text.lang == 'en');
@@ -144,7 +152,7 @@ class _RaceScreenState extends ConsumerState<RaceScreen> with WidgetsBindingObse
       looks: looks,
       fps30: s.fps30,
       audio: audio,
-      haptics: ref.read(hapticsProvider),
+      haptics: haptics,
       onEvents: _onEvents,
     );
     final horn = db.skin(p.loadout(rig.vehicle.id)['horn'] as String? ?? '');
@@ -153,12 +161,13 @@ class _RaceScreenState extends ConsumerState<RaceScreen> with WidgetsBindingObse
     } else {
       audio.setHorn(null, 'saw');
     }
-    ref.read(hapticsProvider).keys = false;
+    haptics.keys = false;
   }
 
   @override
   void dispose() {
     _disposed = true;
+    ScreenAwake.release();
     WidgetsBinding.instance.removeObserver(this);
     _ticker?.dispose();
     _hud?.cancel();
@@ -169,6 +178,7 @@ class _RaceScreenState extends ConsumerState<RaceScreen> with WidgetsBindingObse
     input.dispose();
     focus.dispose();
     tick.dispose();
+    inputTick.dispose();
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
     super.dispose();
   }
@@ -242,17 +252,19 @@ class _RaceScreenState extends ConsumerState<RaceScreen> with WidgetsBindingObse
         session.onBackspace();
       }
     } else if (v.length > _guard.length) {
-      var added = v.substring(_guard.length).replaceAll('\u200B', '');
-      if (added.length > 3) {
-        _bulkInputs++; // paste / gesture typing: only the first characters count
-        added = added.substring(0, 1);
+      var added = v.substring(_guard.length).replaceAll('\u200B', '').replaceAll('\n', '').replaceAll('\r', '');
+      // Compare whole code points, not UTF-16 units: emoji and rare scripts must not be cut in half.
+      if (added.runes.length > 3) {
+        _bulkInputs++; // paste / gesture typing: only the first code point counts
+        added = String.fromCharCode(added.runes.first);
       }
-      for (final ch in added.split('')) {
-        _typeChar(ch);
+      for (final r in added.runes) {
+        _typeChar(String.fromCharCode(r));
       }
     }
     input.value = const TextEditingValue(text: _guard, selection: TextSelection.collapsed(offset: 2));
-    if (mounted) setState(() {});
+    // Only the typing panel depends on the input state: repaint it instead of the whole screen.
+    if (mounted) inputTick.value++;
   }
 
   void _typeChar(String ch) {
@@ -263,7 +275,18 @@ class _RaceScreenState extends ConsumerState<RaceScreen> with WidgetsBindingObse
       if (session.challenge == null && engine.pos > 0 && engine.pos <= engine.length && engine.text[engine.pos - 1] == ' ' && engine.pos != before) {
         _wordStartMs = session.timeMs;
       }
+    } else if (res == KeyResult.ignored && isForeignScript(ch)) {
+      // Wrong keyboard layout: never punish the player, just tell them once.
+      _layoutHint();
     }
+  }
+
+  /// Shown once per race when input arrives from a non-Latin keyboard layout.
+  void _layoutHint() {
+    if (_layoutHintShown) return;
+    _layoutHintShown = true;
+    _popup('🔤 بدّل لوحة المفاتيح إلى الإنجليزية', C.gold);
+    haptics.light();
   }
 
   void _onEvents(List<RaceEvent> events) {
@@ -355,11 +378,15 @@ class _RaceScreenState extends ConsumerState<RaceScreen> with WidgetsBindingObse
     if (phase == _Phase.finishing) return;
     setState(() => phase = _Phase.finishing);
     audio.stopEngine();
-    _sw.stop();
     _storm?.cancel();
     FocusManager.instance.primaryFocus?.unfocus();
-    // let the session finalize (ranking + photo finish flag) on its next update
-    await Future<void>.delayed(const Duration(milliseconds: 120));
+    haptics.finish();
+    // Let the pack cross the line (post-finish window) so the final standings and the
+    // photo finish are decided on the track instead of every rival freezing instantly.
+    final deadline = DateTime.now().add(const Duration(milliseconds: 2600));
+    while (!_disposed && !session.over && DateTime.now().isBefore(deadline)) {
+      await Future<void>.delayed(const Duration(milliseconds: 50));
+    }
     if (_disposed) return;
     if (session.photoFinish && cfg.opponents.isNotEmpty) {
       setState(() => photoReplay = true);
@@ -369,7 +396,7 @@ class _RaceScreenState extends ConsumerState<RaceScreen> with WidgetsBindingObse
       game.startReplay();
       audio.play(Sfx.whoosh, vol: 0.5);
     } else {
-      await Future<void>.delayed(const Duration(milliseconds: 2300));
+      await Future<void>.delayed(const Duration(milliseconds: 900));
       if (!_disposed) _toResults();
     }
   }
@@ -377,11 +404,11 @@ class _RaceScreenState extends ConsumerState<RaceScreen> with WidgetsBindingObse
   Future<void> _toResults() async {
     if (_done || _disposed) return;
     _done = true;
+    _sw.stop();
     final res = session.buildResult();
     final suspicious = _bulkInputs > 0 || AntiCheatLocal.isSuspicious(res.intervals, res.wpm);
-    final result = suspicious
-        ? RaceResult(config: res.config, standings: res.standings, playerRank: res.playerRank, wpm: res.wpm, rawWpm: res.rawWpm, accuracy: res.accuracy, time: res.time, maxCombo: res.maxCombo, errors: res.errors, chars: res.chars, nitroUses: res.nitroUses, perfectWords: res.perfectWords, powerupsUsed: res.powerupsUsed, pitPerfect: res.pitPerfect, photoFinish: res.photoFinish, timeUp: res.timeUp, suspicious: true, intervals: res.intervals, samples: res.samples, charStats: res.charStats, wordStats: res.wordStats)
-        : res;
+    // flagged() keeps every field (mode extras included) — never rebuild a result by hand.
+    final result = suspicious ? res.flagged() : res;
     final db = ref.read(contentProvider);
     late RaceOutcome outcome;
     final ctl = ref.read(profileProvider.notifier);
@@ -627,9 +654,9 @@ class _RaceScreenState extends ConsumerState<RaceScreen> with WidgetsBindingObse
         margin: const EdgeInsets.fromLTRB(10, 6, 10, 8),
         padding: const EdgeInsets.fromLTRB(12, 8, 12, 4),
         decoration: BoxDecoration(color: const Color(0xFF0F1530), borderRadius: BorderRadius.circular(16), border: Border.all(color: Colors.white12)),
-        child: ValueListenableBuilder<int>(
-          valueListenable: tick,
-          builder: (_, _, _) {
+        child: ListenableBuilder(
+          listenable: _panelTick,
+          builder: (_, _) {
             final hint = cfg.vocabHints == null ? null : cfg.vocabHints![_wordIndex()];
             return Stack(children: [
               Transform.translate(
@@ -659,6 +686,35 @@ class _RaceScreenState extends ConsumerState<RaceScreen> with WidgetsBindingObse
                 ),
               ),
               if (session.challenge != null) _challengeCard(session.challenge!),
+              // Silent dead-ends feel like a broken game: always say *why* nothing is typed.
+              if (engine.wrongBuffer > 0 && !engine.stuckBackspace && session.challenge == null)
+                Positioned(
+                  left: 0,
+                  right: 0,
+                  bottom: 2,
+                  child: Center(
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
+                      decoration: BoxDecoration(color: C.red.withValues(alpha: 0.18), borderRadius: BorderRadius.circular(10), border: Border.all(color: C.red)),
+                      child: const Text('⌫ امسح الحرف الأحمر بزر المسح', style: TextStyle(color: C.red, fontWeight: FontWeight.w800, fontSize: 12)),
+                    ),
+                  ),
+                ),
+              if (engine.stuckBackspace && session.challenge == null)
+                Positioned.fill(
+                  child: IgnorePointer(
+                    child: Center(
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+                        decoration: BoxDecoration(color: Colors.black.withValues(alpha: 0.82), borderRadius: BorderRadius.circular(12), border: Border.all(color: C.red, width: 2)),
+                        child: const Column(mainAxisSize: MainAxisSize.min, children: [
+                          Text('اضغط زر المسح ⌫', style: TextStyle(color: C.red, fontWeight: FontWeight.w900, fontSize: 16)),
+                          Text('لن تُكتب حروف جديدة قبل مسح الأخطاء', style: TextStyle(color: Colors.white70, fontSize: 11)),
+                        ]),
+                      ),
+                    ),
+                  ),
+                ),
               if (phase == _Phase.racing && kb == 0 && !_paused)
                 Positioned.fill(
                   child: Container(

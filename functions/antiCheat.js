@@ -13,7 +13,7 @@ const DEFAULT_LIMITS = {
   maxFastShare: 0.15, // share of keystroke intervals below 25 ms
   minVariation: 0.05, // stdev / mean: bots type with metronomic regularity
   wpmTolerance: 0.4, // wpm vs keystroke-interval estimate
-  timeTolerance: 0.45, // wpm vs chars/time estimate
+  timeTolerance: 0.25, // wpm vs chars/typing-span estimate (the wall clock may be much longer)
 };
 
 function median(a) {
@@ -35,10 +35,16 @@ function validateScore(p, limitsOverride = {}) {
   if (acc < L.minAccuracy || acc > 100) return { ok: false, reason: 'accuracy' };
   if (chars < L.minChars || chars > L.maxChars) return { ok: false, reason: 'length' };
   if (timeMs < 2000 || timeMs > 30 * 60 * 1000) return { ok: false, reason: 'duration' };
+  // typingMs is the active typing span; timeMs is the whole race from GO (includes reading time).
+  // Only the typing span may be matched against the claimed WPM, otherwise honest players who
+  // study the text before typing are rejected. Old clients send no typingMs: fall back to timeMs.
+  const typingMs = Number.isFinite(p.typingMs) && p.typingMs > 0 ? p.typingMs : timeMs;
+  if (typingMs < 1500 || typingMs > 30 * 60 * 1000) return { ok: false, reason: 'typing-duration' };
+  if (timeMs < typingMs - 1000) return { ok: false, reason: 'time-inconsistent' };
   if (!Array.isArray(intervals) || intervals.length < L.minIntervals || intervals.length > L.maxIntervals) return { ok: false, reason: 'intervals-missing' };
   if (!intervals.every((n) => Number.isInteger(n) && n >= 0 && n <= 10000)) return { ok: false, reason: 'intervals-invalid' };
   // total typing time implied by the raw chars must roughly match the claimed WPM
-  const estByTime = (chars / 5) / (timeMs / 60000);
+  const estByTime = (chars / 5) / (typingMs / 60000);
   if (Math.abs(estByTime - wpm) / wpm > L.timeTolerance) return { ok: false, reason: 'wpm-time-mismatch' };
   const med = median(intervals);
   if (med < L.minMedianIntervalMs) return { ok: false, reason: 'keystrokes-too-fast' };

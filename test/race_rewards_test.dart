@@ -42,7 +42,36 @@ RaceResult _res({double wpm = 60, double acc = 97, int rank = 1, int n = 5, bool
   );
 }
 
+RaceResult _mode(String modeId, {int chars = 120}) {
+  final base = _res(chars: chars);
+  final cfg = RaceConfig(modeId: modeId, title: 't', text: base.config.text, biomeId: 'city', mod: 'none', ranked: false, rewards: true);
+  return RaceResult(
+    config: cfg, standings: base.standings, playerRank: base.playerRank, wpm: base.wpm, rawWpm: base.rawWpm, accuracy: base.accuracy, time: base.time,
+    maxCombo: base.maxCombo, errors: base.errors, chars: base.chars, nitroUses: 0, perfectWords: 0, powerupsUsed: 0, pitPerfect: false,
+    photoFinish: false, timeUp: false, suspicious: false, intervals: const [], samples: const [], charStats: const {}, wordStats: const {},
+  );
+}
+
 void main() {
+  test('practice modes never set records, history or quests', () {
+    final db = loadSeedContent();
+    for (final mode in ['custom', 'training', 'vocab', 'lesson']) {
+      final p = PlayerProfile.fresh('dev_$mode');
+      final o = RaceRewards.apply(p, _mode(mode), db);
+      expect(o.rewarded, isTrue, reason: '$mode still pays coins/xp');
+      expect(p.best('best_wpm'), 0, reason: '$mode must not touch best_wpm');
+      expect(p.history, isEmpty, reason: '$mode must not feed matchmaking');
+      expect(o.records, isEmpty);
+    }
+  });
+
+  test('a real race still sets records', () {
+    final p = PlayerProfile.fresh('dev_quick');
+    RaceRewards.apply(p, _mode('quick'), loadSeedContent());
+    expect(p.best('best_wpm'), greaterThan(0));
+    expect(p.history, isNotEmpty);
+  });
+
   final db = loadSeedContent();
 
   test('winning pays more than last place and updates counters / bests', () {

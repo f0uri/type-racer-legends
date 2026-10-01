@@ -21,11 +21,14 @@ enum Board { global, country, weekly, monthly }
 class ScorePayload {
   final double wpm, acc;
   final int chars, timeMs;
+  /// Active typing span (first key → last key). The server validates WPM against this value:
+  /// [timeMs] is the whole race from GO and contains reaction/reading time, so it can be much longer.
+  final int typingMs;
   final String textId, mode;
   final List<int> intervals;
-  const ScorePayload({required this.wpm, required this.acc, required this.chars, required this.timeMs, required this.textId, required this.mode, required this.intervals});
+  const ScorePayload({required this.wpm, required this.acc, required this.chars, required this.timeMs, required this.textId, required this.mode, required this.intervals, this.typingMs = 0});
 
-  Map<String, dynamic> toJson() => {'wpm': double.parse(wpm.toStringAsFixed(1)), 'acc': double.parse(acc.toStringAsFixed(1)), 'chars': chars, 'timeMs': timeMs, 'textId': textId, 'mode': mode, 'intervals': intervals, 'v': AppConfig.profileSchema};
+  Map<String, dynamic> toJson() => {'wpm': double.parse(wpm.toStringAsFixed(1)), 'acc': double.parse(acc.toStringAsFixed(1)), 'chars': chars, 'timeMs': timeMs, 'typingMs': typingMs > 0 ? typingMs : timeMs, 'textId': textId, 'mode': mode, 'intervals': intervals, 'v': AppConfig.profileSchema};
 
   /// Which results may go to the leaderboards: pure-play modes only (no bonuses), never flagged as suspicious.
   static ScorePayload? fromResult(RaceResult r) {
@@ -33,7 +36,7 @@ class ScorePayload {
     if (!const {'daily', 'weekly', 'official'}.contains(r.config.modeId)) return null;
     if (r.chars < 30 || r.accuracy < 80 || r.intervals.length < 20) return null;
     final iv = r.intervals.length > 400 ? r.intervals.sublist(0, 400) : r.intervals;
-    return ScorePayload(wpm: r.wpm, acc: r.accuracy, chars: r.chars, timeMs: (r.time * 1000).round(), textId: r.config.text.id, mode: r.config.modeId, intervals: iv);
+    return ScorePayload(wpm: r.wpm, acc: r.accuracy, chars: r.chars, timeMs: (r.time * 1000).round(), typingMs: r.typingMs, textId: r.config.text.id, mode: r.config.modeId, intervals: iv);
   }
 }
 
