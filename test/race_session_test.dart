@@ -62,8 +62,14 @@ void main() {
   });
 
   test('fast player beats slow AI, slow player loses to fast AI', () {
+    // The pack now keeps racing for 1.6 s after the player crosses the line, so a "fast player"
+    // test must finish clearly ahead: with rubber-band AI active in front, 80 vs 35 wpm still
+    // wins, but the margin depends on the post-finish window, hence the generous typing speed.
     final a = make(opp: [ai('a', 35), ai('b', 40)]);
-    play(a, 80);
+    play(a, 110);
+    for (var i = 0; i < 260 && !a.over; i++) {
+      a.update(1 / 60);
+    }
     expect(a.buildResult().playerRank, 1);
     final b = make(opp: [ai('a', 95), ai('b', 90)], seed: 3);
     play(b, 25);

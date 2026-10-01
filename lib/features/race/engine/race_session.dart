@@ -451,8 +451,6 @@ class RaceSession {
     }
 
     time += dt;
-    final playerFrac = fractionOf(player);
-    final playerWpm = engine.rollingWpm(timeMs);
 
     if (brake > 0) brake -= dt;
     if (nitroActive) {
