@@ -275,6 +275,10 @@ class _RaceScreenState extends ConsumerState<RaceScreen> with WidgetsBindingObse
       if (session.challenge == null && engine.pos > 0 && engine.pos <= engine.length && engine.text[engine.pos - 1] == ' ' && engine.pos != before) {
         _wordStartMs = session.timeMs;
       }
+    } else if (res == KeyResult.wrong) {
+      // Impact freeze + punchy haptic: a mistake must be *felt*, not just shown.
+      game.hitStop();
+      haptics.wrong();
     } else if (res == KeyResult.ignored && isForeignScript(ch)) {
       // Wrong keyboard layout: never punish the player, just tell them once.
       _layoutHint();

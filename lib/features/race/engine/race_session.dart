@@ -693,7 +693,8 @@ class RaceSession {
       photoFinish: photoFinish,
       timeUp: timeUp,
       suspicious: false,
-      typingMs: elapsedMs,
+      // The span that actually backs the WPM figure: the typing span, or the time limit in timed tests.
+      typingMs: config.timeLimitMs != null ? min(tEnd * 1000, config.timeLimitMs!.toDouble()).round() : elapsedMs,
       intervals: iv.length > 600 ? iv.sublist(0, 600) : iv,
       samples: samples,
       charStats: engine.charStats,

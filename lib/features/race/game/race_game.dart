@@ -53,6 +53,18 @@ class RaceGame extends FlameGame {
   bool _skipRender = false;
   double timeScale = 1;
 
+  /// Hit-stop: the classic "impact freeze" every action game uses on a mistake.
+  /// A wrong key freezes the world for [_hitStopLen] seconds, then time catches back up.
+  double _hitStop = 0;
+  static const _hitStopLen = 0.09;
+  /// Called by the UI on a wrong keystroke: the world jolts to a stop + camera punch.
+  void hitStop({double dur = _hitStopLen, double shakeAmount = 0.55}) {
+    if (replaying) return;
+    _hitStop = max(_hitStop, dur);
+    shake = max(shake, shakeAmount);
+    flash = max(flash, 0.35);
+  }
+
   // replay (photo finish)
   bool replaying = false;
   double _replayPos = 0;
@@ -82,6 +94,14 @@ class RaceGame extends FlameGame {
   void update(double dt) {
     super.update(dt);
     if (frozen) return;
+    if (_hitStop > 0) {
+      _hitStop -= dt;
+      // only the camera keeps moving during the freeze: input still lands next frame
+      shake = max(0, shake - dt * 3.2);
+      flash = max(0, flash - dt * 3);
+      sceneT += dt * 0.25;
+      return;
+    }
     dt = min(dt, 1 / 20) * timeScale;
     if (fps30) {
       _accum += dt;
