@@ -109,7 +109,7 @@ class RaceResult {
   final int playerRank;
   final double wpm, accuracy, time, rawWpm;
   final int maxCombo, errors, chars, nitroUses, perfectWords, powerupsUsed;
-  /// Active typing span (first key → last key) in ms. This is the value that must match [wpm];
+  /// Active typing span (first key to last key) in ms. This is the value that must match [wpm];
   /// [time] is the wall-clock race duration from GO, which also contains reaction/reading time.
   final int typingMs;
   final bool pitPerfect, photoFinish, timeUp, suspicious;

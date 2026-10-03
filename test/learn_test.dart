@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'package:flutter/material.dart' show Icons;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:type_racer_legends/data/models/content_models.dart';
 import 'package:type_racer_legends/data/models/profile.dart';
@@ -171,7 +172,7 @@ void main() {
       await t.runAsync(loadTestFonts);
       final look = await t.runAsync(() async => null);
       expect(look, isNull);
-      const d = CardData(name: 'Sami', title: 'Road Legend', rankLabel: 'ذهبي', rankIcon: '🥇', flag: '🇲🇦', avatar: '🏎️', level: 12, stats: [('WPM', '72'), ('الدقة', '97%'), ('السلسلة', '5')]);
+      const d = CardData(name: 'Sami', title: 'Road Legend', rankLabel: 'ذهبي', rankIcon: Icons.military_tech, flag: 'MA', avatar: Icons.sports_motorsports, level: 12, stats: [('WPM', '72'), ('الدقة', '97%'), ('السلسلة', '5')]);
       final png = await t.runAsync(() => ShareCardRenderer.png(d));
       expect(png!.sublist(0, 4), [137, 80, 78, 71]);
       expect(png.length, greaterThan(10000));

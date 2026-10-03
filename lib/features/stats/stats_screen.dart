@@ -137,7 +137,7 @@ class GoalCard extends ConsumerWidget {
 
     return Panel(
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        const Text('🎯 هدفي الأسبوعي', style: TextStyle(fontWeight: FontWeight.w900)),
+        const Text('هدفي الأسبوعي', style: TextStyle(fontWeight: FontWeight.w900)),
         const SizedBox(height: 8),
         if (g == null) ...[
           Text('حدد سرعة تريد بلوغها هذا الأسبوع. المقترح لك: ${Goal.suggest(p)} WPM', style: const TextStyle(color: C.textDim)),
@@ -152,12 +152,12 @@ class GoalCard extends ConsumerWidget {
           ProgressBar(value: Goal.progress(p), color: Goal.achieved(p) ? C.green : C.cyan, height: 10),
           const SizedBox(height: 8),
           if (Goal.claimed(p))
-            const Text('✅ استلمت مكافأة هذا الأسبوع', style: TextStyle(color: C.green, fontWeight: FontWeight.w800))
+            const Text('استلمت مكافأة هذا الأسبوع', style: TextStyle(color: C.green, fontWeight: FontWeight.w800))
           else if (Goal.achieved(p))
             NeonButton(label: 'استلم 300 عملة + 5 جواهر', icon: Icons.card_giftcard_rounded, color: C.gold, onPressed: () {
               var ok = false;
               ctl.update((pp) => ok = Goal.claim(pp));
-              if (ok) toast(context, 'مبروك! حققت هدفك الأسبوعي 🎉');
+              if (ok) toast(context, 'مبروك! حققت هدفك الأسبوعي');
             })
           else
             const Text('العب في أي وضع لرفع أفضل سرعة لهذا الأسبوع.', style: TextStyle(color: C.textDim, fontSize: 12)),

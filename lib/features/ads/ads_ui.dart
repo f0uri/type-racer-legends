@@ -35,7 +35,7 @@ class _RewardedAdCardState extends ConsumerState<RewardedAdCard> {
       ref.read(analyticsProvider).log('ad_reward', {'coins': got});
       setState(() => done = true);
       widget.onGranted?.call(got);
-      toast(context, got > 0 ? 'حصلت على $got عملة 🪙' : 'بلغت الحد اليومي للمكافآت الإعلانية');
+      toast(context, got > 0 ? 'حصلت على $got عملة' : 'بلغت الحد اليومي للمكافآت الإعلانية');
     } else {
       toast(context, 'لا يتوفر إعلان الآن — جرّب لاحقاً');
     }
@@ -49,13 +49,13 @@ class _RewardedAdCardState extends ConsumerState<RewardedAdCard> {
     final left = AdPolicy.rewardedLeft(db, p);
     if (!AdPolicy.enabled(db, p) || !ref.read(adsProvider).supported) return const SizedBox.shrink();
     if (done || left <= 0) {
-      return widget.doubleCoins != null ? const SizedBox.shrink() : Panel(child: Text(left <= 0 ? '🎬 استهلكت مكافآت الإعلانات لهذا اليوم. عد غداً!' : '✅ تم', style: const TextStyle(color: C.textDim)));
+      return widget.doubleCoins != null ? const SizedBox.shrink() : Panel(child: Text(left <= 0 ? 'استهلكت مكافآت الإعلانات لهذا اليوم. عد غداً!' : 'تم', style: const TextStyle(color: C.textDim)));
     }
     final coins = widget.doubleCoins ?? AdPolicy.rewardedCoins(db);
     return Panel(
       border: C.gold.withValues(alpha: 0.5),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        Text(widget.compactLabel ?? (widget.doubleCoins != null ? '🎬 ضاعف عملات هذا السباق' : '🎬 مكافأة مجانية'), style: const TextStyle(fontWeight: FontWeight.w900)),
+        Text(widget.compactLabel ?? (widget.doubleCoins != null ? 'ضاعف عملات هذا السباق' : 'مكافأة مجانية'), style: const TextStyle(fontWeight: FontWeight.w900)),
         const SizedBox(height: 4),
         Text('اختياري تماماً: شاهد إعلاناً قصيراً لتحصل على +$coins عملة. المتبقي اليوم: $left', style: const TextStyle(color: C.textDim, fontSize: 12)),
         const SizedBox(height: 8),

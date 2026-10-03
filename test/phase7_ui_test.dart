@@ -38,7 +38,7 @@ void main() {
     final c = await testContainer(t);
     await show(t, c, const StatsScreen());
     expect(find.text('إحصائياتي'), findsOneWidget);
-    expect(find.text('🎯 هدفي الأسبوعي'), findsOneWidget);
+    expect(find.text('هدفي الأسبوعي'), findsOneWidget);
     expect(find.text('تحديد الهدف'), findsOneWidget);
   });
 
@@ -64,7 +64,7 @@ void main() {
     await show(t, c, const ProfileScreen());
     expect(find.text('ملفي'), findsOneWidget);
     expect(find.text('شارك بطاقة اللاعب'), findsOneWidget);
-    await t.scrollUntilVisible(find.text('🤝 ادعُ أصدقاءك'), 400, scrollable: find.byType(Scrollable).first);
+    await t.scrollUntilVisible(find.text('ادعُ أصدقاءك'), 400, scrollable: find.byType(Scrollable).first);
     expect(find.text(c.read(profileProvider).refCode, findRichText: true), findsWidgets);
   });
 

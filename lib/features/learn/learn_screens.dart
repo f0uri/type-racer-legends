@@ -24,12 +24,12 @@ class LearnHubScreen extends ConsumerWidget {
     final p = ref.watch(profileProvider);
     final pl = p.m('placement');
     final done = LessonsLogic.completed(p);
-    Widget card(String icon, String title, String sub, VoidCallback onTap, {String? badge}) => Container(
+    Widget card(IconData icon, String title, String sub, VoidCallback onTap, {String? badge}) => Container(
           margin: const EdgeInsets.only(bottom: 10),
           child: Panel(
             onTap: onTap,
             child: Row(children: [
-              Text(icon, style: const TextStyle(fontSize: 34)),
+              Icon(icon, size: 32, color: C.cyan),
               const SizedBox(width: 12),
               Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Text(title, style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 16)), Text(sub, style: const TextStyle(color: C.textDim, fontSize: 12))])),
               if (badge != null) Text(badge, style: const TextStyle(color: C.cyan, fontWeight: FontWeight.w900)),
@@ -45,17 +45,17 @@ class LearnHubScreen extends ConsumerWidget {
             Panel(
               border: C.cyan,
               child: Row(children: [
-                const Text('📊', style: TextStyle(fontSize: 28)),
+                const Icon(Icons.bar_chart, size: 28, color: C.cyan),
                 const SizedBox(width: 10),
                 Expanded(child: Text('مستواك: ${pl['level'] ?? ''} — ${(pl['wpm'] as num).round()} WPM بدقة ${(pl['acc'] as num).round()}%', style: const TextStyle(fontWeight: FontWeight.w800))),
               ]),
             ),
           const SizedBox(height: 10),
-          card('⌨️', 'دروس الكتابة بالأصابع العشرة', 'خريطة الأصابع + 30 درساً متدرجاً', () => ModeFlow.push<void>(context, const LessonsScreen()), badge: '$done/${db.lessons.length}'),
-          card('⏱️', 'الاختبار الرسمي (60 ثانية)', 'يحدد مستواك ويمنحك شهادة PDF قابلة للمشاركة', () => ModeFlow.push<void>(context, const OfficialTestScreen())),
-          card('📖', 'المفردات: من العربية إلى الإنجليزية', 'اكتب الكلمة الإنجليزية لمعناها العربي', () => ModeFlow.push<void>(context, const VocabScreen()), badge: '${VocabLogic.mastered(p)} متقنة'),
-          card('🎯', 'التدريب الذكي', 'خريطة حرارية لأضعف حروفك + نص مصمم لها', () => ModeFlow.push<void>(context, const TrainingScreen())),
-          card('📜', 'شهاداتي', '${p.m('certs').length} شهادة', () => ModeFlow.push<void>(context, const CertificatesScreen())),
+          card(Icons.keyboard, 'دروس الكتابة بالأصابع العشرة', 'خريطة الأصابع + 30 درساً متدرجاً', () => ModeFlow.push<void>(context, const LessonsScreen()), badge: '$done/${db.lessons.length}'),
+          card(Icons.timer, 'الاختبار الرسمي (60 ثانية)', 'يحدد مستواك ويمنحك شهادة PDF قابلة للمشاركة', () => ModeFlow.push<void>(context, const OfficialTestScreen())),
+          card(Icons.menu_book, 'المفردات: من العربية إلى الإنجليزية', 'اكتب الكلمة الإنجليزية لمعناها العربي', () => ModeFlow.push<void>(context, const VocabScreen()), badge: '${VocabLogic.mastered(p)} متقنة'),
+          card(Icons.track_changes, 'التدريب الذكي', 'خريطة حرارية لأضعف حروفك + نص مصمم لها', () => ModeFlow.push<void>(context, const TrainingScreen())),
+          card(Icons.verified, 'شهاداتي', '${p.m('certs').length} شهادة', () => ModeFlow.push<void>(context, const CertificatesScreen())),
         ]),
       ),
     );
@@ -176,7 +176,7 @@ class LearnFlow {
             Panel(
               border: lo.passed ? C.green : C.red,
               child: Column(children: [
-                Text(lo.passed ? '✅ نجحت في الدرس ${l.n}' : 'لم تصل للهدف: ${l.targetWpm} WPM بدقة ${l.minAcc}%', style: TextStyle(fontWeight: FontWeight.w900, fontSize: 16, color: lo.passed ? C.green : C.red)),
+                Text(lo.passed ? 'نجحت في الدرس ${l.n}' : 'لم تصل للهدف: ${l.targetWpm} WPM بدقة ${l.minAcc}%', style: TextStyle(fontWeight: FontWeight.w900, fontSize: 16, color: lo.passed ? C.green : C.red)),
                 const SizedBox(height: 6),
                 starRow(lo.stars, size: 32),
                 if (lo.rewardLines.isNotEmpty) Padding(padding: const EdgeInsets.only(top: 6), child: Text(lo.rewardLines.join('   '), style: const TextStyle(color: C.gold, fontWeight: FontWeight.w800))),
@@ -269,7 +269,7 @@ class CertificatesScreen extends ConsumerWidget {
                     margin: const EdgeInsets.only(bottom: 8),
                     child: Panel(
                       child: Row(children: [
-                        const Text('📜', style: TextStyle(fontSize: 30)),
+                        const Icon(Icons.verified, size: 30, color: C.gold),
                         const SizedBox(width: 10),
                         Expanded(child: Text('${e.key}\n${DateTime.fromMillisecondsSinceEpoch((e.value as num).toInt()).toString().substring(0, 10)}', style: const TextStyle(fontFamily: 'FiraMono', fontSize: 13))),
                         if (e.key == latest && pl['wpm'] != null)
@@ -353,7 +353,7 @@ class VocabScreen extends ConsumerWidget {
           extra: [
             Panel(
               child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                Text('✅ $clean من ${used.length} كلمة بلا أخطاء', style: const TextStyle(fontWeight: FontWeight.w900, color: C.green)),
+                Text('$clean من ${used.length} كلمة بلا أخطاء', style: const TextStyle(fontWeight: FontWeight.w900, color: C.green)),
                 const SizedBox(height: 6),
                 for (final w in used)
                   Padding(
@@ -397,7 +397,7 @@ class TrainingScreen extends ConsumerWidget {
           Row(mainAxisAlignment: MainAxisAlignment.center, children: [
             Container(width: 60, height: 8, decoration: BoxDecoration(gradient: const LinearGradient(colors: [Color(0xFF1F6F4A), Color(0xFFE5383B)]), borderRadius: BorderRadius.circular(4))),
             const SizedBox(width: 8),
-            const Text('جيد ← ضعيف', style: TextStyle(fontSize: 11, color: C.textDim)),
+            const Text('جيد ضعيف', style: TextStyle(fontSize: 11, color: C.textDim)),
           ]),
           const SizedBox(height: 12),
           if (heat.isEmpty)
@@ -409,7 +409,7 @@ class TrainingScreen extends ConsumerWidget {
                 const SizedBox(height: 6),
                 Wrap(spacing: 8, runSpacing: 6, children: [
                   for (final k in weak) Chip(label: Text(k.toUpperCase(), style: const TextStyle(fontFamily: 'FiraMono', fontWeight: FontWeight.w900)), backgroundColor: C.red.withValues(alpha: 0.2), side: const BorderSide(color: C.red)),
-                  if (weak.isEmpty) const Text('لا توجد نقاط ضعف واضحة — أداء ممتاز! 🎉', style: TextStyle(color: C.green)),
+                  if (weak.isEmpty) const Text('لا توجد نقاط ضعف واضحة — أداء ممتاز!', style: TextStyle(color: C.green)),
                 ]),
                 const SizedBox(height: 8),
                 for (final s in stats.take(5)) Text('${s.ch.toUpperCase()}: ${(s.errorRate * 100).toStringAsFixed(1)}% أخطاء • ${s.avgMs.round()}ms', style: const TextStyle(color: C.textDim, fontSize: 12, fontFamily: 'FiraMono')),

@@ -23,7 +23,8 @@ import '../race/quick_race_sheet.dart';
 import '../settings/settings_screen.dart';
 
 class _Mode {
-  final String icon, title, sub;
+  final IconData icon;
+  final String title, sub;
   final String? feature;
   final void Function(BuildContext) open;
   const _Mode(this.icon, this.title, this.sub, this.open, {this.feature});
@@ -32,24 +33,24 @@ class _Mode {
 /// The lobby.
 ///
 /// Layout follows how top mobile games are built instead of how a website is built:
-/// top HUD (level / wallet) → live event carousel → mission pods → one giant start button that is
+/// top HUD (level / wallet) then the live event carousel, then mission pods, then one giant start
 /// always under the thumb. Nothing scrolls the call-to-action away.
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
 
   List<_Mode> _modes(WidgetRef ref) => [
-        _Mode('🗺️', 'الحملة', '50 مرحلة • 6 بيئات • زعماء', (c) => ModeFlow.push<void>(c, const CampaignScreen())),
-        _Mode('👻', 'الأشباح', 'تحدَّ رقمك الشخصي', (c) => ModeFlow.push<void>(c, const GhostScreen())),
-        _Mode('🏆', 'البطولات', 'يومية 8 • أسبوعية 16', (c) => ModeFlow.push<void>(c, const TournamentListScreen()), feature: 'tournament'),
-        _Mode('🔗', 'تحدٍّ بالرابط', 'شارك سرعتك', (c) => ModeFlow.push<void>(c, const ChallengeHubScreen()), feature: 'link_challenge'),
-        _Mode('🔥', 'البقاء', 'لا تدع المطارد يلحق بك', _survival, feature: 'survival'),
-        _Mode('💥', 'قتال الطريق', 'أطلق الصواريخ بكلماتك', _combat, feature: 'combat'),
-        _Mode('📅', 'التحديات', 'يومي وأسبوعي', (c) => ModeFlow.push<void>(c, const DailyScreen()), feature: 'daily'),
-        _Mode('🌍', 'جولة العالم', '12 مدينة وختم', (c) => ModeFlow.push<void>(c, const WorldTourScreen()), feature: 'world_tour'),
-        _Mode('🥇', 'المتصدرون', 'عالمي • بلدي • أسبوعي', (c) => ModeFlow.push<void>(c, const LeaderboardScreen()), feature: 'leaderboard'),
-        _Mode('📚', 'التعلّم', 'دروس • مفردات • شهادة', (c) => ModeFlow.push<void>(c, const LearnHubScreen())),
-        _Mode('🎯', 'التدريب الذكي', 'خريطة حروفك الضعيفة', (c) => ModeFlow.push<void>(c, const TrainingScreen())),
-        _Mode('✍️', 'نص مخصص', 'تدرّب على نصك', (c) => ModeFlow.push<void>(c, const CustomTextScreen())),
+        _Mode(Icons.map, 'الحملة', '50 مرحلة • 6 بيئات • زعماء', (c) => ModeFlow.push<void>(c, const CampaignScreen())),
+        _Mode(Icons.visibility, 'الأشباح', 'تحدَّ رقمك الشخصي', (c) => ModeFlow.push<void>(c, const GhostScreen())),
+        _Mode(Icons.emoji_events, 'البطولات', 'يومية 8 • أسبوعية 16', (c) => ModeFlow.push<void>(c, const TournamentListScreen()), feature: 'tournament'),
+        _Mode(Icons.link, 'تحدٍّ بالرابط', 'شارك سرعتك', (c) => ModeFlow.push<void>(c, const ChallengeHubScreen()), feature: 'link_challenge'),
+        _Mode(Icons.local_fire_department, 'البقاء', 'لا تدع المطارد يلحق بك', _survival, feature: 'survival'),
+        _Mode(Icons.rocket_launch, 'قتال الطريق', 'أطلق الصواريخ بكلماتك', _combat, feature: 'combat'),
+        _Mode(Icons.calendar_month, 'التحديات', 'يومي وأسبوعي', (c) => ModeFlow.push<void>(c, const DailyScreen()), feature: 'daily'),
+        _Mode(Icons.public, 'جولة العالم', '12 مدينة وختم', (c) => ModeFlow.push<void>(c, const WorldTourScreen()), feature: 'world_tour'),
+        _Mode(Icons.military_tech, 'المتصدرون', 'عالمي • بلدي • أسبوعي', (c) => ModeFlow.push<void>(c, const LeaderboardScreen()), feature: 'leaderboard'),
+        _Mode(Icons.school, 'التعلّم', 'دروس • مفردات • شهادة', (c) => ModeFlow.push<void>(c, const LearnHubScreen())),
+        _Mode(Icons.track_changes, 'التدريب الذكي', 'خريطة حروفك الضعيفة', (c) => ModeFlow.push<void>(c, const TrainingScreen())),
+        _Mode(Icons.edit_note, 'نص مخصص', 'تدرّب على نصك', (c) => ModeFlow.push<void>(c, const CustomTextScreen())),
       ];
 
   static void _survival(BuildContext context) {
@@ -57,7 +58,7 @@ class HomeScreen extends ConsumerWidget {
     final best = c.read(profileProvider).best('survival_best');
     showModeIntro(
       context,
-      icon: '🔥',
+      icon: Icons.local_fire_department,
       title: 'البقاء',
       bullets: const ['يطاردك مركبة ذكاء اصطناعي تتسارع باستمرار.', 'اكتب بسرعة لتبقى أمامها؛ كل خطأ يبطئك.', 'نص طويل متواصل — النتيجة هي مدة صمودك.'],
       bestLine: best > 0 ? 'أفضل صمود: ${best.round()} ثانية' : null,
@@ -70,7 +71,7 @@ class HomeScreen extends ConsumerWidget {
     final kills = c.read(profileProvider).counter('combat_kills');
     showModeIntro(
       context,
-      icon: '💥',
+      icon: Icons.rocket_launch,
       title: 'قتال الطريق',
       bullets: const ['كل كلمة تكتبها بلا خطأ تطلق صاروخاً على أقرب منافس.', 'لكل منافس 3 نقاط صحة (الزعماء 6).', 'عندما يهاجمك منافس تظهر كلمة تحذير: اكتبها بسرعة لتتفادى الضربة.', 'اربح بتدمير الجميع أو بالوصول أولاً.'],
       bestLine: kills > 0 ? 'إجمالي ما دمّرته: $kills' : null,
@@ -131,7 +132,7 @@ class HomeScreen extends ConsumerWidget {
             fit: BoxFit.scaleDown,
             alignment: AlignmentDirectional.centerStart,
             child: Column(mainAxisAlignment: MainAxisAlignment.center, crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text(m.icon, style: const TextStyle(fontSize: 26)),
+              Icon(m.icon, size: 26, color: C.cyan),
               const SizedBox(height: 2),
               Text(m.title, style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 15)),
               Text(m.sub, style: const TextStyle(color: C.textDim, fontSize: 11)),
@@ -144,7 +145,8 @@ class HomeScreen extends ConsumerWidget {
 /// Top HUD: identity on the right, wallet on the left — always visible, never scrolls away.
 class _TopHud extends StatelessWidget {
   const _TopHud({required this.name, required this.avatar, required this.level, required this.progress, required this.coins, required this.gems});
-  final String name, avatar;
+  final String name;
+  final IconData avatar;
   final int level, coins, gems;
   final double progress;
 
@@ -155,7 +157,7 @@ class _TopHud extends StatelessWidget {
         Container(
           padding: const EdgeInsets.all(2),
           decoration: BoxDecoration(shape: BoxShape.circle, border: Border.all(color: C.cyan, width: 1.5), boxShadow: [BoxShadow(color: C.cyan.withValues(alpha: 0.35), blurRadius: 10)]),
-          child: CircleAvatar(backgroundColor: C.surface2, child: Text(avatar, style: const TextStyle(fontSize: 20))),
+          child: CircleAvatar(backgroundColor: C.surface2, child: Icon(avatar, size: 20, color: C.cyan)),
         ),
       ]),
       const SizedBox(width: 10),
@@ -197,12 +199,12 @@ class _EventStrip extends ConsumerWidget {
     final daily = Quests.views(db, p, 'daily');
     final doneToday = daily.where((v) => v.done).length;
     final nextQuest = daily.where((v) => !v.done).firstOrNull;
-    final questName = nextQuest == null ? 'أكملت مهام اليوم 🎉' : loc(nextQuest.q.name);
+    final questName = nextQuest == null ? 'أكملت مهام اليوم' : loc(nextQuest.q.name);
     final questProgress = nextQuest == null ? '—' : '${nextQuest.progress}/${nextQuest.q.target}';
 
     final cards = <Widget>[
       _EventCard(
-        icon: '🔥',
+        icon: Icons.local_fire_department,
         title: 'سلسلة الدخول',
         value: '$streak يوم',
         color: C.gold,
@@ -212,7 +214,7 @@ class _EventStrip extends ConsumerWidget {
         },
       ),
       _EventCard(
-        icon: '🎯',
+        icon: Icons.track_changes,
         title: 'مهمة اليوم',
         value: '$questName • $questProgress',
         color: C.green,
@@ -222,7 +224,7 @@ class _EventStrip extends ConsumerWidget {
         },
       ),
       _EventCard(
-        icon: tier.icon.isNotEmpty ? tier.icon : '🥇',
+        icon: tier.icon,
         title: 'تصنيفك',
         value: '${tier.label} • ${p.rankPoints}',
         color: C.cyan,
@@ -232,7 +234,7 @@ class _EventStrip extends ConsumerWidget {
         },
       ),
       _EventCard(
-        icon: '📊',
+        icon: Icons.bar_chart,
         title: 'التقدّم اليومي',
         value: '$doneToday/${daily.length} مهام • الموسم ${db.season['id'] ?? '-'}',
         color: C.magenta,
@@ -257,7 +259,8 @@ class _EventStrip extends ConsumerWidget {
 
 class _EventCard extends StatelessWidget {
   const _EventCard({required this.icon, required this.title, required this.value, required this.color, required this.onTap});
-  final String icon, title, value;
+  final IconData icon;
+  final String title, value;
   final Color color;
   final VoidCallback onTap;
 
@@ -275,7 +278,7 @@ class _EventCard extends StatelessWidget {
           boxShadow: [BoxShadow(color: color.withValues(alpha: 0.18), blurRadius: 10)],
         ),
         child: Row(children: [
-          Text(icon, style: const TextStyle(fontSize: 20)),
+          Icon(icon, size: 20, color: color),
           const SizedBox(width: 8),
           Expanded(
             child: Column(mainAxisAlignment: MainAxisAlignment.center, crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -329,7 +332,7 @@ class _StartCtaState extends State<_StartCta> with SingleTickerProviderStateMixi
                   height: 68,
                   child: Row(children: [
                     SizedBox(width: 16),
-                    Text('⚡', style: TextStyle(fontSize: 30)),
+                    Icon(Icons.bolt, size: 30, color: Colors.white),
                     SizedBox(width: 10),
                     Expanded(
                       child: Column(mainAxisAlignment: MainAxisAlignment.center, crossAxisAlignment: CrossAxisAlignment.start, children: [

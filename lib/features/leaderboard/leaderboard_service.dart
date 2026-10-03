@@ -21,7 +21,7 @@ enum Board { global, country, weekly, monthly }
 class ScorePayload {
   final double wpm, acc;
   final int chars, timeMs;
-  /// Active typing span (first key → last key). The server validates WPM against this value:
+  /// Active typing span (first key last key). The server validates WPM against this value:
   /// [timeMs] is the whole race from GO and contains reaction/reading time, so it can be much longer.
   final int typingMs;
   final String textId, mode;

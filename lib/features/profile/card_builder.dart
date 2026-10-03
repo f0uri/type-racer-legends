@@ -42,7 +42,7 @@ class CardBuilder {
       avatar: base.avatar,
       level: base.level,
       look: base.look,
-      headline: hasOpp ? (r.won ? 'فوز! 🏆' : 'المركز ${r.playerRank}') : 'سباق مكتمل ✅',
+      headline: hasOpp ? (r.won ? 'فوز!' : 'المركز ${r.playerRank}') : 'سباق مكتمل',
       stats: [('WPM', r.wpm.round().toString()), ('الدقة', '${r.accuracy.toStringAsFixed(0)}%'), ('كومبو', r.maxCombo.toString())],
     );
   }

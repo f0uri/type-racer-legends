@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
-import 'package:flutter/material.dart' show Colors;
+import 'package:flutter/material.dart' show Colors, IconData;
 import 'package:flutter/painting.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
@@ -9,7 +9,8 @@ import '../garage/look.dart';
 import '../garage/vehicle_painter.dart';
 
 class CardData {
-  final String name, title, rankLabel, rankIcon, flag, avatar, footer;
+  final String name, title, rankLabel, flag, footer;
+  final IconData rankIcon, avatar;
   final int level;
   final List<(String, String)> stats; // label -> value
   final Look? look;
@@ -27,6 +28,12 @@ class ShareCardRenderer {
 
   static void _c(Canvas c, TextPainter tp, double y, {double cx = w / 2}) => tp.paint(c, Offset(cx - tp.width / 2, y));
 
+  /// Draws a vector icon on the card canvas (icons are a font, so they lay out like text).
+  static TextPainter _icon(IconData icon, double size, Color color) => TextPainter(
+        text: TextSpan(text: String.fromCharCode(icon.codePoint), style: TextStyle(fontFamily: icon.fontFamily, package: icon.fontPackage, fontSize: size, color: color)),
+        textDirection: TextDirection.ltr,
+      )..layout();
+
   static Future<Uint8List> png(CardData d) async {
     final rec = ui.PictureRecorder();
     final c = Canvas(rec);
@@ -40,10 +47,11 @@ class ShareCardRenderer {
     // avatar + name
     c.drawCircle(const Offset(w / 2, 420), 110, Paint()..color = const Color(0xFF1D2547));
     c.drawCircle(const Offset(w / 2, 420), 110, Paint()..style = PaintingStyle.stroke..strokeWidth = 6..color = d.accent);
-    _c(c, _tp(d.avatar, 120, Colors.white), 350);
+    _c(c, _icon(d.avatar, 120, Colors.white), 360);
     _c(c, _tp('${d.flag} ${d.name}', 76, Colors.white, weight: FontWeight.w800), 550);
     _c(c, _tp('${d.title}  •  المستوى ${d.level}', 40, const Color(0xFF9AA4C7)), 650);
-    _c(c, _tp('${d.rankIcon} ${d.rankLabel}', 52, const Color(0xFFFFD166), weight: FontWeight.w800), 716);
+    _c(c, _icon(d.rankIcon, 54, const Color(0xFFFFD166)), 692);
+    _c(c, _tp(d.rankLabel, 48, const Color(0xFFFFD166), weight: FontWeight.w800), 758);
     // vehicle
     if (d.look != null) {
       c.save();
@@ -76,6 +84,6 @@ class ShareCardRenderer {
     final dir = await getTemporaryDirectory();
     final file = File('${dir.path}/trl-card-${DateTime.now().millisecondsSinceEpoch}.png');
     await file.writeAsBytes(bytes, flush: true);
-    await SharePlus.instance.share(ShareParams(files: [XFile(file.path, mimeType: 'image/png')], text: text.isEmpty ? 'Type Racer Legends 🏁' : text));
+    await SharePlus.instance.share(ShareParams(files: [XFile(file.path, mimeType: 'image/png')], text: text.isEmpty ? 'Type Racer Legends' : text));
   }
 }

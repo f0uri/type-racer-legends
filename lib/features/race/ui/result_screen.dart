@@ -39,7 +39,7 @@ class _ResultScreenState extends ConsumerState<ResultScreen> {
         showDialog<void>(
           context: context,
           builder: (ctx) => AlertDialog(
-            title: const Text('🌿 وقت الاستراحة'),
+            title: const Text('وقت الاستراحة'),
             content: const Text('تلعب منذ وقت طويل. خذ استراحة قصيرة: مدّ يديك، انظر بعيداً عن الشاشة واشرب الماء. تقدّمك محفوظ.'),
             actions: [TextButton(onPressed: () => Navigator.pop(ctx), child: const Text('حسناً'))],
           ),
@@ -53,7 +53,7 @@ class _ResultScreenState extends ConsumerState<ResultScreen> {
     final r = widget.result, o = widget.outcome;
     final db = ref.watch(contentProvider);
     final hasOpp = r.opponents > 0;
-    final title = r.timeUp ? 'انتهى الوقت' : (hasOpp ? (r.won ? 'فوز! 🏆' : 'المركز ${r.playerRank} من ${r.standings.length}') : 'اكتمل السباق ✅');
+    final title = r.timeUp ? 'انتهى الوقت' : (hasOpp ? (r.won ? 'فوز!' : 'المركز ${r.playerRank} من ${r.standings.length}') : 'اكتمل السباق');
     final color = r.won && hasOpp ? C.gold : (r.playerRank <= 3 && hasOpp ? C.cyan : Colors.white);
     final avg = ref.read(profileProvider).avgWpm;
     return Scaffold(
@@ -61,7 +61,7 @@ class _ResultScreenState extends ConsumerState<ResultScreen> {
         child: SafeArea(
           child: ListView(padding: const EdgeInsets.all(16), children: [
             Center(child: Text(title, style: TextStyle(fontSize: 30, fontWeight: FontWeight.w900, color: color))),
-            if (r.photoFinish) const Center(child: Padding(padding: EdgeInsets.only(top: 4), child: Text('📸 Photo Finish!', style: TextStyle(color: C.gold, fontWeight: FontWeight.w800)))),
+            if (r.photoFinish) const Center(child: Padding(padding: EdgeInsets.only(top: 4), child: Text('Photo Finish!', style: TextStyle(color: C.gold, fontWeight: FontWeight.w800)))),
             if (r.suspicious)
               const Padding(padding: EdgeInsets.only(top: 8), child: Panel(border: C.red, child: Text('تم اكتشاف إدخال غير طبيعي (لصق أو كتابة آلية). لا تُحتسب هذه النتيجة في المكافآت أو اللوحات.', style: TextStyle(color: C.red)))),
             const SizedBox(height: 14),
@@ -88,7 +88,7 @@ class _ResultScreenState extends ConsumerState<ResultScreen> {
                   Chip(
                     backgroundColor: C.gold.withValues(alpha: 0.2),
                     side: const BorderSide(color: C.gold),
-                    label: Text(const {'best_wpm': '🏅 رقم قياسي في السرعة', 'best_acc': '🎯 رقم قياسي في الدقة', 'combo_max': '🔥 أعلى كومبو'}[rec] ?? rec, style: const TextStyle(fontWeight: FontWeight.w800)),
+                    label: Text(const {'best_wpm': 'رقم قياسي في السرعة', 'best_acc': 'رقم قياسي في الدقة', 'combo_max': 'أعلى كومبو'}[rec] ?? rec, style: const TextStyle(fontWeight: FontWeight.w800)),
                   ),
               ]),
             ],
@@ -103,9 +103,9 @@ class _ResultScreenState extends ConsumerState<ResultScreen> {
                     if (r.config.ranked && hasOpp) _reward(Icons.emoji_events_rounded, o.rpDelta >= 0 ? C.green : C.red, o.rpDelta, 'نقاط تصنيف', signed: true),
                   ]),
                   if (o.capped) const Padding(padding: EdgeInsets.only(top: 8), child: Text('بلغت الحد اليومي للعملات — تحصل على المكافأة الدنيا المضمونة.', style: TextStyle(color: C.textDim, fontSize: 12))),
-                  if (o.levelUp) Padding(padding: const EdgeInsets.only(top: 10), child: Text('🎉 ارتقيت إلى المستوى ${o.newLevel}!', style: const TextStyle(color: C.gold, fontWeight: FontWeight.w900, fontSize: 16))),
-                  if (o.tierUp) Padding(padding: const EdgeInsets.only(top: 6), child: Text('⬆️ ترقية التصنيف: ${Ranks.tierOf(db, o.rpAfter).icon} ${Ranks.tierOf(db, o.rpAfter).label}', style: const TextStyle(color: C.green, fontWeight: FontWeight.w900))),
-                  if (o.tierDown) Padding(padding: const EdgeInsets.only(top: 6), child: Text('⬇️ انخفض تصنيفك إلى ${Ranks.tierOf(db, o.rpAfter).label}', style: const TextStyle(color: C.red, fontWeight: FontWeight.w800))),
+                  if (o.levelUp) Padding(padding: const EdgeInsets.only(top: 10), child: Text('ارتقيت إلى المستوى ${o.newLevel}!', style: const TextStyle(color: C.gold, fontWeight: FontWeight.w900, fontSize: 16))),
+                  if (o.tierUp) Padding(padding: const EdgeInsets.only(top: 6), child: Text('ترقية التصنيف: ${Ranks.tierOf(db, o.rpAfter).icon} ${Ranks.tierOf(db, o.rpAfter).label}', style: const TextStyle(color: C.green, fontWeight: FontWeight.w900))),
+                  if (o.tierDown) Padding(padding: const EdgeInsets.only(top: 6), child: Text('انخفض تصنيفك إلى ${Ranks.tierOf(db, o.rpAfter).label}', style: const TextStyle(color: C.red, fontWeight: FontWeight.w800))),
                 ]),
               ),
             if (o.rewarded && o.coins > 0 && !r.suspicious) ...[const SizedBox(height: 12), RewardedAdCard(doubleCoins: o.coins)],
@@ -123,7 +123,7 @@ class _ResultScreenState extends ConsumerState<ResultScreen> {
                       decoration: BoxDecoration(color: s.isPlayer ? C.cyan.withValues(alpha: 0.15) : Colors.transparent, borderRadius: BorderRadius.circular(10)),
                       child: Row(children: [
                         SizedBox(width: 26, child: Text('${s.rank}', style: TextStyle(fontWeight: FontWeight.w900, color: s.rank == 1 ? C.gold : Colors.white70))),
-                        if (!s.isGhost && s.cc.isNotEmpty) Text('${flagEmoji(s.cc)} ') else if (s.isGhost) const Text('👻 '),
+                        if (!s.isGhost && s.cc.isNotEmpty) Text('${flagEmoji(s.cc)} ') else if (s.isGhost) const Icon(Icons.visibility, size: 16, color: C.textDim),
                         Expanded(child: Text(s.isPlayer ? '${s.name} (أنت)' : s.name, style: TextStyle(fontWeight: s.isPlayer ? FontWeight.w900 : FontWeight.w600), overflow: TextOverflow.ellipsis)),
                         if (s.isAi) Container(margin: const EdgeInsets.only(left: 6), padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 1), decoration: BoxDecoration(border: Border.all(color: C.cyan.withValues(alpha: .6)), borderRadius: BorderRadius.circular(6)), child: const Text('AI', style: TextStyle(fontSize: 9, color: C.cyan, fontWeight: FontWeight.w900))),
                         const SizedBox(width: 8),
@@ -137,7 +137,7 @@ class _ResultScreenState extends ConsumerState<ResultScreen> {
             ],
             if (_weakKeys(r).isNotEmpty) ...[
               const SizedBox(height: 12),
-              Panel(child: Row(children: [const Text('🎯 ', style: TextStyle(fontSize: 18)), Expanded(child: Text('أكثر الحروف أخطاءً: ${_weakKeys(r).join('  ')}', style: const TextStyle(fontWeight: FontWeight.w700)))])),
+              Panel(child: Row(children: [const Icon(Icons.track_changes, size: 18, color: C.gold), const SizedBox(width: 6), Expanded(child: Text('أكثر الحروف أخطاءً: ${_weakKeys(r).join('  ')}', style: const TextStyle(fontWeight: FontWeight.w700)))])),
             ],
             const SizedBox(height: 18),
             if (widget.onPrimary != null) NeonButton(label: widget.primaryLabel ?? 'متابعة', icon: Icons.arrow_forward_rounded, onPressed: widget.onPrimary),
@@ -175,7 +175,7 @@ class _ResultScreenState extends ConsumerState<ResultScreen> {
                 color: C.gold,
                 onPressed: () async {
                   try {
-                    await ShareCardRenderer.share(CardBuilder.race(db, ref.read(profileProvider), r), text: '${r.wpm.round()} WPM بدقة ${r.accuracy.round()}% في Type Racer Legends 🏁');
+                    await ShareCardRenderer.share(CardBuilder.race(db, ref.read(profileProvider), r), text: '${r.wpm.round()} WPM بدقة ${r.accuracy.round()}% في Type Racer Legends');
                   } catch (_) {
                     if (context.mounted) toast(context, 'تعذّرت المشاركة');
                   }

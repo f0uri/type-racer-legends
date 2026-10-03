@@ -51,7 +51,7 @@ class SettingsScreen extends ConsumerWidget {
               Row(children: [
                 GestureDetector(
                   onTap: () => _pickAvatar(context, ref),
-                  child: CircleAvatar(radius: 28, backgroundColor: C.surface2, child: Text(avatars[p.avatar % avatars.length], style: const TextStyle(fontSize: 28))),
+                  child: CircleAvatar(radius: 28, backgroundColor: C.surface2, child: Icon(avatars[p.avatar % avatars.length], size: 26, color: C.cyan)),
                 ),
                 const SizedBox(width: 12),
                 Expanded(
@@ -82,7 +82,7 @@ class SettingsScreen extends ConsumerWidget {
                   busy: auth.busy,
                   onPressed: () async {
                     final err = await ref.read(authProvider.notifier).signInWithGoogle();
-                    if (context.mounted) toast(context, err ?? 'تم الربط وتمت مزامنة تقدمك ✓');
+                    if (context.mounted) toast(context, err ?? 'تم الربط وتمت مزامنة تقدمك');
                   },
                 ),
               const SizedBox(height: 10),
@@ -141,7 +141,7 @@ class SettingsScreen extends ConsumerWidget {
             ListTile(contentPadding: EdgeInsets.zero, title: const Text('التحقق من التحديثات الآن'), trailing: const Icon(Icons.system_update_rounded, color: C.cyan), onTap: () => manualUpdateCheck(context, ref)),
             ListTile(contentPadding: EdgeInsets.zero, title: const Text('تحديث المحتوى (نصوص، مركبات، أحداث)'), trailing: const Icon(Icons.sync_rounded, color: C.cyan), onTap: () async {
               final applied = await ref.read(contentUpdaterProvider.notifier).refresh(force: true);
-              if (context.mounted) toast(context, applied ? 'تم تحديث المحتوى ✅' : 'المحتوى محدّث');
+              if (context.mounted) toast(context, applied ? 'تم تحديث المحتوى' : 'المحتوى محدّث');
             }),
           ])),
           _section('حول'),
@@ -163,7 +163,7 @@ class SettingsScreen extends ConsumerWidget {
       case SyncPhase.syncing:
         return 'جارٍ المزامنة...';
       case SyncPhase.ok:
-        return 'تمت المزامنة ✓';
+        return 'تمت المزامنة';
       case SyncPhase.error:
         return 'تعذّرت المزامنة، سيُعاد المحاولة تلقائياً. تقدمك محفوظ محلياً.';
       default:
@@ -188,12 +188,13 @@ class SettingsScreen extends ConsumerWidget {
   }
 
   Future<void> _pickAvatar(BuildContext c, WidgetRef ref) async {
+    final current = ref.read(profileProvider).avatar;
     final i = await showModalBottomSheet<int>(
       context: c,
       builder: (ctx) => Padding(
         padding: const EdgeInsets.all(20),
         child: Wrap(spacing: 14, runSpacing: 14, alignment: WrapAlignment.center, children: [
-          for (var i = 0; i < avatars.length; i++) GestureDetector(onTap: () => Navigator.pop(ctx, i), child: CircleAvatar(radius: 28, backgroundColor: C.surface2, child: Text(avatars[i], style: const TextStyle(fontSize: 28)))),
+          for (var i = 0; i < avatars.length; i++) GestureDetector(onTap: () => Navigator.pop(ctx, i), child: CircleAvatar(radius: 28, backgroundColor: C.surface2, child: Icon(avatars[i], size: 26, color: i == current ? C.cyan : C.textDim))),
         ]),
       ),
     );
@@ -246,7 +247,7 @@ class SettingsScreen extends ConsumerWidget {
           ..clear()
           ..addAll(merged.d);
       });
-      if (c.mounted) toast(c, 'تمت استعادة النسخة الاحتياطية بدمج آمن ✓');
+      if (c.mounted) toast(c, 'تمت استعادة النسخة الاحتياطية بدمج آمن');
     } catch (e) {
       if (c.mounted) toast(c, 'تعذّر جلب النسخ الاحتياطية');
     }

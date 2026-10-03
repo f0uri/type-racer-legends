@@ -81,7 +81,7 @@ class MandatoryUpdateScreen extends StatelessWidget {
                   child: Directionality(
                     textDirection: TextDirection.rtl,
                     child: Column(mainAxisSize: MainAxisSize.min, children: const [
-                      Text('🚀', style: TextStyle(fontSize: 64)),
+                      const Icon(Icons.rocket_launch, size: 64, color: C.cyan),
                       SizedBox(height: 10),
                       Text('تحديث إلزامي', style: TextStyle(fontSize: 26, fontWeight: FontWeight.w900)),
                       SizedBox(height: 6),
@@ -194,7 +194,7 @@ class _UpdatePanelState extends ConsumerState<UpdatePanel> {
       case UpdatePhase.downloaded:
       case UpdatePhase.installing:
         return [
-          const Center(child: Text('تم التنزيل والتحقق من سلامة الملف ✅', style: TextStyle(color: C.green, fontWeight: FontWeight.w800))),
+          const Center(child: Text('تم التنزيل والتحقق من سلامة الملف', style: TextStyle(color: C.green, fontWeight: FontWeight.w800))),
           const SizedBox(height: 8),
           NeonButton(label: 'تثبيت الآن', icon: Icons.install_mobile_rounded, busy: s.phase == UpdatePhase.installing, onPressed: c.install),
         ];
@@ -237,7 +237,7 @@ Future<void> manualUpdateCheck(BuildContext context, WidgetRef ref) async {
     await showUpdateDialog(context);
   } else {
     final v = (await ref.read(appInfoProvider.future)).versionName;
-    if (context.mounted) toast(context, 'أنت على أحدث إصدار ($v) ✅');
+    if (context.mounted) toast(context, 'أنت على أحدث إصدار ($v)');
   }
 }
 

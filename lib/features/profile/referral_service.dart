@@ -56,7 +56,7 @@ class ReferralService {
       final r = await cloud.callFn<Map<dynamic, dynamic>>('claimReferralRewards', const {});
       final coins = (r?['coins'] as num?)?.toInt() ?? 0, gems = (r?['gems'] as num?)?.toInt() ?? 0, n = (r?['invitees'] as num?)?.toInt() ?? 0;
       if (coins == 0 && gems == 0) return const ReferralResult(true, 'لا توجد مكافآت جاهزة الآن.');
-      return ReferralResult(true, 'استلمت $coins عملة و$gems جوهرة 🎉', coins: coins, gems: gems, invitees: n);
+      return ReferralResult(true, 'استلمت $coins عملة و$gems جوهرة', coins: coins, gems: gems, invitees: n);
     } on FirebaseFunctionsException catch (e) {
       return ReferralResult(false, _error(e));
     } catch (_) {

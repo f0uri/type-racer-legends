@@ -26,7 +26,7 @@ class ReminderPlanner {
       // played today -> the streak is safe today; it will end at the end of tomorrow unless the player returns
       final at = !playedToday && now.isBefore(today) ? today : today.add(const Duration(days: 1));
       final days = playedToday ? p.streak + 1 : p.streak;
-      out.add(Reminder(streakId, at, '🔥 سلسلتك في خطر!', 'سلسلة $days يوم ستنتهي بعد ساعتين — افتح اللعبة وحافظ عليها.'));
+      out.add(Reminder(streakId, at, 'سلسلتك في خطر!', 'سلسلة $days يوم ستنتهي بعد ساعتين — افتح اللعبة وحافظ عليها.'));
     }
     if (s.eventNotifs) {
       var i = 0;
@@ -38,9 +38,9 @@ class ReminderPlanner {
         if (!e.enabled || e.startsAt == null || e.endsAt == null || e.endsAt!.isBefore(now)) continue;
         final name = loc(e.name);
         final start = at(e.startsAt!);
-        if (start != null) out.add(Reminder(200 + i++, start, '🎉 بدأ حدث $name', 'مهام ومكافآت خاصة بانتظارك — لفترة محدودة!'));
+        if (start != null) out.add(Reminder(200 + i++, start, 'بدأ حدث $name', 'مهام ومكافآت خاصة بانتظارك — لفترة محدودة!'));
         final last = at(e.endsAt!.subtract(const Duration(days: 1)));
-        if (last != null && e.startsAt!.isBefore(last)) out.add(Reminder(200 + i++, last, '⏳ ينتهي حدث $name غداً', 'أكمل مهامك واستلم مكافآتك قبل فوات الأوان.'));
+        if (last != null && e.startsAt!.isBefore(last)) out.add(Reminder(200 + i++, last, 'ينتهي غداً: حدث $name', 'أكمل مهامك واستلم مكافآتك قبل فوات الأوان.'));
       }
     }
     out.sort((a, b) => a.at.compareTo(b.at));

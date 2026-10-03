@@ -25,7 +25,7 @@ class _QuickRaceSheetState extends ConsumerState<QuickRaceSheet> {
       child: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.start, children: [
         Center(child: Container(width: 44, height: 4, decoration: BoxDecoration(color: Colors.white24, borderRadius: BorderRadius.circular(2)))),
         const SizedBox(height: 14),
-        const Text('⚡ سباق سريع', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w900)),
+        const Text('سباق سريع', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w900)),
         const Text('تتسابق ضد منافسين بالذكاء الاصطناعي بحسب مستواك.', style: TextStyle(color: C.textDim, fontSize: 12)),
         const SizedBox(height: 14),
         Text('عدد المنافسين: ${count.round()}', style: const TextStyle(fontWeight: FontWeight.w700)),
@@ -42,7 +42,7 @@ class _QuickRaceSheetState extends ConsumerState<QuickRaceSheet> {
           onSelectionChanged: (s) => setState(() => len = s.first),
         ),
         const SizedBox(height: 6),
-        SwitchListTile(contentPadding: EdgeInsets.zero, value: ranked, onChanged: (v) => setState(() => ranked = v), title: const Text('سباق تصنيفي'), subtitle: const Text('يؤثر على نقاط التصنيف (برونزي ← أسطورة)', style: TextStyle(fontSize: 12))),
+        SwitchListTile(contentPadding: EdgeInsets.zero, value: ranked, onChanged: (v) => setState(() => ranked = v), title: const Text('سباق تصنيفي'), subtitle: const Text('يؤثر على نقاط التصنيف (من برونزي إلى أسطورة)', style: TextStyle(fontSize: 12))),
         const SizedBox(height: 8),
         NeonButton(label: 'ابدأ', icon: Icons.flag_rounded, onPressed: _go),
       ]),

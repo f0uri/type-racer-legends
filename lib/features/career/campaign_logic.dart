@@ -19,7 +19,7 @@ class StageOutcome {
 class CampaignLogic {
   static bool unlocked(PlayerProfile p, int n) => n <= 1 || p.campaignStars(n - 1) > 0;
 
-  /// ★ finish top 2 · ★★ win · ★★★ win with accuracy >= stage goal.
+  /// finish top 2 · win · win with accuracy >= stage goal.
   static int starsFor(RaceResult r, Stage s) {
     if (r.suspicious || r.timeUp) return 0;
     if (r.playerRank > 2) return 0;

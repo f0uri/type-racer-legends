@@ -177,7 +177,7 @@ class IapController extends Notifier<IapState> {
             var delivered = false;
             ref.read(profileProvider.notifier).update((p) => delivered = IapDelivery.deliver(p, db, pd.productID, pd.purchaseID ?? '${pd.productID}_${pd.transactionDate}'));
             if (delivered) ref.read(analyticsProvider).log('purchase', {'product': pd.productID});
-            state = state.copy(loading: false, message: delivered ? 'تمت العملية بنجاح 🎉' : 'منتج غير معروف');
+            state = state.copy(loading: false, message: delivered ? 'تمت العملية بنجاح' : 'منتج غير معروف');
             ref.read(profileProvider.notifier).syncNow();
           } else {
             state = state.copy(loading: false, message: 'فشل التحقق من عملية الشراء');

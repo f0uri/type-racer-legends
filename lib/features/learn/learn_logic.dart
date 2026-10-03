@@ -24,7 +24,7 @@ class LessonsLogic {
 
   static int completed(PlayerProfile p) => p.m('lessons').values.where((v) => (v as num) > 0).length;
 
-  /// ★ pass (accuracy + target speed) · ★★ accuracy +4 · ★★★ accuracy 98% and +8 WPM.
+  /// 3 stars: pass (accuracy + target speed) · +4 accuracy · 98% accuracy and +8 WPM.
   static int starsFor(RaceResult r, Lesson l) {
     if (r.suspicious || r.chars < l.text.length * 0.9) return 0;
     if (r.accuracy < l.minAcc || r.wpm < l.targetWpm) return 0;

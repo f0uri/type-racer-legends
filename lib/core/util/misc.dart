@@ -17,11 +17,13 @@ String loc(dynamic m, [String lang = 'ar']) {
   return '';
 }
 
-String flagEmoji(String cc) {
-  if (cc.length != 2) return '🏳️';
-  final a = cc.toUpperCase().codeUnits;
-  return String.fromCharCodes([0x1F1E6 + a[0] - 65, 0x1F1E6 + a[1] - 65]);
-}
+/// Two-letter country tag ("MA"), drawn as a text badge.
+/// Country flags were emoji (U+1F1E6 flags): those render as empty boxes on many Android builds,
+/// so a crisp two-letter tag is both safer and reads better in a game HUD.
+String countryTag(String cc) => cc.length == 2 ? cc.toUpperCase() : '';
+
+/// Kept as the name used by existing call sites; returns the same two-letter tag.
+String flagEmoji(String cc) => countryTag(cc);
 
 String fmtInt(num n) {
   final s = n.round().abs().toString();

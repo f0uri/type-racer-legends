@@ -24,9 +24,9 @@ class ModeFlow {
           Text(title, style: const TextStyle(fontWeight: FontWeight.w900, color: C.gold)),
           const SizedBox(height: 6),
           Wrap(spacing: 14, runSpacing: 4, children: [
-            if (coins > 0) Text('🪙 +${fmtInt(coins)}', style: const TextStyle(fontWeight: FontWeight.w800)),
-            if (xp > 0) Text('⚡ +${fmtInt(xp)} خبرة', style: const TextStyle(fontWeight: FontWeight.w800)),
-            if (gems > 0) Text('💎 +$gems', style: const TextStyle(fontWeight: FontWeight.w800)),
+            if (coins > 0) Text('+${fmtInt(coins)} عملة', style: const TextStyle(fontWeight: FontWeight.w800)),
+            if (xp > 0) Text('+${fmtInt(xp)} خبرة', style: const TextStyle(fontWeight: FontWeight.w800)),
+            if (gems > 0) Text('+$gems جوهرة', style: const TextStyle(fontWeight: FontWeight.w800)),
           ]),
           for (final l in lines) Padding(padding: const EdgeInsets.only(top: 4), child: Text(l, style: const TextStyle(color: C.textDim, fontSize: 12))),
         ]),

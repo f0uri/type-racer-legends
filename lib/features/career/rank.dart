@@ -6,19 +6,19 @@ class RankTier {
   final int rp;
   final String label;
   final Color color;
-  final String icon;
+  final IconData icon;
   const RankTier(this.id, this.rp, this.label, this.color, this.icon);
 }
 
 class Ranks {
   static const _labels = {
-    'bronze': ('برونزي', Color(0xFFCD7F32), '🥉'),
-    'silver': ('فضي', Color(0xFFC0C8D6), '🥈'),
-    'gold': ('ذهبي', Color(0xFFFFD166), '🥇'),
-    'platinum': ('بلاتيني', Color(0xFF7DF9FF), '💠'),
-    'diamond': ('ماسي', Color(0xFF6C8CFF), '💎'),
-    'master': ('أسطوري الماجستير', Color(0xFFB388FF), '🔮'),
-    'legend': ('أسطورة', Color(0xFFFF2BD6), '👑'),
+    'bronze': ('برونزي', Color(0xFFCD7F32), Icons.workspace_premium),
+    'silver': ('فضي', Color(0xFFC0C8D6), Icons.military_tech),
+    'gold': ('ذهبي', Color(0xFFFFD166), Icons.emoji_events),
+    'platinum': ('بلاتيني', Color(0xFF7DF9FF), Icons.verified),
+    'diamond': ('ماسي', Color(0xFF6C8CFF), Icons.diamond),
+    'master': ('أسطوري الماجستير', Color(0xFFB388FF), Icons.auto_awesome),
+    'legend': ('أسطورة', Color(0xFFFF2BD6), Icons.local_fire_department),
   };
 
   static List<RankTier> tiers(ContentDb db) {

@@ -48,7 +48,7 @@ class TournamentListScreen extends ConsumerWidget {
     final status = s == null
         ? 'لم تشارك بعد'
         : (s.won
-              ? '🏆 أنت البطل!'
+              ? 'أنت البطل!'
               : (s.alive
                     ? 'جولة ${s.round + 1} من ${d.rounds}'
                     : 'خرجت في الجولة ${s.round + 1}'));
@@ -56,10 +56,7 @@ class TournamentListScreen extends ConsumerWidget {
       onTap: () => ModeFlow.push<void>(context, TournamentScreen(def: d)),
       child: Row(
         children: [
-          Text(
-            d.period == 'weekly' ? '🏆' : '🥇',
-            style: const TextStyle(fontSize: 34),
-          ),
+          Icon(d.period == 'weekly' ? Icons.emoji_events : Icons.military_tech, size: 34, color: C.gold),
           const SizedBox(width: 12),
           Expanded(
             child: Column(
@@ -176,7 +173,7 @@ class TournamentScreen extends ConsumerWidget {
   String _rewardLine(Map<String, dynamic> r) {
     final w = r['win'];
     if (w is! Map) return '—';
-    return '🪙 ${w['coins'] ?? 0}${w['gems'] != null ? '  💎 ${w['gems']}' : ''}${w['title'] != null ? '  🏷️ لقب' : ''}';
+    return '${w['coins'] ?? 0} عملة${w['gems'] != null ? '  + ${w['gems']} جوهرة' : ''}${w['title'] != null ? '  + لقب' : ''}';
   }
 
   Widget _action(
@@ -285,8 +282,8 @@ class _MatchResult extends StatelessWidget {
             children: [
               Text(
                 champion
-                    ? '🏆 أنت بطل ${loc(def.name)}!'
-                    : (won ? '✅ تأهلت للجولة التالية' : '❌ خرجت من البطولة'),
+                    ? 'أنت بطل ${loc(def.name)}!'
+                    : (won ? 'تأهلت للجولة التالية' : 'خرجت من البطولة'),
                 style: TextStyle(
                   fontWeight: FontWeight.w900,
                   fontSize: 18,
@@ -309,8 +306,8 @@ class _MatchResult extends StatelessWidget {
             xp: (earned['xp'] as num?)?.toInt() ?? 0,
             gems: (earned['gems'] as num?)?.toInt() ?? 0,
             lines: [
-              if (earned['title'] != null) '🏷️ لقب جديد',
-              if (earned['skin'] != null) '🎨 عنصر تجميلي جديد',
+              if (earned['title'] != null) 'لقب جديد',
+              if (earned['skin'] != null) 'عنصر تجميلي جديد',
             ],
           ),
         ],
@@ -394,7 +391,7 @@ class _MatchCard extends StatelessWidget {
             const SizedBox(width: 4),
             Expanded(
               child: Text(
-                e.isPlayer ? '${e.name} ★' : e.name,
+                e.isPlayer ? '${e.name}' : e.name,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(
                   fontSize: 12,
@@ -448,7 +445,7 @@ class _Champion extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Text('🏆', style: TextStyle(fontSize: 44)),
+          const Icon(Icons.emoji_events, size: 44, color: C.gold),
           Text(
             champ == null ? 'البطل' : champ.name,
             textAlign: TextAlign.center,

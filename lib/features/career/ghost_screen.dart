@@ -36,7 +36,7 @@ class GhostScreen extends ConsumerWidget {
                 child: Panel(
                   onTap: () => _race(context, tid, g.value),
                   child: Row(children: [
-                    const Text('👻', style: TextStyle(fontSize: 28)),
+                    const Icon(Icons.visibility, size: 28, color: C.cyan),
                     const SizedBox(width: 10),
                     Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                       Text(t.text, maxLines: 1, overflow: TextOverflow.ellipsis, textDirection: TextDirection.ltr, style: const TextStyle(fontSize: 13)),
@@ -72,4 +72,4 @@ class GhostScreen extends ConsumerWidget {
   }
 }
 
-GhostSpec? ghostFromSaved(Map<String, dynamic>? saved) => saved == null ? null : GhostSpec(name: '👻 رقمك', wpm: (saved['wpm'] as num).toDouble(), personal: true);
+GhostSpec? ghostFromSaved(Map<String, dynamic>? saved) => saved == null ? null : GhostSpec(name: 'رقمك', wpm: (saved['wpm'] as num).toDouble(), personal: true);

@@ -71,7 +71,7 @@ class _HomeShellState extends ConsumerState<HomeShell> {
       context: context,
       barrierDismissible: false,
       builder: (ctx) => AlertDialog(
-        title: const Text('🏁 جديد في اللعبة؟'),
+        title: const Text('جديد في اللعبة؟'),
         content: const Text('جرّب الشرح التفاعلي (دقيقة واحدة) واحصل على 200 عملة هدية. يمكنك إعادته من الإعدادات.'),
         actions: [
           TextButton(onPressed: () => Navigator.pop(ctx, false), child: const Text('تخطّي')),
@@ -95,7 +95,7 @@ class _HomeShellState extends ConsumerState<HomeShell> {
         child: Padding(
           padding: const EdgeInsets.all(14),
           child: Column(mainAxisSize: MainAxisSize.min, children: [
-            const Text('مرحباً بعودتك! 🎁', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w900)),
+            const Text('مرحباً بعودتك!', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w900)),
             const SizedBox(height: 10),
             const LoginStreakCard(),
             TextButton(onPressed: () => Navigator.of(ctx).pop(), child: const Text('إغلاق')),

@@ -59,7 +59,7 @@ void main() {
       await t.pump(const Duration(milliseconds: 200));
     }
     // the daily login dialog appears on first open
-    expect(find.text('مرحباً بعودتك! 🎁'), findsOneWidget);
+    expect(find.text('مرحباً بعودتك!'), findsOneWidget);
     await t.tap(find.text('استلم مكافأة اليوم'));
     await t.pump(const Duration(milliseconds: 300));
     expect(c.read(profileProvider).coins, greaterThan(0));

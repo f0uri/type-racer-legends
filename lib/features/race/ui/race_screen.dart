@@ -289,7 +289,7 @@ class _RaceScreenState extends ConsumerState<RaceScreen> with WidgetsBindingObse
   void _layoutHint() {
     if (_layoutHintShown) return;
     _layoutHintShown = true;
-    _popup('🔤 بدّل لوحة المفاتيح إلى الإنجليزية', C.gold);
+    _popup('بدّل لوحة المفاتيح إلى الإنجليزية', C.gold);
     haptics.light();
   }
 
@@ -301,34 +301,34 @@ class _RaceScreenState extends ConsumerState<RaceScreen> with WidgetsBindingObse
           _popup('COMBO x${e.value.toInt()}', C.gold);
           break;
         case RaceEventType.nitroStart:
-          _popup('🔥 NITRO!', C.cyan);
+          _popup('NITRO!', C.cyan);
           break;
         case RaceEventType.perfectWord:
-          _popup('✨ كلمة مثالية', C.gold);
+          _popup('كلمة مثالية', C.gold);
           break;
         case RaceEventType.pitPrompt:
-          _popup('🔧 نقطة صيانة!', C.green);
+          _popup('نقطة صيانة!', C.green);
           break;
         case RaceEventType.pitSuccess:
-          _popup('🔧 صيانة مثالية! +نيترو', C.green);
+          _popup('صيانة مثالية! +نيترو', C.green);
           break;
         case RaceEventType.pitFail:
-          _popup('🔧 صيانة بطيئة!', C.red);
+          _popup('صيانة بطيئة!', C.red);
           break;
         case RaceEventType.powerPrompt:
-          _popup('⚡ اكتب الكلمة!', C.cyan);
+          _popup('اكتب الكلمة!', C.cyan);
           break;
         case RaceEventType.powerSuccess:
-          _popup(const {'shield': '🛡️ درع!', 'emp': '📡 EMP!', 'turbo': '🚀 توربو!', 'dodge': '✅ تفاديت الهجوم'}[e.text] ?? '⚡', C.cyan);
+          _popup(const {'shield': 'درع!', 'emp': 'EMP!', 'turbo': 'توربو!', 'dodge': 'تفاديت الهجوم'}[e.text] ?? 'قوة!', C.cyan);
           break;
         case RaceEventType.powerFail:
           _popup('فاتتك الفرصة', C.textDim);
           break;
         case RaceEventType.shieldBlocked:
-          _popup('🛡️ الدرع حماك!', C.cyan);
+          _popup('الدرع حماك!', C.cyan);
           break;
         case RaceEventType.stunned:
-          _popup('📡 تعطّل ${e.who}', C.cyan);
+          _popup('تعطّل ${e.who}', C.cyan);
           break;
         case RaceEventType.overtake:
           _popup('تجاوزت ${e.who}', C.green);
@@ -337,19 +337,19 @@ class _RaceScreenState extends ConsumerState<RaceScreen> with WidgetsBindingObse
           _popup('${e.who} تجاوزك', C.red);
           break;
         case RaceEventType.incoming:
-          _popup('⚠️ هجوم من ${e.who}!', C.red);
+          _popup('هجوم من ${e.who}!', C.red);
           break;
         case RaceEventType.hit:
-          _popup('💥 أصابك ${e.who}', C.red);
+          _popup('أصابك ${e.who}', C.red);
           break;
         case RaceEventType.rocket:
-          _popup('🚀 إصابة ${e.who}', C.gold);
+          _popup('إصابة ${e.who}', C.gold);
           break;
         case RaceEventType.kill:
-          _popup('☠️ دُمّر ${e.who}!', C.gold);
+          _popup('دُمّر ${e.who}!', C.gold);
           break;
         case RaceEventType.slipstreamOn:
-          _popup('💨 Slipstream', C.textDim);
+          _popup('Slipstream', C.textDim);
           break;
         case RaceEventType.taunt:
           setState(() => taunt = (who: e.who ?? '', text: e.text ?? ''));
@@ -528,7 +528,7 @@ class _RaceScreenState extends ConsumerState<RaceScreen> with WidgetsBindingObse
                 },
               ),
               Expanded(child: Text(cfg.title, style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 14), overflow: TextOverflow.ellipsis)),
-              _stat(left != null ? '⏱ ${left.toStringAsFixed(0)}s' : '⏱ ${t.toStringAsFixed(1)}s', C.textDim),
+              _statTime(left ?? t, C.textDim),
               _stat('${wpm.round()} WPM', C.cyan, big: true),
               _stat('${engine.accuracy.toStringAsFixed(0)}%', engine.accuracy >= 95 ? C.green : (engine.accuracy >= 85 ? C.gold : C.red)),
               const SizedBox(width: 8),
@@ -540,6 +540,16 @@ class _RaceScreenState extends ConsumerState<RaceScreen> with WidgetsBindingObse
   Widget _stat(String t, Color c, {bool big = false}) => Padding(
         padding: const EdgeInsets.symmetric(horizontal: 6),
         child: Text(t, textDirection: TextDirection.ltr, style: TextStyle(color: c, fontWeight: FontWeight.w900, fontSize: big ? 17 : 13, fontFamily: 'FiraMono')),
+      );
+
+  /// Race clock: the timer glyph is a vector icon so the number stays LTR-mono.
+  Widget _statTime(double seconds, Color c) => Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 6),
+        child: Row(mainAxisSize: MainAxisSize.min, children: [
+          Icon(Icons.timer_outlined, size: 13, color: c),
+          const SizedBox(width: 3),
+          Text('${seconds.toStringAsFixed(seconds < 10 ? 1 : 0)}s', style: TextStyle(color: c, fontWeight: FontWeight.w900, fontSize: 13, fontFamily: 'FiraMono')),
+        ]),
       );
 
   Widget _progressStrip() => SizedBox(
@@ -603,7 +613,7 @@ class _RaceScreenState extends ConsumerState<RaceScreen> with WidgetsBindingObse
                     decoration: BoxDecoration(color: Colors.black45, borderRadius: BorderRadius.circular(14), border: Border.all(color: C.gold)),
                     child: Text('x$mult  ${engine.combo}', style: const TextStyle(color: C.gold, fontWeight: FontWeight.w900, fontFamily: 'FiraMono')),
                   ),
-                if (session.riskBadge(cfg)) ...[const SizedBox(width: 8), const Text('🎲 x2', style: TextStyle(fontWeight: FontWeight.w900))],
+                if (session.riskBadge(cfg)) ...[const SizedBox(width: 8), const Text('x2', style: TextStyle(fontWeight: FontWeight.w900))],
               ]);
             },
           ),
@@ -645,7 +655,7 @@ class _RaceScreenState extends ConsumerState<RaceScreen> with WidgetsBindingObse
               constraints: const BoxConstraints(maxWidth: 220),
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
               decoration: BoxDecoration(color: Colors.black.withValues(alpha: 0.7), borderRadius: BorderRadius.circular(12), border: Border.all(color: Colors.white24)),
-              child: Text('🤖 ${taunt!.who}: ${taunt!.text}', style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w700)),
+              child: Text('${taunt!.who}: ${taunt!.text}', style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w700)),
             ),
           ),
       ]);
@@ -700,7 +710,11 @@ class _RaceScreenState extends ConsumerState<RaceScreen> with WidgetsBindingObse
                     child: Container(
                       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
                       decoration: BoxDecoration(color: C.red.withValues(alpha: 0.18), borderRadius: BorderRadius.circular(10), border: Border.all(color: C.red)),
-                      child: const Text('⌫ امسح الحرف الأحمر بزر المسح', style: TextStyle(color: C.red, fontWeight: FontWeight.w800, fontSize: 12)),
+                      child: const Row(mainAxisSize: MainAxisSize.min, children: [
+                        Icon(Icons.backspace_outlined, size: 14, color: C.red),
+                        SizedBox(width: 5),
+                        Text('امسح الحرف الأحمر بزر المسح', style: TextStyle(color: C.red, fontWeight: FontWeight.w800, fontSize: 12)),
+                      ]),
                     ),
                   ),
                 ),
@@ -712,7 +726,7 @@ class _RaceScreenState extends ConsumerState<RaceScreen> with WidgetsBindingObse
                         padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
                         decoration: BoxDecoration(color: Colors.black.withValues(alpha: 0.82), borderRadius: BorderRadius.circular(12), border: Border.all(color: C.red, width: 2)),
                         child: const Column(mainAxisSize: MainAxisSize.min, children: [
-                          Text('اضغط زر المسح ⌫', style: TextStyle(color: C.red, fontWeight: FontWeight.w900, fontSize: 16)),
+                          Text('اضغط زر المسح', style: TextStyle(color: C.red, fontWeight: FontWeight.w900, fontSize: 16)),
                           Text('لن تُكتب حروف جديدة قبل مسح الأخطاء', style: TextStyle(color: Colors.white70, fontSize: 11)),
                         ]),
                       ),
@@ -724,7 +738,11 @@ class _RaceScreenState extends ConsumerState<RaceScreen> with WidgetsBindingObse
                   child: Container(
                     color: C.bg.withValues(alpha: 0.75),
                     alignment: Alignment.center,
-                    child: const Text('اضغط لإظهار لوحة المفاتيح ⌨️', style: TextStyle(fontWeight: FontWeight.w800)),
+                    child: const Row(mainAxisSize: MainAxisSize.min, children: [
+                      Icon(Icons.keyboard, size: 20),
+                      SizedBox(width: 8),
+                      Text('اضغط لإظهار لوحة المفاتيح', style: TextStyle(fontWeight: FontWeight.w800)),
+                    ]),
                   ),
                 ),
             ]);
@@ -744,7 +762,7 @@ class _RaceScreenState extends ConsumerState<RaceScreen> with WidgetsBindingObse
   }
 
   Widget _challengeCard(Challenge c) {
-    final label = switch (c.kind) { ChallengeKind.shield => '🛡️ درع — اكتب الكلمة', ChallengeKind.emp => '📡 EMP — عطّل منافساً', ChallengeKind.turbo => '🚀 توربو — اكتب بسرعة', ChallengeKind.pit => '🔧 نقطة صيانة — بدون أي خطأ!', ChallengeKind.defend => '🎯 هجوم قادم — تفادَ بسرعة!' };
+    final label = switch (c.kind) { ChallengeKind.shield => 'درع — اكتب الكلمة', ChallengeKind.emp => 'EMP — عطّل منافساً', ChallengeKind.turbo => 'توربو — اكتب بسرعة', ChallengeKind.pit => 'نقطة صيانة — بدون أي خطأ!', ChallengeKind.defend => 'هجوم قادم — تفادَ بسرعة!' };
     final color = c.isPit ? C.green : (c.kind == ChallengeKind.defend ? C.red : C.cyan);
     return Positioned.fill(
       child: Container(
@@ -802,14 +820,14 @@ class _RaceScreenState extends ConsumerState<RaceScreen> with WidgetsBindingObse
                       child: Row(children: [
                         Text(flagEmoji(o.cc), style: const TextStyle(fontSize: 18)),
                         const SizedBox(width: 8),
-                        Expanded(child: Text('${o.isBoss ? '👑 ' : ''}${o.name}', style: const TextStyle(fontWeight: FontWeight.w700))),
+                        Expanded(child: Text('${o.isBoss ? '★ ' : ''}${o.name}', style: const TextStyle(fontWeight: FontWeight.w700))),
                         Text(Persona.label(o.persona), style: const TextStyle(color: C.textDim, fontSize: 11)),
                         const SizedBox(width: 8),
                         _aiBadge(),
                       ]),
                     ),
                   for (final g in cfg.ghosts)
-                    Padding(padding: const EdgeInsets.symmetric(vertical: 3), child: Row(children: [const Text('👻', style: TextStyle(fontSize: 18)), const SizedBox(width: 8), Expanded(child: Text(g.name)), Text('${g.wpm.round()} WPM', style: const TextStyle(color: C.textDim, fontSize: 12))])),
+                    Padding(padding: const EdgeInsets.symmetric(vertical: 3), child: Row(children: [const Icon(Icons.visibility, size: 18, color: C.textDim), const SizedBox(width: 8), Expanded(child: Text(g.name)), Text('${g.wpm.round()} WPM', style: const TextStyle(color: C.textDim, fontSize: 12))])),
                   const SizedBox(height: 6),
                   const Text('جميع المنافسين ذكاء اصطناعي — لا يوجد لاعبون حقيقيون في السباقات.', style: TextStyle(color: C.textDim, fontSize: 11)),
                 ],
@@ -824,7 +842,7 @@ class _RaceScreenState extends ConsumerState<RaceScreen> with WidgetsBindingObse
                   contentPadding: EdgeInsets.zero,
                   value: riskOn,
                   onChanged: (v) => setState(() => riskOn = v),
-                  title: const Text('🎲 مضاعف المخاطرة x2', style: TextStyle(fontWeight: FontWeight.w800)),
+                  title: const Text('مضاعف المخاطرة x2', style: TextStyle(fontWeight: FontWeight.w800)),
                   subtitle: const Text('مكافآت مضاعفة، لكن كل خطأ يبطئك أكثر ويصفّر النيترو.', style: TextStyle(fontSize: 12)),
                   ),
                 ),
@@ -878,7 +896,7 @@ class _RaceScreenState extends ConsumerState<RaceScreen> with WidgetsBindingObse
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 6),
                 decoration: BoxDecoration(color: Colors.black.withValues(alpha: 0.7), borderRadius: BorderRadius.circular(8), border: Border.all(color: C.gold, width: 2)),
-                child: const Text('📸 PHOTO FINISH', style: TextStyle(fontWeight: FontWeight.w900, letterSpacing: 2, color: C.gold, fontSize: 20)),
+                child: const Text('PHOTO FINISH', style: TextStyle(fontWeight: FontWeight.w900, letterSpacing: 2, color: C.gold, fontSize: 20)),
               ),
               const SizedBox(height: 6),
               const Text('إعادة بطيئة', style: TextStyle(color: Colors.white70)),
@@ -892,7 +910,11 @@ class _RaceScreenState extends ConsumerState<RaceScreen> with WidgetsBindingObse
           color: Colors.black.withValues(alpha: 0.8),
           alignment: Alignment.center,
           child: Column(mainAxisSize: MainAxisSize.min, children: [
-            const Text('⏸ السباق متوقف', style: TextStyle(fontSize: 24, fontWeight: FontWeight.w900)),
+            const Row(mainAxisSize: MainAxisSize.min, children: [
+              Icon(Icons.pause_circle_outline, size: 26),
+              SizedBox(width: 8),
+              Text('السباق متوقف', style: TextStyle(fontSize: 24, fontWeight: FontWeight.w900)),
+            ]),
             const SizedBox(height: 16),
             SizedBox(
               width: 220,
