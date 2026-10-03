@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/providers.dart';
@@ -30,9 +32,20 @@ class ResultScreen extends ConsumerStatefulWidget {
 }
 
 class _ResultScreenState extends ConsumerState<ResultScreen> {
+  /// Where the coin burst starts (measured from the real reward row) and where it lands.
+  final GlobalKey _coinKey = GlobalKey();
+  Offset? _coinsFrom;
+  Offset _coinsTo = Offset.zero;
+  bool _burst = false;
+
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      ref.read(raceChainProvider.notifier).state = ref.read(raceChainProvider) + 1;
+      _startCoinBurst();
+    });
     if (widget.outcome.breakDue) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         if (!mounted) return;
@@ -48,9 +61,26 @@ class _ResultScreenState extends ConsumerState<ResultScreen> {
     }
   }
 
+  /// The reward ceremony: the coins that were just earned fly out of the reward row towards
+  /// the wallet corner, where the total pops. Nothing moves the numbers by itself — the player
+  /// watches their own reward travel, which is the whole point of a result screen.
+  void _startCoinBurst() {
+    final o = widget.outcome;
+    if (!o.rewarded || o.coins <= 0 || widget.result.suspicious) return;
+    final box = _coinKey.currentContext?.findRenderObject() as RenderBox?;
+    if (box == null || !box.hasSize) return;
+    final center = box.localToGlobal(box.size.center(Offset.zero));
+    setState(() {
+      _coinsFrom = center;
+      _coinsTo = const Offset(46, 34);
+      _burst = true;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final r = widget.result, o = widget.outcome;
+    final chain = ref.watch(raceChainProvider);
     final db = ref.watch(contentProvider);
     final hasOpp = r.opponents > 0;
     final title = r.timeUp ? 'انتهى الوقت' : (hasOpp ? (r.won ? 'فوز!' : 'المركز ${r.playerRank} من ${r.standings.length}') : 'اكتمل السباق');
@@ -59,16 +89,28 @@ class _ResultScreenState extends ConsumerState<ResultScreen> {
     return Scaffold(
       body: GradientBg(
         child: SafeArea(
-          child: ListView(padding: const EdgeInsets.all(16), children: [
+          child: Stack(children: [
+            ListView(padding: const EdgeInsets.all(16), children: [
             Center(child: Text(title, style: TextStyle(fontSize: 30, fontWeight: FontWeight.w900, color: color))),
+            if (chain >= 2)
+              Center(
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 6),
+                  child: Row(mainAxisSize: MainAxisSize.min, children: [
+                    const Icon(Icons.local_fire_department, size: 18, color: C.gold),
+                    const SizedBox(width: 5),
+                    Text('سلسلة الجولات: $chain', style: const TextStyle(color: C.gold, fontWeight: FontWeight.w900)),
+                  ]),
+                ),
+              ),
             if (r.photoFinish) const Center(child: Padding(padding: EdgeInsets.only(top: 4), child: Text('Photo Finish!', style: TextStyle(color: C.gold, fontWeight: FontWeight.w800)))),
             if (r.suspicious)
               const Padding(padding: EdgeInsets.only(top: 8), child: Panel(border: C.red, child: Text('تم اكتشاف إدخال غير طبيعي (لصق أو كتابة آلية). لا تُحتسب هذه النتيجة في المكافآت أو اللوحات.', style: TextStyle(color: C.red)))),
             const SizedBox(height: 14),
             Row(children: [
-              _big('WPM', r.wpm.toStringAsFixed(0), C.cyan, sub: avg > 0 ? '${r.wpm >= avg ? '▲' : '▼'} معدلك ${avg.toStringAsFixed(0)}' : null),
+              _big('WPM', r.wpm, C.cyan, sub: avg > 0 ? '${r.wpm >= avg ? '▲' : '▼'} معدلك ${avg.toStringAsFixed(0)}' : null),
               const SizedBox(width: 10),
-              _big('الدقة', '${r.accuracy.toStringAsFixed(1)}%', r.accuracy >= 95 ? C.green : C.gold),
+              _big('الدقة', r.accuracy, r.accuracy >= 95 ? C.green : C.gold, suffix: '%', decimals: 1),
             ]),
             const SizedBox(height: 10),
             Panel(
@@ -97,17 +139,34 @@ class _ResultScreenState extends ConsumerState<ResultScreen> {
               Panel(
                 child: Column(children: [
                   Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
-                    _reward(Icons.monetization_on, C.gold, o.coins, 'عملات'),
+                    KeyedSubtree(key: _coinKey, child: _reward(Icons.monetization_on, C.gold, o.coins, 'عملات')),
                     _reward(Icons.bolt_rounded, C.cyan, o.xp, 'خبرة'),
                     if (o.gems > 0) _reward(Icons.diamond, C.magenta, o.gems, 'جواهر'),
                     if (r.config.ranked && hasOpp) _reward(Icons.emoji_events_rounded, o.rpDelta >= 0 ? C.green : C.red, o.rpDelta, 'نقاط تصنيف', signed: true),
                   ]),
                   if (o.capped) const Padding(padding: EdgeInsets.only(top: 8), child: Text('بلغت الحد اليومي للعملات — تحصل على المكافأة الدنيا المضمونة.', style: TextStyle(color: C.textDim, fontSize: 12))),
-                  if (o.levelUp) Padding(padding: const EdgeInsets.only(top: 10), child: Text('ارتقيت إلى المستوى ${o.newLevel}!', style: const TextStyle(color: C.gold, fontWeight: FontWeight.w900, fontSize: 16))),
-                  if (o.tierUp) Padding(padding: const EdgeInsets.only(top: 6), child: Text('ترقية التصنيف: ${Ranks.tierOf(db, o.rpAfter).icon} ${Ranks.tierOf(db, o.rpAfter).label}', style: const TextStyle(color: C.green, fontWeight: FontWeight.w900))),
+                  if (o.levelUp)
+                    Padding(
+                      padding: const EdgeInsets.only(top: 10),
+                      child: Row(mainAxisSize: MainAxisSize.min, children: [
+                        const Icon(Icons.star, size: 18, color: C.gold),
+                        const SizedBox(width: 6),
+                        Text('ارتقيت إلى المستوى ${o.newLevel}!', style: const TextStyle(color: C.gold, fontWeight: FontWeight.w900, fontSize: 16)),
+                      ]),
+                    ),
+                  if (o.tierUp)
+                    Padding(
+                      padding: const EdgeInsets.only(top: 6),
+                      child: Row(mainAxisSize: MainAxisSize.min, children: [
+                        Icon(Ranks.tierOf(db, o.rpAfter).icon, size: 16, color: C.green),
+                        const SizedBox(width: 5),
+                        Text('ترقية التصنيف: ${Ranks.tierOf(db, o.rpAfter).label}', style: const TextStyle(color: C.green, fontWeight: FontWeight.w900)),
+                      ]),
+                    ),
                   if (o.tierDown) Padding(padding: const EdgeInsets.only(top: 6), child: Text('انخفض تصنيفك إلى ${Ranks.tierOf(db, o.rpAfter).label}', style: const TextStyle(color: C.red, fontWeight: FontWeight.w800))),
                 ]),
               ),
+            if (o.rewarded) ...[const SizedBox(height: 10), _xpBar(o)],
             if (o.rewarded && o.coins > 0 && !r.suspicious) ...[const SizedBox(height: 12), RewardedAdCard(doubleCoins: o.coins)],
             if (widget.extra != null) ...[const SizedBox(height: 12), ...widget.extra!],
             if (r.standings.length > 1) ...[
@@ -183,7 +242,24 @@ class _ResultScreenState extends ConsumerState<ResultScreen> {
               ),
             ],
             const SizedBox(height: 10),
-            NeonButton(label: 'الرئيسية', icon: Icons.home_rounded, filled: false, color: C.textDim, onPressed: () => Navigator.of(context).popUntil((r) => r.isFirst)),
+            NeonButton(
+              label: 'الرئيسية',
+              icon: Icons.home_rounded,
+              filled: false,
+              color: C.textDim,
+              onPressed: () {
+                // leaving to the lobby ends the round chain: it counts races in a row, not total races
+                ref.read(raceChainProvider.notifier).state = 0;
+                Navigator.of(context).popUntil((r) => r.isFirst);
+              },
+            ),
+            ]),
+            if (_burst && _coinsFrom != null)
+              Positioned.fill(
+                child: IgnorePointer(
+                  child: _CoinBurst(from: _coinsFrom!, to: _coinsTo, coins: o.coins),
+                ),
+              ),
           ]),
         ),
       ),
@@ -195,15 +271,53 @@ class _ResultScreenState extends ConsumerState<ResultScreen> {
     return list.take(4).map((e) => e.key.toUpperCase()).toList();
   }
 
-  Widget _big(String label, String value, Color c, {String? sub}) => Expanded(
+  /// Big stat that counts itself up on entry: numbers that simply appear feel like a web report.
+  Widget _big(String label, double value, Color c, {String? sub, String suffix = '', int decimals = 0}) => Expanded(
         child: Panel(
           child: Column(children: [
             Text(label, style: const TextStyle(color: C.textDim)),
-            Text(value, textDirection: TextDirection.ltr, style: TextStyle(fontSize: 38, fontWeight: FontWeight.w900, color: c, fontFamily: 'FiraMono')),
+            TweenAnimationBuilder<double>(
+              tween: Tween(begin: 0, end: value),
+              duration: const Duration(milliseconds: 850),
+              curve: Curves.easeOutCubic,
+              builder: (_, v, _) => Text('${v.toStringAsFixed(decimals)}$suffix', textDirection: TextDirection.ltr, style: TextStyle(fontSize: 38, fontWeight: FontWeight.w900, color: c, fontFamily: 'FiraMono')),
+            ),
             if (sub != null) Text(sub, style: const TextStyle(color: C.textDim, fontSize: 11)),
           ]),
         ),
       );
+
+  /// XP bar that fills from where the player was before this race to where they are now.
+  Widget _xpBar(RaceOutcome o) {
+    final li = ref.watch(levelInfoProvider);
+    final per = li.perLevel <= 0 ? 1 : li.perLevel;
+    final after = li.progress.clamp(0.0, 1.0).toDouble();
+    // a level-up refills the bar from empty, otherwise it grows by the XP just earned
+    final before = o.levelUp ? 0.0 : ((li.pointsInLevel - o.xp) / per).clamp(0.0, after).toDouble();
+    return Panel(
+      child: Column(children: [
+        Row(children: [
+          const Icon(Icons.bolt_rounded, size: 20, color: C.cyan),
+          const SizedBox(width: 6),
+          Text('المستوى ${li.level}', style: const TextStyle(fontWeight: FontWeight.w900)),
+          const Spacer(),
+          TweenAnimationBuilder<double>(
+            tween: Tween(begin: 0, end: o.xp.toDouble()),
+            duration: const Duration(milliseconds: 900),
+            curve: Curves.easeOut,
+            builder: (_, v, _) => Text('+${v.round()} خبرة', style: const TextStyle(color: C.cyan, fontWeight: FontWeight.w800)),
+          ),
+        ]),
+        const SizedBox(height: 8),
+        TweenAnimationBuilder<double>(
+          tween: Tween(begin: before, end: after),
+          duration: const Duration(milliseconds: 900),
+          curve: Curves.easeOutCubic,
+          builder: (_, v, _) => ProgressBar(value: v, height: 10),
+        ),
+      ]),
+    );
+  }
 
   Widget _mini(String l, String v) => Column(mainAxisSize: MainAxisSize.min, children: [
         Text(v, style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 16)),
@@ -220,4 +334,82 @@ class _ResultScreenState extends ConsumerState<ResultScreen> {
         ),
         Text(label, style: const TextStyle(color: C.textDim, fontSize: 11)),
       ]);
+}
+
+/// Coins flying from the reward row to the wallet corner, then a total badge that pops.
+class _CoinBurst extends StatefulWidget {
+  const _CoinBurst({required this.from, required this.to, required this.coins});
+  final Offset from, to;
+  final int coins;
+
+  @override
+  State<_CoinBurst> createState() => _CoinBurstState();
+}
+
+class _CoinBurstState extends State<_CoinBurst> with SingleTickerProviderStateMixin {
+  late final AnimationController _c = AnimationController(vsync: this, duration: const Duration(milliseconds: 1050))..forward();
+
+  @override
+  void dispose() {
+    _c.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // 4..8 coins: more than that is visual noise on a phone screen
+    final n = (3 + widget.coins ~/ 60).clamp(4, 8);
+    return AnimatedBuilder(
+      animation: _c,
+      builder: (context, _) {
+        final kids = <Widget>[];
+        for (var i = 0; i < n; i++) {
+          // each coin leaves a little after the previous one: a stream, not a single object
+          final t = ((_c.value - i * 0.07) / 0.58).clamp(0.0, 1.0);
+          if (t <= 0) continue;
+          final e = Curves.easeOutCubic.transform(t);
+          final bow = sin(t * pi) * (20 + 9 * (i % 3));
+          final x = widget.from.dx + (widget.to.dx - widget.from.dx) * e + (i.isEven ? 1 : -1) * bow * 0.5;
+          final y = widget.from.dy + (widget.to.dy - widget.from.dy) * e - bow;
+          final fade = 1 - (((t - 0.62) / 0.38).clamp(0.0, 1.0));
+          kids.add(Positioned(
+            left: x - 11,
+            top: y - 11,
+            child: Opacity(
+              opacity: fade.clamp(0.0, 1.0),
+              child: Transform.scale(scale: 1 - 0.45 * e, child: const Icon(Icons.monetization_on, size: 22, color: C.gold)),
+            ),
+          ));
+        }
+        // the wallet badge pops once the first coins land
+        final pop = ((_c.value - 0.55) / 0.25).clamp(0.0, 1.0);
+        if (pop > 0) {
+          kids.add(Positioned(
+            left: widget.to.dx - 30,
+            top: widget.to.dy - 15,
+            child: Opacity(
+              opacity: pop,
+              child: Transform.scale(
+                scale: 0.7 + 0.3 * pop,
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                  decoration: BoxDecoration(
+                    color: C.gold.withValues(alpha: 0.18),
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(color: C.gold),
+                  ),
+                  child: Row(mainAxisSize: MainAxisSize.min, children: [
+                    const Icon(Icons.monetization_on, size: 14, color: C.gold),
+                    const SizedBox(width: 4),
+                    Text('+${fmtInt(widget.coins)}', style: const TextStyle(color: C.gold, fontWeight: FontWeight.w900, fontSize: 12)),
+                  ]),
+                ),
+              ),
+            ),
+          ));
+        }
+        return Stack(children: kids);
+      },
+    );
+  }
 }

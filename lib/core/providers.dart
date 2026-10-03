@@ -194,6 +194,10 @@ final levelInfoProvider = Provider<LevelInfo>((ref) {
   return p.level(base: (lv['xpBase'] as num?)?.toInt() ?? 120, step: (lv['xpStep'] as num?)?.toInt() ?? 45, maxLevel: (lv['maxLevel'] as num?)?.toInt() ?? 100);
 });
 
+/// Races finished in a row this session. In-memory on purpose: it is ceremony (the result
+/// screen shows «سلسلة الجولات»), not progress, so it must reset with the app.
+final raceChainProvider = StateProvider<int>((ref) => 0);
+
 /// Daily key provider that refreshes at midnight (used to rebuild daily UI).
 final todayProvider = Provider<String>((ref) => dayKey());
 
