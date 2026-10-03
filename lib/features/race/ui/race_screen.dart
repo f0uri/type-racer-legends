@@ -26,10 +26,11 @@ import '../game/env_painter.dart';
 import '../game/race_game.dart';
 import '../race_builder.dart';
 import '../race_outcome.dart';
+import 'match_intro.dart';
 import 'result_screen.dart';
 import 'text_panel.dart';
 
-enum _Phase { lobby, countdown, racing, finishing }
+enum _Phase { lobby, intro, countdown, racing, finishing }
 
 class _Popup {
   final int id;
@@ -73,6 +74,10 @@ class _RaceScreenState extends ConsumerState<RaceScreen> with WidgetsBindingObse
   Timer? _storm;
   _Phase phase = _Phase.lobby;
   int countdown = 3;
+
+  /// The pre-race room is skippable: a tap throws away the remaining wait.
+  static const _introMs = 1400;
+  Completer<void>? _introSkip;
   bool riskOn = false;
   bool _paused = false;
   bool _done = false;
@@ -166,6 +171,10 @@ class _RaceScreenState extends ConsumerState<RaceScreen> with WidgetsBindingObse
 
   @override
   void dispose() {
+    // never leave the start sequence waiting on a screen that is gone
+    final skip = _introSkip;
+    if (skip != null && !skip.isCompleted) skip.complete();
+    _introSkip = null;
     _disposed = true;
     ScreenAwake.release();
     WidgetsBinding.instance.removeObserver(this);
@@ -203,22 +212,36 @@ class _RaceScreenState extends ConsumerState<RaceScreen> with WidgetsBindingObse
       _setup(RaceConfig(modeId: c.modeId, title: c.title, text: c.text, biomeId: c.biomeId, mod: c.mod, opponents: c.opponents, ghosts: c.ghosts, rules: c.rules, riskMul: max(2.0, c.riskMul * 2), ranked: c.ranked, rewards: c.rewards, meta: c.meta, vocabHints: c.vocabHints, timeLimitMs: c.timeLimitMs, playerLookOverride: c.playerLookOverride, bossId: c.bossId));
     }
     ref.read(analyticsProvider).log('race_start', {'mode': cfg.modeId});
+    // the room: the player sees their car and who they are up against before the lights
+    _introSkip = Completer<void>();
     setState(() {
-      phase = _Phase.countdown;
+      phase = _Phase.intro;
       countdown = 3;
     });
+    audio.play(Sfx.whoosh, vol: 0.6);
+    haptics.light();
+    await Future.any<void>([
+      Future<void>.delayed(const Duration(milliseconds: _introMs)),
+      _introSkip!.future,
+    ]);
+    _introSkip = null;
+    if (_disposed) return;
     _focusInput();
+    setState(() => phase = _Phase.countdown);
     for (var n = 3; n >= 1; n--) {
       if (_disposed) return;
       setState(() => countdown = n);
       audio.play(Sfx.beep);
-      await Future<void>.delayed(const Duration(milliseconds: 850));
+      haptics.light();
+      await Future<void>.delayed(const Duration(milliseconds: 760));
     }
     if (_disposed) return;
     setState(() {
       countdown = 0;
       phase = _Phase.racing;
     });
+    audio.play(Sfx.go, vol: 0.8);
+    haptics.finish();
     _sw
       ..reset()
       ..start();
@@ -503,6 +526,7 @@ class _RaceScreenState extends ConsumerState<RaceScreen> with WidgetsBindingObse
               ),
             ),
             if (phase == _Phase.lobby) _lobby(),
+            if (phase == _Phase.intro) _introOverlay(),
             if (phase == _Phase.countdown || (phase == _Phase.racing && countdown >= 0)) _countdownOverlay(),
             if (photoReplay) _photoOverlay(),
             if (_paused) _pausedOverlay(),
@@ -693,7 +717,7 @@ class _RaceScreenState extends ConsumerState<RaceScreen> with WidgetsBindingObse
                         hint: s.nextCharHint,
                         nowMs: session.timeMs,
                         wordStartMs: _wordStartMs,
-                        hideAll: phase == _Phase.lobby || phase == _Phase.countdown,
+                        hideAll: phase == _Phase.lobby || phase == _Phase.intro || phase == _Phase.countdown,
                       ),
                     ),
                   ]),
@@ -867,23 +891,29 @@ class _RaceScreenState extends ConsumerState<RaceScreen> with WidgetsBindingObse
       );
 
   Widget _countdownOverlay() {
-    final go = countdown == 0;
-    if (!go && countdown < 1) return const SizedBox.shrink();
+    if (countdown < 0) return const SizedBox.shrink();
     return Positioned.fill(
       child: IgnorePointer(
-        child: Center(
-          child: TweenAnimationBuilder<double>(
-            key: ValueKey(countdown),
-            tween: Tween(begin: 1.6, end: 1.0),
-            duration: const Duration(milliseconds: 500),
-            curve: Curves.easeOutBack,
-            builder: (_, v, _) => Transform.scale(
-              scale: v,
-              child: Text(go ? 'انطلق!' : '$countdown', style: TextStyle(fontSize: 88, fontWeight: FontWeight.w900, color: go ? C.green : C.gold, shadows: const [Shadow(blurRadius: 24, color: Colors.black)])),
-            ),
-          ),
-        ),
+        child: Center(child: GlowCountdown(key: ValueKey(countdown), value: countdown)),
       ),
+    );
+  }
+
+  /// The pre-race room: the player's own car drives in, the rivals slide in, then the lights.
+  Widget _introOverlay() {
+    final p = ref.read(profileProvider);
+    final biome = ref.read(contentProvider).biomeOf(cfg.biomeId);
+    return MatchIntro(
+      look: rig.look,
+      playerName: p.name,
+      modeTitle: cfg.title,
+      biomeName: loc(biome.name),
+      opponents: cfg.opponents,
+      ghosts: cfg.ghosts,
+      onTap: () {
+        final skip = _introSkip;
+        if (skip != null && !skip.isCompleted) skip.complete();
+      },
     );
   }
 
