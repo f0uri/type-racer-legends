@@ -404,6 +404,7 @@ class _StartCta extends StatefulWidget {
 
 class _StartCtaState extends State<_StartCta> with SingleTickerProviderStateMixin {
   late final AnimationController _c = AnimationController(vsync: this, duration: const Duration(milliseconds: 1400))..repeat(reverse: true);
+  bool _down = false;
 
   @override
   void dispose() {
@@ -418,7 +419,8 @@ class _StartCtaState extends State<_StartCta> with SingleTickerProviderStateMixi
       builder: (context, child) {
         final t = Curves.easeInOut.transform(_c.value);
         return Transform.scale(
-          scale: 1 + 0.015 * t,
+          // the breathing pulse plus the squash under the finger
+          scale: (1 + 0.015 * t) * (_down ? 0.97 : 1),
           child: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
@@ -429,6 +431,9 @@ class _StartCtaState extends State<_StartCta> with SingleTickerProviderStateMixi
               color: Colors.transparent,
               child: InkWell(
                 borderRadius: BorderRadius.circular(20),
+                onTapDown: (_) => setState(() => _down = true),
+                onTapUp: (_) => setState(() => _down = false),
+                onTapCancel: () => setState(() => _down = false),
                 onTap: widget.onTap,
                 child: const SizedBox(
                   height: 68,

@@ -80,8 +80,9 @@ class ItemTile extends StatelessWidget {
   final String? priceLabel;
   final VoidCallback? onTap;
   @override
-  Widget build(BuildContext context) => GestureDetector(
+  Widget build(BuildContext context) => PressFx(
         onTap: onTap,
+        scale: 0.94,
         child: Container(
           width: 98,
           margin: const EdgeInsets.only(left: 8),

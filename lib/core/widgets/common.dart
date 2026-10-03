@@ -8,6 +8,44 @@ void toast(BuildContext c, String msg) {
   m?.showSnackBar(SnackBar(content: Text(msg, textAlign: TextAlign.center), duration: const Duration(seconds: 3)));
 }
 
+/// The 100 ms a web page does not have: whatever the player presses squashes under the finger
+/// and springs back. Wrapped around every tappable surface in the game so a tap is *felt* even
+/// before the action happens.
+class PressFx extends StatefulWidget {
+  const PressFx({super.key, required this.child, this.onTap, this.scale = 0.955});
+  final Widget child;
+  final VoidCallback? onTap;
+
+  /// How far the surface shrinks while held. Cards ~0.955, small chips ~0.92.
+  final double scale;
+
+  @override
+  State<PressFx> createState() => _PressFxState();
+}
+
+class _PressFxState extends State<PressFx> {
+  bool _down = false;
+
+  void _set(bool v) {
+    if (_down != v && mounted) setState(() => _down = v);
+  }
+
+  @override
+  Widget build(BuildContext context) => GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onTapDown: widget.onTap == null ? null : (_) => _set(true),
+        onTapUp: widget.onTap == null ? null : (_) => _set(false),
+        onTapCancel: () => _set(false),
+        onTap: widget.onTap,
+        child: AnimatedScale(
+          scale: _down ? widget.scale : 1,
+          duration: const Duration(milliseconds: 90),
+          curve: Curves.easeOut,
+          child: widget.child,
+        ),
+      );
+}
+
 class Panel extends StatelessWidget {
   final Widget child;
   final EdgeInsets padding;
@@ -26,11 +64,11 @@ class Panel extends StatelessWidget {
       ),
       child: child,
     );
-    return onTap == null ? w : GestureDetector(onTap: onTap, behavior: HitTestBehavior.opaque, child: w);
+    return onTap == null ? w : PressFx(onTap: onTap, child: w);
   }
 }
 
-class NeonButton extends StatelessWidget {
+class NeonButton extends StatefulWidget {
   final String label;
   final IconData? icon;
   final VoidCallback? onPressed;
@@ -39,30 +77,50 @@ class NeonButton extends StatelessWidget {
   final bool busy;
   final double height;
   const NeonButton({super.key, required this.label, this.icon, this.onPressed, this.color = C.cyan, this.filled = true, this.busy = false, this.height = 52});
+
+  @override
+  State<NeonButton> createState() => _NeonButtonState();
+}
+
+class _NeonButtonState extends State<NeonButton> {
+  bool _down = false;
+
+  void _set(bool v) {
+    if (_down != v && mounted) setState(() => _down = v);
+  }
+
   @override
   Widget build(BuildContext context) {
-    final enabled = onPressed != null && !busy;
-    final fg = filled ? Colors.black : color;
-    return Opacity(
+    final enabled = widget.onPressed != null && !widget.busy;
+    final fg = widget.filled ? Colors.black : widget.color;
+    return AnimatedScale(
+      scale: _down ? 0.965 : 1,
+      duration: const Duration(milliseconds: 90),
+      curve: Curves.easeOut,
+      child: Opacity(
       opacity: enabled ? 1 : 0.5,
       child: Material(
-        color: filled ? color : Colors.transparent,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16), side: BorderSide(color: color, width: 1.6)),
+        color: widget.filled ? widget.color : Colors.transparent,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16), side: BorderSide(color: widget.color, width: 1.6)),
         child: InkWell(
           borderRadius: BorderRadius.circular(16),
-          onTap: enabled ? onPressed : null,
+          onTapDown: enabled ? (_) => _set(true) : null,
+          onTapUp: enabled ? (_) => _set(false) : null,
+          onTapCancel: () => _set(false),
+          onTap: enabled ? widget.onPressed : null,
           child: SizedBox(
-            height: height,
+            height: widget.height,
             child: Center(
-              child: busy
+              child: widget.busy
                   ? SizedBox(width: 22, height: 22, child: CircularProgressIndicator(strokeWidth: 2.5, color: fg))
                   : Row(mainAxisSize: MainAxisSize.min, children: [
-                      if (icon != null) ...[Icon(icon, color: fg, size: 22), const SizedBox(width: 8)],
-                      Flexible(child: Text(label, style: TextStyle(color: fg, fontWeight: FontWeight.w800, fontSize: 16), overflow: TextOverflow.ellipsis)),
+                      if (widget.icon != null) ...[Icon(widget.icon, color: fg, size: 22), const SizedBox(width: 8)],
+                      Flexible(child: Text(widget.label, style: TextStyle(color: fg, fontWeight: FontWeight.w800, fontSize: 16), overflow: TextOverflow.ellipsis)),
                     ]),
             ),
           ),
         ),
+      ),
       ),
     );
   }
@@ -75,18 +133,18 @@ class CurrencyChip extends StatelessWidget {
   final VoidCallback? onTap;
   const CurrencyChip({super.key, required this.icon, required this.color, required this.value, this.onTap});
   @override
-  Widget build(BuildContext context) => GestureDetector(
-        onTap: onTap,
-        child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-          decoration: BoxDecoration(color: Colors.black38, borderRadius: BorderRadius.circular(20), border: Border.all(color: color.withValues(alpha: .5))),
-          child: Row(mainAxisSize: MainAxisSize.min, children: [
-            Icon(icon, size: 16, color: color),
-            const SizedBox(width: 5),
-            Text(value, style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 13)),
-          ]),
-        ),
-      );
+  Widget build(BuildContext context) {
+    final chip = Container(
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+      decoration: BoxDecoration(color: Colors.black38, borderRadius: BorderRadius.circular(20), border: Border.all(color: color.withValues(alpha: .5))),
+      child: Row(mainAxisSize: MainAxisSize.min, children: [
+        Icon(icon, size: 16, color: color),
+        const SizedBox(width: 5),
+        Text(value, style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 13)),
+      ]),
+    );
+    return onTap == null ? chip : PressFx(onTap: onTap, scale: 0.92, child: chip);
+  }
 }
 
 class NewBadge extends StatelessWidget {

@@ -312,7 +312,8 @@ class _TrackCell extends ConsumerWidget {
       final r = (row[side] as Map?)?.cast<String, dynamic>();
       final canClaim = ok && !done && !locked && r != null;
       return Expanded(
-        child: GestureDetector(
+        child: PressFx(
+          scale: 0.94,
           onTap: canClaim
               ? () {
                   List<String>? lines;
