@@ -95,7 +95,15 @@ class TurntablePainter extends CustomPainter {
       final y = discRect.center.dy + sin(a) * discRect.height * 0.47;
       canvas.drawCircle(Offset(x, y), 1.6, Paint()..color = Colors.white.withValues(alpha: 0.35 + 0.35 * sin(a)));
     }
-    // vehicle
+    paintVehicle(canvas, size, look, angle, t, showRider: showRider);
+  }
+
+  /// Draws the vehicle only (no stage), composed from its side, front and rear procedural
+  /// views cross-faded and foreshortened as it turns. Shared by the garage showroom and the
+  /// home lobby so the player always sees the exact same car in both places.
+  static void paintVehicle(Canvas canvas, Size size, Look look, double angle, double t, {bool showRider = true}) {
+    final W = size.width, H = size.height;
+    final floorY = H * 0.78;
     final bike = look.vehicle.isBike;
     final L = min(W * 0.78, H * 0.62 / (bike ? 0.85 : 0.5));
     final sinT = sin(angle), cosT = cos(angle);

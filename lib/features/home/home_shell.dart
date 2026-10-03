@@ -128,7 +128,13 @@ class _HomeShellState extends ConsumerState<HomeShell> {
       backgroundColor: C.bg,
       body: Stack(
         children: [
-          Padding(padding: const EdgeInsets.only(bottom: _dockSpace), child: IndexedStack(index: _i, children: tabs)),
+          Padding(
+            padding: const EdgeInsets.only(bottom: _dockSpace),
+            // TickerMode: the hidden tabs keep their state (IndexedStack) but their animations stop.
+            // Without this the lobby showcase and the breathing start button keep animating behind
+            // the garage, which just burns battery.
+            child: IndexedStack(index: _i, children: [for (var i = 0; i < tabs.length; i++) TickerMode(enabled: i == _i, child: tabs[i])]),
+          ),
           Positioned(
             left: 0,
             right: 0,

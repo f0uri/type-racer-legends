@@ -17,10 +17,13 @@ import '../career/progress_screen.dart';
 import '../career/rank.dart';
 import '../career/tournament_screen.dart';
 import '../career/world_tour_screen.dart';
+import '../content/content_db.dart';
 import '../leaderboard/leaderboard_screen.dart';
 import '../learn/learn_screens.dart';
 import '../race/quick_race_sheet.dart';
+import '../race/race_builder.dart';
 import '../settings/settings_screen.dart';
+import 'lobby_scene.dart';
 
 class _Mode {
   final IconData icon;
@@ -37,6 +40,10 @@ class _Mode {
 /// always under the thumb. Nothing scrolls the call-to-action away.
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
+
+  /// The four modes that must be reachable in one tap: they are the game's main loops.
+  /// Everything else lives behind «المزيد» so the lobby stays a game lobby, not a grid of links.
+  static const List<String> _heroTitles = ['الحملة', 'البطولات', 'التحديات', 'التعلّم'];
 
   List<_Mode> _modes(WidgetRef ref) => [
         _Mode(Icons.map, 'الحملة', '50 مرحلة • 6 بيئات • زعماء', (c) => ModeFlow.push<void>(c, const CampaignScreen())),
@@ -89,7 +96,10 @@ class HomeScreen extends ConsumerWidget {
     final p = ref.watch(profileProvider);
     final li = ref.watch(levelInfoProvider);
     final db = ref.watch(contentProvider);
+    final rig = PlayerRig.from(db, p);
     final modes = _modes(ref);
+    final hero = [for (final m in modes) if (_heroTitles.contains(m.title)) m];
+    final rest = [for (final m in modes) if (!_heroTitles.contains(m.title)) m];
     return Scaffold(
       body: GradientBg(
         child: SafeArea(
@@ -101,12 +111,28 @@ class HomeScreen extends ConsumerWidget {
               const _EventStrip(),
               const SizedBox(height: 10),
               Expanded(
-                child: GridView(
-                  // keeping every pod built: no pop-in while scrolling, and instant to hit
-                  cacheExtent: 900,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, mainAxisSpacing: 10, crossAxisSpacing: 10, mainAxisExtent: 112),
+                // the middle scrolls; the call-to-action never does
+                child: ListView(
                   padding: const EdgeInsets.only(bottom: 10),
-                  children: [for (final m in modes) _pod(context, ref, m, m.feature == null || db.featureOn(m.feature!))],
+                  children: [
+                    Stack(children: [
+                      LobbyScene(look: rig.look, height: 178),
+                      Positioned(left: 10, bottom: 8, child: _sceneChip(Icons.directions_car_filled, loc(rig.vehicle.name))),
+                      Positioned(right: 10, bottom: 8, child: _sceneChip(Icons.swipe, 'اسحب لتدوير مركبتك')),
+                    ]),
+                    const SizedBox(height: 12),
+                    SizedBox(
+                      // exactly two rows: the four hero pods always fit without scrolling
+                      height: 234,
+                      child: GridView(
+                        physics: const NeverScrollableScrollPhysics(),
+                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, mainAxisSpacing: 10, crossAxisSpacing: 10, mainAxisExtent: 112),
+                        children: [for (final m in hero) _pod(context, ref, m, m.feature == null || db.featureOn(m.feature!))],
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    _moreTile(context, ref, rest.length, () => _more(context, ref, rest, db)),
+                  ],
                 ),
               ),
               _StartCta(onTap: () => _startRace(context, ref)),
@@ -118,23 +144,99 @@ class HomeScreen extends ConsumerWidget {
     );
   }
 
-  Widget _pod(BuildContext context, WidgetRef ref, _Mode m, bool on) => Opacity(
+  /// Small overlay chip drawn on top of the lobby scene (car name / drag hint).
+  Widget _sceneChip(IconData icon, String text) => Container(
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+        decoration: BoxDecoration(
+          color: Colors.black.withValues(alpha: 0.45),
+          borderRadius: BorderRadius.circular(10),
+          border: Border.all(color: C.cyan.withValues(alpha: 0.32)),
+        ),
+        child: Row(mainAxisSize: MainAxisSize.min, children: [
+          Icon(icon, size: 14, color: C.cyan),
+          const SizedBox(width: 5),
+          Text(text, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w800)),
+        ]),
+      );
+
+  /// «المزيد»: one tap opens every secondary mode, so the lobby stays four big pods.
+  Widget _moreTile(BuildContext context, WidgetRef ref, int count, VoidCallback onTap) => Panel(
+        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+        onTap: () {
+          ref.read(hapticsProvider).light();
+          onTap();
+        },
+        child: Row(children: [
+          const Icon(Icons.grid_view_rounded, color: C.magenta, size: 22),
+          const SizedBox(width: 10),
+          Expanded(
+            child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              const Text('المزيد من الأوضاع', style: TextStyle(fontWeight: FontWeight.w900, fontSize: 14)),
+              Text('$count أوضاع إضافية: أشباح، بقاء، قتال الطريق، جولة العالم، التدريب الذكي، نص مخصص', style: const TextStyle(color: C.textDim, fontSize: 11), maxLines: 1, overflow: TextOverflow.ellipsis),
+            ]),
+          ),
+          const Icon(Icons.chevron_left, color: C.textDim),
+        ]),
+      );
+
+  void _more(BuildContext context, WidgetRef ref, List<_Mode> rest, ContentDb db) {
+    showModalBottomSheet<void>(
+      context: context,
+      backgroundColor: C.surface,
+      showDragHandle: true,
+      builder: (_) => SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(14, 0, 14, 14),
+          child: Column(mainAxisSize: MainAxisSize.min, children: [
+            const Text('أوضاع إضافية', style: TextStyle(fontWeight: FontWeight.w900, fontSize: 16)),
+            const SizedBox(height: 12),
+            GridView(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, mainAxisSpacing: 10, crossAxisSpacing: 10, mainAxisExtent: 96),
+              children: [
+                for (final m in rest)
+                  _pod(
+                    context,
+                    ref,
+                    m,
+                    m.feature == null || db.featureOn(m.feature!),
+                    compact: true,
+                    // close the sheet first, otherwise the pushed page sits on top of it forever
+                    onOpen: () {
+                      Navigator.of(context).pop();
+                      m.open(context);
+                    },
+                  ),
+              ],
+            ),
+          ]),
+        ),
+      ),
+    );
+  }
+
+  Widget _pod(BuildContext context, WidgetRef ref, _Mode m, bool on, {bool compact = false, VoidCallback? onOpen}) => Opacity(
         opacity: on ? 1 : 0.45,
         child: Panel(
-          padding: const EdgeInsets.all(12),
+          padding: EdgeInsets.all(compact ? 10 : 12),
           onTap: on
               ? () {
                   ref.read(hapticsProvider).light();
-                  m.open(context);
+                  if (onOpen != null) {
+                    onOpen();
+                  } else {
+                    m.open(context);
+                  }
                 }
               : () => toast(context, 'هذا الوضع متوقف مؤقتاً'),
           child: FittedBox(
             fit: BoxFit.scaleDown,
             alignment: AlignmentDirectional.centerStart,
             child: Column(mainAxisAlignment: MainAxisAlignment.center, crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Icon(m.icon, size: 26, color: C.cyan),
+              Icon(m.icon, size: compact ? 22 : 26, color: C.cyan),
               const SizedBox(height: 2),
-              Text(m.title, style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 15)),
+              Text(m.title, style: TextStyle(fontWeight: FontWeight.w900, fontSize: compact ? 13.5 : 15)),
               Text(m.sub, style: const TextStyle(color: C.textDim, fontSize: 11)),
             ]),
           ),
