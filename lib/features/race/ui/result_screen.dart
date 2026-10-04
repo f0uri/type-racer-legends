@@ -101,37 +101,28 @@ class _ResultScreenState extends ConsumerState<ResultScreen> {
         child: SafeArea(
           child: Stack(children: [
             ListView(padding: const EdgeInsets.all(16), children: [
-            Center(child: Text(title, style: displayStyle(size: 30, color: color))),
-            if (chain >= 2)
-              Center(
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 6),
-                  child: Row(mainAxisSize: MainAxisSize.min, children: [
-                    const Icon(Icons.local_fire_department, size: 18, color: C.gold),
-                    const SizedBox(width: 5),
-                    Text('سلسلة الجولات: $chain', style: const TextStyle(color: C.gold, fontWeight: FontWeight.w900)),
-                  ]),
-                ),
-              ),
-            if (r.photoFinish) const Center(child: Padding(padding: EdgeInsets.only(top: 4), child: Text('Photo Finish!', style: TextStyle(color: C.gold, fontWeight: FontWeight.w800)))),
+            ResultBanner(title: title, color: color, chain: chain, photoFinish: r.photoFinish, celebrate: r.won && hasOpp),
             if (r.suspicious)
               const Padding(padding: EdgeInsets.only(top: 8), child: Panel(border: C.red, child: Text('تم اكتشاف إدخال غير طبيعي (لصق أو كتابة آلية). لا تُحتسب هذه النتيجة في المكافآت أو اللوحات.', style: TextStyle(color: C.red)))),
             const SizedBox(height: 14),
-            Row(children: [
+            _RiseIn(delay: 0.10, child: Row(children: [
               _big('WPM', r.wpm, C.cyan, sub: avg > 0 ? '${r.wpm >= avg ? '▲' : '▼'} معدلك ${avg.toStringAsFixed(0)}' : null),
               const SizedBox(width: 10),
               _big('الدقة', r.accuracy, r.accuracy >= 95 ? C.green : C.gold, suffix: '%', decimals: 1),
-            ]),
+            ])),
             const SizedBox(height: 10),
-            Panel(
-              child: Wrap(alignment: WrapAlignment.spaceAround, runSpacing: 10, spacing: 14, children: [
-                _mini('الزمن', '${r.time.toStringAsFixed(1)}s'),
-                _mini('أعلى كومبو', '${r.maxCombo}'),
-                _mini('الأخطاء', '${r.errors}'),
-                _mini('الأحرف', '${r.chars}'),
-                if (r.nitroUses > 0) _mini('نيترو', '${r.nitroUses}'),
-                if (r.perfectWords > 0) _mini('كلمات مثالية', '${r.perfectWords}'),
-              ]),
+            _RiseIn(
+              delay: 0.18,
+              child: Panel(
+                child: Wrap(alignment: WrapAlignment.spaceAround, runSpacing: 10, spacing: 14, children: [
+                  _mini('الزمن', '${r.time.toStringAsFixed(1)}s'),
+                  _mini('أعلى كومبو', '${r.maxCombo}'),
+                  _mini('الأخطاء', '${r.errors}'),
+                  _mini('الأحرف', '${r.chars}'),
+                  if (r.nitroUses > 0) _mini('نيترو', '${r.nitroUses}'),
+                  if (r.perfectWords > 0) _mini('كلمات مثالية', '${r.perfectWords}'),
+                ]),
+              ),
             ),
             if (o.records.isNotEmpty) ...[
               const SizedBox(height: 10),
@@ -358,6 +349,72 @@ class _ResultScreenState extends ConsumerState<ResultScreen> {
 /// Confetti rain for a win, built on the race's own particle pool: no new drawing code, one
 /// CustomPaint, and the ticker stops by itself once the last piece has fallen so the result
 /// screen goes back to costing nothing.
+/// The headline of a result: it drops in from above with a small overshoot, the way a mobile game
+/// announces a win, and it carries a glow when the player actually won one. Reduced motion turns
+/// the entrance into a single frame rather than a movement.
+@visibleForTesting
+class ResultBanner extends StatelessWidget {
+  const ResultBanner({super.key, required this.title, required this.color, this.chain = 0, this.photoFinish = false, this.celebrate = false});
+  final String title;
+  final Color color;
+  final int chain;
+  final bool photoFinish;
+  final bool celebrate;
+
+  @override
+  Widget build(BuildContext context) {
+    final reduced = reduceMotion(context);
+    return TweenAnimationBuilder<double>(
+      tween: Tween(begin: 0, end: 1),
+      duration: reduced ? Duration.zero : const Duration(milliseconds: 480),
+      curve: Curves.easeOutBack,
+      builder: (_, t, child) => Opacity(
+        opacity: t.clamp(0.0, 1.0).toDouble(),
+        child: Transform.translate(offset: Offset(0, (1 - t) * -44), child: Transform.scale(scale: 0.94 + 0.06 * t, child: child)),
+      ),
+      child: Column(mainAxisSize: MainAxisSize.min, children: [
+        Text(
+          title,
+          textAlign: TextAlign.center,
+          style: displayStyle(size: 30, color: color).copyWith(shadows: celebrate ? [Shadow(color: color.withValues(alpha: 0.6), blurRadius: 24)] : null),
+        ),
+        if (chain >= 2)
+          Padding(
+            padding: const EdgeInsets.only(top: 6),
+            child: Row(mainAxisSize: MainAxisSize.min, children: [
+              const Icon(Icons.local_fire_department, size: 18, color: C.gold),
+              const SizedBox(width: 5),
+              Text('سلسلة الجولات: $chain', style: const TextStyle(color: C.gold, fontWeight: FontWeight.w900)),
+            ]),
+          ),
+        if (photoFinish) const Padding(padding: EdgeInsets.only(top: 4), child: Text('Photo Finish!', style: TextStyle(color: C.gold, fontWeight: FontWeight.w800))),
+      ]),
+    );
+  }
+}
+
+/// Everything under the headline arrives in order instead of all at once: a result screen that
+/// appears fully formed reads like a web page, one that assembles reads like a game.
+class _RiseIn extends StatelessWidget {
+  const _RiseIn({required this.child, this.delay = 0});
+  final Widget child;
+
+  /// Share of the total entrance to wait through, 0..0.6.
+  final double delay;
+
+  @override
+  Widget build(BuildContext context) {
+    final reduced = reduceMotion(context);
+    return TweenAnimationBuilder<double>(
+      tween: Tween(begin: 0, end: 1),
+      duration: reduced ? Duration.zero : const Duration(milliseconds: 560),
+      curve: Interval(delay.clamp(0.0, 0.6).toDouble(), 1, curve: Curves.easeOutCubic),
+      builder: (_, t, child) => Opacity(opacity: t, child: Transform.translate(offset: Offset(0, (1 - t) * 24), child: child)),
+      child: child,
+    );
+  }
+}
+
 class _WinConfetti extends StatefulWidget {
   const _WinConfetti();
   @override
