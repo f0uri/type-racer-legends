@@ -56,13 +56,10 @@ if os.environ.get('GITHUB_ACTIONS') == 'true':
                     piece = piece.strip()
                     if piece: pieces.append(piece)
             picks = []
-            for idx, piece in enumerate(pieces):
-                if 'relevant error-causing widget' in piece:
-                    picks.append('CAUSE ' + (pieces[idx + 1] if idx + 1 < len(pieces) else ''))
-                elif 'overflowed by' in piece or 'hit test' in piece or 'Bad state' in piece or 'Expected:' in piece or 'Actual:' in piece:
-                    picks.append(piece)
-                elif 'not hit test' in piece or 'Which:' in piece:
-                    picks.append(piece)
-            print('::error ::FAIL %s :: %s' % (names.get(tid, '?')[:60], (' || '.join(picks[:4])).replace('%', '%25')[:850]))
+            for piece in pieces:
+                if 'was thrown' in piece or 'overflowed by' in piece or 'Bad state' in piece or 'package:type_racer_legends/' in piece or 'Exception' in piece:
+                    if piece not in picks: picks.append(piece)
+            body = ' || '.join(picks[:5]) or (' || '.join(pieces[:3]))
+            print('::error ::FAIL %s :: %s' % (names.get(tid, '?')[:55], body.replace('%', '%25')[:880]))
     except Exception as e:
         print('::error ::TESTS diag failed: %s' % e)
