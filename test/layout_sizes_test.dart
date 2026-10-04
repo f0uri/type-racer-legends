@@ -42,6 +42,9 @@ void main() {
     'المتصدرون': () => const LeaderboardScreen(),
   };
 
+  // The largest text the app allows (see app.dart): the HUD, buttons and cards must survive it.
+  const largeText = 1.3;
+
   for (final size in _sizes.entries) {
     for (final screen in screens.entries) {
       testWidgets('${screen.key} @ ${size.key}', (t) async {
@@ -83,16 +86,49 @@ void main() {
       });
     }
   }
-}
 
-/// Reports the failure in one line, then fails. CI logs are not readable from the sandbox that
-/// writes this test, so the message has to carry the exception text itself.
-void _check(WidgetTester t, String screen, String size, String phase, List<String> captured) {
-  final err = t.takeException();
-  if (err == null && captured.isEmpty) return;
-  final fromCapture = captured.map((e) => e.split('\n').first.trim()).take(3).join(' // ');
-  final text = fromCapture.isNotEmpty ? fromCapture : err.toString().split('\n').first.trim();
-  // ignore: avoid_print
-  print('LAYOUT_FAIL $screen @ $size [$phase] :: $text');
-  fail('$screen at $size threw during $phase: ${err ?? captured.first}');
+  // One size, the largest text scale: 10 more cases rather than 30, because text scaling hurts
+  // width and height the same way everywhere and the phone size is already covered above.
+  for (final screen in screens.entries) {
+    testWidgets('${screen.key} @ phone 360x800 @ text ${largeText}x', (t) async {
+      final c = await testContainer(t);
+      t.view.physicalSize = const Size(360, 800) * 3;
+      t.view.devicePixelRatio = 3;
+      addTearDown(t.view.reset);
+      final captured = <String>[];
+      final prev = FlutterError.onError;
+      FlutterError.onError = (details) {
+        final text = details.exceptionAsString();
+        if (!captured.contains(text)) captured.add(text);
+        prev?.call(details);
+      };
+      addTearDown(() => FlutterError.onError = prev);
+      await t.pumpWidget(UncontrolledProviderScope(
+        container: c,
+        child: MaterialApp(
+          theme: buildTheme(),
+          builder: (context, child) => MediaQuery(
+            data: MediaQuery.of(context).copyWith(textScaler: const TextScaler.linear(largeText)),
+            child: Directionality(textDirection: TextDirection.rtl, child: child ?? const SizedBox()),
+          ),
+          home: const SizedBox(),
+          routes: { '/x': (_) => screen.value() },
+          initialRoute: '/x',
+        ),
+      ));
+      for (var i = 0; i < 6; i++) {
+        await t.pump(const Duration(milliseconds: 120));
+      }
+      _check(t, screen.key, '360x800 @text${largeText}x', 'layout', captured);
+      final scrollables = find.byType(Scrollable);
+      if (scrollables.evaluate().isNotEmpty) {
+        await t.drag(scrollables.first, const Offset(0, -220));
+        for (var i = 0; i < 4; i++) {
+          await t.pump(const Duration(milliseconds: 120));
+        }
+        _check(t, screen.key, '360x800 @text${largeText}x', 'scroll', captured);
+      }
+      await t.pumpWidget(const SizedBox());
+    });
+  }
 }
