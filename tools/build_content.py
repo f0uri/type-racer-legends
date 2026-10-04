@@ -52,3 +52,16 @@ if os.environ.get('GITHUB_ACTIONS') == 'true':
             print('::error ::RAW ' + line.replace('%', '%25').replace('\r', ' ')[:400])
     except Exception as e:
         print('::error ::DIAG failed: %s' % e)
+    try:
+        t = subprocess.run(['flutter', 'test', '--reporter', 'expanded'], capture_output=True, text=True, timeout=2400)
+        tout = ((t.stdout or '') + '\n' + (t.stderr or '')).splitlines()
+        keep, interesting = [], ('[E]', 'Expected:', 'Actual:', 'Which:', 'Some tests failed', 'EXCEPTION', 'Failed to load', 'Error:', 'error:')
+        for line in tout:
+            if any(k in line for k in interesting):
+                keep.append(line.rstrip())
+        summary = [l for l in tout if l.strip() and ('All tests passed' in l or 'Some tests failed' in l or 'tests passed' in l)]
+        print('::error ::TESTS exit=%s interesting=%d %s' % (t.returncode, len(keep), (summary[-1][:160] if summary else '')))
+        for line in keep[:24]:
+            print('::error ::' + line.replace('%', '%25').replace('\r', ' ').strip()[:900])
+    except Exception as e:
+        print('::error ::TESTS diag failed: %s' % e)
