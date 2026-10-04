@@ -55,13 +55,18 @@ if os.environ.get('GITHUB_ACTIONS') == 'true':
     try:
         t = subprocess.run(['flutter', 'test', '--reporter', 'expanded'], capture_output=True, text=True, timeout=2400)
         tout = ((t.stdout or '') + '\n' + (t.stderr or '')).splitlines()
-        keep, interesting = [], ('[E]', 'Expected:', 'Actual:', 'Which:', 'Some tests failed', 'EXCEPTION', 'Failed to load', 'Error:', 'error:')
+        import re as _re
+        names, details = [], []
         for line in tout:
-            if any(k in line for k in interesting):
-                keep.append(line.rstrip())
-        summary = [l for l in tout if l.strip() and ('All tests passed' in l or 'Some tests failed' in l or 'tests passed' in l)]
-        print('::error ::TESTS exit=%s interesting=%d %s' % (t.returncode, len(keep), (summary[-1][:160] if summary else '')))
-        for line in keep[:24]:
+            if _re.search(r'\+\d+ -\d+:', line):
+                names.append(line.rstrip())
+            elif any(k in line for k in ('Expected:', 'Actual:', 'Which:', 'EXCEPTION', 'Failed to load', 'Error:')):
+                details.append(line.rstrip())
+        summary = [l for l in tout if l.strip() and ('All tests passed' in l or 'Some tests failed' in l)]
+        print('::error ::TESTS exit=%s failing_lines=%d %s' % (t.returncode, len(names), (summary[-1][:160] if summary else '')))
+        for line in names[-6:]:
+            print('::error ::NAME ' + line.replace('%', '%25').replace('\r', ' ').strip()[:900])
+        for line in details[:18]:
             print('::error ::' + line.replace('%', '%25').replace('\r', ' ').strip()[:900])
     except Exception as e:
         print('::error ::TESTS diag failed: %s' % e)
