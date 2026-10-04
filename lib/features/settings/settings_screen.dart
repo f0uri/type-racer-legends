@@ -9,6 +9,7 @@ import '../../core/util/misc.dart';
 import '../../core/widgets/common.dart';
 import '../../data/merge/profile_merge.dart';
 import '../../data/remote/firebase_boot.dart';
+import '../../data/remote/progress_sync.dart';
 import '../auth/auth_controller.dart';
 import '../content/content_updater.dart';
 import '../update/update_ui.dart';
@@ -41,6 +42,7 @@ class SettingsScreen extends ConsumerWidget {
     final p = ref.watch(profileProvider);
     final auth = ref.watch(authProvider);
     final sync = ref.watch(syncStateProvider);
+    final drive = ref.watch(progressSyncProvider);
     return Scaffold(
       appBar: AppBar(title: const AppBarTitle('الإعدادات')),
       body: GradientBg(
@@ -68,12 +70,30 @@ class SettingsScreen extends ConsumerWidget {
               ]),
               const Divider(height: 24),
               if (auth.isGoogle) ...[
+                // Google Drive: the save lives in the player's own hidden Drive app folder, so it
+                // works with no server of ours and no billing. Firebase (below) is optional and
+                // only adds the shared leaderboards.
                 Row(children: [
-                  Icon(sync.phase == SyncPhase.error ? Icons.cloud_off : Icons.cloud_done, color: sync.phase == SyncPhase.error ? C.red : C.green, size: 20),
+                  Icon(drive.error != null ? Icons.cloud_off : (drive.connected ? Icons.cloud_done : Icons.cloud_queue), color: drive.error != null ? C.red : (drive.connected ? C.green : C.textDim), size: 20),
                   const SizedBox(width: 8),
-                  Expanded(child: Text(_syncText(sync), style: const TextStyle(fontSize: 13))),
-                  TextButton(onPressed: () => ref.read(profileProvider.notifier).syncNow(), child: const Text('مزامنة الآن')),
+                  Expanded(child: Text(_driveText(drive), style: const TextStyle(fontSize: 13))),
+                  TextButton(
+                    onPressed: drive.busy
+                        ? null
+                        : () async {
+                            final restored = await ref.read(progressSyncProvider.notifier).pullAndMerge(interactiveAuthorization: true);
+                            if (context.mounted) toast(context, restored ? 'تمت استعادة تقدمك من حساب جوجل' : 'تقدمك محدّث ومحفوظ في حساب جوجل');
+                          },
+                    child: const Text('مزامنة الآن'),
+                  ),
                 ]),
+                if (sync.phase != SyncPhase.idle || ref.read(cloudSyncProvider).uid != null)
+                  Row(children: [
+                    Icon(sync.phase == SyncPhase.error ? Icons.cloud_off : Icons.cloud_done, color: sync.phase == SyncPhase.error ? C.red : C.green, size: 20),
+                    const SizedBox(width: 8),
+                    Expanded(child: Text(_syncText(sync), style: const TextStyle(fontSize: 13))),
+                    TextButton(onPressed: () => ref.read(profileProvider.notifier).syncNow(), child: const Text('مزامنة اللوحات')),
+                  ]),
               ] else
                 NeonButton(
                   label: 'ربط حساب جوجل (دمج تقدمك بأمان)',
@@ -156,6 +176,22 @@ class SettingsScreen extends ConsumerWidget {
         ]),
       ),
     );
+  }
+
+  String _driveText(ProgressSyncState d) {
+    if (!d.configured) return 'الحفظ السحابي غير مفعّل في هذه النسخة (يعمل تقدمك محلياً).';
+    if (d.busy) return 'جارٍ حفظ تقدمك في حساب جوجل...';
+    if (d.error != null) return 'تعذّر الحفظ السحابي الآن، سيعيد المحاولة تلقائياً. تقدمك محفوظ على الجهاز.';
+    if (d.last != null) return 'محفوظ في حساب جوجل • ${_ago(d.last!)}';
+    return d.connected ? 'سيُحفظ تقدمك في حساب جوجل تلقائياً' : 'اضغط «مزامنة الآن» لحفظ تقدمك في حساب جوجل';
+  }
+
+  String _ago(DateTime t) {
+    final d = DateTime.now().difference(t);
+    if (d.inSeconds < 60) return 'آخر حفظ الآن';
+    if (d.inMinutes < 60) return 'آخر حفظ قبل ${d.inMinutes} دقيقة';
+    if (d.inHours < 24) return 'آخر حفظ قبل ${d.inHours} ساعة';
+    return 'آخر حفظ قبل ${d.inDays} يوم';
   }
 
   String _syncText(SyncState s) {

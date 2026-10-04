@@ -5,17 +5,24 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import '../../core/providers.dart';
+import '../../data/remote/drive_sync.dart';
 import '../../data/remote/firebase_boot.dart';
+import '../../data/remote/progress_sync.dart';
 
 class AuthState {
   final String mode; // none | guest | google
   final String? email, displayName, photoUrl;
   final bool busy;
-  const AuthState({this.mode = 'none', this.email, this.displayName, this.photoUrl, this.busy = false});
+
+  /// Short-lived Google access token for the `drive.appdata` scope, when the player granted it.
+  /// Never persisted: it is re-acquired silently on demand (see [AuthController.refreshDriveToken]).
+  final String? driveToken;
+  const AuthState({this.mode = 'none', this.email, this.displayName, this.photoUrl, this.busy = false, this.driveToken});
   bool get signedIn => mode != 'none';
   bool get isGoogle => mode == 'google';
-  AuthState copyWith({String? mode, String? email, String? displayName, String? photoUrl, bool? busy}) =>
-      AuthState(mode: mode ?? this.mode, email: email ?? this.email, displayName: displayName ?? this.displayName, photoUrl: photoUrl ?? this.photoUrl, busy: busy ?? this.busy);
+  bool get driveReady => driveToken != null;
+  AuthState copyWith({String? mode, String? email, String? displayName, String? photoUrl, bool? busy, String? driveToken}) =>
+      AuthState(mode: mode ?? this.mode, email: email ?? this.email, displayName: displayName ?? this.displayName, photoUrl: photoUrl ?? this.photoUrl, busy: busy ?? this.busy, driveToken: driveToken ?? this.driveToken);
 }
 
 class AuthController extends Notifier<AuthState> {
@@ -98,12 +105,62 @@ class AuthController extends Notifier<AuthState> {
     }
   }
 
+  /// The Web OAuth client id (build define or `assets/google_client_id.txt`).
+  /// On Android this is what makes `authentication.idToken` non-null and what lets us ask for
+  /// extra scopes (Drive) without a second consent screen of a different client type.
+  String get _webClientId => googleWebClientId;
+
   Future<GoogleSignInAccount> _pickAccount() async {
     if (!_gsiReady) {
-      await GoogleSignIn.instance.initialize();
+      await GoogleSignIn.instance.initialize(
+        clientId: _webClientId.isEmpty ? null : _webClientId,
+        serverClientId: _webClientId.isEmpty ? null : _webClientId,
+      );
       _gsiReady = true;
     }
     return GoogleSignIn.instance.authenticate();
+  }
+
+  /// Asks Google for an access token carrying the Drive app-folder scope (google_sign_in 7.2.0).
+  ///
+  /// Set [interactive] to allow a consent prompt; otherwise only an already-granted (or
+  /// silently refreshable) token is returned. Anything that goes wrong here — the player
+  /// declining the scope, no network, an old plugin — must never break sign-in itself, so the
+  /// failure is swallowed and Drive sync simply stays off.
+  Future<String?> _driveTokenFrom(GoogleSignInAccount? account, {bool interactive = false}) async {
+    if (account == null) return null;
+    try {
+      final client = account.authorizationClient;
+      // Returns null when the grant cannot be reused without showing UI again.
+      GoogleSignInClientAuthorization? granted =
+          await client.authorizationForScopes(const [DriveSync.scope]);
+      if (granted == null && interactive) {
+        granted = await client.authorizeScopes(const [DriveSync.scope]);
+      }
+      final value = granted?.accessToken;
+      if (value != null && value.isNotEmpty) {
+        await ref.read(storeProvider).meta.put('driveScopeGranted', true);
+        return value;
+      }
+      return null;
+    } catch (e) {
+      debugPrint('drive authorization unavailable: $e');
+      return null;
+    }
+  }
+
+  /// Returns a Drive access token, re-authorizing silently (or interactively when asked).
+  Future<String?> refreshDriveToken({bool interactive = false}) async {
+    if (!FirebaseBoot.available || !state.isGoogle) return null;
+    try {
+      final account = await GoogleSignIn.instance.attemptLightweightAuthentication();
+      final token = await _driveTokenFrom(account, interactive: interactive);
+      if (token != null) state = state.copyWith(driveToken: token);
+      return token;
+    } catch (e) {
+      debugPrint('drive token refresh failed: $e');
+      return null;
+    }
   }
 
   /// Opens the native Android account picker (Credential Manager) and signs in to Firebase.
@@ -123,7 +180,15 @@ class AuthController extends Notifier<AuthState> {
       final u = res.user!;
       ref.read(storeProvider).authMode = 'google';
       state = AuthState(mode: 'google', email: u.email, displayName: u.displayName, photoUrl: u.photoURL);
+      final drive = await _driveTokenFrom(account, interactive: true);
+      if (drive != null) state = state.copyWith(driveToken: drive);
       await ref.read(profileProvider.notifier).linkAccount(u.uid, displayName: u.displayName);
+      // A device that has never synced pulls the player's save out of their own Drive and merges
+      // it: same account on a new phone means the same level, wallet, garage and settings.
+      if (drive != null) {
+        final restored = await ref.read(progressSyncProvider.notifier).pullAndMerge();
+        if (restored) ref.read(progressSyncProvider.notifier).schedule(const Duration(seconds: 3));
+      }
       return null;
     } catch (e, st) {
       if (!(e is GoogleSignInException && e.code == GoogleSignInExceptionCode.canceled)) FirebaseBoot.log('google sign-in failed', e, st);
@@ -145,6 +210,8 @@ class AuthController extends Notifier<AuthState> {
         if (_gsiReady) await GoogleSignIn.instance.signOut();
       } catch (_) {}
       if (FirebaseBoot.available) await FirebaseAuth.instance.signOut();
+      // The save stays in the player's Drive; the token dies with the session.
+      ref.read(progressSyncProvider.notifier).forget();
       await ref.read(profileProvider.notifier).resetToFresh();
       ref.read(storeProvider).authMode = null;
       state = const AuthState(mode: 'none');
@@ -162,6 +229,8 @@ class AuthController extends Notifier<AuthState> {
     try {
       if (FirebaseBoot.available && FirebaseAuth.instance.currentUser != null) {
         if (!await _hasNetwork()) return 'حذف الحساب يحتاج إلى اتصال بالإنترنت.';
+        // Take the cloud save with it: the player asked for their data to be gone.
+        await ref.read(progressSyncProvider.notifier).eraseRemote();
         try {
           await ref.read(cloudSyncProvider).callFn<dynamic>('deleteAccountData', {});
         } catch (e) {

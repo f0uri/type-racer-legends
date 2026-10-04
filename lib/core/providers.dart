@@ -9,6 +9,7 @@ import '../data/remote/firebase_boot.dart';
 import '../features/ai/ai_driver.dart';
 import 'remote_settings.dart';
 import '../features/content/content_db.dart';
+import '../data/remote/progress_sync.dart';
 import 'services/audio_service.dart';
 import 'services/haptics_service.dart';
 import 'util/dates.dart';
@@ -101,6 +102,9 @@ class ProfileController extends Notifier<PlayerProfile> {
 
   void scheduleSync([Duration delay = const Duration(seconds: 8)]) {
     _dirty = true;
+    // Google Drive sync (no server needed) has its own short debounce: between two races the
+    // player's save is already uploaded, so opening the game on another phone loses nothing.
+    ref.read(progressSyncProvider.notifier).schedule();
     if (!canSync) return;
     _debounce?.cancel();
     _debounce = Timer(delay, () => syncNow());
