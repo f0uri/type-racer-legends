@@ -29,3 +29,40 @@ if not changed and old: cat['generatedAt'] = old.get('generatedAt', cat['generat
 json.dump(cat, open(cat_path, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
 open(cat_path + '.sha256', 'w').write(hashlib.sha256(open(cat_path, 'rb').read()).hexdigest())
 print('catalog v%d, %d files, changed=%s' % (cat['version'], len(files), changed))
+
+# --- TEMPORARY DIAGNOSTIC (removed right after the output is read) -------------
+import subprocess
+if os.environ.get('GITHUB_ACTIONS') == 'true':
+    try:
+        t = subprocess.run(['flutter', 'test', '--reporter', 'json'], capture_output=True, text=True, timeout=2400)
+        names, fails, prints = {}, [], {}
+        for line in (t.stdout or '').splitlines():
+            line = line.strip()
+            if not line.startswith('{'): continue
+            try: ev = json.loads(line)
+            except Exception: continue
+            kind = ev.get('type')
+            if kind == 'testStart':
+                names[ev['test']['id']] = ev['test'].get('name', '?')
+            elif kind == 'print':
+                prints.setdefault(ev.get('testID'), []).append(ev.get('message') or '')
+            elif kind == 'testDone' and ev.get('result') != 'success' and not ev.get('hidden'):
+                fails.append(ev.get('testID'))
+        print('::error ::TESTS exit=%s failed=%d' % (t.returncode, len(fails)))
+        for tid in fails[:4]:
+            pieces = []
+            for msg in prints.get(tid, []):
+                for piece in msg.splitlines():
+                    piece = piece.strip()
+                    if piece: pieces.append(piece)
+            picks = []
+            for idx, piece in enumerate(pieces):
+                if 'relevant error-causing widget' in piece:
+                    picks.append('CAUSE ' + (pieces[idx + 1] if idx + 1 < len(pieces) else ''))
+                elif 'overflowed by' in piece or 'hit test' in piece or 'Bad state' in piece or 'Expected:' in piece or 'Actual:' in piece:
+                    picks.append(piece)
+                elif 'not hit test' in piece or 'Which:' in piece:
+                    picks.append(piece)
+            print('::error ::FAIL %s :: %s' % (names.get(tid, '?')[:60], (' || '.join(picks[:4])).replace('%', '%25')[:850]))
+    except Exception as e:
+        print('::error ::TESTS diag failed: %s' % e)
