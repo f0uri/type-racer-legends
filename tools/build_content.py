@@ -53,17 +53,22 @@ if os.environ.get('GITHUB_ACTIONS') == 'true':
     except Exception as e:
         print('::error ::DIAG failed: %s' % e)
     try:
-        t = subprocess.run(['flutter', 'test', 'test/iap_test.dart', '--reporter', 'expanded'], capture_output=True, text=True, timeout=2400)
-        tout = [l.rstrip() for l in ((t.stdout or '') + '\n' + (t.stderr or '')).splitlines()]
-        print('::error ::IAP exit=%s lines=%d' % (t.returncode, len(tout)))
-        shown = 0
-        for i, line in enumerate(tout):
-            if 'Expected:' in line or 'Actual:' in line or 'Which:' in line:
-                for l in tout[max(0, i - 2): i + 6]:
-                    print('::error ::' + l.replace('%', '%25')[:900])
-                shown += 1
-                if shown >= 6: break
-        for l in [x for x in tout if x.strip()][-3:]:
-            print('::error ::TAIL ' + l.replace('%', '%25')[:900])
+        t = subprocess.run(['flutter', 'test', '--reporter', 'json'], capture_output=True, text=True, timeout=2400)
+        names, fails, errs = {}, [], []
+        for line in (t.stdout or '').splitlines():
+            line = line.strip()
+            if not line.startswith('{'): continue
+            try: ev = json.loads(line)
+            except Exception: continue
+            kind = ev.get('type')
+            if kind == 'testStart':
+                names[ev['test']['id']] = ev['test'].get('name', '?')
+            elif kind == 'error':
+                errs.append((names.get(ev.get('testID'), '?'), (ev.get('error') or '').replace('\n', ' | ')[:400]))
+            elif kind == 'testDone' and ev.get('result') != 'success' and not ev.get('hidden'):
+                fails.append(names.get(ev.get('testID'), '?'))
+        print('::error ::TESTS exit=%s failed=%d %s' % (t.returncode, len(fails), ' | '.join(fails)[:400]))
+        for n, m in errs[:8]:
+            print('::error ::FAIL %s :: %s' % (n[:120], m))
     except Exception as e:
         print('::error ::TESTS diag failed: %s' % e)
