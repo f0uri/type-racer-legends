@@ -148,7 +148,10 @@ class AuthController extends Notifier<AuthState> {
 
   Future<GoogleSignInAccount> _pickAccount() async {
     if (!_gsiReady) {
-      await GoogleSignIn.instance.initialize();
+      await GoogleSignIn.instance.initialize(
+        serverClientId:
+            '604615848597-tt64km06nj5adqqifdvmcijbqrbgqnoh.apps.googleusercontent.com',
+      );
       _gsiReady = true;
     }
     return GoogleSignIn.instance.authenticate();
