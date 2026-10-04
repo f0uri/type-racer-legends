@@ -114,6 +114,14 @@ class RaceResult {
   final int typingMs;
   final bool pitPerfect, photoFinish, timeUp, suspicious;
   final List<int> intervals;
+
+  /// The raw keystroke log as flat triples: [dtMs, codeUnit, okFlag, ...]. It is what makes a
+  /// result verifiable — anyone holding the text can replay it and re-derive every number above.
+  final List<int> keys;
+
+  /// Whether the player was allowed to erase mistakes. A verifier needs it: with backspace off,
+  /// consecutive error keys do not stack into one buffer, so long error runs are legitimate.
+  final bool backspace;
   final List<List<num>> samples; // [tSec, pos] for ghost saving
   final Map<String, List<int>> charStats;
   final Map<String, dynamic> wordStats; // word -> [errors]
@@ -139,6 +147,8 @@ class RaceResult {
     required this.intervals,
     required this.samples,
     required this.charStats,
+    this.keys = const [],
+    this.backspace = true,
     this.typingMs = 0,
     this.wordStats = const {},
     this.extra = const {},
@@ -170,6 +180,8 @@ class RaceResult {
         intervals: intervals,
         samples: samples,
         charStats: charStats,
+        keys: keys,
+        backspace: backspace,
         typingMs: typingMs ?? this.typingMs,
         wordStats: wordStats,
         extra: extra ?? this.extra,

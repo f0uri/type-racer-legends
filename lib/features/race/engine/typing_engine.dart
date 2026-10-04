@@ -20,7 +20,11 @@ bool isForeignScript(String ch) {
 class Keystroke {
   final int t; // ms since race start
   final bool ok;
-  const Keystroke(this.t, this.ok);
+  /// The character the player actually pressed. Kept because a result can be re-simulated from the
+  /// raw log: a verifier that knows the text can confirm each accepted key really was the next
+  /// character of that text instead of trusting a summary.
+  final String ch;
+  const Keystroke(this.t, this.ok, this.ch);
 }
 
 /// Pure typing state machine. No Flutter dependencies, fully unit-tested.
@@ -89,7 +93,7 @@ class TypingEngine {
       if (_wrongBuf < maxWrongBuffer) {
         _wrongBuf++;
         wrongKeys++;
-        keystrokes.add(Keystroke(tMs, false));
+        keystrokes.add(Keystroke(tMs, false, ch));
         _breakCombo();
         return KeyResult.wrong;
       }
@@ -105,7 +109,7 @@ class TypingEngine {
       correctKeys++;
       combo++;
       if (combo > maxCombo) maxCombo = combo;
-      keystrokes.add(Keystroke(tMs, true));
+      keystrokes.add(Keystroke(tMs, true, ch));
       correctTimes.add(tMs);
       if (expected == ' ') {
         // Snapshot the word verdict *before* resetting the counter, otherwise every
@@ -120,7 +124,7 @@ class TypingEngine {
     wordErrors++;
     _lastWordClean = false;
     errorPositions.add(_pos);
-    keystrokes.add(Keystroke(tMs, false));
+    keystrokes.add(Keystroke(tMs, false, ch));
     _breakCombo();
     if (allowBackspace) _wrongBuf = 1; // wrong char is shown in red and must be deleted
     return KeyResult.wrong;
@@ -176,6 +180,23 @@ class TypingEngine {
     final out = <int>[];
     for (var i = 1; i < keystrokes.length; i++) {
       out.add(keystrokes[i].t - keystrokes[i - 1].t);
+    }
+    return out;
+  }
+
+  /// The raw keystroke log as flat triples: [dtMs, codeUnit, okFlag, ...]. The first dt is 0.
+  /// This is what a verifier replays: it re-derives WPM, accuracy and the typing span from the
+  /// keys themselves, and (when it has the text) checks that every accepted key was the next
+  /// character of that text.
+  List<int> keyLog() {
+    final out = <int>[];
+    var prev = keystrokes.isEmpty ? 0 : keystrokes.first.t;
+    for (final k in keystrokes) {
+      final dt = (k.t - prev).clamp(0, 1800000);
+      prev = k.t;
+      out.add(dt);
+      out.add(k.ch.isEmpty ? 0 : k.ch.codeUnitAt(0));
+      out.add(k.ok ? 1 : 0);
     }
     return out;
   }

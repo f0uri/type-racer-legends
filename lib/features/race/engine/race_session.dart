@@ -696,6 +696,8 @@ class RaceSession {
       // The span that actually backs the WPM figure: the typing span, or the time limit in timed tests.
       typingMs: config.timeLimitMs != null ? min(tEnd * 1000, config.timeLimitMs!.toDouble()).round() : elapsedMs,
       intervals: iv.length > 600 ? iv.sublist(0, 600) : iv,
+      keys: engine.keyLog(),
+      backspace: engine.allowBackspace,
       samples: samples,
       charStats: engine.charStats,
       wordStats: wordErrorMap,

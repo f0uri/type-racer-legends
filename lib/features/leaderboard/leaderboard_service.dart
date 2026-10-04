@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../core/anticheat/replay.dart';
 import '../../core/config/app_config.dart';
 import '../../core/providers.dart';
 import '../../core/util/dates.dart';
@@ -26,9 +27,38 @@ class ScorePayload {
   final int typingMs;
   final String textId, mode;
   final List<int> intervals;
-  const ScorePayload({required this.wpm, required this.acc, required this.chars, required this.timeMs, required this.textId, required this.mode, required this.intervals, this.typingMs = 0});
 
-  Map<String, dynamic> toJson() => {'wpm': double.parse(wpm.toStringAsFixed(1)), 'acc': double.parse(acc.toStringAsFixed(1)), 'chars': chars, 'timeMs': timeMs, 'typingMs': typingMs > 0 ? typingMs : timeMs, 'textId': textId, 'mode': mode, 'intervals': intervals, 'v': AppConfig.profileSchema};
+  /// The raw keystroke log ([dtMs, codeUnit, okFlag, ...]) so the server can re-simulate the run
+  /// instead of trusting the summary. Empty for clients that predate logging.
+  final List<int> keys;
+
+  /// False when the log had to be truncated: a partial log can prove the numbers *so far*, never
+  /// the totals, and the server is told which of the two it is holding.
+  final bool keysFull;
+
+  /// What the device itself concluded when it replayed its own log (see [replayLog]). It travels
+  /// with the payload so the server can compare two independent replays instead of trusting one.
+  final String replay;
+
+  /// Whether the player could erase mistakes (see [RaceResult.backspace]).
+  final bool backspace;
+  const ScorePayload({required this.wpm, required this.acc, required this.chars, required this.timeMs, required this.textId, required this.mode, required this.intervals, this.typingMs = 0, this.keys = const [], this.keysFull = true, this.replay = 'none', this.backspace = true});
+
+  Map<String, dynamic> toJson() => {
+        'wpm': double.parse(wpm.toStringAsFixed(1)),
+        'acc': double.parse(acc.toStringAsFixed(1)),
+        'chars': chars,
+        'timeMs': timeMs,
+        'typingMs': typingMs > 0 ? typingMs : timeMs,
+        'textId': textId,
+        'mode': mode,
+        'intervals': intervals,
+        if (keys.isNotEmpty) 'keys': keys,
+        if (keys.isNotEmpty) 'full': keysFull,
+        if (keys.isNotEmpty) 'bs': backspace,
+        if (keys.isNotEmpty) 'replay': replay,
+        'v': AppConfig.profileSchema,
+      };
 
   /// Which results may go to the leaderboards: pure-play modes only (no bonuses), never flagged as suspicious.
   static ScorePayload? fromResult(RaceResult r) {
@@ -36,7 +66,26 @@ class ScorePayload {
     if (!const {'daily', 'weekly', 'official'}.contains(r.config.modeId)) return null;
     if (r.chars < 30 || r.accuracy < 80 || r.intervals.length < 20) return null;
     final iv = r.intervals.length > 400 ? r.intervals.sublist(0, 400) : r.intervals;
-    return ScorePayload(wpm: r.wpm, acc: r.accuracy, chars: r.chars, timeMs: (r.time * 1000).round(), typingMs: r.typingMs, textId: r.config.text.id, mode: r.config.modeId, intervals: iv);
+    // A keystroke log is bigger than the interval list, so it is capped too — and when it is, the
+    // payload says so instead of looking complete.
+    const maxKeys = 3000; // 1000 keystrokes
+    final full = r.keys.length <= maxKeys * 3;
+    final keys = full ? r.keys : r.keys.sublist(r.keys.length - maxKeys * 3);
+    // Replay the run from its own keystrokes before publishing it. The verdict is advisory here —
+    // the server runs the same rules on the same log — but a client that cannot pass its own
+    // verifier has nothing to gain from arguing with the server about it.
+    final report = replayLog(
+      keys: keys,
+      text: r.config.text.text,
+      claimedChars: r.chars,
+      claimedAccuracy: r.accuracy,
+      claimedTypingMs: r.typingMs,
+      claimedWpm: r.wpm,
+      full: full,
+      maxWrongBuffer: r.backspace ? 8 : 0,
+    );
+    if (report.rejected) debugPrint('score replay says no: ${report.reason}');
+    return ScorePayload(wpm: r.wpm, acc: r.accuracy, chars: r.chars, timeMs: (r.time * 1000).round(), typingMs: r.typingMs, textId: r.config.text.id, mode: r.config.modeId, intervals: iv, keys: keys, keysFull: full, replay: report.verdict.name, backspace: r.backspace);
   }
 }
 
