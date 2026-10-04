@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/providers.dart';
+import '../../../core/services/audio_service.dart';
 import '../../../core/theme/app_theme.dart';
 import '../../../core/util/misc.dart';
 import '../../../core/widgets/common.dart';
@@ -47,6 +48,13 @@ class _ResultScreenState extends ConsumerState<ResultScreen> {
       if (!mounted) return;
       ref.read(raceChainProvider.notifier).bump();
       _startCoinBurst();
+      // A win opens with its own sound and thump. Waiting for the hit-test of a button would be a
+      // silent, motionless first beat on the one screen that is supposed to feel earned.
+      final r = widget.result;
+      if (r.won && !r.suspicious && r.opponents > 0) {
+        ref.read(audioProvider).play(Sfx.fanfare);
+        ref.read(hapticsProvider).finish();
+      }
     });
     if (widget.outcome.breakDue) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
