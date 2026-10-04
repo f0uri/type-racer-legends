@@ -132,3 +132,17 @@ void main() {
     });
   }
 }
+
+/// Reports the failure in one line, then fails. CI job logs are not readable from the sandbox that
+/// writes this test, so the message has to carry the exception text itself — and '::error ::'
+/// turns the line into a check annotation on the pull request, where it *is* readable.
+void _check(WidgetTester t, String screen, String size, String phase, List<String> captured) {
+  final err = t.takeException();
+  if (err == null && captured.isEmpty) return;
+  final fromCapture = captured.map((e) => e.split('\n').first.trim()).take(3).join(' // ');
+  final text = fromCapture.isNotEmpty ? fromCapture : err.toString().split('\n').first.trim();
+  final flatten = text.replaceAll('\n', ' ').replaceAll('%', '%25');
+  // ignore: avoid_print
+  print('::error ::LAYOUT_FAIL $screen @ $size [$phase] :: $flatten');
+  fail('$screen at $size threw during $phase: ${err ?? captured.first}');
+}
