@@ -35,7 +35,7 @@ import subprocess
 if os.environ.get('GITHUB_ACTIONS') == 'true':
     try:
         t = subprocess.run(['flutter', 'test', '--reporter', 'json'], capture_output=True, text=True, timeout=2400)
-        names, fails, prints = {}, [], {}
+        names, fails, prints, errors = {}, [], {}, {}
         for line in (t.stdout or '').splitlines():
             line = line.strip()
             if not line.startswith('{'): continue
@@ -46,20 +46,26 @@ if os.environ.get('GITHUB_ACTIONS') == 'true':
                 names[ev['test']['id']] = ev['test'].get('name', '?')
             elif kind == 'print':
                 prints.setdefault(ev.get('testID'), []).append(ev.get('message') or '')
+            elif kind == 'error':
+                errors.setdefault(ev.get('testID'), []).append((ev.get('error') or ''))
             elif kind == 'testDone' and ev.get('result') != 'success' and not ev.get('hidden'):
                 fails.append(ev.get('testID'))
         print('::error ::TESTS exit=%s failed=%d' % (t.returncode, len(fails)))
         for tid in fails[:4]:
             pieces = []
-            for msg in prints.get(tid, []):
+            for msg in errors.get(tid, []):
                 for piece in msg.splitlines():
                     piece = piece.strip()
                     if piece: pieces.append(piece)
-            picks = []
+            hot, frames = [], []
             for piece in pieces:
-                if 'was thrown' in piece or 'overflowed by' in piece or 'Bad state' in piece or 'package:type_racer_legends/' in piece or 'Exception' in piece:
-                    if piece not in picks: picks.append(piece)
-            body = ' || '.join(picks[:5]) or (' || '.join(pieces[:3]))
-            print('::error ::FAIL %s :: %s' % (names.get(tid, '?')[:55], body.replace('%', '%25')[:880]))
+                if 'overflowed by' in piece or 'Bad state' in piece or 'was thrown' in piece:
+                    if piece not in hot: hot.append(piece)
+                if 'relevant error-causing widget' in piece:
+                    hot.append(piece)
+                if 'package:type_racer_legends/' in piece or 'test/layout_sizes_test.dart' in piece:
+                    if piece not in frames: frames.append(piece)
+            body = ' || '.join(hot[:2] + frames[:3])
+            print('::error ::FAIL %s :: %s' % (names.get(tid, '?')[:52], body.replace('%', '%25')[:880]))
     except Exception as e:
         print('::error ::TESTS diag failed: %s' % e)
