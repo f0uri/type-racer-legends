@@ -29,3 +29,26 @@ if not changed and old: cat['generatedAt'] = old.get('generatedAt', cat['generat
 json.dump(cat, open(cat_path, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
 open(cat_path + '.sha256', 'w').write(hashlib.sha256(open(cat_path, 'rb').read()).hexdigest())
 print('catalog v%d, %d files, changed=%s' % (cat['version'], len(files), changed))
+
+# --- TEMPORARY DIAGNOSTIC (removed right after the output is read) -------------
+import subprocess
+if os.environ.get('GITHUB_ACTIONS') == 'true':
+    try:
+        r = subprocess.run(['flutter', 'analyze', '--no-fatal-infos'], capture_output=True, text=True, timeout=1500)
+        out = ((r.stdout or '') + '\n' + (r.stderr or '')).strip()
+        lines = out.splitlines()
+        fatal, infos = [], 0
+        for line in lines:
+            parts = [x.strip() for x in line.split('\u2022')]
+            if len(parts) >= 4 and parts[0] in ('error', 'warning', 'info'):
+                if parts[0] == 'info':
+                    infos += 1
+                    continue
+                fatal.append('%s | %s | %s: %s' % (parts[0], parts[3], parts[2], parts[1]))
+        print('::error ::DIAG exit=%s lines=%d fatal=%d infos=%d' % (r.returncode, len(lines), len(fatal), infos))
+        for e in fatal[:22]:
+            print('::error ::' + e.replace('%', '%25').replace('\r', ' ')[:900])
+        for line in lines[-4:]:
+            print('::error ::RAW ' + line.replace('%', '%25').replace('\r', ' ')[:400])
+    except Exception as e:
+        print('::error ::DIAG failed: %s' % e)
