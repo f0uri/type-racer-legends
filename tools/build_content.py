@@ -30,13 +30,3 @@ json.dump(cat, open(cat_path, 'w', encoding='utf-8'), ensure_ascii=False, indent
 open(cat_path + '.sha256', 'w').write(hashlib.sha256(open(cat_path, 'rb').read()).hexdigest())
 print('catalog v%d, %d files, changed=%s' % (cat['version'], len(files), changed))
 
-# --- TEMPORARY DIAGNOSTIC: the check job hides analyzer text; surface it as annotations.
-import subprocess
-try:
-    _r = subprocess.run(['flutter', 'analyze', '--no-fatal-infos'], capture_output=True, text=True, timeout=900)
-    _lines = [l for l in (_r.stdout + _r.stderr).splitlines() if ('error' in l.lower() or 'warning' in l.lower()) and '•' in l]
-    for _l in _lines[:6]:
-        print('::error ::ANALYZE ' + _l.strip().replace('%', '%25')[:600])
-    print('::error ::ANALYZE_EXIT %d issues=%d' % (_r.returncode, len(_lines)))
-except Exception as _e:
-    print('::error ::DIAG_FAILED ' + str(_e)[:200])
