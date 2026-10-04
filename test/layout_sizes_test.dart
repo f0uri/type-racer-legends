@@ -57,15 +57,26 @@ void main() {
         for (var i = 0; i < 6; i++) {
           await t.pump(const Duration(milliseconds: 120));
         }
-        expect(t.takeException(), isNull, reason: '${screen.key} at ${size.key} threw during layout');
+        _check(t, screen.key, size.key, 'layout');
         // and one scroll, because content that only appears after a fling is where overflow hides
         await t.drag(find.byType(Scrollable).first, const Offset(0, -220));
         for (var i = 0; i < 4; i++) {
           await t.pump(const Duration(milliseconds: 120));
         }
-        expect(t.takeException(), isNull, reason: '${screen.key} at ${size.key} threw while scrolling');
+        _check(t, screen.key, size.key, 'scroll');
         await t.pumpWidget(const SizedBox());
       });
     }
   }
+}
+
+/// Reports the failure in one line, then fails. CI logs are not readable from the sandbox that
+/// writes this test, so the message has to carry the exception text itself.
+void _check(WidgetTester t, String screen, String size, String phase) {
+  final err = t.takeException();
+  if (err == null) return;
+  final text = err.toString().split('\n').map((l) => l.trim()).where((l) => l.isNotEmpty).take(6).join(' | ');
+  // ignore: avoid_print
+  print('LAYOUT_FAIL $screen @ $size [$phase] :: $text');
+  fail('$screen at $size threw during $phase: $err');
 }
