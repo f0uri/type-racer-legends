@@ -31,23 +31,26 @@ open(cat_path + '.sha256', 'w').write(hashlib.sha256(open(cat_path, 'rb').read()
 print('catalog v%d, %d files, changed=%s' % (cat['version'], len(files), changed))
 
 # --- TEMPORARY DIAGNOSTIC (removed right after the output is read) -------------
-# CI hides step logs from the sandbox, so the analyzer output is re-emitted as check
+# CI hides step logs from the sandbox, so the analyzer result is re-emitted as check
 # annotations, which the API does expose.
 import subprocess
 if os.environ.get('GITHUB_ACTIONS') == 'true':
     try:
         r = subprocess.run(['flutter', 'analyze', '--no-fatal-infos'], capture_output=True, text=True, timeout=1500)
         out = ((r.stdout or '') + '\n' + (r.stderr or '')).strip()
-        entries, summary = [], []
+        fatal, infos, summary = [], 0, []
         for line in out.splitlines():
             if not line.strip(): continue
-            parts = [p.strip() for p in line.split('\u2022')]
+            parts = [x.strip() for x in line.split('\u2022')]
             if len(parts) >= 4 and parts[0] in ('error', 'warning', 'info'):
-                entries.append('%s | %s | %s: %s' % (parts[0], parts[3], parts[2], parts[1]))
-            elif 'issue' in line or 'No issues' in line:
+                if parts[0] == 'info':
+                    infos += 1
+                    continue
+                fatal.append('%s | %s | %s: %s' % (parts[0], parts[3], parts[2], parts[1]))
+            elif 'issue' in line:
                 summary.append(line.strip())
-        print('::error ::ANALYZE exit=%s issues=%d' % (r.returncode, len(entries)))
-        for e in entries[:20]:
+        print('::error ::ANALYZE exit=%s fatal=%d infos=%d' % (r.returncode, len(fatal), infos))
+        for e in fatal[:24]:
             print('::error ::' + e.replace('%', '%25').replace('\r', ' ')[:900])
         for s in summary[-2:]:
             print('::error ::' + s.replace('%', '%25')[:900])

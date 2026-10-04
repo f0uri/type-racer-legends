@@ -200,7 +200,14 @@ final levelInfoProvider = Provider<LevelInfo>((ref) {
 
 /// Races finished in a row this session. In-memory on purpose: it is ceremony (the result
 /// screen shows «سلسلة الجولات»), not progress, so it must reset with the app.
-final raceChainProvider = StateProvider<int>((ref) => 0);
+class RaceChainController extends Notifier<int> {
+  @override
+  int build() => 0;
+  void bump() => state = state + 1;
+  void reset() => state = 0;
+}
+
+final raceChainProvider = NotifierProvider<RaceChainController, int>(RaceChainController.new);
 
 /// Daily key provider that refreshes at midnight (used to rebuild daily UI).
 final todayProvider = Provider<String>((ref) => dayKey());

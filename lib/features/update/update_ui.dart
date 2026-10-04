@@ -81,7 +81,7 @@ class MandatoryUpdateScreen extends StatelessWidget {
                   child: Directionality(
                     textDirection: TextDirection.rtl,
                     child: Column(mainAxisSize: MainAxisSize.min, children: const [
-                      const Icon(Icons.rocket_launch, size: 64, color: C.cyan),
+                      Icon(Icons.rocket_launch, size: 64, color: C.cyan),
                       SizedBox(height: 10),
                       Text('تحديث إلزامي', style: TextStyle(fontSize: 26, fontWeight: FontWeight.w900)),
                       SizedBox(height: 6),

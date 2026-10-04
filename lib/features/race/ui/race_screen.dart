@@ -543,7 +543,7 @@ class _RaceScreenState extends ConsumerState<RaceScreen> with WidgetsBindingObse
           builder: (_, _, _) {
             final t = session.time;
             final wpm = engine.rollingWpm(session.timeMs, windowMs: 5000);
-            final left = cfg.timeLimitMs == null ? null : max(0, cfg.timeLimitMs! / 1000 - t);
+            final left = cfg.timeLimitMs == null ? null : max(0.0, cfg.timeLimitMs! / 1000 - t);
             return Row(children: [
               IconButton(
                 icon: const Icon(Icons.close_rounded),

@@ -43,7 +43,7 @@ class _ResultScreenState extends ConsumerState<ResultScreen> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (!mounted) return;
-      ref.read(raceChainProvider.notifier).state = ref.read(raceChainProvider) + 1;
+      ref.read(raceChainProvider.notifier).bump();
       _startCoinBurst();
     });
     if (widget.outcome.breakDue) {
@@ -249,7 +249,7 @@ class _ResultScreenState extends ConsumerState<ResultScreen> {
               color: C.textDim,
               onPressed: () {
                 // leaving to the lobby ends the round chain: it counts races in a row, not total races
-                ref.read(raceChainProvider.notifier).state = 0;
+                ref.read(raceChainProvider.notifier).reset();
                 Navigator.of(context).popUntil((r) => r.isFirst);
               },
             ),
@@ -290,10 +290,10 @@ class _ResultScreenState extends ConsumerState<ResultScreen> {
   /// XP bar that fills from where the player was before this race to where they are now.
   Widget _xpBar(RaceOutcome o) {
     final li = ref.watch(levelInfoProvider);
-    final per = li.perLevel <= 0 ? 1 : li.perLevel;
+    final per = li.xpForNext <= 0 ? 1 : li.xpForNext;
     final after = li.progress.clamp(0.0, 1.0).toDouble();
     // a level-up refills the bar from empty, otherwise it grows by the XP just earned
-    final before = o.levelUp ? 0.0 : ((li.pointsInLevel - o.xp) / per).clamp(0.0, after).toDouble();
+    final before = o.levelUp ? 0.0 : ((li.xpInLevel - o.xp) / per).clamp(0.0, after).toDouble();
     return Panel(
       child: Column(children: [
         Row(children: [
