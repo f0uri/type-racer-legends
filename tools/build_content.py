@@ -79,9 +79,13 @@ if os.environ.get('GITHUB_ACTIONS') == 'true':
                     pieces.append(piece)
             picks = []
             for needle in ('Expected:', 'Actual:', 'Warning:', 'hit test', 'The following', 'overflowed', 'Bad state', 'Exception:', 'Which:'):
-                for piece in pieces:
+                for idx, piece in enumerate(pieces):
                     if needle in piece:
                         if piece not in picks: picks.append(piece)
+                        if needle == 'The following' and idx + 1 < len(pieces) and 'relevant error-causing' in pieces[idx + 1]:
+                            picks.append(pieces[idx + 1])
+                            if idx + 2 < len(pieces) and 'widget.dart' not in pieces[idx + 2]:
+                                picks.append(pieces[idx + 2])
                         break
             line = ' || '.join(picks[:3]) or (' || '.join(pieces[:2]))
             print('::error ::FAIL %s :: %s' % (names.get(tid, '?')[:70], line.replace('%', '%25')[:850]))
