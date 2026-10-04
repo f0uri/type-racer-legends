@@ -211,24 +211,24 @@ void main() {
   test('a typo really blocks the perfect-word bonus (regression: it used to always fire)', () {
     final s = make(text: 'alpha beta gamma delta epsilon', rules: const RaceRules(powerups: false, pit: false));
     // warm up slowly so a fast, clean word counts as a genuine burst
-    for (final ch in 'alpha ') {
+    for (final ch in 'alpha '.split('')) {
       s.update(0.35);
       s.onChar(ch);
     }
-    for (final ch in 'beta ') {
+    for (final ch in 'beta '.split('')) {
       s.update(0.05);
       s.onChar(ch); // fast + clean -> perfect word
     }
     expect(s.perfectWords, 1, reason: 'a fast clean word earns the bonus');
     // the same fast word, now with a typo that is fixed immediately
-    for (final ch in 'ga') {
+    for (final ch in 'ga'.split('')) {
       s.update(0.05);
       s.onChar(ch);
     }
     s.update(0.05);
     s.onChar('x');
     s.onBackspace();
-    for (final ch in 'mma ') {
+    for (final ch in 'mma '.split('')) {
       s.update(0.05);
       s.onChar(ch);
     }
