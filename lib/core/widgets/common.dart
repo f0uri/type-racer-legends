@@ -69,13 +69,19 @@ class Panel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final w = Container(
-      padding: padding,
       decoration: BoxDecoration(
         color: color ?? C.surface,
         borderRadius: BorderRadius.circular(18),
         border: Border.all(color: border ?? Colors.white10),
       ),
-      child: child,
+      // The transparent Material gives every ListTile/SwitchListTile/InkWell inside a panel a
+      // paint target *within* the panel. Without it their background and ink splashes are painted
+      // on the Scaffold's Material, i.e. behind this opaque colour: invisible on screen, and a
+      // debug assertion ("ListTile background color or ink splashes may be invisible") in tests.
+      child: Material(
+        type: MaterialType.transparency,
+        child: Padding(padding: padding, child: child),
+      ),
     );
     return onTap == null ? w : PressFx(onTap: onTap, child: w);
   }
