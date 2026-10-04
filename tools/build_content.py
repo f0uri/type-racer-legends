@@ -57,7 +57,23 @@ if os.environ.get('GITHUB_ACTIONS') == 'true':
                     if 'LAYOUT_FAIL' in line:
                         reports.append(line.strip())
         print('::error ::TESTS exit=%s failed=%d reports=%d' % (t.returncode, len(fails), len(reports)))
-        for line in reports[:8]:
+        for line in reports[:4]:
             print('::error ::' + line.replace('%', '%25')[:880])
+        for tid in fails[:4]:
+            pieces = []
+            for msg in prints.get(tid, []):
+                for piece in msg.splitlines():
+                    piece = piece.strip()
+                    if piece: pieces.append(piece)
+            hot, frames = [], []
+            for idx, piece in enumerate(pieces):
+                if 'overflowed by' in piece or 'Bad state' in piece:
+                    if piece not in hot: hot.append(piece)
+                if 'relevant error-causing widget' in piece and idx + 1 < len(pieces):
+                    hot.append('CAUSE ' + pieces[idx + 1])
+                if ('file:///home/runner' in piece or 'package:type_racer_legends/' in piece) and piece not in frames:
+                    frames.append(piece)
+            body = ' || '.join(hot[:2] + frames[:3])
+            print('::error ::FAIL %s :: %s' % (names.get(tid, '?')[:48], body.replace('%', '%25')[:880]))
     except Exception as e:
         print('::error ::TESTS diag failed: %s' % e)

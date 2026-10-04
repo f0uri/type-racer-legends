@@ -49,6 +49,16 @@ void main() {
         t.view.physicalSize = size.value * 3;
         t.view.devicePixelRatio = 3;
         addTearDown(t.view.reset);
+        // Every exception is captured with its own text before the framework aggregates them:
+        // "Multiple exceptions (7)" hides the one line that says what actually overflowed.
+        final captured = <String>[];
+        final prev = FlutterError.onError;
+        FlutterError.onError = (details) {
+          final text = details.exceptionAsString();
+          if (!captured.contains(text)) captured.add(text);
+          prev?.call(details);
+        };
+        addTearDown(() => FlutterError.onError = prev);
         await t.pumpWidget(UncontrolledProviderScope(
           container: c,
           child: MaterialApp(theme: buildTheme(), home: Directionality(textDirection: TextDirection.rtl, child: screen.value())),
@@ -57,13 +67,18 @@ void main() {
         for (var i = 0; i < 6; i++) {
           await t.pump(const Duration(milliseconds: 120));
         }
-        _check(t, screen.key, size.key, 'layout');
-        // and one scroll, because content that only appears after a fling is where overflow hides
-        await t.drag(find.byType(Scrollable).first, const Offset(0, -220));
-        for (var i = 0; i < 4; i++) {
-          await t.pump(const Duration(milliseconds: 120));
+        _check(t, screen.key, size.key, 'layout', captured);
+        // and one scroll, because content that only appears after a fling is where overflow hides.
+        // Screens that legitimately have nothing to scroll (an empty leaderboard, for example)
+        // simply skip this step.
+        final scrollables = find.byType(Scrollable);
+        if (scrollables.evaluate().isNotEmpty) {
+          await t.drag(scrollables.first, const Offset(0, -220));
+          for (var i = 0; i < 4; i++) {
+            await t.pump(const Duration(milliseconds: 120));
+          }
+          _check(t, screen.key, size.key, 'scroll', captured);
         }
-        _check(t, screen.key, size.key, 'scroll');
         await t.pumpWidget(const SizedBox());
       });
     }
@@ -72,11 +87,12 @@ void main() {
 
 /// Reports the failure in one line, then fails. CI logs are not readable from the sandbox that
 /// writes this test, so the message has to carry the exception text itself.
-void _check(WidgetTester t, String screen, String size, String phase) {
+void _check(WidgetTester t, String screen, String size, String phase, List<String> captured) {
   final err = t.takeException();
-  if (err == null) return;
-  final text = err.toString().split('\n').map((l) => l.trim()).where((l) => l.isNotEmpty).take(6).join(' | ');
+  if (err == null && captured.isEmpty) return;
+  final fromCapture = captured.map((e) => e.split('\n').first.trim()).take(3).join(' // ');
+  final text = fromCapture.isNotEmpty ? fromCapture : err.toString().split('\n').first.trim();
   // ignore: avoid_print
   print('LAYOUT_FAIL $screen @ $size [$phase] :: $text');
-  fail('$screen at $size threw during $phase: $err');
+  fail('$screen at $size threw during $phase: ${err ?? captured.first}');
 }
