@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/providers.dart';
 import '../../../core/theme/app_theme.dart';
@@ -13,6 +14,7 @@ import '../../career/challenge_link.dart';
 import '../../profile/card_builder.dart';
 import '../../profile/share_card.dart';
 import '../engine/race_models.dart';
+import '../game/particles.dart';
 import '../race_outcome.dart';
 import 'race_screen.dart';
 
@@ -260,6 +262,9 @@ class _ResultScreenState extends ConsumerState<ResultScreen> {
                   child: _CoinBurst(from: _coinsFrom!, to: _coinsTo, coins: o.coins),
                 ),
               ),
+            // A win gets rain: the one moment the player earned a real celebration.
+            if (r.won && hasOpp && !r.suspicious)
+              const Positioned.fill(child: IgnorePointer(child: _WinConfetti())),
           ]),
         ),
       ),
@@ -337,6 +342,75 @@ class _ResultScreenState extends ConsumerState<ResultScreen> {
 }
 
 /// Coins flying from the reward row to the wallet corner, then a total badge that pops.
+/// Confetti rain for a win, built on the race's own particle pool: no new drawing code, one
+/// CustomPaint, and the ticker stops by itself once the last piece has fallen so the result
+/// screen goes back to costing nothing.
+class _WinConfetti extends StatefulWidget {
+  const _WinConfetti();
+  @override
+  State<_WinConfetti> createState() => _WinConfettiState();
+}
+
+class _WinConfettiState extends State<_WinConfetti> with SingleTickerProviderStateMixin {
+  static const _rainSeconds = 2.4;
+  static const _hardStop = 8.0; // belt and braces: the ticker can never run forever
+  static const _colors = [C.gold, Colors.white, C.cyan, C.magenta];
+
+  final ParticleSystem _ps = ParticleSystem(220);
+  late final Ticker _tk = createTicker(_tick)..start();
+  Duration _last = Duration.zero;
+  double _t = 0, _nextEmit = 0;
+
+  @override
+  void dispose() {
+    _tk.dispose();
+    super.dispose();
+  }
+
+  void _tick(Duration d) {
+    final dt = min(0.05, _last == Duration.zero ? 0.016 : (d - _last).inMicroseconds / 1e6);
+    _last = d;
+    _t += dt;
+    if (_t < _rainSeconds && _t >= _nextEmit) {
+      // a new handful every 80ms, swinging across the width so it reads as rain, not a fountain
+      _nextEmit = _t + 0.08;
+      final w = context.size?.width ?? 360;
+      _ps.burst(
+        PKind.confetti,
+        w * (0.1 + 0.8 * (0.5 + 0.5 * sin(_t * 4.7))),
+        -12,
+        3,
+        speed: 80,
+        life: 2.6,
+        size: 5,
+        g: 300,
+        spread: 1.1,
+        angle: 1.4,
+        colors: _colors,
+      );
+    }
+    _ps.update(dt);
+    if (!mounted) return;
+    if ((_t > _rainSeconds && _ps.alive == 0) || _t > _hardStop) {
+      _tk.stop();
+      return;
+    }
+    setState(() {}); // only this subtree repaints; the result list is untouched
+  }
+
+  @override
+  Widget build(BuildContext context) => CustomPaint(size: Size.infinite, painter: _ConfettiPainter(_ps));
+}
+
+class _ConfettiPainter extends CustomPainter {
+  _ConfettiPainter(this.ps);
+  final ParticleSystem ps;
+  @override
+  void paint(Canvas canvas, Size size) => ps.render(canvas);
+  @override
+  bool shouldRepaint(covariant _ConfettiPainter old) => true;
+}
+
 class _CoinBurst extends StatefulWidget {
   const _CoinBurst({required this.from, required this.to, required this.coins});
   final Offset from, to;
