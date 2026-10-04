@@ -29,30 +29,3 @@ if not changed and old: cat['generatedAt'] = old.get('generatedAt', cat['generat
 json.dump(cat, open(cat_path, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
 open(cat_path + '.sha256', 'w').write(hashlib.sha256(open(cat_path, 'rb').read()).hexdigest())
 print('catalog v%d, %d files, changed=%s' % (cat['version'], len(files), changed))
-
-# --- TEMPORARY DIAGNOSTIC (removed right after the output is read) -------------
-# CI hides step logs from the sandbox, so the analyzer result is re-emitted as check
-# annotations, which the API does expose.
-import subprocess
-if os.environ.get('GITHUB_ACTIONS') == 'true':
-    try:
-        r = subprocess.run(['flutter', 'analyze', '--no-fatal-infos'], capture_output=True, text=True, timeout=1500)
-        out = ((r.stdout or '') + '\n' + (r.stderr or '')).strip()
-        fatal, infos, summary = [], 0, []
-        for line in out.splitlines():
-            if not line.strip(): continue
-            parts = [x.strip() for x in line.split('\u2022')]
-            if len(parts) >= 4 and parts[0] in ('error', 'warning', 'info'):
-                if parts[0] == 'info':
-                    infos += 1
-                    continue
-                fatal.append('%s | %s | %s: %s' % (parts[0], parts[3], parts[2], parts[1]))
-            elif 'issue' in line:
-                summary.append(line.strip())
-        print('::error ::ANALYZE exit=%s fatal=%d infos=%d' % (r.returncode, len(fatal), infos))
-        for e in fatal[:24]:
-            print('::error ::' + e.replace('%', '%25').replace('\r', ' ')[:900])
-        for s in summary[-2:]:
-            print('::error ::' + s.replace('%', '%25')[:900])
-    except Exception as e:
-        print('::error ::diagnostic failed: %s' % e)
