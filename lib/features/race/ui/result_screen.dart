@@ -274,8 +274,9 @@ class _ResultScreenState extends ConsumerState<ResultScreen> {
                   child: _CoinBurst(from: _coinsFrom!, to: _coinsTo, coins: o.coins),
                 ),
               ),
-            // A win gets rain: the one moment the player earned a real celebration.
-            if (r.won && hasOpp && !r.suspicious)
+            // A win gets rain: the one moment the player earned a real celebration — unless the
+            // OS asks for reduced motion, in which case the ceremony stays and the rain does not.
+            if (r.won && hasOpp && !r.suspicious && !reduceMotion(context))
               const Positioned.fill(child: IgnorePointer(child: _WinConfetti())),
           ]),
         ),

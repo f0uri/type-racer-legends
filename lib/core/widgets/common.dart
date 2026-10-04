@@ -232,6 +232,18 @@ Future<bool> confirmDialog(BuildContext c, String title, String body, {String ok
   return r ?? false;
 }
 
+/// True when the OS asks for reduced motion (Android: Accessibility -> Remove animations).
+///
+/// A game that ignores this is unusable for players who set it — motion sickness, vestibular
+/// disorders, or simply a phone they want calm. Screens honour it by not starting their idle
+/// loops and by skipping non-essential sequences; everything remains playable.
+/// Pass null when there is no usable context yet (initState): the platform flag below is always
+/// readable and carries the same value the MediaQuery would.
+bool reduceMotion(BuildContext? context) {
+  final mq = context == null ? null : MediaQuery.maybeOf(context);
+  return mq?.disableAnimations ?? WidgetsBinding.instance.platformDispatcher.accessibilityFeatures.disableAnimations;
+}
+
 class AppBarTitle extends StatelessWidget {
   final String text;
   const AppBarTitle(this.text, {super.key});

@@ -211,22 +211,28 @@ class _RaceScreenState extends ConsumerState<RaceScreen> with WidgetsBindingObse
       _setup(RaceConfig(modeId: c.modeId, title: c.title, text: c.text, biomeId: c.biomeId, mod: c.mod, opponents: c.opponents, ghosts: c.ghosts, rules: c.rules, riskMul: max(2.0, c.riskMul * 2), ranked: c.ranked, rewards: c.rewards, meta: c.meta, vocabHints: c.vocabHints, timeLimitMs: c.timeLimitMs, playerLookOverride: c.playerLookOverride, bossId: c.bossId));
     }
     ref.read(analyticsProvider).log('race_start', {'mode': cfg.modeId});
-    // the room: the player sees their car and who they are up against before the lights
-    _introSkip = Completer<void>();
-    setState(() {
-      phase = _Phase.intro;
-      countdown = 3;
-    });
-    audio.play(Sfx.whoosh, vol: 0.6);
-    haptics.light();
-    await Future.any<void>([
-      // the pre-race room's own duration: one constant, no drift
-      Future<void>.delayed(MatchIntro.defaultDuration),
-      _introSkip!.future,
-    ]);
-    _introSkip = null;
-    if (_disposed) return;
-    _focusInput();
+    // the room: the player sees their car and who they are up against before the lights.
+    // With reduced motion the room is skipped entirely — the countdown is the race starting, the
+    // room is decoration.
+    if (!reduceMotion(context)) {
+      _introSkip = Completer<void>();
+      setState(() {
+        phase = _Phase.intro;
+        countdown = 3;
+      });
+      audio.play(Sfx.whoosh, vol: 0.6);
+      haptics.light();
+      await Future.any<void>([
+        // the pre-race room's own duration: one constant, no drift
+        Future<void>.delayed(MatchIntro.defaultDuration),
+        _introSkip!.future,
+      ]);
+      _introSkip = null;
+      if (_disposed) return;
+      _focusInput();
+    } else {
+      _focusInput();
+    }
     setState(() => phase = _Phase.countdown);
     for (var n = 3; n >= 1; n--) {
       if (_disposed) return;

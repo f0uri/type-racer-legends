@@ -131,6 +131,36 @@ void main() {
       await t.pumpWidget(const SizedBox());
     });
   }
+
+  // The ten screens once more with the OS 'remove animations' flag on: every idle loop must stay
+  // off and nothing may depend on one having started.
+  for (final screen in screens.entries) {
+    testWidgets('${screen.key} @ phone 360x800 @ reduced motion', (t) async {
+      final c = await testContainer(t);
+      t.view.physicalSize = const Size(360, 800) * 3;
+      t.view.devicePixelRatio = 3;
+      addTearDown(t.view.reset);
+      t.platformDispatcher.accessibilityFeaturesTestValue = const FakeAccessibilityFeatures(disableAnimations: true);
+      addTearDown(t.platformDispatcher.clearAccessibilityFeaturesTestValue);
+      final captured = <String>[];
+      final prev = FlutterError.onError;
+      FlutterError.onError = (details) {
+        final text = details.exceptionAsString();
+        if (!captured.contains(text)) captured.add(text);
+        prev?.call(details);
+      };
+      addTearDown(() => FlutterError.onError = prev);
+      await t.pumpWidget(UncontrolledProviderScope(
+        container: c,
+        child: MaterialApp(theme: buildTheme(), home: Directionality(textDirection: TextDirection.rtl, child: screen.value())),
+      ));
+      for (var i = 0; i < 6; i++) {
+        await t.pump(const Duration(milliseconds: 120));
+      }
+      _check(t, screen.key, '360x800', 'reduced-motion', captured);
+      await t.pumpWidget(const SizedBox());
+    });
+  }
 }
 
 /// Reports the failure in one line, then fails. CI job logs are not readable from the sandbox that

@@ -45,7 +45,7 @@ class LobbyScene extends StatefulWidget {
 }
 
 class _LobbySceneState extends State<LobbyScene> with SingleTickerProviderStateMixin {
-  late final Ticker _ticker;
+  Ticker? _ticker;
   Duration _last = Duration.zero;
   double _t = 0;
   double _angle = pi * 0.5;
@@ -53,9 +53,16 @@ class _LobbySceneState extends State<LobbyScene> with SingleTickerProviderStateM
   double _idle = 0;
   bool _dragging = false;
 
+  /// The OS 'remove animations' flag, read once: MediaQuery is not available in initState, and the
+  /// platform value is the same one MediaQuery would have copied.
+  late final bool _reduced;
+
   @override
   void initState() {
     super.initState();
+    _reduced = reduceMotion(null);
+    // The ticker always runs so dragging still repaints; under reduced motion it only repaints,
+    // it never advances: no showroom spin, no glide after a flick, no ambient traffic.
     _ticker = createTicker(_onTick)..start();
   }
 
@@ -70,9 +77,12 @@ class _LobbySceneState extends State<LobbyScene> with SingleTickerProviderStateM
     // clamp: after the app was paused the first delta can be seconds long, which would teleport
     // the city forward in one frame.
     dt = dt.clamp(0.0, 0.05);
-    _t += dt;
+    if (!_reduced) _t += dt;
     if (!_dragging) {
-      if (_velocity.abs() > 0.05) {
+      if (_reduced) {
+        // nothing keeps moving once the finger is gone
+        _velocity = 0;
+      } else if (_velocity.abs() > 0.05) {
         _angle += _velocity * dt;
         _velocity *= pow(0.04, dt).toDouble();
         _idle = 0;
@@ -87,7 +97,7 @@ class _LobbySceneState extends State<LobbyScene> with SingleTickerProviderStateM
 
   @override
   void dispose() {
-    _ticker.dispose();
+    _ticker?.dispose();
     super.dispose();
   }
 
