@@ -119,6 +119,15 @@ class ProgressSyncController extends Notifier<ProgressSyncState> {
     });
   }
 
+  /// Writes whatever is pending *now*: cancels the debounce and uploads. Called when the game
+  /// goes to the background (Android may kill the process before a 1.2s timer ever fires) and
+  /// when the network comes back, so a session never ends with the cloud copy behind.
+  void flush() {
+    _debounce?.cancel();
+    if (_token == null) return;
+    pushNow();
+  }
+
   /// Uploads the current profile. Returns false when nothing was sent (not connected / offline).
   Future<bool> pushNow() async {
     final token = _token;

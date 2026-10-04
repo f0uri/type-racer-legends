@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../core/providers.dart';
 import '../career/challenge_link.dart';
 import '../content/content_updater.dart';
+import '../../data/remote/progress_sync.dart';
 import '../leaderboard/leaderboard_service.dart';
 import '../notifications/engagement.dart';
 
@@ -44,6 +45,7 @@ class _AppLifecycleHostState extends ConsumerState<AppLifecycleHost> with Widget
         final offline = r.isEmpty || (r.length == 1 && r.first == ConnectivityResult.none);
         if (_wasOffline && !offline) {
           ref.read(profileProvider.notifier).syncNow();
+          ref.read(progressSyncProvider.notifier).flush();
           ref.read(contentUpdaterProvider.notifier).refresh(force: true);
           ref.read(leaderboardProvider).flush();
           for (final f in ref.read(lifecycleHooksProvider).onOnline) {
@@ -60,6 +62,9 @@ class _AppLifecycleHostState extends ConsumerState<AppLifecycleHost> with Widget
     final hooks = ref.read(lifecycleHooksProvider);
     if (state == AppLifecycleState.paused) {
       ref.read(profileProvider.notifier).syncNow();
+      // The cloud save goes out immediately, not on the 1.2s debounce: the OS may stop the
+      // process at any moment after a pause, and the player's last race must not be the one lost.
+      ref.read(progressSyncProvider.notifier).flush();
       ref.read(engagementProvider).refresh();
       for (final f in hooks.onPause) {
         f();
