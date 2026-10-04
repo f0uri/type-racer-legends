@@ -18,9 +18,9 @@ void main() {
   testWidgets('the banner drops in instead of appearing fully formed', (t) async {
     await t.pumpWidget(_host(const ResultBanner(title: 'فوز!', color: C.gold, celebrate: true)));
     expect(_bannerOpacity(t), lessThan(0.5), reason: 'the first frame must still be on its way in');
-    final start = t.getTopLeft(find.byType(ResultBanner));
+    final start = t.getTopLeft(find.text('فوز!'));
     await t.pump(const Duration(milliseconds: 120));
-    expect(t.getTopLeft(find.byType(ResultBanner)).dy, greaterThan(start.dy), reason: 'the card travels down into place');
+    expect(t.getTopLeft(find.text('فوز!')).dy, greaterThan(start.dy), reason: 'the card travels down into place');
     await t.pump(const Duration(milliseconds: 600));
     expect(_bannerOpacity(t), 1.0);
     await t.pumpWidget(const SizedBox());
