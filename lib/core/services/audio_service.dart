@@ -123,10 +123,20 @@ class AudioService {
     }
   }
 
-  /// [speed] 0..1 maps to pitch.
+  double _lastRate = 0;
+  int _lastRateMs = 0;
+
+  /// [speed] 0..1 maps to pitch. Called every frame by the race loop, so the platform call is
+  /// throttled: it only fires on a meaningful change or every 150 ms at most (was 60 calls/s).
   void engineSpeed(double speed) {
     if (!_engineRunning) return;
-    _engine?.setPlaybackRate((0.8 + speed.clamp(0.0, 1.0) * 1.3)).catchError((_) {});
+    final rate = 0.8 + speed.clamp(0.0, 1.0) * 1.3;
+    final now = DateTime.now().millisecondsSinceEpoch;
+    final bigChange = (rate - _lastRate).abs() > 0.18;
+    if (!bigChange && now - _lastRateMs < 150) return;
+    _lastRate = rate;
+    _lastRateMs = now;
+    _engine?.setPlaybackRate(rate).catchError((_) {});
   }
 
   Future<void> stopEngine() async {

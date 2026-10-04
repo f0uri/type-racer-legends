@@ -2,10 +2,29 @@ import 'metrics.dart';
 
 enum KeyResult { correct, wrong, ignored }
 
+/// True for characters coming from a non-Latin keyboard (Arabic, Cyrillic, Greek, CJK, emoji).
+/// The game never punishes these as typing mistakes: the player simply has the wrong keyboard
+/// layout active, and the UI shows a one-time hint instead of breaking the combo.
+bool isForeignScript(String ch) {
+  if (ch.isEmpty) return false;
+  final c = ch.runes.first;
+  if (c < 128) return false;
+  if (c <= 0x02AF) return false; // Latin + Latin Extended (é, ç, ø, đ…) are part of the texts
+  if (c >= 0x0370 && c <= 0x03FF) return true; // Greek
+  if (c >= 0x0400 && c <= 0x052F) return true; // Cyrillic
+  if (c >= 0x0590 && c <= 0x08FF) return true; // Hebrew + Arabic + Syriac
+  if (c >= 0x3000) return true; // CJK, Hangul, emoji, exotic symbols
+  return false; // general punctuation, arrows, maths (used by the 'symbols' texts)
+}
+
 class Keystroke {
   final int t; // ms since race start
   final bool ok;
-  const Keystroke(this.t, this.ok);
+  /// The character the player actually pressed. Kept because a result can be re-simulated from the
+  /// raw log: a verifier that knows the text can confirm each accepted key really was the next
+  /// character of that text instead of trusting a summary.
+  final String ch;
+  const Keystroke(this.t, this.ok, this.ch);
 }
 
 /// Pure typing state machine. No Flutter dependencies, fully unit-tested.
@@ -22,6 +41,7 @@ class TypingEngine {
   int correctKeys = 0, wrongKeys = 0;
   int combo = 0, maxCombo = 0;
   int wordErrors = 0; // errors in the current word
+  bool _lastWordClean = true; // verdict for the word that was just completed
   final List<Keystroke> keystrokes = [];
   final List<int> correctTimes = []; // t (ms) for each correct char in order
   final List<int> errorPositions = [];
@@ -64,6 +84,8 @@ class TypingEngine {
   /// Types a single character at [tMs] (ms since race start).
   KeyResult type(String ch, int tMs) {
     if (finished || ch.isEmpty) return KeyResult.ignored;
+    // Wrong keyboard layout / control characters: never a typing error, never a lost combo.
+    if (isForeignScript(ch) || ch.codeUnitAt(0) < 32) return KeyResult.ignored;
     firstKeyMs ??= tMs;
     lastKeyMs = tMs;
     if (_wrongBuf > 0) {
@@ -71,7 +93,7 @@ class TypingEngine {
       if (_wrongBuf < maxWrongBuffer) {
         _wrongBuf++;
         wrongKeys++;
-        keystrokes.add(Keystroke(tMs, false));
+        keystrokes.add(Keystroke(tMs, false, ch));
         _breakCombo();
         return KeyResult.wrong;
       }
@@ -87,16 +109,22 @@ class TypingEngine {
       correctKeys++;
       combo++;
       if (combo > maxCombo) maxCombo = combo;
-      keystrokes.add(Keystroke(tMs, true));
+      keystrokes.add(Keystroke(tMs, true, ch));
       correctTimes.add(tMs);
-      if (expected == ' ') wordErrors = 0;
+      if (expected == ' ') {
+        // Snapshot the word verdict *before* resetting the counter, otherwise every
+        // spaced word would look clean and the "perfect word" bonus would always fire.
+        _lastWordClean = wordErrors == 0;
+        wordErrors = 0;
+      }
       return KeyResult.correct;
     }
     st[1]++;
     wrongKeys++;
     wordErrors++;
+    _lastWordClean = false;
     errorPositions.add(_pos);
-    keystrokes.add(Keystroke(tMs, false));
+    keystrokes.add(Keystroke(tMs, false, ch));
     _breakCombo();
     if (allowBackspace) _wrongBuf = 1; // wrong char is shown in red and must be deleted
     return KeyResult.wrong;
@@ -122,7 +150,11 @@ class TypingEngine {
   int get wordStartOfPos => wordStart;
 
   /// True if the word that just completed at the last correct key was typed without errors.
-  bool get lastWordClean => wordErrors == 0;
+  bool get lastWordClean => _lastWordClean;
+
+  /// True when the buffer is full of wrong characters and further keys are refused
+  /// (the UI shows a "press backspace" prompt instead of silently swallowing input).
+  bool get stuckBackspace => _wrongBuf >= maxWrongBuffer;
 
   double wpmAt(int nowMs) {
     final s = firstKeyMs;
@@ -148,6 +180,23 @@ class TypingEngine {
     final out = <int>[];
     for (var i = 1; i < keystrokes.length; i++) {
       out.add(keystrokes[i].t - keystrokes[i - 1].t);
+    }
+    return out;
+  }
+
+  /// The raw keystroke log as flat triples: [dtMs, codeUnit, okFlag, ...]. The first dt is 0.
+  /// This is what a verifier replays: it re-derives WPM, accuracy and the typing span from the
+  /// keys themselves, and (when it has the text) checks that every accepted key was the next
+  /// character of that text.
+  List<int> keyLog() {
+    final out = <int>[];
+    var prev = keystrokes.isEmpty ? 0 : keystrokes.first.t;
+    for (final k in keystrokes) {
+      final dt = (k.t - prev).clamp(0, 1800000);
+      prev = k.t;
+      out.add(dt);
+      out.add(k.ch.isEmpty ? 0 : k.ch.codeUnitAt(0));
+      out.add(k.ok ? 1 : 0);
     }
     return out;
   }

@@ -9,6 +9,7 @@ import '../../core/util/misc.dart';
 import '../../core/widgets/common.dart';
 import '../../data/merge/profile_merge.dart';
 import '../../data/remote/firebase_boot.dart';
+import '../../data/remote/progress_sync.dart';
 import '../auth/auth_controller.dart';
 import '../content/content_updater.dart';
 import '../update/update_ui.dart';
@@ -19,7 +20,7 @@ class SettingsScreen extends ConsumerWidget {
 
   Widget _section(String t) => Padding(
         padding: const EdgeInsets.fromLTRB(4, 18, 4, 8),
-        child: Text(t, style: const TextStyle(color: C.cyan, fontWeight: FontWeight.w900, fontSize: 15)),
+        child: Text(t, style: displayStyle(size: 15, color: C.cyan, spacing: 0.4)),
       );
 
   Widget _switch(WidgetRef ref, String title, String key, bool value, {String? sub}) => SwitchListTile(
@@ -41,6 +42,7 @@ class SettingsScreen extends ConsumerWidget {
     final p = ref.watch(profileProvider);
     final auth = ref.watch(authProvider);
     final sync = ref.watch(syncStateProvider);
+    final drive = ref.watch(progressSyncProvider);
     return Scaffold(
       appBar: AppBar(title: const AppBarTitle('الإعدادات')),
       body: GradientBg(
@@ -51,7 +53,7 @@ class SettingsScreen extends ConsumerWidget {
               Row(children: [
                 GestureDetector(
                   onTap: () => _pickAvatar(context, ref),
-                  child: CircleAvatar(radius: 28, backgroundColor: C.surface2, child: Text(avatars[p.avatar % avatars.length], style: const TextStyle(fontSize: 28))),
+                  child: CircleAvatar(radius: 28, backgroundColor: C.surface2, child: Icon(avatars[p.avatar % avatars.length], size: 26, color: C.cyan)),
                 ),
                 const SizedBox(width: 12),
                 Expanded(
@@ -68,12 +70,30 @@ class SettingsScreen extends ConsumerWidget {
               ]),
               const Divider(height: 24),
               if (auth.isGoogle) ...[
+                // Google Drive: the save lives in the player's own hidden Drive app folder, so it
+                // works with no server of ours and no billing. Firebase (below) is optional and
+                // only adds the shared leaderboards.
                 Row(children: [
-                  Icon(sync.phase == SyncPhase.error ? Icons.cloud_off : Icons.cloud_done, color: sync.phase == SyncPhase.error ? C.red : C.green, size: 20),
+                  Icon(drive.error != null ? Icons.cloud_off : (drive.connected ? Icons.cloud_done : Icons.cloud_queue), color: drive.error != null ? C.red : (drive.connected ? C.green : C.textDim), size: 20),
                   const SizedBox(width: 8),
-                  Expanded(child: Text(_syncText(sync), style: const TextStyle(fontSize: 13))),
-                  TextButton(onPressed: () => ref.read(profileProvider.notifier).syncNow(), child: const Text('مزامنة الآن')),
+                  Expanded(child: Text(_driveText(drive), style: const TextStyle(fontSize: 13))),
+                  TextButton(
+                    onPressed: drive.busy
+                        ? null
+                        : () async {
+                            final restored = await ref.read(progressSyncProvider.notifier).pullAndMerge(interactiveAuthorization: true);
+                            if (context.mounted) toast(context, restored ? 'تمت استعادة تقدمك من حساب جوجل' : 'تقدمك محدّث ومحفوظ في حساب جوجل');
+                          },
+                    child: const Text('مزامنة الآن'),
+                  ),
                 ]),
+                if (sync.phase != SyncPhase.idle || ref.read(cloudSyncProvider).uid != null)
+                  Row(children: [
+                    Icon(sync.phase == SyncPhase.error ? Icons.cloud_off : Icons.cloud_done, color: sync.phase == SyncPhase.error ? C.red : C.green, size: 20),
+                    const SizedBox(width: 8),
+                    Expanded(child: Text(_syncText(sync), style: const TextStyle(fontSize: 13))),
+                    TextButton(onPressed: () => ref.read(profileProvider.notifier).syncNow(), child: const Text('مزامنة اللوحات')),
+                  ]),
               ] else
                 NeonButton(
                   label: 'ربط حساب جوجل (دمج تقدمك بأمان)',
@@ -82,7 +102,7 @@ class SettingsScreen extends ConsumerWidget {
                   busy: auth.busy,
                   onPressed: () async {
                     final err = await ref.read(authProvider.notifier).signInWithGoogle();
-                    if (context.mounted) toast(context, err ?? 'تم الربط وتمت مزامنة تقدمك ✓');
+                    if (context.mounted) toast(context, err ?? 'تم الربط وتمت مزامنة تقدمك');
                   },
                 ),
               const SizedBox(height: 10),
@@ -141,7 +161,7 @@ class SettingsScreen extends ConsumerWidget {
             ListTile(contentPadding: EdgeInsets.zero, title: const Text('التحقق من التحديثات الآن'), trailing: const Icon(Icons.system_update_rounded, color: C.cyan), onTap: () => manualUpdateCheck(context, ref)),
             ListTile(contentPadding: EdgeInsets.zero, title: const Text('تحديث المحتوى (نصوص، مركبات، أحداث)'), trailing: const Icon(Icons.sync_rounded, color: C.cyan), onTap: () async {
               final applied = await ref.read(contentUpdaterProvider.notifier).refresh(force: true);
-              if (context.mounted) toast(context, applied ? 'تم تحديث المحتوى ✅' : 'المحتوى محدّث');
+              if (context.mounted) toast(context, applied ? 'تم تحديث المحتوى' : 'المحتوى محدّث');
             }),
           ])),
           _section('حول'),
@@ -158,12 +178,28 @@ class SettingsScreen extends ConsumerWidget {
     );
   }
 
+  String _driveText(ProgressSyncState d) {
+    if (!d.configured) return 'الحفظ السحابي غير مفعّل في هذه النسخة (يعمل تقدمك محلياً).';
+    if (d.busy) return 'جارٍ حفظ تقدمك في حساب جوجل...';
+    if (d.error != null) return 'تعذّر الحفظ السحابي الآن، سيعيد المحاولة تلقائياً. تقدمك محفوظ على الجهاز.';
+    if (d.last != null) return 'محفوظ في حساب جوجل • ${_ago(d.last!)}';
+    return d.connected ? 'سيُحفظ تقدمك في حساب جوجل تلقائياً' : 'اضغط «مزامنة الآن» لحفظ تقدمك في حساب جوجل';
+  }
+
+  String _ago(DateTime t) {
+    final d = DateTime.now().difference(t);
+    if (d.inSeconds < 60) return 'آخر حفظ الآن';
+    if (d.inMinutes < 60) return 'آخر حفظ قبل ${d.inMinutes} دقيقة';
+    if (d.inHours < 24) return 'آخر حفظ قبل ${d.inHours} ساعة';
+    return 'آخر حفظ قبل ${d.inDays} يوم';
+  }
+
   String _syncText(SyncState s) {
     switch (s.phase) {
       case SyncPhase.syncing:
         return 'جارٍ المزامنة...';
       case SyncPhase.ok:
-        return 'تمت المزامنة ✓';
+        return 'تمت المزامنة';
       case SyncPhase.error:
         return 'تعذّرت المزامنة، سيُعاد المحاولة تلقائياً. تقدمك محفوظ محلياً.';
       default:
@@ -188,12 +224,13 @@ class SettingsScreen extends ConsumerWidget {
   }
 
   Future<void> _pickAvatar(BuildContext c, WidgetRef ref) async {
+    final current = ref.read(profileProvider).avatar;
     final i = await showModalBottomSheet<int>(
       context: c,
       builder: (ctx) => Padding(
         padding: const EdgeInsets.all(20),
         child: Wrap(spacing: 14, runSpacing: 14, alignment: WrapAlignment.center, children: [
-          for (var i = 0; i < avatars.length; i++) GestureDetector(onTap: () => Navigator.pop(ctx, i), child: CircleAvatar(radius: 28, backgroundColor: C.surface2, child: Text(avatars[i], style: const TextStyle(fontSize: 28)))),
+          for (var i = 0; i < avatars.length; i++) GestureDetector(onTap: () => Navigator.pop(ctx, i), child: CircleAvatar(radius: 28, backgroundColor: C.surface2, child: Icon(avatars[i], size: 26, color: i == current ? C.cyan : C.textDim))),
         ]),
       ),
     );
@@ -246,7 +283,7 @@ class SettingsScreen extends ConsumerWidget {
           ..clear()
           ..addAll(merged.d);
       });
-      if (c.mounted) toast(c, 'تمت استعادة النسخة الاحتياطية بدمج آمن ✓');
+      if (c.mounted) toast(c, 'تمت استعادة النسخة الاحتياطية بدمج آمن');
     } catch (e) {
       if (c.mounted) toast(c, 'تعذّر جلب النسخ الاحتياطية');
     }

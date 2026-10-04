@@ -33,6 +33,14 @@ class TypingPalette {
   }
 }
 
+/// The display face: heavier and wider than the body font, used for screen titles and hero
+/// numbers so hierarchy is visible at a glance (a game, not a settings page).
+const kDisplayFont = 'Almarai';
+
+/// A title style every screen can share. [size] sets the scale, the rest is identity.
+TextStyle displayStyle({double size = 20, Color color = Colors.white, double spacing = 0.2}) =>
+    TextStyle(fontFamily: kDisplayFont, fontSize: size, fontWeight: FontWeight.w800, color: color, letterSpacing: spacing);
+
 ThemeData buildTheme({double fontScale = 1, bool dyslexia = false}) {
   final base = ThemeData.dark(useMaterial3: true);
   final family = dyslexia ? 'OpenDyslexic' : 'Tajawal';

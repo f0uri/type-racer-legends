@@ -2,6 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:type_racer_legends/data/models/content_models.dart';
 import 'package:type_racer_legends/features/leaderboard/leaderboard_service.dart';
 import 'package:type_racer_legends/features/race/engine/race_models.dart';
+import 'package:type_racer_legends/features/race/engine/typing_engine.dart';
 
 RaceResult r({String mode = 'daily', RaceRules rules = RaceRules.purePlay, bool suspicious = false, int chars = 120, double acc = 96, int ivs = 100}) => RaceResult(
       config: RaceConfig(modeId: mode, title: 't', rules: rules, text: TextItem({'id': 'eq1', 't': 'a' * chars, 'cat': 'sentence', 'lang': 'en', 'diff': 2, 'len': chars})),
@@ -45,6 +46,47 @@ void main() {
     expect(j['wpm'], 71.3);
     expect(j['textId'], 'eq1');
     expect(j['mode'], 'daily');
+  });
+
+  test('a real run travels with its keystroke log and its own verdict', () {
+    const source = 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
+    final e = TypingEngine(source);
+    var t = 400;
+    for (var i = 0; i < source.length; i++) {
+      e.type(source[i], t);
+      t += 250;
+    }
+    final span = t - 250 - 400;
+    final res = RaceResult(
+      config: RaceConfig(modeId: 'daily', title: 't', rules: RaceRules.purePlay, text: TextItem({'id': 'eq1', 't': source, 'cat': 'sentence', 'lang': 'en', 'diff': 2, 'len': source.length})),
+      standings: const [],
+      playerRank: 1,
+      wpm: 45,
+      rawWpm: 45,
+      accuracy: 100,
+      time: 20,
+      maxCombo: 30,
+      errors: 0,
+      chars: source.length,
+      nitroUses: 0,
+      perfectWords: 0,
+      powerupsUsed: 0,
+      pitPerfect: false,
+      photoFinish: false,
+      timeUp: false,
+      suspicious: false,
+      intervals: List.filled(60, 250),
+      samples: const [],
+      charStats: const {},
+      typingMs: span + 2000,
+      keys: e.keyLog(),
+    );
+    final p = ScorePayload.fromResult(res)!;
+    final j = p.toJson();
+    expect(j['keys'], isNotEmpty);
+    expect(j['full'], isTrue);
+    expect(j['replay'], 'verified');
+    expect((j['keys'] as List).length, source.length * 3);
   });
 
   test('board ids: global, country, weekly (Monday key) and monthly', () {

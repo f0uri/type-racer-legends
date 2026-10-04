@@ -29,9 +29,18 @@ void main() {
   testWidgets('home lists the game modes and opens the quick race sheet', (t) async {
     final c = await testContainer(t);
     await show(t, c, const HomeScreen());
-    for (final s in ['الحملة', 'الأشباح', 'البطولات', 'البقاء', 'قتال الطريق', 'التحديات', 'جولة العالم', 'نص مخصص', 'التعلّم', 'التدريب الذكي', 'سباق سريع']) {
+    // the lobby shows four hero pods plus one giant start button
+    for (final s in ['الحملة', 'البطولات', 'التحديات', 'التعلّم', 'سباق سريع']) {
       expect(find.text(s, skipOffstage: false), findsWidgets, reason: s);
     }
+    // the secondary modes are one tap away behind «المزيد»
+    await t.tap(find.text('المزيد من الأوضاع'));
+    await t.pump(const Duration(milliseconds: 500));
+    for (final s in ['الأشباح', 'البقاء', 'قتال الطريق', 'جولة العالم', 'نص مخصص', 'التدريب الذكي']) {
+      expect(find.text(s, skipOffstage: false), findsWidgets, reason: s);
+    }
+    await t.tapAt(const Offset(10, 10)); // dismiss the sheet
+    await t.pump(const Duration(milliseconds: 400));
     await t.tap(find.text('سباق سريع').first);
     await t.pump(const Duration(milliseconds: 500));
     expect(find.byType(QuickRaceSheet), findsOneWidget);

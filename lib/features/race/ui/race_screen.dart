@@ -8,6 +8,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/providers.dart';
 import '../../../core/services/analytics_provider.dart';
 import '../../../core/services/audio_service.dart';
+import '../../../core/services/haptics_service.dart';
+import '../../../core/services/screen_awake.dart';
 import '../../../core/theme/app_theme.dart';
 import '../../../core/util/misc.dart';
 import '../../../core/widgets/common.dart';
@@ -24,10 +26,11 @@ import '../game/env_painter.dart';
 import '../game/race_game.dart';
 import '../race_builder.dart';
 import '../race_outcome.dart';
+import 'match_intro.dart';
 import 'result_screen.dart';
 import 'text_panel.dart';
 
-enum _Phase { lobby, countdown, racing, finishing }
+enum _Phase { lobby, intro, countdown, racing, finishing }
 
 class _Popup {
   final int id;
@@ -64,11 +67,16 @@ class _RaceScreenState extends ConsumerState<RaceScreen> with WidgetsBindingObse
   late PlayerRig rig;
   final input = TextEditingController(text: _guard);
   final focus = FocusNode();
-  final tick = ValueNotifier<int>(0);
+  final tick = ValueNotifier<int>(0); // HUD pulse (10 Hz)
+  final inputTick = ValueNotifier<int>(0); // bumped on every key: repaints the text panel only
+  late final Listenable _panelTick = Listenable.merge([tick, inputTick]);
   Timer? _hud;
   Timer? _storm;
   _Phase phase = _Phase.lobby;
   int countdown = 3;
+
+  /// The pre-race room is skippable: a tap throws away the remaining wait.
+  Completer<void>? _introSkip;
   bool riskOn = false;
   bool _paused = false;
   bool _done = false;
@@ -81,6 +89,8 @@ class _RaceScreenState extends ConsumerState<RaceScreen> with WidgetsBindingObse
   Timer? _tauntTimer;
   bool photoReplay = false;
   late AudioService audio;
+  late Haptics haptics;
+  bool _layoutHintShown = false;
   int _bulkInputs = 0;
   final Random _rnd = Random();
   final Stopwatch _sw = Stopwatch();
@@ -96,6 +106,7 @@ class _RaceScreenState extends ConsumerState<RaceScreen> with WidgetsBindingObse
     WidgetsBinding.instance.addObserver(this);
     audio = ref.read(audioProvider);
     _setup(widget.config);
+    ScreenAwake.acquire();
     audio.startMusic();
     _hud = Timer.periodic(const Duration(milliseconds: 100), (_) {
       if (!_disposed) tick.value++;
@@ -119,6 +130,7 @@ class _RaceScreenState extends ConsumerState<RaceScreen> with WidgetsBindingObse
     final db = ref.read(contentProvider);
     final p = ref.read(profileProvider);
     final s = ref.read(settingsProvider);
+    haptics = ref.read(hapticsProvider);
     cfg = c;
     rig = c.playerLookOverride != null ? PlayerRig(c.playerLookOverride!, const VehicleMods(), c.playerLookOverride!.vehicle) : PlayerRig.from(db, p);
     engine = TypingEngine(c.text.text, allowBackspace: s.backspace, foldAccents: s.foldAccents || c.text.lang == 'en');
@@ -144,7 +156,7 @@ class _RaceScreenState extends ConsumerState<RaceScreen> with WidgetsBindingObse
       looks: looks,
       fps30: s.fps30,
       audio: audio,
-      haptics: ref.read(hapticsProvider),
+      haptics: haptics,
       onEvents: _onEvents,
     );
     final horn = db.skin(p.loadout(rig.vehicle.id)['horn'] as String? ?? '');
@@ -153,12 +165,17 @@ class _RaceScreenState extends ConsumerState<RaceScreen> with WidgetsBindingObse
     } else {
       audio.setHorn(null, 'saw');
     }
-    ref.read(hapticsProvider).keys = false;
+    haptics.keys = false;
   }
 
   @override
   void dispose() {
+    // never leave the start sequence waiting on a screen that is gone
+    final skip = _introSkip;
+    if (skip != null && !skip.isCompleted) skip.complete();
+    _introSkip = null;
     _disposed = true;
+    ScreenAwake.release();
     WidgetsBinding.instance.removeObserver(this);
     _ticker?.dispose();
     _hud?.cancel();
@@ -169,6 +186,7 @@ class _RaceScreenState extends ConsumerState<RaceScreen> with WidgetsBindingObse
     input.dispose();
     focus.dispose();
     tick.dispose();
+    inputTick.dispose();
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
     super.dispose();
   }
@@ -193,22 +211,43 @@ class _RaceScreenState extends ConsumerState<RaceScreen> with WidgetsBindingObse
       _setup(RaceConfig(modeId: c.modeId, title: c.title, text: c.text, biomeId: c.biomeId, mod: c.mod, opponents: c.opponents, ghosts: c.ghosts, rules: c.rules, riskMul: max(2.0, c.riskMul * 2), ranked: c.ranked, rewards: c.rewards, meta: c.meta, vocabHints: c.vocabHints, timeLimitMs: c.timeLimitMs, playerLookOverride: c.playerLookOverride, bossId: c.bossId));
     }
     ref.read(analyticsProvider).log('race_start', {'mode': cfg.modeId});
-    setState(() {
-      phase = _Phase.countdown;
-      countdown = 3;
-    });
-    _focusInput();
+    // the room: the player sees their car and who they are up against before the lights.
+    // With reduced motion the room is skipped entirely — the countdown is the race starting, the
+    // room is decoration.
+    if (!reduceMotion(context)) {
+      _introSkip = Completer<void>();
+      setState(() {
+        phase = _Phase.intro;
+        countdown = 3;
+      });
+      audio.play(Sfx.whoosh, vol: 0.6);
+      haptics.light();
+      await Future.any<void>([
+        // the pre-race room's own duration: one constant, no drift
+        Future<void>.delayed(MatchIntro.defaultDuration),
+        _introSkip!.future,
+      ]);
+      _introSkip = null;
+      if (_disposed) return;
+      _focusInput();
+    } else {
+      _focusInput();
+    }
+    setState(() => phase = _Phase.countdown);
     for (var n = 3; n >= 1; n--) {
       if (_disposed) return;
       setState(() => countdown = n);
       audio.play(Sfx.beep);
-      await Future<void>.delayed(const Duration(milliseconds: 850));
+      haptics.light();
+      await Future<void>.delayed(const Duration(milliseconds: 760));
     }
     if (_disposed) return;
     setState(() {
       countdown = 0;
       phase = _Phase.racing;
     });
+    audio.play(Sfx.go, vol: 0.8);
+    haptics.finish();
     _sw
       ..reset()
       ..start();
@@ -242,17 +281,19 @@ class _RaceScreenState extends ConsumerState<RaceScreen> with WidgetsBindingObse
         session.onBackspace();
       }
     } else if (v.length > _guard.length) {
-      var added = v.substring(_guard.length).replaceAll('\u200B', '');
-      if (added.length > 3) {
-        _bulkInputs++; // paste / gesture typing: only the first characters count
-        added = added.substring(0, 1);
+      var added = v.substring(_guard.length).replaceAll('\u200B', '').replaceAll('\n', '').replaceAll('\r', '');
+      // Compare whole code points, not UTF-16 units: emoji and rare scripts must not be cut in half.
+      if (added.runes.length > 3) {
+        _bulkInputs++; // paste / gesture typing: only the first code point counts
+        added = String.fromCharCode(added.runes.first);
       }
-      for (final ch in added.split('')) {
-        _typeChar(ch);
+      for (final r in added.runes) {
+        _typeChar(String.fromCharCode(r));
       }
     }
     input.value = const TextEditingValue(text: _guard, selection: TextSelection.collapsed(offset: 2));
-    if (mounted) setState(() {});
+    // Only the typing panel depends on the input state: repaint it instead of the whole screen.
+    if (mounted) inputTick.value++;
   }
 
   void _typeChar(String ch) {
@@ -263,7 +304,22 @@ class _RaceScreenState extends ConsumerState<RaceScreen> with WidgetsBindingObse
       if (session.challenge == null && engine.pos > 0 && engine.pos <= engine.length && engine.text[engine.pos - 1] == ' ' && engine.pos != before) {
         _wordStartMs = session.timeMs;
       }
+    } else if (res == KeyResult.wrong) {
+      // Impact freeze + punchy haptic: a mistake must be *felt*, not just shown.
+      game.hitStop();
+      haptics.wrong();
+    } else if (res == KeyResult.ignored && isForeignScript(ch)) {
+      // Wrong keyboard layout: never punish the player, just tell them once.
+      _layoutHint();
     }
+  }
+
+  /// Shown once per race when input arrives from a non-Latin keyboard layout.
+  void _layoutHint() {
+    if (_layoutHintShown) return;
+    _layoutHintShown = true;
+    _popup('بدّل لوحة المفاتيح إلى الإنجليزية', C.gold);
+    haptics.light();
   }
 
   void _onEvents(List<RaceEvent> events) {
@@ -274,34 +330,34 @@ class _RaceScreenState extends ConsumerState<RaceScreen> with WidgetsBindingObse
           _popup('COMBO x${e.value.toInt()}', C.gold);
           break;
         case RaceEventType.nitroStart:
-          _popup('🔥 NITRO!', C.cyan);
+          _popup('NITRO!', C.cyan);
           break;
         case RaceEventType.perfectWord:
-          _popup('✨ كلمة مثالية', C.gold);
+          _popup('كلمة مثالية', C.gold);
           break;
         case RaceEventType.pitPrompt:
-          _popup('🔧 نقطة صيانة!', C.green);
+          _popup('نقطة صيانة!', C.green);
           break;
         case RaceEventType.pitSuccess:
-          _popup('🔧 صيانة مثالية! +نيترو', C.green);
+          _popup('صيانة مثالية! +نيترو', C.green);
           break;
         case RaceEventType.pitFail:
-          _popup('🔧 صيانة بطيئة!', C.red);
+          _popup('صيانة بطيئة!', C.red);
           break;
         case RaceEventType.powerPrompt:
-          _popup('⚡ اكتب الكلمة!', C.cyan);
+          _popup('اكتب الكلمة!', C.cyan);
           break;
         case RaceEventType.powerSuccess:
-          _popup(const {'shield': '🛡️ درع!', 'emp': '📡 EMP!', 'turbo': '🚀 توربو!', 'dodge': '✅ تفاديت الهجوم'}[e.text] ?? '⚡', C.cyan);
+          _popup(const {'shield': 'درع!', 'emp': 'EMP!', 'turbo': 'توربو!', 'dodge': 'تفاديت الهجوم'}[e.text] ?? 'قوة!', C.cyan);
           break;
         case RaceEventType.powerFail:
           _popup('فاتتك الفرصة', C.textDim);
           break;
         case RaceEventType.shieldBlocked:
-          _popup('🛡️ الدرع حماك!', C.cyan);
+          _popup('الدرع حماك!', C.cyan);
           break;
         case RaceEventType.stunned:
-          _popup('📡 تعطّل ${e.who}', C.cyan);
+          _popup('تعطّل ${e.who}', C.cyan);
           break;
         case RaceEventType.overtake:
           _popup('تجاوزت ${e.who}', C.green);
@@ -310,19 +366,19 @@ class _RaceScreenState extends ConsumerState<RaceScreen> with WidgetsBindingObse
           _popup('${e.who} تجاوزك', C.red);
           break;
         case RaceEventType.incoming:
-          _popup('⚠️ هجوم من ${e.who}!', C.red);
+          _popup('هجوم من ${e.who}!', C.red);
           break;
         case RaceEventType.hit:
-          _popup('💥 أصابك ${e.who}', C.red);
+          _popup('أصابك ${e.who}', C.red);
           break;
         case RaceEventType.rocket:
-          _popup('🚀 إصابة ${e.who}', C.gold);
+          _popup('إصابة ${e.who}', C.gold);
           break;
         case RaceEventType.kill:
-          _popup('☠️ دُمّر ${e.who}!', C.gold);
+          _popup('دُمّر ${e.who}!', C.gold);
           break;
         case RaceEventType.slipstreamOn:
-          _popup('💨 Slipstream', C.textDim);
+          _popup('Slipstream', C.textDim);
           break;
         case RaceEventType.taunt:
           setState(() => taunt = (who: e.who ?? '', text: e.text ?? ''));
@@ -355,11 +411,15 @@ class _RaceScreenState extends ConsumerState<RaceScreen> with WidgetsBindingObse
     if (phase == _Phase.finishing) return;
     setState(() => phase = _Phase.finishing);
     audio.stopEngine();
-    _sw.stop();
     _storm?.cancel();
     FocusManager.instance.primaryFocus?.unfocus();
-    // let the session finalize (ranking + photo finish flag) on its next update
-    await Future<void>.delayed(const Duration(milliseconds: 120));
+    haptics.finish();
+    // Let the pack cross the line (post-finish window) so the final standings and the
+    // photo finish are decided on the track instead of every rival freezing instantly.
+    final deadline = DateTime.now().add(const Duration(milliseconds: 2600));
+    while (!_disposed && !session.over && DateTime.now().isBefore(deadline)) {
+      await Future<void>.delayed(const Duration(milliseconds: 50));
+    }
     if (_disposed) return;
     if (session.photoFinish && cfg.opponents.isNotEmpty) {
       setState(() => photoReplay = true);
@@ -369,7 +429,7 @@ class _RaceScreenState extends ConsumerState<RaceScreen> with WidgetsBindingObse
       game.startReplay();
       audio.play(Sfx.whoosh, vol: 0.5);
     } else {
-      await Future<void>.delayed(const Duration(milliseconds: 2300));
+      await Future<void>.delayed(const Duration(milliseconds: 900));
       if (!_disposed) _toResults();
     }
   }
@@ -377,11 +437,11 @@ class _RaceScreenState extends ConsumerState<RaceScreen> with WidgetsBindingObse
   Future<void> _toResults() async {
     if (_done || _disposed) return;
     _done = true;
+    _sw.stop();
     final res = session.buildResult();
     final suspicious = _bulkInputs > 0 || AntiCheatLocal.isSuspicious(res.intervals, res.wpm);
-    final result = suspicious
-        ? RaceResult(config: res.config, standings: res.standings, playerRank: res.playerRank, wpm: res.wpm, rawWpm: res.rawWpm, accuracy: res.accuracy, time: res.time, maxCombo: res.maxCombo, errors: res.errors, chars: res.chars, nitroUses: res.nitroUses, perfectWords: res.perfectWords, powerupsUsed: res.powerupsUsed, pitPerfect: res.pitPerfect, photoFinish: res.photoFinish, timeUp: res.timeUp, suspicious: true, intervals: res.intervals, samples: res.samples, charStats: res.charStats, wordStats: res.wordStats)
-        : res;
+    // flagged() keeps every field (mode extras included) — never rebuild a result by hand.
+    final result = suspicious ? res.flagged() : res;
     final db = ref.read(contentProvider);
     late RaceOutcome outcome;
     final ctl = ref.read(profileProvider.notifier);
@@ -472,6 +532,7 @@ class _RaceScreenState extends ConsumerState<RaceScreen> with WidgetsBindingObse
               ),
             ),
             if (phase == _Phase.lobby) _lobby(),
+            if (phase == _Phase.intro) _introOverlay(),
             if (phase == _Phase.countdown || (phase == _Phase.racing && countdown >= 0)) _countdownOverlay(),
             if (photoReplay) _photoOverlay(),
             if (_paused) _pausedOverlay(),
@@ -488,7 +549,7 @@ class _RaceScreenState extends ConsumerState<RaceScreen> with WidgetsBindingObse
           builder: (_, _, _) {
             final t = session.time;
             final wpm = engine.rollingWpm(session.timeMs, windowMs: 5000);
-            final left = cfg.timeLimitMs == null ? null : max(0, cfg.timeLimitMs! / 1000 - t);
+            final left = cfg.timeLimitMs == null ? null : max(0.0, cfg.timeLimitMs! / 1000 - t);
             return Row(children: [
               IconButton(
                 icon: const Icon(Icons.close_rounded),
@@ -497,7 +558,7 @@ class _RaceScreenState extends ConsumerState<RaceScreen> with WidgetsBindingObse
                 },
               ),
               Expanded(child: Text(cfg.title, style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 14), overflow: TextOverflow.ellipsis)),
-              _stat(left != null ? '⏱ ${left.toStringAsFixed(0)}s' : '⏱ ${t.toStringAsFixed(1)}s', C.textDim),
+              _statTime(left ?? t, C.textDim),
               _stat('${wpm.round()} WPM', C.cyan, big: true),
               _stat('${engine.accuracy.toStringAsFixed(0)}%', engine.accuracy >= 95 ? C.green : (engine.accuracy >= 85 ? C.gold : C.red)),
               const SizedBox(width: 8),
@@ -509,6 +570,16 @@ class _RaceScreenState extends ConsumerState<RaceScreen> with WidgetsBindingObse
   Widget _stat(String t, Color c, {bool big = false}) => Padding(
         padding: const EdgeInsets.symmetric(horizontal: 6),
         child: Text(t, textDirection: TextDirection.ltr, style: TextStyle(color: c, fontWeight: FontWeight.w900, fontSize: big ? 17 : 13, fontFamily: 'FiraMono')),
+      );
+
+  /// Race clock: the timer glyph is a vector icon so the number stays LTR-mono.
+  Widget _statTime(double seconds, Color c) => Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 6),
+        child: Row(mainAxisSize: MainAxisSize.min, children: [
+          Icon(Icons.timer_outlined, size: 13, color: c),
+          const SizedBox(width: 3),
+          Text('${seconds.toStringAsFixed(seconds < 10 ? 1 : 0)}s', style: TextStyle(color: c, fontWeight: FontWeight.w900, fontSize: 13, fontFamily: 'FiraMono')),
+        ]),
       );
 
   Widget _progressStrip() => SizedBox(
@@ -572,7 +643,7 @@ class _RaceScreenState extends ConsumerState<RaceScreen> with WidgetsBindingObse
                     decoration: BoxDecoration(color: Colors.black45, borderRadius: BorderRadius.circular(14), border: Border.all(color: C.gold)),
                     child: Text('x$mult  ${engine.combo}', style: const TextStyle(color: C.gold, fontWeight: FontWeight.w900, fontFamily: 'FiraMono')),
                   ),
-                if (session.riskBadge(cfg)) ...[const SizedBox(width: 8), const Text('🎲 x2', style: TextStyle(fontWeight: FontWeight.w900))],
+                if (session.riskBadge(cfg)) ...[const SizedBox(width: 8), const Text('x2', style: TextStyle(fontWeight: FontWeight.w900))],
               ]);
             },
           ),
@@ -614,7 +685,7 @@ class _RaceScreenState extends ConsumerState<RaceScreen> with WidgetsBindingObse
               constraints: const BoxConstraints(maxWidth: 220),
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
               decoration: BoxDecoration(color: Colors.black.withValues(alpha: 0.7), borderRadius: BorderRadius.circular(12), border: Border.all(color: Colors.white24)),
-              child: Text('🤖 ${taunt!.who}: ${taunt!.text}', style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w700)),
+              child: Text('${taunt!.who}: ${taunt!.text}', style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w700)),
             ),
           ),
       ]);
@@ -627,9 +698,9 @@ class _RaceScreenState extends ConsumerState<RaceScreen> with WidgetsBindingObse
         margin: const EdgeInsets.fromLTRB(10, 6, 10, 8),
         padding: const EdgeInsets.fromLTRB(12, 8, 12, 4),
         decoration: BoxDecoration(color: const Color(0xFF0F1530), borderRadius: BorderRadius.circular(16), border: Border.all(color: Colors.white12)),
-        child: ValueListenableBuilder<int>(
-          valueListenable: tick,
-          builder: (_, _, _) {
+        child: ListenableBuilder(
+          listenable: _panelTick,
+          builder: (_, _) {
             final hint = cfg.vocabHints == null ? null : cfg.vocabHints![_wordIndex()];
             return Stack(children: [
               Transform.translate(
@@ -652,19 +723,57 @@ class _RaceScreenState extends ConsumerState<RaceScreen> with WidgetsBindingObse
                         hint: s.nextCharHint,
                         nowMs: session.timeMs,
                         wordStartMs: _wordStartMs,
-                        hideAll: phase == _Phase.lobby || phase == _Phase.countdown,
+                        hideAll: phase == _Phase.lobby || phase == _Phase.intro || phase == _Phase.countdown,
                       ),
                     ),
                   ]),
                 ),
               ),
               if (session.challenge != null) _challengeCard(session.challenge!),
+              // Silent dead-ends feel like a broken game: always say *why* nothing is typed.
+              if (engine.wrongBuffer > 0 && !engine.stuckBackspace && session.challenge == null)
+                Positioned(
+                  left: 0,
+                  right: 0,
+                  bottom: 2,
+                  child: Center(
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
+                      decoration: BoxDecoration(color: C.red.withValues(alpha: 0.18), borderRadius: BorderRadius.circular(10), border: Border.all(color: C.red)),
+                      child: const Row(mainAxisSize: MainAxisSize.min, children: [
+                        Icon(Icons.backspace_outlined, size: 14, color: C.red),
+                        SizedBox(width: 5),
+                        // Flexible + ellipsis: the hint must never overflow the row on a narrow phone
+                        Flexible(child: Text('امسح الحرف الأحمر بزر المسح', maxLines: 1, overflow: TextOverflow.ellipsis, style: TextStyle(color: C.red, fontWeight: FontWeight.w800, fontSize: 12))),
+                      ]),
+                    ),
+                  ),
+                ),
+              if (engine.stuckBackspace && session.challenge == null)
+                Positioned.fill(
+                  child: IgnorePointer(
+                    child: Center(
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+                        decoration: BoxDecoration(color: Colors.black.withValues(alpha: 0.82), borderRadius: BorderRadius.circular(12), border: Border.all(color: C.red, width: 2)),
+                        child: const Column(mainAxisSize: MainAxisSize.min, children: [
+                          Text('اضغط زر المسح', style: TextStyle(color: C.red, fontWeight: FontWeight.w900, fontSize: 16)),
+                          Text('لن تُكتب حروف جديدة قبل مسح الأخطاء', style: TextStyle(color: Colors.white70, fontSize: 11)),
+                        ]),
+                      ),
+                    ),
+                  ),
+                ),
               if (phase == _Phase.racing && kb == 0 && !_paused)
                 Positioned.fill(
                   child: Container(
                     color: C.bg.withValues(alpha: 0.75),
                     alignment: Alignment.center,
-                    child: const Text('اضغط لإظهار لوحة المفاتيح ⌨️', style: TextStyle(fontWeight: FontWeight.w800)),
+                    child: const Row(mainAxisSize: MainAxisSize.min, children: [
+                      Icon(Icons.keyboard, size: 20),
+                      SizedBox(width: 8),
+                      Flexible(child: Text('اضغط لإظهار لوحة المفاتيح', maxLines: 1, overflow: TextOverflow.ellipsis, style: TextStyle(fontWeight: FontWeight.w800))),
+                    ]),
                   ),
                 ),
             ]);
@@ -684,7 +793,7 @@ class _RaceScreenState extends ConsumerState<RaceScreen> with WidgetsBindingObse
   }
 
   Widget _challengeCard(Challenge c) {
-    final label = switch (c.kind) { ChallengeKind.shield => '🛡️ درع — اكتب الكلمة', ChallengeKind.emp => '📡 EMP — عطّل منافساً', ChallengeKind.turbo => '🚀 توربو — اكتب بسرعة', ChallengeKind.pit => '🔧 نقطة صيانة — بدون أي خطأ!', ChallengeKind.defend => '🎯 هجوم قادم — تفادَ بسرعة!' };
+    final label = switch (c.kind) { ChallengeKind.shield => 'درع — اكتب الكلمة', ChallengeKind.emp => 'EMP — عطّل منافساً', ChallengeKind.turbo => 'توربو — اكتب بسرعة', ChallengeKind.pit => 'نقطة صيانة — بدون أي خطأ!', ChallengeKind.defend => 'هجوم قادم — تفادَ بسرعة!' };
     final color = c.isPit ? C.green : (c.kind == ChallengeKind.defend ? C.red : C.cyan);
     return Positioned.fill(
       child: Container(
@@ -742,14 +851,14 @@ class _RaceScreenState extends ConsumerState<RaceScreen> with WidgetsBindingObse
                       child: Row(children: [
                         Text(flagEmoji(o.cc), style: const TextStyle(fontSize: 18)),
                         const SizedBox(width: 8),
-                        Expanded(child: Text('${o.isBoss ? '👑 ' : ''}${o.name}', style: const TextStyle(fontWeight: FontWeight.w700))),
+                        Expanded(child: Text('${o.isBoss ? '★ ' : ''}${o.name}', style: const TextStyle(fontWeight: FontWeight.w700))),
                         Text(Persona.label(o.persona), style: const TextStyle(color: C.textDim, fontSize: 11)),
                         const SizedBox(width: 8),
                         _aiBadge(),
                       ]),
                     ),
                   for (final g in cfg.ghosts)
-                    Padding(padding: const EdgeInsets.symmetric(vertical: 3), child: Row(children: [const Text('👻', style: TextStyle(fontSize: 18)), const SizedBox(width: 8), Expanded(child: Text(g.name)), Text('${g.wpm.round()} WPM', style: const TextStyle(color: C.textDim, fontSize: 12))])),
+                    Padding(padding: const EdgeInsets.symmetric(vertical: 3), child: Row(children: [const Icon(Icons.visibility, size: 18, color: C.textDim), const SizedBox(width: 8), Expanded(child: Text(g.name)), Text('${g.wpm.round()} WPM', style: const TextStyle(color: C.textDim, fontSize: 12))])),
                   const SizedBox(height: 6),
                   const Text('جميع المنافسين ذكاء اصطناعي — لا يوجد لاعبون حقيقيون في السباقات.', style: TextStyle(color: C.textDim, fontSize: 11)),
                 ],
@@ -764,7 +873,7 @@ class _RaceScreenState extends ConsumerState<RaceScreen> with WidgetsBindingObse
                   contentPadding: EdgeInsets.zero,
                   value: riskOn,
                   onChanged: (v) => setState(() => riskOn = v),
-                  title: const Text('🎲 مضاعف المخاطرة x2', style: TextStyle(fontWeight: FontWeight.w800)),
+                  title: const Text('مضاعف المخاطرة x2', style: TextStyle(fontWeight: FontWeight.w800)),
                   subtitle: const Text('مكافآت مضاعفة، لكن كل خطأ يبطئك أكثر ويصفّر النيترو.', style: TextStyle(fontSize: 12)),
                   ),
                 ),
@@ -789,23 +898,29 @@ class _RaceScreenState extends ConsumerState<RaceScreen> with WidgetsBindingObse
       );
 
   Widget _countdownOverlay() {
-    final go = countdown == 0;
-    if (!go && countdown < 1) return const SizedBox.shrink();
+    if (countdown < 0) return const SizedBox.shrink();
     return Positioned.fill(
       child: IgnorePointer(
-        child: Center(
-          child: TweenAnimationBuilder<double>(
-            key: ValueKey(countdown),
-            tween: Tween(begin: 1.6, end: 1.0),
-            duration: const Duration(milliseconds: 500),
-            curve: Curves.easeOutBack,
-            builder: (_, v, _) => Transform.scale(
-              scale: v,
-              child: Text(go ? 'انطلق!' : '$countdown', style: TextStyle(fontSize: 88, fontWeight: FontWeight.w900, color: go ? C.green : C.gold, shadows: const [Shadow(blurRadius: 24, color: Colors.black)])),
-            ),
-          ),
-        ),
+        child: Center(child: GlowCountdown(key: ValueKey(countdown), value: countdown)),
       ),
+    );
+  }
+
+  /// The pre-race room: the player's own car drives in, the rivals slide in, then the lights.
+  Widget _introOverlay() {
+    final p = ref.read(profileProvider);
+    final biome = ref.read(contentProvider).biomeOf(cfg.biomeId);
+    return MatchIntro(
+      look: rig.look,
+      playerName: p.name,
+      modeTitle: cfg.title,
+      biomeName: loc(biome.name),
+      opponents: cfg.opponents,
+      ghosts: cfg.ghosts,
+      onTap: () {
+        final skip = _introSkip;
+        if (skip != null && !skip.isCompleted) skip.complete();
+      },
     );
   }
 
@@ -818,7 +933,7 @@ class _RaceScreenState extends ConsumerState<RaceScreen> with WidgetsBindingObse
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 6),
                 decoration: BoxDecoration(color: Colors.black.withValues(alpha: 0.7), borderRadius: BorderRadius.circular(8), border: Border.all(color: C.gold, width: 2)),
-                child: const Text('📸 PHOTO FINISH', style: TextStyle(fontWeight: FontWeight.w900, letterSpacing: 2, color: C.gold, fontSize: 20)),
+                child: const Text('PHOTO FINISH', style: TextStyle(fontWeight: FontWeight.w900, letterSpacing: 2, color: C.gold, fontSize: 20)),
               ),
               const SizedBox(height: 6),
               const Text('إعادة بطيئة', style: TextStyle(color: Colors.white70)),
@@ -832,7 +947,11 @@ class _RaceScreenState extends ConsumerState<RaceScreen> with WidgetsBindingObse
           color: Colors.black.withValues(alpha: 0.8),
           alignment: Alignment.center,
           child: Column(mainAxisSize: MainAxisSize.min, children: [
-            const Text('⏸ السباق متوقف', style: TextStyle(fontSize: 24, fontWeight: FontWeight.w900)),
+            const Row(mainAxisSize: MainAxisSize.min, children: [
+              Icon(Icons.pause_circle_outline, size: 26),
+              SizedBox(width: 8),
+              Text('السباق متوقف', style: TextStyle(fontSize: 24, fontWeight: FontWeight.w900)),
+            ]),
             const SizedBox(height: 16),
             SizedBox(
               width: 220,

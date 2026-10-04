@@ -1,0 +1,6 @@
+# ضع هنا معرّف عميل OAuth من نوع Web الخاص بمشروعك في Google Cloud
+# (ينسخ من: APIs & Services -> Credentials -> OAuth client ID -> Web application)
+# السطر الذي يبدأ بـ # يُتجاهل. المعرّف ليس سراً: إنه موجود داخل كل نسخة من التطبيق.
+#
+# مثال (استبدله بمعرّفك):
+# 1234567890-abcdefghijklmnopqrstuvwxyz.apps.googleusercontent.com

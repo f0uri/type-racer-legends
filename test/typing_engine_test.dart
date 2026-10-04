@@ -47,6 +47,48 @@ void main() {
       expect(e.correctKeys, 8);
     });
 
+    test('a typo marks the word dirty even after the space is typed (regression)', () {
+      final e = TypingEngine('ab cd');
+      e.type('a', 100);
+      e.type('x', 150); // typo
+      expect(e.backspace(), isTrue);
+      e.type('b', 200);
+      expect(e.lastWordClean, isFalse, reason: 'the first word contained a typo');
+      e.type(' ', 250); // completing the word must snapshot the verdict, not reset it
+      expect(e.lastWordClean, isFalse, reason: 'spacing must not launder a dirty word');
+      e.type('c', 300);
+      e.type('d', 350);
+      expect(e.lastWordClean, isFalse);
+    });
+
+    test('a clean word stays clean after the space', () {
+      final e = TypingEngine('ab cd');
+      e.type('a', 100);
+      e.type('b', 150);
+      e.type(' ', 200);
+      expect(e.lastWordClean, isTrue);
+    });
+
+    test('non-Latin keyboard input is ignored, never counted as an error', () {
+      final e = TypingEngine('abc');
+      expect(e.type('ش', 100), KeyResult.ignored);
+      expect(e.type('م', 120), KeyResult.ignored);
+      expect(e.wrongKeys, 0);
+      expect(e.combo, 0);
+      expect(e.type('a', 200), KeyResult.correct);
+      expect(e.accuracy, 100);
+    });
+
+    test('foreign script detection covers Arabic/Cyrillic/CJK but not Latin accents', () {
+      expect(isForeignScript('ش'), isTrue);
+      expect(isForeignScript('Ж'), isTrue);
+      expect(isForeignScript('字'), isTrue);
+      expect(isForeignScript('é'), isFalse);
+      expect(isForeignScript('ç'), isFalse);
+      expect(isForeignScript('a'), isFalse);
+      expect(isForeignScript('?'), isFalse);
+    });
+
     test('wrong key resets combo and must be erased with backspace', () {
       final e = TypingEngine('abc');
       e.type('a', 100);

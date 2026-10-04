@@ -16,49 +16,49 @@ class Rewards {
     final xp = (r['xp'] as num?)?.toInt() ?? 0;
     if (coins > 0) {
       p.addCoins(coins);
-      lines.add('🪙 +${fmtInt(coins)}');
+      lines.add('+${fmtInt(coins)} عملة');
     }
     if (gems > 0) {
       p.addGems(gems);
-      lines.add('💎 +$gems');
+      lines.add('+$gems جوهرة');
     }
     if (xp > 0) {
       p.addXp(xp);
-      lines.add('⚡ +$xp خبرة');
+      lines.add('+$xp خبرة');
     }
     final chest = r['chest'] as String?;
     if (chest != null) {
       Economy.grantChest(p, chest);
       final def = ((db.shop['chests'] as List?) ?? const []).cast<Map>().where((c) => c['id'] == chest).firstOrNull;
-      lines.add('🎁 ${def == null ? 'صندوق' : loc(def['name'])}');
+      lines.add('صندوق: ${def == null ? 'مكافأة' : loc(def['name'])}');
     }
     final skin = r['skin'] as String?;
     if (skin != null) {
       if (p.ownsSkin(skin)) {
         p.addCoins(500);
-        lines.add('🪙 +500 (بدل عنصر مكرر)');
+        lines.add('+500 (بدل عنصر مكرر)');
       } else {
         p.grantSkin(skin);
         final s = db.skin(skin);
-        lines.add('🎨 ${s == null ? skin : loc(s.name)}');
+        lines.add('عنصر: ${s == null ? skin : loc(s.name)}');
       }
     }
     final vehicle = r['vehicle'] as String?;
     if (vehicle != null && !p.ownsVehicle(vehicle)) {
       p.grantVehicle(vehicle);
       final v = db.vehicle(vehicle);
-      lines.add('🚗 ${v == null ? vehicle : loc(v.name)}');
+      lines.add('مركبة: ${v == null ? vehicle : loc(v.name)}');
     }
     final outfit = r['outfit'] as String?;
     if (outfit != null && !p.ownsOutfit(outfit)) {
       p.grantOutfit(outfit);
       final o = db.outfit(outfit);
-      lines.add('🧥 ${o == null ? outfit : loc(o.name)}');
+      lines.add('زي: ${o == null ? outfit : loc(o.name)}');
     }
     final title = r['title'] as String?;
     if (title != null) {
       p.grantTitle(title);
-      lines.add('🏷️ لقب: ${loc(db.titles[title] ?? title)}');
+      lines.add('لقب: ${loc(db.titles[title] ?? title)}');
     }
     return lines;
   }
@@ -67,14 +67,14 @@ class Rewards {
   static String preview(ContentDb db, Map? r) {
     if (r == null || r.isEmpty) return '—';
     final parts = <String>[];
-    if ((r['coins'] as num?) != null) parts.add('🪙${fmtCompact(r['coins'] as num)}');
-    if ((r['gems'] as num?) != null) parts.add('💎${r['gems']}');
-    if ((r['xp'] as num?) != null) parts.add('⚡${r['xp']}');
-    if (r['chest'] != null) parts.add('🎁');
-    if (r['skin'] != null) parts.add('🎨');
-    if (r['vehicle'] != null) parts.add('🚗');
-    if (r['outfit'] != null) parts.add('🧥');
-    if (r['title'] != null) parts.add('🏷️');
+    if ((r['coins'] as num?) != null) parts.add('${fmtCompact(r['coins'] as num)} عملة');
+    if ((r['gems'] as num?) != null) parts.add('${r['gems']} جوهرة');
+    if ((r['xp'] as num?) != null) parts.add('${r['xp']} خبرة');
+    if (r['chest'] != null) parts.add('صندوق');
+    if (r['skin'] != null) parts.add('عنصر');
+    if (r['vehicle'] != null) parts.add('مركبة');
+    if (r['outfit'] != null) parts.add('زي');
+    if (r['title'] != null) parts.add('لقب');
     return parts.join(' ');
   }
 }

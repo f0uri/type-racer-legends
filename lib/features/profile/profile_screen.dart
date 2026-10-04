@@ -40,7 +40,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
     setState(() => busy = true);
     try {
       final db = ref.read(contentProvider);
-      await ShareCardRenderer.share(CardBuilder.player(db, ref.read(profileProvider)), text: 'هذه بطاقتي في ${AppConfig.appName} 🏁');
+      await ShareCardRenderer.share(CardBuilder.player(db, ref.read(profileProvider)), text: 'هذه بطاقتي في ${AppConfig.appName}');
     } catch (_) {
       if (mounted) toast(context, 'تعذّرت مشاركة البطاقة');
     } finally {
@@ -98,7 +98,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
             Panel(
               child: Column(children: [
                 Row(children: [
-                  CircleAvatar(radius: 34, backgroundColor: C.surface2, child: Text(avatars[p.avatar % avatars.length], style: const TextStyle(fontSize: 34))),
+                  CircleAvatar(radius: 34, backgroundColor: C.surface2, child: Icon(avatars[p.avatar % avatars.length], size: 32, color: C.cyan)),
                   const SizedBox(width: 14),
                   Expanded(
                     child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -118,7 +118,9 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                 ]),
                 const SizedBox(height: 10),
                 Row(children: [
-                  Text('${tier.icon} ${tier.label}', style: TextStyle(color: tier.color, fontWeight: FontWeight.w900, fontSize: 16)),
+                  Icon(tier.icon, color: tier.color, size: 18),
+                  const SizedBox(width: 4),
+                  Text(tier.label, style: TextStyle(color: tier.color, fontWeight: FontWeight.w900, fontSize: 16)),
                   const SizedBox(width: 8),
                   Expanded(child: ProgressBar(value: Ranks.progress(db, p.rankPoints), color: tier.color, height: 8)),
                   const SizedBox(width: 8),
@@ -133,12 +135,12 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
             const SizedBox(height: 10),
             Panel(
               onTap: () => _nav(const CertificatesScreen()),
-              child: Row(children: [const Text('📜', style: TextStyle(fontSize: 26)), const SizedBox(width: 10), Expanded(child: Text(certs == 0 ? 'شهادات السرعة (WPM)' : 'شهاداتي ($certs)', style: const TextStyle(fontWeight: FontWeight.w800))), const Icon(Icons.chevron_left)]),
+              child: Row(children: [const Icon(Icons.verified, size: 26, color: C.gold), const SizedBox(width: 10), Expanded(child: Text(certs == 0 ? 'شهادات السرعة (WPM)' : 'شهاداتي ($certs)', style: const TextStyle(fontWeight: FontWeight.w800))), const Icon(Icons.chevron_left)]),
             ),
             const SizedBox(height: 10),
             Panel(
               child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                const Text('🤝 ادعُ أصدقاءك', style: TextStyle(fontWeight: FontWeight.w900, fontSize: 16)),
+                const Text('ادعُ أصدقاءك', style: TextStyle(fontWeight: FontWeight.w900, fontSize: 16)),
                 const SizedBox(height: 4),
                 Text('عندما يصل صديقك للمستوى $minLevel تربحان معاً: أنت ${(db.economy['referral'] as Map?)?['inviterReward']?['coins'] ?? 3000} عملة وهو ${(db.economy['referral'] as Map?)?['inviteeReward']?['coins'] ?? 2000} عملة، إضافة إلى الجواهر.', style: const TextStyle(color: C.textDim, fontSize: 12)),
                 const SizedBox(height: 10),
@@ -150,7 +152,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                   }),
                   IconButton(
                     icon: const Icon(Icons.share_rounded, color: C.magenta),
-                    onPressed: () => SharePlus.instance.share(ShareParams(text: 'جرّب ${AppConfig.appName} — سباقات كتابة ضد الذكاء الاصطناعي 🏎️\nاستخدم رمز الدعوة: ${p.refCode}\nhttps://f0uri.github.io/type-racer-legends/')),
+                    onPressed: () => SharePlus.instance.share(ShareParams(text: 'جرّب ${AppConfig.appName} — سباقات كتابة ضد الذكاء الاصطناعي\nاستخدم رمز الدعوة: ${p.refCode}\nhttps://f0uri.github.io/type-racer-legends/')),
                   ),
                 ]),
                 if (!auth.isGoogle) const Padding(padding: EdgeInsets.only(top: 8), child: Text('اربط حساب جوجل (من الإعدادات) لتفعيل مكافآت الدعوة.', style: TextStyle(color: C.gold, fontSize: 12))),
@@ -163,7 +165,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                       FilledButton(onPressed: busy ? null : _redeem, child: const Text('تفعيل')),
                     ])
                   else
-                    const Text('✅ فعّلت رمز دعوة سابقاً', style: TextStyle(color: C.green)),
+                    const Text('فعّلت رمز دعوة سابقاً', style: TextStyle(color: C.green)),
                   const SizedBox(height: 8),
                   OutlinedButton.icon(onPressed: busy ? null : _claim, icon: const Icon(Icons.card_giftcard_rounded), label: const Text('استلام مكافآت الدعوات')),
                   if (p.counter('ref_invites') > 0) Padding(padding: const EdgeInsets.only(top: 6), child: Text('أصدقاء دعوتهم: ${p.counter('ref_invites')}', style: const TextStyle(color: C.textDim, fontSize: 12))),
@@ -173,7 +175,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
             const SizedBox(height: 10),
             Panel(
               onTap: () => _nav(const StatsScreen()),
-              child: const Row(children: [Text('📊', style: TextStyle(fontSize: 26)), SizedBox(width: 10), Expanded(child: Text('صفحة الإحصائيات الكاملة', style: TextStyle(fontWeight: FontWeight.w800))), Icon(Icons.chevron_left)]),
+              child: const Row(children: [Icon(Icons.bar_chart, size: 26, color: C.cyan), SizedBox(width: 10), Expanded(child: Text('صفحة الإحصائيات الكاملة', style: TextStyle(fontWeight: FontWeight.w800))), Icon(Icons.chevron_left)]),
             ),
           ]),
         ),

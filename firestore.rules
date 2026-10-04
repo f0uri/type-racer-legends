@@ -26,8 +26,14 @@ service cloud.firestore {
     match /users/{uid} {
       allow read: if isOwner(uid);
       allow create: if isOwner(uid) && validProfile(request.resource.data);
+      // A single write cannot teleport the wallet or the level: this closes the trivial
+      // "set coins/gems/xp to the maximum" edit. The real fix is a server-side economy
+      // (see CODE_REVIEW_AR.md §P0-5); this bound still allows weeks of offline progress.
       allow update: if isOwner(uid) && validProfile(request.resource.data)
-                    && request.resource.data.rev > resource.data.rev;
+                    && request.resource.data.rev > resource.data.rev
+                    && request.resource.data.coins - resource.data.coins <= 250000
+                    && request.resource.data.gems - resource.data.gems <= 10000
+                    && request.resource.data.xp - resource.data.xp <= 500000;
       allow delete: if false; // deletion goes through the deleteAccountData Cloud Function
 
       // Automatic backups are written by the onUserWrite Cloud Function only.

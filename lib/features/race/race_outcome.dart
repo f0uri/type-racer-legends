@@ -24,6 +24,11 @@ class RaceRewards {
   /// Minimum typed characters for a race to count towards records and history.
   static const minCharsForStats = 30;
 
+  /// Modes whose text is generated or provided by the player. They still pay coins/XP
+  /// (so practice feels rewarding) but never touch records, history or matchmaking.
+  static const practiceModes = {'custom', 'training', 'vocab', 'lesson'};
+  static bool countsForRecords(RaceResult r) => !practiceModes.contains(r.config.modeId);
+
   static double rankMultiplier(ContentDb db, int rank) {
     final list = ((db.econ('race')['rankMul']) as List?)?.map((e) => (e as num).toDouble()).toList() ?? const [1.0, 0.7, 0.5, 0.35, 0.25, 0.2, 0.15, 0.12];
     return list[(rank - 1).clamp(0, list.length - 1)];
@@ -36,9 +41,14 @@ class RaceRewards {
     int levelOf() => p.level(base: (lv['xpBase'] as num?)?.toInt() ?? 120, step: (lv['xpStep'] as num?)?.toInt() ?? 45, maxLevel: (lv['maxLevel'] as num?)?.toInt() ?? 100).level;
     o.oldLevel = levelOf();
     o.rpBefore = p.rankPoints;
-    final meaningful = r.chars >= minCharsForStats && !r.suspicious;
+    // Practice modes use generated or player-supplied text (drills, vocab, custom text, lessons):
+    // they must never set personal records, feed matchmaking or seed quests.
+    final meaningful = r.chars >= minCharsForStats && !r.suspicious && countsForRecords(r);
 
     p.addCounter('races', 1);
+    // The hour of the day is recorded here (one additive counter per hour) so reminders can be
+    // smart later: a notification at the player's own habitual hour is worth ten at 22:00 sharp.
+    p.addCounter('hour_${(now ?? DateTime.now()).hour}', 1);
     if (r.won && r.opponents > 0) p.addCounter('wins', 1);
     p.addCounter('chars', r.chars);
     if (r.nitroUses > 0) p.addCounter('nitro_count', r.nitroUses);
@@ -46,9 +56,9 @@ class RaceRewards {
     if (r.pitPerfect) p.addCounter('pit_perfect', 1);
     if (meaningful && r.accuracy >= 100 && r.chars >= 40) p.addCounter('perfect_races', 1);
     if (r.photoFinish && r.won) p.addCounter('photo_finish_wins', 1);
-    final kills = (r.extra['kills'] as num?)?.toInt() ?? 0;
+    final kills = r.extras.kills;
     if (kills > 0) p.addCounter('combat_kills', kills);
-    final survived = (r.extra['survived'] as num?)?.toDouble();
+    final survived = r.extras.survived;
     if (survived != null && !r.suspicious && survived > 0) p.setBest('survival_best', survived);
     p.registerActivity(now);
 

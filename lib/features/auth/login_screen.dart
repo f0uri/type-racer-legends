@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../core/theme/app_theme.dart';
 import '../../core/widgets/common.dart';
 import '../../data/remote/firebase_boot.dart';
+import '../../data/remote/progress_sync.dart';
 import 'auth_controller.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
@@ -47,6 +48,13 @@ class _LoginScreenState extends ConsumerState<LoginScreen> with SingleTickerProv
               const Text('LEGENDS', style: TextStyle(fontSize: 34, fontWeight: FontWeight.w900, letterSpacing: 8, color: C.magenta)),
               const SizedBox(height: 10),
               const Text('اكتب أسرع... وتسابق مع الأساطير', style: TextStyle(color: C.textDim, fontSize: 15)),
+              if (googleWebClientId.isNotEmpty) ...[
+                const SizedBox(height: 8),
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 10),
+                  child: Text('سجّل بحساب جوجل ليُحفظ تقدمك (المستوى، العملات، الكراج) في حسابك نفسه وتستعيده على أي جهاز.', textAlign: TextAlign.center, style: TextStyle(color: C.textDim, fontSize: 12)),
+                ),
+              ],
               const Spacer(flex: 2),
               if (_error != null)
                 Panel(color: C.red.withValues(alpha: .15), border: C.red, child: Row(children: [

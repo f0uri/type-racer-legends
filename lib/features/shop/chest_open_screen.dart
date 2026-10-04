@@ -89,12 +89,12 @@ class _ChestOpenScreenState extends ConsumerState<ChestOpenScreen> with SingleTi
                   scale: 0.6 + 0.4 * reveal.clamp(0.0, 1.2),
                   child: Column(children: [
                     if (skin != null) ...[
-                      const Text('🎁 عنصر جديد!', style: TextStyle(fontSize: 18, color: C.gold, fontWeight: FontWeight.w900)),
+                      const Text('عنصر جديد!', style: TextStyle(fontSize: 18, color: C.gold, fontWeight: FontWeight.w900)),
                       const SizedBox(height: 6),
                       Panel(border: C.rarity(skin.rarity), child: Column(children: [SkinDisplay(skinName: loc(skin.name)), RarityBadge(skin.rarity)])),
                     ],
-                    if (r.coins > 0) _line('🪙', '+${fmtInt(r.coins)} عملة${r.duplicateCoins > 0 ? '  (بدل عنصر مكرر)' : ''}', C.gold),
-                    if (r.gems > 0) _line('💎', '+${r.gems} جوهرة', C.cyan),
+                    if (r.coins > 0) _line(Icons.monetization_on, '+${fmtInt(r.coins)} عملة${r.duplicateCoins > 0 ? '  (بدل عنصر مكرر)' : ''}', C.gold),
+                    if (r.gems > 0) _line(Icons.diamond, '+${r.gems} جوهرة', C.cyan),
                   ]),
                 ),
               ),
@@ -109,7 +109,14 @@ class _ChestOpenScreenState extends ConsumerState<ChestOpenScreen> with SingleTi
     );
   }
 
-  Widget _line(String icon, String text, Color c) => Padding(padding: const EdgeInsets.symmetric(vertical: 4), child: Text('$icon  $text', style: TextStyle(fontSize: 26, fontWeight: FontWeight.w900, color: c)));
+  Widget _line(IconData icon, String text, Color c) => Padding(
+        padding: const EdgeInsets.symmetric(vertical: 4),
+        child: Row(mainAxisSize: MainAxisSize.min, children: [
+          Icon(icon, size: 24, color: c),
+          const SizedBox(width: 8),
+          Text(text, style: displayStyle(size: 20, color: c)),
+        ]),
+      );
 }
 
 class SkinDisplay extends StatelessWidget {

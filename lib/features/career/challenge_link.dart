@@ -46,7 +46,7 @@ class ChallengeLink {
 
   static Future<void> share(BuildContext context, RaceResult r, String playerName, String country) async {
     final link = ChallengeLink(textId: r.config.text.id, wpm: r.wpm.round(), name: playerName, cc: country, lang: r.config.text.lang, acc: r.accuracy.round());
-    final text = 'تحدّيتك في Type Racer Legends! 🏁 سرعتي ${link.wpm} WPM — هل تتفوق عليّ؟\n${link.webUri}';
+    final text = 'تحدّيتك في Type Racer Legends! سرعتي ${link.wpm} WPM — هل تتفوق عليّ؟\n${link.webUri}';
     try {
       await SharePlus.instance.share(ShareParams(text: text, subject: 'تحدٍّ في Type Racer Legends'));
       ProviderScope.containerOf(context, listen: false).read(profileProvider.notifier).update((p) => p.addCounter('challenges_sent', 1));
@@ -111,7 +111,7 @@ class _ChallengeSheet extends ConsumerWidget {
       child: Padding(
         padding: const EdgeInsets.all(18),
         child: Column(mainAxisSize: MainAxisSize.min, children: [
-          const Text('🔗 تحدٍّ وصلك', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w900)),
+          const Text('تحدٍّ وصلك', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w900)),
           const SizedBox(height: 10),
           Panel(
             child: Column(children: [
@@ -146,7 +146,7 @@ class ChallengeFlow {
       config: () {
         final b = ModeFlow.builder(c);
         final t = c.read(contentProvider).textById(link.textId) ?? b.pickText();
-        final ghost = GhostSpec(name: '🔗 ${link.name}', wpm: link.wpm.toDouble());
+        final ghost = GhostSpec(name: link.name, wpm: link.wpm.toDouble());
         return RaceConfig(modeId: 'challenge', title: 'تحدٍّ من ${link.name}', text: t, biomeId: b.randomBiome().id, ghosts: [ghost], rules: RaceRules.solo, meta: {'challenge': link.textId});
       },
     );
@@ -200,7 +200,7 @@ class _ChallengeHubState extends ConsumerState<ChallengeHubScreen> {
                       onPressed: () async {
                         final link = ChallengeLink(textId: t.id, wpm: w, name: p.name, cc: p.country, lang: t.lang);
                         try {
-                          await SharePlus.instance.share(ShareParams(text: 'تحدّيتك في Type Racer Legends! 🏁 سرعتي $w WPM — هل تتفوق عليّ؟\n${link.webUri}'));
+                          await SharePlus.instance.share(ShareParams(text: 'تحدّيتك في Type Racer Legends! سرعتي $w WPM — هل تتفوق عليّ؟\n${link.webUri}'));
                           ref.read(profileProvider.notifier).update((pp) => pp.addCounter('challenges_sent', 1));
                         } catch (_) {
                           if (context.mounted) toast(context, 'تعذّرت المشاركة');

@@ -43,7 +43,20 @@ class WorldTourLogic {
 
 class WorldTourScreen extends ConsumerWidget {
   const WorldTourScreen({super.key});
-  static const _icons = {'lighthouse': '🗼', 'eiffel': '🗼', 'bigben': '🕰️', 'colosseum': '🏛️', 'pyramids': '🔺', 'burj': '🏙️', 'gateway': '⛩️', 'pagoda': '🏯', 'tokyotower': '🗼', 'opera': '🎭', 'christ': '⛪', 'liberty': '🗽'};
+  static const _icons = <String, IconData>{
+    'lighthouse': Icons.wb_twilight,
+    'eiffel': Icons.cell_tower,
+    'bigben': Icons.access_time,
+    'colosseum': Icons.account_balance,
+    'pyramids': Icons.change_history,
+    'burj': Icons.location_city,
+    'gateway': Icons.landscape,
+    'pagoda': Icons.temple_buddhist,
+    'tokyotower': Icons.cell_tower,
+    'opera': Icons.theaters,
+    'christ': Icons.church,
+    'liberty': Icons.accessibility_new,
+  };
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -88,14 +101,14 @@ class WorldTourScreen extends ConsumerWidget {
             height: 54,
             decoration: BoxDecoration(shape: BoxShape.circle, color: accent.withValues(alpha: 0.2), border: Border.all(color: accent)),
             alignment: Alignment.center,
-            child: Text(open ? (_icons[c.landmark] ?? '📍') : '🔒', style: const TextStyle(fontSize: 26)),
+            child: Icon(open ? (_icons[c.landmark] ?? Icons.place) : Icons.lock, size: 26, color: open ? accent : Colors.white38),
           ),
           const SizedBox(width: 12),
           Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             Text('${flagEmoji(c.cc)} ${loc(c.name)}', style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 16)),
             Text('المطلوب: ${c.minWpm} WPM  •  ${fmtInt(c.km)} كم', style: const TextStyle(color: C.textDim, fontSize: 12)),
           ])),
-          if (cleared) const Text('✅ ختم', style: TextStyle(color: C.green, fontWeight: FontWeight.w900)),
+          if (cleared) const Text('ختم', style: TextStyle(color: C.green, fontWeight: FontWeight.w900)),
         ]),
       ),
     );
@@ -114,7 +127,7 @@ class _StopSheet extends ConsumerWidget {
         child: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.start, children: [
           Text('${flagEmoji(city.cc)} ${loc(city.name)}', style: const TextStyle(fontSize: 22, fontWeight: FontWeight.w900)),
           const SizedBox(height: 8),
-          Text('• السرعة المطلوبة: ${city.minWpm} WPM بدقة 90% أو أكثر\n• ${city.opp} منافسين (ذكاء اصطناعي)\n• ${cleared ? 'سبق أن اجتزت هذه المحطة (لا مكافأة إضافية)' : 'مكافأة أول ختم: 🪙 ${city.reward['coins'] ?? 0}  ⚡ ${city.reward['xp'] ?? 0}${((city.reward['gems'] as num?) ?? 0) > 0 ? '  💎 ${city.reward['gems']}' : ''}'}', style: const TextStyle(height: 1.6)),
+          Text('• السرعة المطلوبة: ${city.minWpm} WPM بدقة 90% أو أكثر\n• ${city.opp} منافسين (ذكاء اصطناعي)\n• ${cleared ? 'سبق أن اجتزت هذه المحطة (لا مكافأة إضافية)' : 'مكافأة أول ختم: ${city.reward['coins'] ?? 0} عملة + ${city.reward['xp'] ?? 0} خبرة${((city.reward['gems'] as num?) ?? 0) > 0 ? ' + ${city.reward['gems']} جوهرة' : ''}'}', style: const TextStyle(height: 1.6)),
           const SizedBox(height: 14),
           NeonButton(
             label: 'سافر إلى ${loc(city.name)}',
@@ -147,7 +160,7 @@ class _StopSheet extends ConsumerWidget {
             Panel(
               border: ok ? C.green : C.red,
               child: Column(children: [
-                Text(ok ? '✅ ختم ${loc(c.name)}' : 'لم تصل إلى ${c.minWpm} WPM بدقة 90%', style: TextStyle(fontWeight: FontWeight.w900, color: ok ? C.green : C.red, fontSize: 16)),
+                Text(ok ? 'ختم ${loc(c.name)}' : 'لم تصل إلى ${c.minWpm} WPM بدقة 90%', style: TextStyle(fontWeight: FontWeight.w900, color: ok ? C.green : C.red, fontSize: 16)),
                 Text('سرعتك ${result.wpm.round()} WPM • دقتك ${result.accuracy.toStringAsFixed(0)}%', style: const TextStyle(color: C.textDim)),
               ]),
             ),

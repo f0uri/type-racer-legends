@@ -7,20 +7,28 @@ import '../content/content_db.dart';
 import 'look.dart';
 import 'vehicle_painter.dart';
 
-const slotLabels = {
-  'paint': ('🎨', 'الطلاء'),
-  'rims': ('🛞', 'الإطارات'),
-  'neon': ('💡', 'نيون'),
-  'exhaust': ('💨', 'العادم'),
-  'nitroFlame': ('🔥', 'لهب النيترو'),
-  'sticker1': ('⭐', 'ملصق 1'),
-  'sticker2': ('✨', 'ملصق 2'),
-  'plate': ('🔢', 'اللوحة'),
-  'horn': ('📯', 'البوق'),
-  'celebration': ('🎉', 'الاحتفال'),
+const slotLabels = <String, (IconData, String)>{
+  'paint': (Icons.palette, 'الطلاء'),
+  'rims': (Icons.donut_large, 'الإطارات'),
+  'neon': (Icons.lightbulb, 'نيون'),
+  'exhaust': (Icons.air, 'العادم'),
+  'nitroFlame': (Icons.local_fire_department, 'لهب النيترو'),
+  'sticker1': (Icons.star, 'ملصق 1'),
+  'sticker2': (Icons.auto_awesome, 'ملصق 2'),
+  'plate': (Icons.confirmation_number, 'اللوحة'),
+  'horn': (Icons.volume_up, 'البوق'),
+  'celebration': (Icons.celebration, 'الاحتفال'),
 };
 
-const celebrationIcons = {'confetti': '🎊', 'fireworks': '🎆', 'flags': '🏁', 'lightning': '⚡', 'smoke': '💨', 'donut': '🍩', 'wheelie': '🏍️'};
+const celebrationIcons = <String, IconData>{
+  'confetti': Icons.celebration,
+  'fireworks': Icons.auto_awesome,
+  'flags': Icons.flag,
+  'lightning': Icons.bolt,
+  'smoke': Icons.air,
+  'donut': Icons.donut_large,
+  'wheelie': Icons.two_wheeler,
+};
 
 String rarityLabel(String r) => r == 'legendary' ? 'أسطوري' : (r == 'rare' ? 'نادر' : 'شائع');
 
@@ -72,8 +80,9 @@ class ItemTile extends StatelessWidget {
   final String? priceLabel;
   final VoidCallback? onTap;
   @override
-  Widget build(BuildContext context) => GestureDetector(
+  Widget build(BuildContext context) => PressFx(
         onTap: onTap,
+        scale: 0.94,
         child: Container(
           width: 98,
           margin: const EdgeInsets.only(left: 8),
@@ -90,7 +99,7 @@ class ItemTile extends StatelessWidget {
             SizedBox(
               height: 16,
               child: equipped
-                  ? const Text('✓ مجهّز', style: TextStyle(color: C.green, fontSize: 10, fontWeight: FontWeight.w900))
+                  ? const Text('مجهّز', style: TextStyle(color: C.green, fontSize: 10, fontWeight: FontWeight.w900))
                   : (locked ? const Icon(Icons.lock_rounded, size: 13, color: Colors.white38) : Text(priceLabel ?? 'مملوك', style: const TextStyle(color: C.gold, fontSize: 10, fontWeight: FontWeight.w800))),
             ),
             ]),
@@ -113,10 +122,10 @@ class SkinGlyph extends StatelessWidget {
       case 'horn':
         return const Icon(Icons.volume_up_rounded, size: 34, color: C.cyan);
       case 'celebration':
-        return Text(celebrationIcons[skin.params['type']] ?? '🎉', style: const TextStyle(fontSize: 32));
+        return Icon(celebrationIcons[skin.params['type']] ?? Icons.celebration, size: 32, color: C.cyan);
       case 'exhaust':
         return Column(mainAxisSize: MainAxisSize.min, children: [
-          const Text('💨', style: TextStyle(fontSize: 26)),
+          const Icon(Icons.air, size: 26, color: C.textDim),
           Container(width: 34, height: 6, decoration: BoxDecoration(color: hexColor(skin.params['color'] as String?, C.textDim), borderRadius: BorderRadius.circular(3))),
         ]);
       case 'nitroFlame':
@@ -126,7 +135,7 @@ class SkinGlyph extends StatelessWidget {
           height: 30,
           decoration: BoxDecoration(borderRadius: BorderRadius.circular(15), gradient: LinearGradient(colors: cols.length >= 2 ? cols : [C.cyan, C.magenta])),
           alignment: Alignment.center,
-          child: const Text('🔥', style: TextStyle(fontSize: 18)),
+          child: const Icon(Icons.local_fire_department, size: 18, color: Colors.white),
         );
       case 'plate':
         return Container(
@@ -152,7 +161,29 @@ class _StickerPainter extends CustomPainter {
   bool shouldRepaint(covariant _StickerPainter old) => false;
 }
 
-String priceText(Price p) => [if (p.coins > 0) '🪙 ${fmtInt(p.coins)}', if (p.gems > 0) '💎 ${fmtInt(p.gems)}'].join(' ');
+String priceText(Price p) => [
+      if (p.coins > 0) '${fmtInt(p.coins)} عملة',
+      if (p.gems > 0) '${fmtInt(p.gems)} جوهرة',
+    ].join(' + ');
+
+/// Compact price badge for tight spots (buttons/chips): vector glyph + number, no emoji.
+Widget priceRow(Price p, {Color color = Colors.white, double size = 13}) {
+  final style = TextStyle(fontWeight: FontWeight.w900, fontSize: size, color: color);
+  Widget coin() => Row(mainAxisSize: MainAxisSize.min, children: [
+        Icon(Icons.monetization_on, size: size + 2, color: color),
+        const SizedBox(width: 3),
+        Text(fmtInt(p.coins), style: style),
+      ]);
+  Widget gem() => Row(mainAxisSize: MainAxisSize.min, children: [
+        Icon(Icons.diamond, size: size + 2, color: color),
+        const SizedBox(width: 3),
+        Text(fmtInt(p.gems), style: style),
+      ]);
+  if (p.coins > 0 && p.gems > 0) {
+    return Row(mainAxisSize: MainAxisSize.min, children: [coin(), const SizedBox(width: 8), gem()]);
+  }
+  return p.coins > 0 ? coin() : gem();
+}
 
 
 /// Numbers shown next to each stat (derived from the real gameplay modifiers).

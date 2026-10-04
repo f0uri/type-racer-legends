@@ -44,19 +44,19 @@ class ShopScreen extends ConsumerWidget {
             : ListView(padding: const EdgeInsets.fromLTRB(14, 8, 14, 24), children: [
                 const RewardedAdCard(),
                 const SizedBox(height: 12),
-                _title('🔥 عروض اليوم', 'خصم 25% — تتجدد كل يوم'),
-                if (deals.isEmpty) const Panel(child: Text('امتلكت كل العروض المتاحة 🎉', style: TextStyle(color: C.textDim))),
+                _title('عروض اليوم', 'خصم 25% — تتجدد كل يوم'),
+                if (deals.isEmpty) const Panel(child: Text('امتلكت كل العروض المتاحة', style: TextStyle(color: C.textDim))),
                 SizedBox(
                   height: 168,
                   child: ListView(scrollDirection: Axis.horizontal, children: [for (final d in deals) _DealCard(item: d)]),
                 ),
                 const SizedBox(height: 18),
-                _title('🎁 الصناديق', 'نسب الحصول على الجوائز معروضة بشفافية — تُشترى بالعملات أو الجواهر داخل اللعبة فقط'),
+                _title('الصناديق', 'نسب الحصول على الجوائز معروضة بشفافية — تُشترى بالعملات أو الجواهر داخل اللعبة فقط'),
                 for (final c in chests) _ChestCard(def: c),
                 const SizedBox(height: 18),
                 const PremiumSection(),
                 const SizedBox(height: 18),
-                _title('💱 تحويل الجواهر إلى عملات', null),
+                _title('تحويل الجواهر إلى عملات', null),
                 for (final b in bundles) _bundle(context, ref, b, p),
               ]),
       ),
@@ -77,13 +77,13 @@ class ShopScreen extends ConsumerWidget {
       padding: const EdgeInsets.only(bottom: 8),
       child: Panel(
         child: Row(children: [
-          const Text('🪙', style: TextStyle(fontSize: 28)),
+          const Icon(Icons.monetization_on, size: 28, color: C.gold),
           const SizedBox(width: 10),
           Expanded(child: Text('${fmtInt(coins)} عملة', style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 16))),
           SizedBox(
             width: 120,
             child: NeonButton(
-              label: '💎 $gems',
+              label: '$gems جوهرة',
               color: C.cyan,
               height: 40,
               onPressed: p.gems < gems
@@ -141,10 +141,10 @@ class _DealCard extends ConsumerWidget {
                 BuyResult r = BuyResult.ok;
                 ref.read(profileProvider.notifier).update((pp) => r = Economy.buy(db, pp, item, discount: Economy.dealDiscount));
                 if (!context.mounted) return;
-                toast(context, r == BuyResult.ok ? 'تم الشراء 🎉' : (r == BuyResult.notEnoughCoins ? 'لا تملك عملات كافية' : (r == BuyResult.notEnoughGems ? 'لا تملك جواهر كافية' : 'غير متاح')));
+                toast(context, r == BuyResult.ok ? 'تم الشراء' : (r == BuyResult.notEnoughCoins ? 'لا تملك عملات كافية' : (r == BuyResult.notEnoughGems ? 'لا تملك جواهر كافية' : 'غير متاح')));
                 if (r == BuyResult.ok) ref.read(audioProvider).play(Sfx.chest);
               },
-              child: Text(priceText(price), style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 12)),
+              child: priceRow(price, color: Colors.black, size: 12),
             ),
           ),
         ]),
@@ -159,9 +159,9 @@ class _ChestCard extends ConsumerWidget {
 
   static String dropLine(Map d, int total) {
     final pct = ((d['w'] as num) / total * 100).toStringAsFixed(0);
-    if (d['coins'] != null) return '🪙 ${(d['coins'] as List).join('–')}  ($pct%)';
-    if (d['gems'] != null) return '💎 ${(d['gems'] as List).join('–')}  ($pct%)';
-    return '🎨 عنصر ${rarityLabel(d['skinRarity'] as String)}  ($pct%)';
+    if (d['coins'] != null) return '${(d['coins'] as List).join('–')} عملة  ($pct%)';
+    if (d['gems'] != null) return '${(d['gems'] as List).join('–')} جوهرة  ($pct%)';
+    return 'عنصر ${rarityLabel(d['skinRarity'] as String)}  ($pct%)';
   }
 
   @override
@@ -180,7 +180,7 @@ class _ChestCard extends ConsumerWidget {
         border: color.withValues(alpha: 0.6),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Row(children: [
-            Container(width: 52, height: 44, decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [color, Color.lerp(color, Colors.black, 0.5)!])), alignment: Alignment.center, child: const Text('🎁', style: TextStyle(fontSize: 22))),
+            Container(width: 52, height: 44, decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [color, Color.lerp(color, Colors.black, 0.5)!])), alignment: Alignment.center, child: const Icon(Icons.card_giftcard, size: 22, color: Colors.white)),
             const SizedBox(width: 12),
             Expanded(child: Text(loc(def['name']), style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 16))),
             if (owned > 0) Container(padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3), decoration: BoxDecoration(color: C.green.withValues(alpha: 0.2), borderRadius: BorderRadius.circular(12), border: Border.all(color: C.green)), child: Text('لديك $owned', style: const TextStyle(color: C.green, fontWeight: FontWeight.w900, fontSize: 12))),
@@ -250,28 +250,28 @@ class _PremiumSectionState extends ConsumerState<PremiumSection> {
     ref.listen<IapState>(iapProvider, (prev, next) {
       if (next.message != null && next.message != prev?.message && context.mounted) toast(context, next.message!);
     });
-    Widget row(String icon, String title, String sub, String id, {bool owned = false}) => Padding(
+    Widget row(IconData icon, String title, String sub, String id, {bool owned = false}) => Padding(
           padding: const EdgeInsets.only(bottom: 8),
           child: Panel(
             child: Row(children: [
-              Text(icon, style: const TextStyle(fontSize: 28)),
+              Icon(icon, size: 28, color: C.gold),
               const SizedBox(width: 10),
               Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Text(title, style: const TextStyle(fontWeight: FontWeight.w900)), Text(sub, style: const TextStyle(color: C.textDim, fontSize: 11))])),
               SizedBox(
                 width: 112,
                 child: owned
-                    ? const Center(child: Text('✓ مفعّل', style: TextStyle(color: C.green, fontWeight: FontWeight.w900)))
+                    ? const Center(child: Text('مفعّل', style: TextStyle(color: C.green, fontWeight: FontWeight.w900)))
                     : NeonButton(label: iap.priceOf(id) ?? '—', height: 38, color: C.gold, busy: iap.loading, onPressed: iap.canBuy(id) ? () => ref.read(iapProvider.notifier).buy(id) : null),
               ),
             ]),
           ),
         );
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      const Padding(padding: EdgeInsets.only(bottom: 8), child: Text('👑 العروض المميزة', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w900))),
+      const Padding(padding: EdgeInsets.only(bottom: 8), child: Text('العروض المميزة', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w900))),
       if (!iap.available) Padding(padding: const EdgeInsets.only(bottom: 8), child: Text(iap.message ?? 'جارٍ الاتصال بالمتجر...', style: const TextStyle(color: C.textDim, fontSize: 12))),
-      row('🚫', 'إزالة الإعلانات', 'الإعلانات اختيارية أصلاً؛ هذا يخفيها نهائياً', removeAds, owned: p.flag('adsRemoved')),
-      row('🎟️', 'Battle Pass المميز', 'مكافآت إضافية طوال الموسم', pass, owned: Season.isPremium(db, p)),
-      for (final g in packs) row('💎', '${g['gems']} جوهرة', loc(g['name']), g['id'] as String),
+      row(Icons.block, 'إزالة الإعلانات', 'الإعلانات اختيارية أصلاً؛ هذا يخفيها نهائياً', removeAds, owned: p.flag('adsRemoved')),
+      row(Icons.card_membership, 'Battle Pass المميز', 'مكافآت إضافية طوال الموسم', pass, owned: Season.isPremium(db, p)),
+      for (final g in packs) row(Icons.diamond, '${g['gems']} جوهرة', loc(g['name']), g['id'] as String),
       TextButton(onPressed: () => ref.read(iapProvider.notifier).restore(), child: const Text('استعادة المشتريات')),
     ]);
   }

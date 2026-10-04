@@ -9,20 +9,21 @@ import '../../core/theme/app_theme.dart';
 import '../../core/widgets/common.dart';
 
 class TutorialStep {
-  final String icon, title, body;
+  final IconData icon;
+  final String title, body;
   final String? target; // word(s) the player must type
   final int? seconds; // optional time pressure (power-up words); the step repeats instead of failing
   const TutorialStep(this.icon, this.title, this.body, {this.target, this.seconds});
 }
 
 const tutorialSteps = <TutorialStep>[
-  TutorialStep('🏁', 'أهلاً بك في الحلبة!', 'ستتعلم الأساسيات في دقيقة واحدة. سباقاتك كلها ضد منافسين بالذكاء الاصطناعي — لا لاعبين حقيقيين — لذلك تلعب بهدوء وبلا ضغط.'),
-  TutorialStep('⌨️', 'اكتب لتتحرك', 'كل حرف صحيح يدفع سيارتك للأمام. اكتب الكلمة التالية بالضبط:', target: 'race'),
-  TutorialStep('🔥', 'الدقة = السرعة', 'الحرف الخاطئ يبطئك ويقطع الكومبو. كلمات متتالية بلا أخطاء تملأ عدّاد النيترو وتطلق دفعة سرعة. اكتب الجملة:', target: 'fast and clean'),
-  TutorialStep('🛡️', 'كلمات القوة', 'أثناء السباق تظهر كلمة مثل SHIELD أو EMP أو TURBO. اكتبها قبل أن ينتهي الوقت لتحصل على الدرع أو التعطيل أو التوربو. جرّب الآن:', target: 'shield', seconds: 8),
-  TutorialStep('🔧', 'نقطة الصيانة', 'عند نقطة الصيانة اكتب الكلمة بلا خطأ لتحصل على شحنة نيترو، وإن أخطأت تخسر ثواني. تدرّب:', target: 'pit stop'),
-  TutorialStep('🎲', 'مضاعف المخاطرة', 'قبل السباق يمكنك تفعيل مضاعف x2: مكافآت أكبر، لكن كل خطأ يكلّفك أكثر. اختياري دائماً.'),
-  TutorialStep('🏆', 'أنت جاهز!', 'جرّب الحملة للبدء، أو افتح «التعلّم» لتتقن الأصابع. حظاً موفقاً يا بطل!'),
+  TutorialStep(Icons.flag, 'أهلاً بك في الحلبة!', 'ستتعلم الأساسيات في دقيقة واحدة. سباقاتك كلها ضد منافسين بالذكاء الاصطناعي — لا لاعبين حقيقيين — لذلك تلعب بهدوء وبلا ضغط.'),
+  TutorialStep(Icons.keyboard, 'اكتب لتتحرك', 'كل حرف صحيح يدفع سيارتك للأمام. اكتب الكلمة التالية بالضبط:', target: 'race'),
+  TutorialStep(Icons.local_fire_department, 'الدقة = السرعة', 'الحرف الخاطئ يبطئك ويقطع الكومبو. كلمات متتالية بلا أخطاء تملأ عدّاد النيترو وتطلق دفعة سرعة. اكتب الجملة:', target: 'fast and clean'),
+  TutorialStep(Icons.shield, 'كلمات القوة', 'أثناء السباق تظهر كلمة مثل SHIELD أو EMP أو TURBO. اكتبها قبل أن ينتهي الوقت لتحصل على الدرع أو التعطيل أو التوربو. جرّب الآن:', target: 'shield', seconds: 8),
+  TutorialStep(Icons.build, 'نقطة الصيانة', 'عند نقطة الصيانة اكتب الكلمة بلا خطأ لتحصل على شحنة نيترو، وإن أخطأت تخسر ثواني. تدرّب:', target: 'pit stop'),
+  TutorialStep(Icons.casino, 'مضاعف المخاطرة', 'قبل السباق يمكنك تفعيل مضاعف x2: مكافآت أكبر، لكن كل خطأ يكلّفك أكثر. اختياري دائماً.'),
+  TutorialStep(Icons.emoji_events, 'أنت جاهز!', 'جرّب الحملة للبدء، أو افتح «التعلّم» لتتقن الأصابع. حظاً موفقاً يا بطل!'),
 ];
 
 /// Interactive tutorial: short typing drills with live feedback. Replayable from settings.
@@ -101,7 +102,7 @@ class _TutorialScreenState extends ConsumerState<TutorialScreen> with SingleTick
       p.setFlag('tutorialDone');
     });
     ref.read(analyticsProvider).log('tutorial_complete');
-    if (first) toast(context, 'حصلت على ${widget.reward} عملة هدية 🎁');
+    if (first) toast(context, 'حصلت على ${widget.reward} عملة هدية');
     Navigator.of(context).pop();
   }
 
@@ -144,7 +145,7 @@ class _TutorialScreenState extends ConsumerState<TutorialScreen> with SingleTick
                 const SizedBox(height: 4),
                 Text('${step + 1} / ${tutorialSteps.length}', textDirection: TextDirection.ltr, style: const TextStyle(color: C.textDim, fontSize: 12)),
                 const Spacer(),
-                Text(s.icon, style: const TextStyle(fontSize: 64)),
+                Icon(s.icon, size: 60, color: C.cyan),
                 const SizedBox(height: 10),
                 Text(s.title, textAlign: TextAlign.center, style: const TextStyle(fontSize: 24, fontWeight: FontWeight.w900)),
                 const SizedBox(height: 10),

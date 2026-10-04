@@ -53,7 +53,16 @@ class _CampaignScreenState extends ConsumerState<CampaignScreen> {
     final p = ref.watch(profileProvider);
     return Scaffold(
       appBar: AppBar(title: const Text('الحملة'), actions: [
-        Padding(padding: const EdgeInsets.symmetric(horizontal: 12), child: Center(child: Text('⭐ ${p.totalStars}/${db.stages.length * 3}', style: const TextStyle(fontWeight: FontWeight.w800)))),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 12),
+          child: Center(
+            child: Row(mainAxisSize: MainAxisSize.min, children: [
+              const Icon(Icons.star, size: 16, color: C.gold),
+              const SizedBox(width: 4),
+              Text('${p.totalStars}/${db.stages.length * 3}', style: const TextStyle(fontWeight: FontWeight.w800)),
+            ]),
+          ),
+        ),
       ]),
       body: GradientBg(
         child: Column(children: [
@@ -154,7 +163,7 @@ class _Node extends ConsumerWidget {
             boxShadow: open ? [BoxShadow(color: (boss ? C.gold : color).withValues(alpha: 0.5), blurRadius: 12)] : null,
           ),
           alignment: Alignment.center,
-          child: !open ? const Icon(Icons.lock_rounded, color: Colors.white38) : (boss ? const Text('👑', style: TextStyle(fontSize: 28)) : Text('${stage.n}', style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 20))),
+          child: !open ? const Icon(Icons.lock_rounded, color: Colors.white38) : (boss ? const Icon(Icons.workspace_premium, size: 28, color: C.gold) : Text('${stage.n}', style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 20))),
         ),
         const SizedBox(height: 4),
         starRow(stars, size: 15),
@@ -214,17 +223,17 @@ class StageSheet extends ConsumerWidget {
           Text('${loc(biome.name)}  •  المرحلة ${stage.n} من ${db.stages.length}', style: const TextStyle(color: C.textDim)),
           const SizedBox(height: 10),
           Wrap(spacing: 8, runSpacing: 6, children: [
-            _chip('🤖 ${stage.oppCount} منافسين (AI)'),
-            _chip('⚡ ~${stage.oppWpm.round()} WPM'),
-            _chip('📝 ${stage.lenMin}–${stage.lenMax} حرف'),
-            if (stage.mod != 'none') _chip(const {'fog': '🌫️ ضباب', 'ice': '🧊 جليد', 'blackout': '🌑 ظلام', 'storm': '⛈️ عاصفة'}[stage.mod] ?? stage.mod, color: C.magenta),
+            _chip('${stage.oppCount} منافسين (AI)'),
+            _chip('~${stage.oppWpm.round()} WPM'),
+            _chip('${stage.lenMin}–${stage.lenMax} حرف'),
+            if (stage.mod != 'none') _chip(const {'fog': 'ضباب', 'ice': 'جليد', 'blackout': 'ظلام', 'storm': 'عاصفة'}[stage.mod] ?? stage.mod, color: C.magenta),
           ]),
           if (boss != null) ...[
             const SizedBox(height: 12),
             Panel(
               border: C.gold,
               child: Row(children: [
-                const Text('👑', style: TextStyle(fontSize: 30)),
+                const Icon(Icons.workspace_premium, size: 30, color: C.gold),
                 const SizedBox(width: 10),
                 Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                   Text('الزعيم: ${loc(boss.name)}  ${flagEmoji(boss.cc)}', style: const TextStyle(fontWeight: FontWeight.w900)),
@@ -245,7 +254,7 @@ class StageSheet extends ConsumerWidget {
             ]),
           ),
           const SizedBox(height: 10),
-          Text('مكافأة أول إنجاز: 🪙 ${stage.reward['coins'] ?? 0}  ⚡ ${stage.reward['xp'] ?? 0}${((stage.reward['gems'] as num?) ?? 0) > 0 ? '  💎 ${stage.reward['gems']}' : ''}', style: const TextStyle(color: C.gold, fontWeight: FontWeight.w700)),
+          Text('مكافأة أول إنجاز: ${stage.reward['coins'] ?? 0} عملة + ${stage.reward['xp'] ?? 0} خبرة${((stage.reward['gems'] as num?) ?? 0) > 0 ? ' + ${stage.reward['gems']} جوهرة' : ''}', style: const TextStyle(color: C.gold, fontWeight: FontWeight.w700)),
           const SizedBox(height: 14),
           NeonButton(
             label: open ? 'ابدأ المرحلة' : 'أكمل المرحلة السابقة أولاً',
@@ -335,7 +344,7 @@ class _CampaignResult extends ConsumerWidget {
               builder: (_, v, _) => starRow(v.ceil().clamp(0, 3), size: 34),
             ),
             if (boss != null) Padding(padding: const EdgeInsets.only(top: 8), child: Text('${loc(boss.name)}: "${loc(result.won ? boss.win : boss.lose)}"', textAlign: TextAlign.center, style: const TextStyle(color: C.textDim))),
-            if (so.bossBeaten) const Padding(padding: EdgeInsets.only(top: 6), child: Text('👑 هزمت الزعيم لأول مرة!', style: TextStyle(color: C.gold, fontWeight: FontWeight.w900))),
+            if (so.bossBeaten) const Padding(padding: EdgeInsets.only(top: 6), child: Text('هزمت الزعيم لأول مرة!', style: TextStyle(color: C.gold, fontWeight: FontWeight.w900))),
           ]),
         ),
         if (so.coins + so.xp + so.gems > 0) ...[

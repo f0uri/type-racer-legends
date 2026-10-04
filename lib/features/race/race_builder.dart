@@ -217,7 +217,7 @@ class RaceBuilder {
   GhostSpec? personalGhost(Map<String, dynamic>? saved) {
     if (saved == null) return null;
     final samples = (saved['samples'] as List?)?.map((e) => (e as List).map((x) => x as num).toList()).toList();
-    return GhostSpec(name: '👻 رقمك', wpm: (saved['wpm'] as num).toDouble(), samples: samples, personal: true);
+    return GhostSpec(name: 'رقمك', wpm: (saved['wpm'] as num).toDouble(), samples: samples, personal: true);
   }
 
   RaceConfig tournamentMatch({required String title, required AiSpec opponent, required TournamentDef def}) => RaceConfig(

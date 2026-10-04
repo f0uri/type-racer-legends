@@ -165,10 +165,10 @@ class _GarageScreenState extends ConsumerState<GarageScreen>
                         ),
                         showSelectedIcon: false,
                         segments: const [
-                          ButtonSegment(value: 'car', label: Text('🚗 سيارات')),
+                          ButtonSegment(value: 'car', label: Text('سيارات')),
                           ButtonSegment(
                             value: 'bike',
-                            label: Text('🏍️ دراجات'),
+                            label: Text('دراجات'),
                           ),
                         ],
                         selected: {_kind},
@@ -227,7 +227,7 @@ class _GarageScreenState extends ConsumerState<GarageScreen>
                     RarityBadge(v.rarity),
                           const SizedBox(width: 8),
                           const Text(
-                            '↔ اسحب للتدوير',
+                            'اسحب للتدوير',
                             style: TextStyle(color: C.textDim, fontSize: 11),
                           ),
                         ],
@@ -293,7 +293,7 @@ class _GarageScreenState extends ConsumerState<GarageScreen>
         if (owned && equipped)
           const Panel(
             child: Text(
-              '✅ هذه مركبتك الحالية في السباقات',
+              'هذه مركبتك الحالية في السباقات',
               style: TextStyle(color: C.green, fontWeight: FontWeight.w800),
             ),
           ),
@@ -369,7 +369,7 @@ class _GarageScreenState extends ConsumerState<GarageScreen>
                       ),
                       onPressed: q.maxed ? null : () => _upgrade(db, v, stat),
                       child: Text(
-                        q.maxed ? 'الحد الأقصى' : 'ترقية 🪙 ${fmtInt(q.cost)}',
+                        q.maxed ? 'الحد الأقصى' : 'ترقية ${fmtInt(q.cost)} عملة',
                         style: TextStyle(
                           fontWeight: FontWeight.w900,
                           fontSize: 12,
@@ -393,7 +393,7 @@ class _GarageScreenState extends ConsumerState<GarageScreen>
         .update((p) => r = Economy.upgrade(db, p, v, stat));
     if (r == BuyResult.ok) {
       ref.read(audioProvider).play(Sfx.coin);
-      toast(context, 'تمت الترقية ✅');
+      toast(context, 'تمت الترقية');
     } else if (r == BuyResult.notEnoughCoins) {
       toast(context, 'لا تملك عملات كافية');
     }
@@ -407,7 +407,7 @@ class _GarageScreenState extends ConsumerState<GarageScreen>
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Text(
-            '🔒 مركبة غير مملوكة',
+            'مركبة غير مملوكة',
             style: TextStyle(fontWeight: FontWeight.w900),
           ),
           const SizedBox(height: 6),
@@ -456,7 +456,7 @@ class _GarageScreenState extends ConsumerState<GarageScreen>
     switch (r) {
       case BuyResult.ok:
         ref.read(audioProvider).play(Sfx.chest);
-        toast(context, 'تم الشراء 🎉');
+        toast(context, 'تم الشراء');
         setState(() {
           if (equipKey != null) _clearPreview();
         });
@@ -514,7 +514,7 @@ class _GarageScreenState extends ConsumerState<GarageScreen>
                 padding: const EdgeInsets.only(left: 6),
                 child: ChoiceChip(
                   selected: sel,
-                  label: Text('${slotLabels[k]!.$1} ${slotLabels[k]!.$2}'),
+                  label: Row(mainAxisSize: MainAxisSize.min, children: [Icon(slotLabels[k]!.$1, size: 16, color: sel ? C.cyan : C.textDim), const SizedBox(width: 6), Text(slotLabels[k]!.$2)]),
                   onSelected: (_) => setState(() {
                     _slot = k;
                     _clearPreview();
@@ -640,7 +640,7 @@ class _GarageScreenState extends ConsumerState<GarageScreen>
       final av = Economy.availability(db, p, pv);
       if (lo[_pvKey] == pv.id) {
         child = const Text(
-          '✓ مجهّز حالياً',
+          'مجهّز حالياً',
           style: TextStyle(color: C.green, fontWeight: FontWeight.w900),
         );
       } else if (own) {
@@ -773,7 +773,7 @@ class _GarageScreenState extends ConsumerState<GarageScreen>
               final av = Economy.availability(db, p, o);
               if (p.selOutfit == o.id) {
                 child = const Text(
-                  '✓ مجهّز حالياً',
+                  'مجهّز حالياً',
                   style: TextStyle(color: C.green, fontWeight: FontWeight.w900),
                 );
               } else if (own) {

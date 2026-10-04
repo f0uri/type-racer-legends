@@ -25,6 +25,8 @@ class TypingTextPanel extends StatefulWidget {
 class _TypingTextPanelState extends State<TypingTextPanel> with SingleTickerProviderStateMixin {
   double _scroll = 0;
   double _target = 0;
+  String? _cacheKey;
+  TextPainter? _cached;
   late final AnimationController _anim;
 
   @override
@@ -129,7 +131,18 @@ class _TypingTextPanelState extends State<TypingTextPanel> with SingleTickerProv
     }
     final span = TextSpan(children: spans);
     return LayoutBuilder(builder: (context, cons) {
-      final tp = TextPainter(text: span, textDirection: TextDirection.ltr)..layout(maxWidth: cons.maxWidth - 4);
+      // The panel is repainted up to 10 times a second: lay the text out only when something
+      // actually changed (position, wrong buffer, effect phase, size or font).
+      final key = '${e.text.hashCode}|$pos|$wrong|$curIdx|${widget.nowMs ~/ 250}|${widget.mod}|'
+          '${widget.hint ? 1 : 0}|${widget.fontScale}|${widget.dyslexia ? 1 : 0}|${cons.maxWidth.round()}|${shown.hashCode}';
+      final TextPainter tp;
+      if (_cacheKey == key && _cached != null) {
+        tp = _cached!;
+      } else {
+        tp = TextPainter(text: span, textDirection: TextDirection.ltr)..layout(maxWidth: cons.maxWidth - 4);
+        _cacheKey = key;
+        _cached = tp;
+      }
       final caret = tp.getOffsetForCaret(TextPosition(offset: min(curIdx, shown.length)), Rect.zero);
       final lineH = size * 1.55;
       final want = max(0.0, caret.dy - lineH * 0.9);

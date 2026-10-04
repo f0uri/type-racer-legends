@@ -85,22 +85,22 @@ class DailyScreen extends ConsumerWidget {
         child: ListView(padding: const EdgeInsets.all(16), children: [
           const Panel(child: Text('نص واحد لكل اللاعبين في اليوم (أو الأسبوع) بدون مكافآت السباق: لعب نقي، ويُقارن أداؤك بأشباح ذكاء اصطناعي. أعلى نتيجة تُرسل للوحات المتصدرين بعد التحقق من الخادم.', style: TextStyle(color: C.textDim, fontSize: 13))),
           const SizedBox(height: 12),
-          _card(context, icon: '📅', title: 'تحدي اليوم', len: dText.len, done: dRec['done'] == true, best: (dRec['best'] as num?)?.toDouble(), reward: '🪙 120+ و ⚡ 40', onPlay: () => _play(context, false)),
+          _card(context, icon: Icons.calendar_month, title: 'تحدي اليوم', len: dText.len, done: dRec['done'] == true, best: (dRec['best'] as num?)?.toDouble(), reward: '120 عملة + 40 خبرة', onPlay: () => _play(context, false)),
           const SizedBox(height: 12),
-          _card(context, icon: '🗓️', title: 'تحدي الأسبوع', len: wText.len, done: wRec['done'] == true, best: (wRec['best'] as num?)?.toDouble(), reward: '🪙 500  💎 15  ⚡ 150', onPlay: () => _play(context, true)),
+          _card(context, icon: Icons.calendar_today, title: 'تحدي الأسبوع', len: wText.len, done: wRec['done'] == true, best: (wRec['best'] as num?)?.toDouble(), reward: '500 عملة + 15 جوهرة + 150 خبرة', onPlay: () => _play(context, true)),
         ]),
       ),
     );
   }
 
-  Widget _card(BuildContext context, {required String icon, required String title, required int len, required bool done, double? best, required String reward, required VoidCallback onPlay}) => Panel(
+  Widget _card(BuildContext context, {required IconData icon, required String title, required int len, required bool done, double? best, required String reward, required VoidCallback onPlay}) => Panel(
         border: done ? C.green : C.cyan.withValues(alpha: 0.5),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Row(children: [
-            Text(icon, style: const TextStyle(fontSize: 30)),
+            Icon(icon, size: 30, color: C.cyan),
             const SizedBox(width: 10),
             Expanded(child: Text(title, style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 18))),
-            if (done) const Text('✅ مكتمل', style: TextStyle(color: C.green, fontWeight: FontWeight.w800)),
+            if (done) const Text('مكتمل', style: TextStyle(color: C.green, fontWeight: FontWeight.w800)),
           ]),
           const SizedBox(height: 6),
           Text('$len حرف • أفضل نتيجة: ${best == null ? '—' : '${best.round()} WPM'}', style: const TextStyle(color: C.textDim)),

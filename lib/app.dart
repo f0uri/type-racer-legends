@@ -30,7 +30,13 @@ class TypeRacerApp extends ConsumerWidget {
       builder: (context, child) => Directionality(
         textDirection: TextDirection.rtl,
         child: MediaQuery(
-          data: MediaQuery.of(context).copyWith(textScaler: const TextScaler.linear(1.0)),
+          // The game's layout is designed at 1.0, and every screen is swept at that size in CI.
+          // But a player who raised the system font size did it for a reason: honoring it up to
+          // 1.3x costs nothing (the sweep covers 1.3 too) and never shrinking below 1.0 keeps the
+          // HUD honest on phones that ask for smaller text.
+          data: MediaQuery.of(context).copyWith(
+            textScaler: TextScaler.linear(MediaQuery.of(context).textScaler.scale(1.0).clamp(1.0, 1.3)),
+          ),
           child: AppLifecycleHost(child: UpdateGate(child: ProgressWatcher(child: child ?? const SizedBox()))),
         ),
       ),

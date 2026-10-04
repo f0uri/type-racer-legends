@@ -53,6 +53,18 @@ class RaceGame extends FlameGame {
   bool _skipRender = false;
   double timeScale = 1;
 
+  /// Hit-stop: the classic "impact freeze" every action game uses on a mistake.
+  /// A wrong key freezes the world for [_hitStopLen] seconds, then time catches back up.
+  double _hitStop = 0;
+  static const _hitStopLen = 0.09;
+  /// Called by the UI on a wrong keystroke: the world jolts to a stop + camera punch.
+  void hitStop({double dur = _hitStopLen, double shakeAmount = 0.55}) {
+    if (replaying) return;
+    _hitStop = max(_hitStop, dur);
+    shake = max(shake, shakeAmount);
+    flash = max(flash, 0.35);
+  }
+
   // replay (photo finish)
   bool replaying = false;
   double _replayPos = 0;
@@ -82,6 +94,14 @@ class RaceGame extends FlameGame {
   void update(double dt) {
     super.update(dt);
     if (frozen) return;
+    if (_hitStop > 0) {
+      _hitStop -= dt;
+      // only the camera keeps moving during the freeze: input still lands next frame
+      shake = max(0, shake - dt * 3.2);
+      flash = max(0, flash - dt * 3);
+      sceneT += dt * 0.25;
+      return;
+    }
     dt = min(dt, 1 / 20) * timeScale;
     if (fps30) {
       _accum += dt;
@@ -107,7 +127,9 @@ class RaceGame extends FlameGame {
     final cps = s.started ? p.speedCps : 0.0;
     final targetSpeed = s.started ? 150 + cps * 40 + (s.nitroActive ? 140 : 0) + (s.turboLeft > 0 ? 100 : 0) : 40;
     scrollSpeed += (targetSpeed - scrollSpeed) * min(1, dt * 3);
-    if (p.finished && s.over) scrollSpeed += (90 - scrollSpeed) * min(1, dt * 1.5);
+    // Crossing the line slows the world down immediately (time-dilation) — even before the
+    // post-finish window ranks the pack: this is the "you won" feeling, not a freeze.
+    if (p.finished) scrollSpeed += (55 - scrollSpeed) * min(1, dt * 1.6);
     speed01 = ((scrollSpeed - 40) / 360).clamp(0.0, 1.0);
     _dist += scrollSpeed * dt;
     camX = _dist;
@@ -517,7 +539,7 @@ class RaceGame extends FlameGame {
 
   void _tag(Canvas c, RacerState r, double x, double gy, double L, Look look) {
     if (r.isPlayer) return;
-    final txt = r.isGhost ? '👻 ${r.name}' : '${r.spec?.isBoss == true ? '👑 ' : ''}AI · ${r.name}';
+    final txt = r.isGhost ? r.name : '${r.spec?.isBoss == true ? '★ ' : ''}AI · ${r.name}';
     final tp = _tagPainter(txt, r.isGhost ? const Color(0xAAFFFFFF) : const Color(0xDDFFFFFF));
     final h = VehiclePainter.heightOf(look) * L;
     tp.paint(c, Offset(x + L * 0.5 - tp.width / 2, gy - h - tp.height - 2));

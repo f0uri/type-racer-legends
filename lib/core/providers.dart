@@ -9,6 +9,7 @@ import '../data/remote/firebase_boot.dart';
 import '../features/ai/ai_driver.dart';
 import 'remote_settings.dart';
 import '../features/content/content_db.dart';
+import '../data/remote/progress_sync.dart';
 import 'services/audio_service.dart';
 import 'services/haptics_service.dart';
 import 'util/dates.dart';
@@ -101,6 +102,9 @@ class ProfileController extends Notifier<PlayerProfile> {
 
   void scheduleSync([Duration delay = const Duration(seconds: 8)]) {
     _dirty = true;
+    // Google Drive sync (no server needed) has its own short debounce: between two races the
+    // player's save is already uploaded, so opening the game on another phone loses nothing.
+    ref.read(progressSyncProvider.notifier).schedule();
     if (!canSync) return;
     _debounce?.cancel();
     _debounce = Timer(delay, () => syncNow());
@@ -193,6 +197,17 @@ final levelInfoProvider = Provider<LevelInfo>((ref) {
   final lv = c.econ('levels');
   return p.level(base: (lv['xpBase'] as num?)?.toInt() ?? 120, step: (lv['xpStep'] as num?)?.toInt() ?? 45, maxLevel: (lv['maxLevel'] as num?)?.toInt() ?? 100);
 });
+
+/// Races finished in a row this session. In-memory on purpose: it is ceremony (the result
+/// screen shows «سلسلة الجولات»), not progress, so it must reset with the app.
+class RaceChainController extends Notifier<int> {
+  @override
+  int build() => 0;
+  void bump() => state = state + 1;
+  void reset() => state = 0;
+}
+
+final raceChainProvider = NotifierProvider<RaceChainController, int>(RaceChainController.new);
 
 /// Daily key provider that refreshes at midnight (used to rebuild daily UI).
 final todayProvider = Provider<String>((ref) => dayKey());

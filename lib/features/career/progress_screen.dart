@@ -12,40 +12,41 @@ import '../shop/iap_service.dart';
 import 'progress.dart';
 import 'rewards.dart';
 
-const achievementIcons = {
-  'races': '🏁',
-  'trophy': '🏆',
-  'legend': '👑',
-  'speed': '⚡',
-  'target': '🎯',
-  'combo': '🔥',
-  'level': '⭐',
-  'nitro': '🚀',
-  'chars': '⌨️',
-  'streak': '📅',
-  'campaign': '🗺️',
-  'stars': '🌟',
-  'boss': '👹',
-  'car': '🚗',
-  'skin': '🎨',
-  'rank': '🥇',
-  'tournament': '🏅',
-  'daily': '🗓️',
-  'lesson': '📚',
-  'vocab': '📖',
-  'power': '🛡️',
-  'pit': '🔧',
-  'survival': '⏳',
-  'world': '🌍',
-  'upgrade': '🔩',
-  'combat': '💥',
-  'share': '🔗',
-  'camera': '📸',
-  'quest': '✅',
-  'certificate': '📜',
+/// Achievement glyphs as vector icons (never emoji: they must look identical on every device).
+const achievementIcons = <String, IconData>{
+  'races': Icons.flag,
+  'trophy': Icons.emoji_events,
+  'legend': Icons.workspace_premium,
+  'speed': Icons.bolt,
+  'target': Icons.track_changes,
+  'combo': Icons.local_fire_department,
+  'level': Icons.star,
+  'nitro': Icons.rocket_launch,
+  'chars': Icons.keyboard,
+  'streak': Icons.calendar_month,
+  'campaign': Icons.map,
+  'stars': Icons.stars,
+  'boss': Icons.sports_mma,
+  'car': Icons.directions_car,
+  'skin': Icons.palette,
+  'rank': Icons.military_tech,
+  'tournament': Icons.workspace_premium,
+  'daily': Icons.calendar_today,
+  'lesson': Icons.school,
+  'vocab': Icons.menu_book,
+  'power': Icons.shield,
+  'pit': Icons.build,
+  'survival': Icons.timer,
+  'world': Icons.public,
+  'upgrade': Icons.hardware,
+  'combat': Icons.rocket_launch,
+  'share': Icons.link,
+  'camera': Icons.photo_camera,
+  'quest': Icons.check_circle,
+  'certificate': Icons.verified,
 };
 
-String achievementIcon(String key) => achievementIcons[key] ?? '🏅';
+IconData achievementIcon(String key) => achievementIcons[key] ?? Icons.emoji_events;
 
 void showRewardToast(BuildContext context, String title, List<String> lines) {
   toast(context, '$title  ${lines.join('  ')}');
@@ -170,7 +171,7 @@ class LoginStreakCard extends ConsumerWidget {
       border: canClaim ? C.gold : Colors.white10,
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Row(children: [
-          const Text('🔥', style: TextStyle(fontSize: 26)),
+          const Icon(Icons.local_fire_department, size: 26, color: C.gold),
           const SizedBox(width: 8),
           Expanded(child: Text('سلسلة الحضور: $streak ${streak == 1 ? 'يوم' : 'أيام'}', style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 16))),
           Text('الأفضل: ${p.m('streak')['best'] ?? 0}', style: const TextStyle(color: C.textDim, fontSize: 12)),
@@ -247,7 +248,7 @@ class SeasonTab extends ConsumerWidget {
             Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               ProgressBar(value: si.levelProgress, color: color, height: 10),
               const SizedBox(height: 4),
-              Text(si.level >= si.maxLevel ? 'وصلت إلى القمة 🎉' : '${si.pointsInLevel}/${si.perLevel} نقطة للمستوى ${si.level + 1}', style: const TextStyle(color: C.textDim, fontSize: 12)),
+              Text(si.level >= si.maxLevel ? 'وصلت إلى القمة' : '${si.pointsInLevel}/${si.perLevel} نقطة للمستوى ${si.level + 1}', style: const TextStyle(color: C.textDim, fontSize: 12)),
             ])),
           ]),
           const SizedBox(height: 6),
@@ -259,13 +260,13 @@ class SeasonTab extends ConsumerWidget {
         Panel(
           border: C.gold,
           child: Row(children: [
-            const Text('👑', style: TextStyle(fontSize: 30)),
+            const Icon(Icons.workspace_premium, size: 30, color: C.gold),
             const SizedBox(width: 10),
             const Expanded(child: Text('Battle Pass المميز: مكافآت إضافية في كل مستوى، صناديق، ومظهر حصري.', style: TextStyle(fontSize: 13))),
             SizedBox(width: 120, child: NeonButton(label: iap.priceOf(db.season['premiumProduct'] as String? ?? 'battle_pass_premium') ?? 'اشترك', color: C.gold, height: 40, onPressed: iap.canBuy(db.season['premiumProduct'] as String? ?? 'battle_pass_premium') ? () => ref.read(iapProvider.notifier).buy(db.season['premiumProduct'] as String? ?? 'battle_pass_premium') : null)),
           ]),
         ),
-      if (premium) const Panel(child: Text('👑 Battle Pass المميز مفعّل', style: TextStyle(color: C.gold, fontWeight: FontWeight.w900))),
+      if (premium) const Panel(child: Text('Battle Pass المميز مفعّل', style: TextStyle(color: C.gold, fontWeight: FontWeight.w900))),
       const SizedBox(height: 10),
       if (claimable > 0)
         NeonButton(
@@ -280,24 +281,94 @@ class SeasonTab extends ConsumerWidget {
           },
         ),
       const SizedBox(height: 10),
+      // The track opens on the player's own level, not on level 1: a battle pass you have to
+      // scroll to find yourself in never feels like yours.
       SizedBox(
-        height: 184,
-        child: ListView.builder(
-          scrollDirection: Axis.horizontal,
-          itemCount: track.length,
-          itemBuilder: (_, i) => _TrackCell(row: track[i], level: (track[i]['level'] as num).toInt(), reached: si.level, premium: premium, color: color),
-        ),
+        height: 196,
+        child: _SeasonTrack(rows: track, reached: si.level, premium: premium, color: color),
       ),
     ]);
   }
 }
 
+/// The horizontal battle-pass rail.
+///
+/// Opens scrolled to the player's current level, pulses every reward that is waiting to be
+/// claimed, and marks the row the player is standing on. Nothing here is decoration for its own
+/// sake: each of the three exists so the player never has to *search* for the next reward.
+class _SeasonTrack extends StatefulWidget {
+  const _SeasonTrack({required this.rows, required this.reached, required this.premium, required this.color});
+  final List<Map<String, dynamic>> rows;
+  final int reached;
+  final bool premium;
+  final Color color;
+  @override
+  State<_SeasonTrack> createState() => _SeasonTrackState();
+}
+
+class _SeasonTrackState extends State<_SeasonTrack> with SingleTickerProviderStateMixin {
+  /// Cell width + gap, shared with the builder below (one source of truth for the scroll maths).
+  static const double cell = 86;
+  static const double gap = 6;
+
+  late final ScrollController _sc = ScrollController(initialScrollOffset: _startOffset());
+  // One controller drives every claimable cell, so a full track costs one animation, not forty.
+  late final AnimationController _pulse = AnimationController(vsync: this, duration: const Duration(milliseconds: 1100))..repeat(reverse: true);
+
+  /// A little before the current level, so it is not glued to the left edge and the player can
+  /// still see where they came from.
+  double _startOffset() {
+    final i = (widget.reached - 2).clamp(0, widget.rows.length - 1);
+    return i * (cell + gap);
+  }
+
+  @override
+  void dispose() {
+    _sc.dispose();
+    _pulse.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: _pulse,
+      builder: (_, __) => ListView.builder(
+        controller: _sc,
+        scrollDirection: Axis.horizontal,
+        padding: const EdgeInsets.symmetric(horizontal: 4),
+        itemCount: widget.rows.length,
+        itemBuilder: (_, i) {
+          final row = widget.rows[i];
+          final level = (row['level'] as num).toInt();
+          return _TrackCell(
+            row: row,
+            level: level,
+            reached: widget.reached,
+            premium: widget.premium,
+            color: widget.color,
+            pulse: _pulse.value,
+            current: level == widget.reached,
+          );
+        },
+      ),
+    );
+  }
+}
+
 class _TrackCell extends ConsumerWidget {
-  const _TrackCell({required this.row, required this.level, required this.reached, required this.premium, required this.color});
+  const _TrackCell({required this.row, required this.level, required this.reached, required this.premium, required this.color, required this.pulse, required this.current});
   final Map<String, dynamic> row;
   final int level, reached;
   final bool premium;
   final Color color;
+
+  /// 0..1 breathing value shared by the whole track (see [_SeasonTrackState._pulse]).
+  final double pulse;
+
+  /// True for the level the player is standing on right now.
+  final bool current;
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final db = ref.watch(contentProvider);
@@ -310,8 +381,11 @@ class _TrackCell extends ConsumerWidget {
     Widget cell(String side, bool done, bool locked) {
       final r = (row[side] as Map?)?.cast<String, dynamic>();
       final canClaim = ok && !done && !locked && r != null;
+      // Everything waiting to be claimed breathes in gold until it is taken.
+      final glow = canClaim ? 0.20 + 0.22 * pulse : 0.0;
       return Expanded(
-        child: GestureDetector(
+        child: PressFx(
+          scale: 0.94,
           onTap: canClaim
               ? () {
                   List<String>? lines;
@@ -325,9 +399,11 @@ class _TrackCell extends ConsumerWidget {
           child: Container(
             margin: const EdgeInsets.all(3),
             decoration: BoxDecoration(
-              color: done ? C.green.withValues(alpha: 0.18) : (canClaim ? C.gold.withValues(alpha: 0.2) : C.surface2),
+              color: done ? C.green.withValues(alpha: 0.18) : (canClaim ? C.gold.withValues(alpha: glow) : C.surface2),
               borderRadius: BorderRadius.circular(10),
-              border: Border.all(color: canClaim ? C.gold : (side == 'premium' ? C.gold.withValues(alpha: 0.35) : Colors.white10)),
+              border: Border.all(
+                color: canClaim ? C.gold.withValues(alpha: 0.55 + 0.45 * pulse) : (side == 'premium' ? C.gold.withValues(alpha: 0.35) : Colors.white10),
+              ),
             ),
             alignment: Alignment.center,
             child: r == null
@@ -343,9 +419,18 @@ class _TrackCell extends ConsumerWidget {
     }
 
     return Container(
-      width: 86,
-      margin: const EdgeInsets.only(left: 6),
+      width: _SeasonTrackState.cell,
+      margin: const EdgeInsets.only(left: _SeasonTrackState.gap),
       child: Column(children: [
+        if (current)
+          Container(
+            margin: const EdgeInsets.only(bottom: 2),
+            padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 1),
+            decoration: BoxDecoration(color: color.withValues(alpha: 0.95), borderRadius: BorderRadius.circular(8)),
+            child: const Text('أنت هنا', style: TextStyle(fontSize: 9, fontWeight: FontWeight.w900, color: Colors.black)),
+          )
+        else
+          const SizedBox(height: 14),
         Container(
           padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 10),
           decoration: BoxDecoration(color: ok ? color : C.surface2, borderRadius: BorderRadius.circular(10)),
@@ -379,7 +464,7 @@ class AchievementsTab extends ConsumerWidget {
     return ListView(padding: const EdgeInsets.all(14), children: [
       Panel(
         child: Row(children: [
-          const Text('🏆', style: TextStyle(fontSize: 30)),
+          const Icon(Icons.emoji_events, size: 30, color: C.gold),
           const SizedBox(width: 10),
           Expanded(child: Text('${Achievements.unlockedCount(p)} / ${db.achievements.length} إنجاز', style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 16))),
           if (claimable > 0) Container(padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4), decoration: BoxDecoration(color: C.gold, borderRadius: BorderRadius.circular(12)), child: Text('$claimable جاهزة', style: const TextStyle(color: Colors.black, fontWeight: FontWeight.w900, fontSize: 12))),
@@ -413,7 +498,7 @@ class AchievementsTab extends ConsumerWidget {
       child: Panel(
         border: unlocked && !claimed ? C.gold : (claimed ? C.green.withValues(alpha: 0.4) : Colors.white10),
         child: Row(children: [
-          Container(width: 48, height: 48, decoration: BoxDecoration(shape: BoxShape.circle, color: unlocked ? C.gold.withValues(alpha: 0.2) : C.surface2, border: Border.all(color: unlocked ? C.gold : Colors.white12)), alignment: Alignment.center, child: Opacity(opacity: unlocked ? 1 : 0.4, child: Text(achievementIcon(next.icon), style: const TextStyle(fontSize: 24)))),
+          Container(width: 48, height: 48, decoration: BoxDecoration(shape: BoxShape.circle, color: unlocked ? C.gold.withValues(alpha: 0.2) : C.surface2, border: Border.all(color: unlocked ? C.gold : Colors.white12)), alignment: Alignment.center, child: Opacity(opacity: unlocked ? 1 : 0.4, child: Icon(achievementIcon(next.icon), size: 24, color: unlocked ? C.gold : C.textDim))),
           const SizedBox(width: 12),
           Expanded(
             child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -505,7 +590,7 @@ class _EventCardState extends ConsumerState<_EventCard> {
         border: color,
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Row(children: [
-            Expanded(child: Text(loc(e.name), style: TextStyle(fontSize: 20, fontWeight: FontWeight.w900, color: color))),
+            Expanded(child: Text(loc(e.name), style: displayStyle(size: 20, color: color))),
             if (e.xpMultiplier > 1) Container(padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2), decoration: BoxDecoration(color: C.gold, borderRadius: BorderRadius.circular(10)), child: Text('خبرة ×${e.xpMultiplier}', style: const TextStyle(color: Colors.black, fontWeight: FontWeight.w900, fontSize: 12))),
           ]),
           Text(loc(e.desc), style: const TextStyle(color: C.textDim, fontSize: 13)),

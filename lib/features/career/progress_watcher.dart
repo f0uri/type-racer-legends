@@ -49,14 +49,14 @@ class _ProgressWatcherState extends ConsumerState<ProgressWatcher> {
       if (ctx != null && ctx.mounted && report.achievements.isNotEmpty) {
         ref.read(audioProvider).play(Sfx.levelUp);
         final first = report.achievements.first;
-        toast(ctx, '🏆 إنجاز جديد: ${(first.name['ar'] ?? first.name['en'] ?? first.id)}${report.achievements.length > 1 ? ' (+${report.achievements.length - 1})' : ''}');
+        toast(ctx, 'إنجاز جديد: ${(first.name['ar'] ?? first.name['en'] ?? first.id)}${report.achievements.length > 1 ? ' (+${report.achievements.length - 1})' : ''}');
       }
     }
     final now = ref.read(profileProvider);
     final claimable = Quests.claimable(db, now);
     if (_lastClaimable >= 0 && claimable > _lastClaimable) {
       final ctx = navigatorKey.currentContext;
-      if (ctx != null && ctx.mounted) toast(ctx, '✅ أنجزت مهمة! اذهب إلى «التقدم» لاستلام المكافأة');
+      if (ctx != null && ctx.mounted) toast(ctx, 'أنجزت مهمة! اذهب إلى «التقدم» لاستلام المكافأة');
     }
     _lastClaimable = claimable;
   }

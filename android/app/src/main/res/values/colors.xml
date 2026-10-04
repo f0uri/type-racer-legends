@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- The game's own background (C.bg in lib/core/theme/app_theme.dart): the window and the
+         splash must be this colour, so launching never flashes a white screen, day or night. -->
+    <color name="trl_bg">#0B0F1E</color>
+</resources>

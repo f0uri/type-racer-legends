@@ -262,7 +262,7 @@ void main() {
     expect(p.ownsSkin('p_gold'), isTrue);
     final again = Rewards.grant(p, db, {'skin': 'p_gold'});
     expect(again.single, contains('مكرر'));
-    expect(Rewards.preview(db, {'coins': 1500, 'gems': 2}), contains('💎2'));
+    expect(Rewards.preview(db, {'coins': 1500, 'gems': 2}), contains('2 جوهرة'));
   });
 
   test('progression.evaluate is cheap to skip when nothing is pending', () {

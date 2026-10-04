@@ -72,7 +72,7 @@ void main() {
       p.addXp(100000);
     });
     await show(t, c, const ShopScreen());
-    expect(find.text('🔥 عروض اليوم'), findsOneWidget);
+    expect(find.text('عروض اليوم'), findsOneWidget);
     expect(find.textContaining('%)'), findsWidgets);
     final db = c.read(contentProvider);
     final def = (db.shop['chests'] as List).cast<Map<String, dynamic>>().first;
@@ -93,7 +93,7 @@ void main() {
     final c = await testContainer(t);
     await show(t, c, const HomeShell());
     await t.pump(const Duration(milliseconds: 500));
-    expect(find.text('🏁 جديد في اللعبة؟'), findsOneWidget);
+    expect(find.text('جديد في اللعبة؟'), findsOneWidget);
     await t.tap(find.text('تخطّي'));
     await t.pump(const Duration(milliseconds: 500));
     expect(c.read(profileProvider).flag('tutorialDone'), isTrue);
@@ -108,7 +108,7 @@ void main() {
     await t.pump(const Duration(milliseconds: 500));
     await t.tap(find.text('المتجر').last);
     await t.pump(const Duration(milliseconds: 500));
-    expect(find.text('🔥 عروض اليوم'), findsOneWidget);
+    expect(find.text('عروض اليوم'), findsOneWidget);
     await t.pumpWidget(const SizedBox());
   });
 }
