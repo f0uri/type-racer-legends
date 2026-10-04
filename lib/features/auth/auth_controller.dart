@@ -55,6 +55,30 @@ class AuthController extends Notifier<AuthState> {
   }
 
   static String messageForError(Object e) {
+    final raw = e.toString();
+    final lower = raw.toLowerCase();
+
+    // --- أسباب حقيقية من ApiException (تظهر في google_sign_in / Play Services) ---
+    // 12500 = SIGN_IN_FAILED / إعداد Firebase ناقص (غالباً بدون عميل Web)
+    if (raw.contains('12500')) {
+      return 'فشل تسجيل الدخول (12500): إعداد Firebase ناقص. ملف google-services.json لا يحوي عميل OAuth من النوع Web (client_type 3). في Firebase Console فعّل Authentication → Google، ثم نزّل google-services.json من جديد وحدّثه في GitHub → Settings → Secrets → GOOGLE_SERVICES_JSON.';
+    }
+    // 10 = DEVELOPER_ERROR = بصمة SHA-1 غير مسجّلة
+    // يظهر كـ ApiException: 10 أو DEVELOPER_ERROR داخل GoogleSignInException
+    final isApi10 = raw.contains('ApiException: 10') ||
+        raw.contains('DEVELOPER_ERROR') ||
+        (lower.contains('apiexception') && RegExp(r'\b10\b').hasMatch(raw) && !raw.contains('12500'));
+    if (isApi10) {
+      // تحقق إضافي لتجنب الإيجابيات الكاذبة: إذا احتوى نفس النص على 10 بشكل عام لكنه ApiException حقيقي
+      if (raw.contains('10:') || raw.contains('10 ') || raw.contains('(10)') || lower.contains('apiexception') || raw.contains('DEVELOPER_ERROR')) {
+        return 'فشل تسجيل الدخول (رمز 10): بصمة SHA-1 غير مسجّلة في Firebase. افتح ملخص البناء (Job Summary) وانسخ بصمتي SHA-1 و SHA-256 لمفتاح debug الثابت (tools/ci-debug.keystore)، ثم أضفهما في Firebase Console → Project settings → تطبيق Android، ونزّل google-services.json الجديد وحدّث سر GitHub GOOGLE_SERVICES_JSON.';
+      }
+    }
+    // 7 = NETWORK_ERROR = لا إنترنت
+    if (raw.contains('ApiException: 7') || raw.contains('NETWORK_ERROR') || (lower.contains('apiexception') && lower.contains('network') && RegExp(r'\b7\b').hasMatch(raw))) {
+      return 'لا يوجد اتصال بالإنترنت (رمز 7). تحقّق من الشبكة وحاول مجدداً.';
+    }
+
     if (e is GoogleSignInException) {
       switch (e.code) {
         case GoogleSignInExceptionCode.canceled:
@@ -62,17 +86,31 @@ class AuthController extends Notifier<AuthState> {
           return 'تم إلغاء تسجيل الدخول.';
         case GoogleSignInExceptionCode.clientConfigurationError:
         case GoogleSignInExceptionCode.providerConfigurationError:
-          return 'إعدادات تسجيل الدخول غير مكتملة في هذه النسخة. يمكنك المتابعة كزائر.';
+          // قد يكون السبب الحقيقي 10 أو 12500 مغلف داخل التفاصيل
+          if (raw.contains('12500')) {
+            return 'فشل تسجيل الدخول (12500): إعداد Firebase ناقص. ملف google-services.json لا يحوي عميل OAuth من النوع Web (client_type 3). فعّل Google في Authentication ونزّل الملف من جديد.';
+          }
+          if (raw.contains('10') || raw.contains('DEVELOPER_ERROR')) {
+            return 'فشل تسجيل الدخول (رمز 10): بصمة SHA-1 غير مسجّلة في Firebase. أضف بصمتي SHA-1 و SHA-256 من ملخص البناء إلى Project settings.';
+          }
+          return 'إعدادات تسجيل الدخول غير مكتملة في هذه النسخة. تأكد من إضافة بصمتي SHA-1 و SHA-256 في Firebase وتحديث google-services.json (قد يكون السبب 10 أو 12500). يمكنك المتابعة كزائر مؤقتاً.';
         case GoogleSignInExceptionCode.uiUnavailable:
           return 'تعذّر فتح نافذة اختيار الحساب. حاول مرة أخرى.';
         default:
+          if (lower.contains('network') || lower.contains('socket') || lower.contains('connection')) {
+            return 'لا يوجد اتصال بالإنترنت (رمز 7). تحقّق من الشبكة وحاول مجدداً.';
+          }
+          // إظهار السبب الحقيقي إن كان مخفياً في النص
+          if (raw.contains('10')) {
+            return 'فشل تسجيل الدخول (رمز 10): بصمة SHA-1 غير مسجّلة في Firebase. راجع ملخص البناء لإضافة البصمات.';
+          }
           return 'تعذّر تسجيل الدخول بجوجل. حاول مرة أخرى.';
       }
     }
     if (e is FirebaseAuthException) {
       switch (e.code) {
         case 'network-request-failed':
-          return 'فشل الاتصال بالشبكة. تحقق من الإنترنت وحاول مجدداً.';
+          return 'فشل الاتصال بالشبكة. تحقق من الإنترنت وحاول مجدداً. (رمز 7)';
         case 'user-disabled':
           return 'تم تعطيل هذا الحساب.';
         case 'account-exists-with-different-credential':
@@ -82,10 +120,20 @@ class AuthController extends Notifier<AuthState> {
         case 'requires-recent-login':
           return 'لأسباب أمنية، سجّل الدخول مرة أخرى ثم أعد المحاولة.';
         default:
+          if (raw.contains('10')) return 'فشل تسجيل الدخول (رمز 10): بصمة SHA-1 غير مسجّلة في Firebase. راجع ملخص البناء لإضافة البصمات.';
+          if (raw.contains('12500')) return 'فشل تسجيل الدخول (12500): إعداد Firebase ناقص — google-services.json بدون عميل Web.';
+          if (lower.contains('network')) return 'لا يوجد اتصال بالإنترنت (رمز 7). تحقّق من الشبكة وحاول مجدداً.';
           return 'حدث خطأ أثناء تسجيل الدخول (${e.code}).';
       }
     }
-    if (e is FirebaseException) return 'حدث خطأ في الخدمة (${e.code}).';
+    if (e is FirebaseException) {
+      if (lower.contains('network')) return 'لا يوجد اتصال بالإنترنت (رمز 7). تحقّق من الشبكة وحاول مجدداً.';
+      return 'حدث خطأ في الخدمة (${e.code}).';
+    }
+    // شبكة عامة (ApiException 7 بدون تغليف)
+    if (lower.contains('network') || lower.contains('socket') || lower.contains('failed host lookup') || lower.contains('connection timed out') || lower.contains('unable to resolve host')) {
+      return 'لا يوجد اتصال بالإنترنت (رمز 7). تحقّق من الشبكة وحاول مجدداً.';
+    }
     return 'حدث خطأ غير متوقع. حاول مرة أخرى.';
   }
 
