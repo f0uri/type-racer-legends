@@ -33,6 +33,8 @@ void main() {
     }
     expect(find.textContaining('الموسم 1'), findsOneWidget);
     expect(find.textContaining('استلم كل المكافآت'), findsOneWidget);
+    // the track opens on the player's own level and says so
+    expect(find.text('أنت هنا'), findsOneWidget);
     await t.tap(find.textContaining('استلم كل المكافآت'));
     await t.pump(const Duration(milliseconds: 300));
     expect(Season.claimableCount(db, c.read(profileProvider)), 0);

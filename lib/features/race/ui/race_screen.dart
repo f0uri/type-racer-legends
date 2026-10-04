@@ -76,7 +76,6 @@ class _RaceScreenState extends ConsumerState<RaceScreen> with WidgetsBindingObse
   int countdown = 3;
 
   /// The pre-race room is skippable: a tap throws away the remaining wait.
-  static const _introMs = 1400;
   Completer<void>? _introSkip;
   bool riskOn = false;
   bool _paused = false;
@@ -221,7 +220,8 @@ class _RaceScreenState extends ConsumerState<RaceScreen> with WidgetsBindingObse
     audio.play(Sfx.whoosh, vol: 0.6);
     haptics.light();
     await Future.any<void>([
-      Future<void>.delayed(const Duration(milliseconds: _introMs)),
+      // the pre-race room's own duration: one constant, no drift
+      Future<void>.delayed(MatchIntro.defaultDuration),
       _introSkip!.future,
     ]);
     _introSkip = null;

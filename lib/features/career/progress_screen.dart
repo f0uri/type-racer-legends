@@ -281,24 +281,94 @@ class SeasonTab extends ConsumerWidget {
           },
         ),
       const SizedBox(height: 10),
+      // The track opens on the player's own level, not on level 1: a battle pass you have to
+      // scroll to find yourself in never feels like yours.
       SizedBox(
-        height: 184,
-        child: ListView.builder(
-          scrollDirection: Axis.horizontal,
-          itemCount: track.length,
-          itemBuilder: (_, i) => _TrackCell(row: track[i], level: (track[i]['level'] as num).toInt(), reached: si.level, premium: premium, color: color),
-        ),
+        height: 196,
+        child: _SeasonTrack(rows: track, reached: si.level, premium: premium, color: color),
       ),
     ]);
   }
 }
 
+/// The horizontal battle-pass rail.
+///
+/// Opens scrolled to the player's current level, pulses every reward that is waiting to be
+/// claimed, and marks the row the player is standing on. Nothing here is decoration for its own
+/// sake: each of the three exists so the player never has to *search* for the next reward.
+class _SeasonTrack extends StatefulWidget {
+  const _SeasonTrack({required this.rows, required this.reached, required this.premium, required this.color});
+  final List<Map<String, dynamic>> rows;
+  final int reached;
+  final bool premium;
+  final Color color;
+  @override
+  State<_SeasonTrack> createState() => _SeasonTrackState();
+}
+
+class _SeasonTrackState extends State<_SeasonTrack> with SingleTickerProviderStateMixin {
+  /// Cell width + gap, shared with the builder below (one source of truth for the scroll maths).
+  static const double cell = 86;
+  static const double gap = 6;
+
+  late final ScrollController _sc = ScrollController(initialScrollOffset: _startOffset());
+  // One controller drives every claimable cell, so a full track costs one animation, not forty.
+  late final AnimationController _pulse = AnimationController(vsync: this, duration: const Duration(milliseconds: 1100))..repeat(reverse: true);
+
+  /// A little before the current level, so it is not glued to the left edge and the player can
+  /// still see where they came from.
+  double _startOffset() {
+    final i = (widget.reached - 2).clamp(0, widget.rows.length - 1);
+    return i * (cell + gap);
+  }
+
+  @override
+  void dispose() {
+    _sc.dispose();
+    _pulse.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: _pulse,
+      builder: (_, __) => ListView.builder(
+        controller: _sc,
+        scrollDirection: Axis.horizontal,
+        padding: const EdgeInsets.symmetric(horizontal: 4),
+        itemCount: widget.rows.length,
+        itemBuilder: (_, i) {
+          final row = widget.rows[i];
+          final level = (row['level'] as num).toInt();
+          return _TrackCell(
+            row: row,
+            level: level,
+            reached: widget.reached,
+            premium: widget.premium,
+            color: widget.color,
+            pulse: _pulse.value,
+            current: level == widget.reached,
+          );
+        },
+      ),
+    );
+  }
+}
+
 class _TrackCell extends ConsumerWidget {
-  const _TrackCell({required this.row, required this.level, required this.reached, required this.premium, required this.color});
+  const _TrackCell({required this.row, required this.level, required this.reached, required this.premium, required this.color, required this.pulse, required this.current});
   final Map<String, dynamic> row;
   final int level, reached;
   final bool premium;
   final Color color;
+
+  /// 0..1 breathing value shared by the whole track (see [_SeasonTrackState._pulse]).
+  final double pulse;
+
+  /// True for the level the player is standing on right now.
+  final bool current;
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final db = ref.watch(contentProvider);
@@ -311,6 +381,8 @@ class _TrackCell extends ConsumerWidget {
     Widget cell(String side, bool done, bool locked) {
       final r = (row[side] as Map?)?.cast<String, dynamic>();
       final canClaim = ok && !done && !locked && r != null;
+      // Everything waiting to be claimed breathes in gold until it is taken.
+      final glow = canClaim ? 0.20 + 0.22 * pulse : 0.0;
       return Expanded(
         child: PressFx(
           scale: 0.94,
@@ -327,9 +399,11 @@ class _TrackCell extends ConsumerWidget {
           child: Container(
             margin: const EdgeInsets.all(3),
             decoration: BoxDecoration(
-              color: done ? C.green.withValues(alpha: 0.18) : (canClaim ? C.gold.withValues(alpha: 0.2) : C.surface2),
+              color: done ? C.green.withValues(alpha: 0.18) : (canClaim ? C.gold.withValues(alpha: glow) : C.surface2),
               borderRadius: BorderRadius.circular(10),
-              border: Border.all(color: canClaim ? C.gold : (side == 'premium' ? C.gold.withValues(alpha: 0.35) : Colors.white10)),
+              border: Border.all(
+                color: canClaim ? C.gold.withValues(alpha: 0.55 + 0.45 * pulse) : (side == 'premium' ? C.gold.withValues(alpha: 0.35) : Colors.white10),
+              ),
             ),
             alignment: Alignment.center,
             child: r == null
@@ -345,9 +419,18 @@ class _TrackCell extends ConsumerWidget {
     }
 
     return Container(
-      width: 86,
-      margin: const EdgeInsets.only(left: 6),
+      width: _SeasonTrackState.cell,
+      margin: const EdgeInsets.only(left: _SeasonTrackState.gap),
       child: Column(children: [
+        if (current)
+          Container(
+            margin: const EdgeInsets.only(bottom: 2),
+            padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 1),
+            decoration: BoxDecoration(color: color.withValues(alpha: 0.95), borderRadius: BorderRadius.circular(8)),
+            child: const Text('أنت هنا', style: TextStyle(fontSize: 9, fontWeight: FontWeight.w900, color: Colors.black)),
+          )
+        else
+          const SizedBox(height: 14),
         Container(
           padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 10),
           decoration: BoxDecoration(color: ok ? color : C.surface2, borderRadius: BorderRadius.circular(10)),

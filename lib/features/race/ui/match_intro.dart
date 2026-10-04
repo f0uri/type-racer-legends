@@ -10,7 +10,7 @@ import '../engine/race_models.dart';
 
 /// The pre-race room: instead of dropping the player straight onto the track, the game shows who
 /// they are about to race. Your own car drives into frame, the opponents slide in one after
-/// another, and then the glowing countdown takes over. Duration is ~1.5 s and a tap skips it.
+/// another, and then the glowing countdown takes over. A tap skips it.
 class MatchIntro extends StatefulWidget {
   const MatchIntro({
     super.key,
@@ -21,8 +21,13 @@ class MatchIntro extends StatefulWidget {
     required this.opponents,
     required this.ghosts,
     required this.onTap,
-    this.duration = const Duration(milliseconds: 1500),
+    this.duration = defaultDuration,
   });
+
+  /// How long the room stays on screen before the lights. The race screen waits on this same
+  /// constant (as a compile-time const), so the room can never be cut short by a timer that
+  /// drifted from it.
+  static const Duration defaultDuration = Duration(milliseconds: 1400);
 
   final Look look;
   final String playerName, modeTitle, biomeName;
