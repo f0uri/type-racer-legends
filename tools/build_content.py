@@ -78,16 +78,12 @@ if os.environ.get('GITHUB_ACTIONS') == 'true':
                     if not piece or len(piece) < 4: continue
                     pieces.append(piece)
             picks = []
-            for needle in ('Expected:', 'Actual:', 'Warning:', 'hit test', 'The following', 'overflowed', 'Bad state', 'Exception:', 'Which:'):
-                for idx, piece in enumerate(pieces):
-                    if needle in piece:
-                        if piece not in picks: picks.append(piece)
-                        if needle == 'The following' and idx + 1 < len(pieces) and 'relevant error-causing' in pieces[idx + 1]:
-                            picks.append(pieces[idx + 1])
-                            if idx + 2 < len(pieces) and 'widget.dart' not in pieces[idx + 2]:
-                                picks.append(pieces[idx + 2])
-                        break
-            line = ' || '.join(picks[:3]) or (' || '.join(pieces[:2]))
-            print('::error ::FAIL %s :: %s' % (names.get(tid, '?')[:70], line.replace('%', '%25')[:850]))
+            for idx, piece in enumerate(pieces):
+                if 'relevant error-causing widget' in piece:
+                    nxt = pieces[idx + 1] if idx + 1 < len(pieces) else ''
+                    picks.append('CAUSE ' + nxt)
+                elif 'overflowed by' in piece or 'hit test' in piece or 'Bad state' in piece:
+                    picks.append(piece)
+            print('::error ::FAIL %s :: %s' % (names.get(tid, '?')[:60], (' || '.join(picks[:4])).replace('%', '%25')[:850]))
     except Exception as e:
         print('::error ::TESTS diag failed: %s' % e)
