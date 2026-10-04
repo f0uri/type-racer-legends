@@ -53,20 +53,17 @@ if os.environ.get('GITHUB_ACTIONS') == 'true':
     except Exception as e:
         print('::error ::DIAG failed: %s' % e)
     try:
-        t = subprocess.run(['flutter', 'test', '--reporter', 'expanded'], capture_output=True, text=True, timeout=2400)
-        tout = ((t.stdout or '') + '\n' + (t.stderr or '')).splitlines()
-        import re as _re
-        names, details = [], []
-        for line in tout:
-            if _re.search(r'\+\d+ -\d+:', line):
-                names.append(line.rstrip())
-            elif any(k in line for k in ('Expected:', 'Actual:', 'Which:', 'EXCEPTION', 'Failed to load', 'Error:')):
-                details.append(line.rstrip())
-        summary = [l for l in tout if l.strip() and ('All tests passed' in l or 'Some tests failed' in l)]
-        print('::error ::TESTS exit=%s failing_lines=%d %s' % (t.returncode, len(names), (summary[-1][:160] if summary else '')))
-        for line in names[-6:]:
-            print('::error ::NAME ' + line.replace('%', '%25').replace('\r', ' ').strip()[:900])
-        for line in details[:18]:
-            print('::error ::' + line.replace('%', '%25').replace('\r', ' ').strip()[:900])
+        t = subprocess.run(['flutter', 'test', 'test/iap_test.dart', '--reporter', 'expanded'], capture_output=True, text=True, timeout=2400)
+        tout = [l.rstrip() for l in ((t.stdout or '') + '\n' + (t.stderr or '')).splitlines()]
+        print('::error ::IAP exit=%s lines=%d' % (t.returncode, len(tout)))
+        shown = 0
+        for i, line in enumerate(tout):
+            if 'Expected:' in line or 'Actual:' in line or 'Which:' in line:
+                for l in tout[max(0, i - 2): i + 6]:
+                    print('::error ::' + l.replace('%', '%25')[:900])
+                shown += 1
+                if shown >= 6: break
+        for l in [x for x in tout if x.strip()][-3:]:
+            print('::error ::TAIL ' + l.replace('%', '%25')[:900])
     except Exception as e:
         print('::error ::TESTS diag failed: %s' % e)
