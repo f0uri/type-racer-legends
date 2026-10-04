@@ -101,6 +101,14 @@ class _RaceScreenState extends ConsumerState<RaceScreen> with WidgetsBindingObse
       if (!_disposed) tick.value++;
     });
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+    // حقل الإدخال المخفي للكيبورد الافتراضي: عند ضياع التركيز أثناء السباق أعده تلقائياً
+    focus.addListener(() {
+      if (!focus.hasFocus && phase == _Phase.racing && !_paused && !_disposed && mounted) {
+        Future.delayed(const Duration(milliseconds: 100), () {
+          if (mounted && phase == _Phase.racing && !_paused && !_disposed) _focusInput();
+        });
+      }
+    });
     if (_guideMode) {
       // no GameWidget in guide mode: drive the session from a ticker
       _ticker = createTicker((d) {
@@ -243,14 +251,21 @@ class _RaceScreenState extends ConsumerState<RaceScreen> with WidgetsBindingObse
       }
     } else if (v.length > _guard.length) {
       var added = v.substring(_guard.length).replaceAll('\u200B', '');
-      if (added.length > 3) {
-        _bulkInputs++; // paste / gesture typing: only the first characters count
+      // اللصق: إضافة أكثر من حرف دفعة واحدة → تجاهله كغش (لا يزيد WPM)
+      if (added.length > 1) {
+        // إذا كان أكثر من حرف (paste أو اقتراح Gboard) اعتبره غشاً وتجاهل الباقي
+        if (added.length > 3) _bulkInputs++;
+        // نأخذ حرفاً واحداً فقط للمعالجة، الباقي يُهمل
         added = added.substring(0, 1);
       }
-      for (final ch in added.split('')) {
+      for (var raw in added.split('')) {
+        var ch = raw;
+        // تعامل مع مفتاح المسافة والإدخال بشكل موحد
+        if (ch == '\n' || ch == '\r') ch = ' ';
         _typeChar(ch);
       }
     }
+    // بعد كل حرف أعد المؤشر لنهاية النص ولا تدع الحقل يتراكم (امسحه كل كلمة)
     input.value = const TextEditingValue(text: _guard, selection: TextSelection.collapsed(offset: 2));
     if (mounted) setState(() {});
   }
@@ -445,7 +460,8 @@ class _RaceScreenState extends ConsumerState<RaceScreen> with WidgetsBindingObse
               Expanded(flex: 5, child: _trackArea()),
               Expanded(flex: 4, child: _textArea(s, pal, kb)),
             ]),
-            // hidden input capturing the keyboard
+            // حقل إدخال حقيقي مخفي للكيبورد الافتراضي — لا تستعمل Offstage/Visibility(false) لأنها تمنع التركيز
+            // شفافية ~0 وحجم صغير لكن موجود في الشجرة، يطلب التركيز تلقائياً عند بدء السباق وعند أي ضغطة على النص
             Positioned(
               left: 0,
               top: 0,
@@ -461,13 +477,20 @@ class _RaceScreenState extends ConsumerState<RaceScreen> with WidgetsBindingObse
                   enableSuggestions: false,
                   enableIMEPersonalizedLearning: false,
                   keyboardType: TextInputType.visiblePassword,
+                  textCapitalization: TextCapitalization.none,
+                  smartDashesType: SmartDashesType.disabled,
+                  smartQuotesType: SmartQuotesType.disabled,
                   textInputAction: TextInputAction.none,
+                  autofillHints: const [],
                   showCursor: false,
                   enableInteractiveSelection: false,
                   maxLines: 1,
                   style: const TextStyle(fontSize: 1, color: Colors.transparent),
                   decoration: const InputDecoration(border: InputBorder.none, isDense: true, contentPadding: EdgeInsets.zero),
                   onChanged: _onInput,
+                  onTapOutside: (_) {
+                    if (phase == _Phase.racing && !_paused) _focusInput();
+                  },
                 ),
               ),
             ),
