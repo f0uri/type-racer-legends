@@ -28,9 +28,13 @@ import 'lobby_scene.dart';
 class _Mode {
   final IconData icon;
   final String title, sub;
+
+  /// Every mode owns a colour: the pod is washed in it and the icon wears it, so the lobby is
+  /// read by colour before the labels are read at all.
+  final Color tint;
   final String? feature;
   final void Function(BuildContext) open;
-  const _Mode(this.icon, this.title, this.sub, this.open, {this.feature});
+  const _Mode(this.icon, this.title, this.sub, this.tint, this.open, {this.feature});
 }
 
 /// The lobby.
@@ -45,20 +49,31 @@ class HomeScreen extends ConsumerWidget {
   /// Everything else lives behind «المزيد» so the lobby stays a game lobby, not a grid of links.
   static const List<String> _heroTitles = ['الحملة', 'البطولات', 'التحديات', 'التعلّم'];
 
-  List<_Mode> _modes(WidgetRef ref) => [
-        _Mode(Icons.map, 'الحملة', '50 مرحلة • 6 بيئات • زعماء', (c) => ModeFlow.push<void>(c, const CampaignScreen())),
-        _Mode(Icons.visibility, 'الأشباح', 'تحدَّ رقمك الشخصي', (c) => ModeFlow.push<void>(c, const GhostScreen())),
-        _Mode(Icons.emoji_events, 'البطولات', 'يومية 8 • أسبوعية 16', (c) => ModeFlow.push<void>(c, const TournamentListScreen()), feature: 'tournament'),
-        _Mode(Icons.link, 'تحدٍّ بالرابط', 'شارك سرعتك', (c) => ModeFlow.push<void>(c, const ChallengeHubScreen()), feature: 'link_challenge'),
-        _Mode(Icons.local_fire_department, 'البقاء', 'لا تدع المطارد يلحق بك', _survival, feature: 'survival'),
-        _Mode(Icons.rocket_launch, 'قتال الطريق', 'أطلق الصواريخ بكلماتك', _combat, feature: 'combat'),
-        _Mode(Icons.calendar_month, 'التحديات', 'يومي وأسبوعي', (c) => ModeFlow.push<void>(c, const DailyScreen()), feature: 'daily'),
-        _Mode(Icons.public, 'جولة العالم', '12 مدينة وختم', (c) => ModeFlow.push<void>(c, const WorldTourScreen()), feature: 'world_tour'),
-        _Mode(Icons.military_tech, 'المتصدرون', 'عالمي • بلدي • أسبوعي', (c) => ModeFlow.push<void>(c, const LeaderboardScreen()), feature: 'leaderboard'),
-        _Mode(Icons.school, 'التعلّم', 'دروس • مفردات • شهادة', (c) => ModeFlow.push<void>(c, const LearnHubScreen())),
-        _Mode(Icons.track_changes, 'التدريب الذكي', 'خريطة حروفك الضعيفة', (c) => ModeFlow.push<void>(c, const TrainingScreen())),
-        _Mode(Icons.edit_note, 'نص مخصص', 'تدرّب على نصك', (c) => ModeFlow.push<void>(c, const CustomTextScreen())),
+  List<_Mode> _modes(WidgetRef ref) => const [
+        _Mode(Icons.map, 'الحملة', '50 مرحلة • 6 بيئات • زعماء', C.cyan, _openCampaign),
+        _Mode(Icons.visibility, 'الأشباح', 'تحدَّ رقمك الشخصي', Color(0xFFA98BFF), _openGhosts),
+        _Mode(Icons.emoji_events, 'البطولات', 'يومية 8 • أسبوعية 16', C.gold, _openTournaments, feature: 'tournament'),
+        _Mode(Icons.link, 'تحدٍّ بالرابط', 'شارك سرعتك', Color(0xFF4DA3FF), _openChallenges, feature: 'link_challenge'),
+        _Mode(Icons.local_fire_department, 'البقاء', 'لا تدع المطارد يلحق بك', C.red, _survival, feature: 'survival'),
+        _Mode(Icons.rocket_launch, 'قتال الطريق', 'أطلق الصواريخ بكلماتك', C.magenta, _combat, feature: 'combat'),
+        _Mode(Icons.calendar_month, 'التحديات', 'يومي وأسبوعي', C.green, _openDaily, feature: 'daily'),
+        _Mode(Icons.public, 'جولة العالم', '12 مدينة وختم', Color(0xFF2ED8C0), _openWorldTour, feature: 'world_tour'),
+        _Mode(Icons.military_tech, 'المتصدرون', 'عالمي • بلدي • أسبوعي', Color(0xFFFF8A4D), _openLeaderboard, feature: 'leaderboard'),
+        _Mode(Icons.school, 'التعلّم', 'دروس • مفردات • شهادة', Color(0xFF6C8CFF), _openLearn),
+        _Mode(Icons.track_changes, 'التدريب الذكي', 'خريطة حروفك الضعيفة', Color(0xFFFF6FA8), _openTraining),
+        _Mode(Icons.edit_note, 'نص مخصص', 'تدرّب على نصك', Color(0xFF8FA3C8), _openCustomText),
       ];
+
+  static void _openCampaign(BuildContext c) => ModeFlow.push<void>(c, const CampaignScreen());
+  static void _openGhosts(BuildContext c) => ModeFlow.push<void>(c, const GhostScreen());
+  static void _openTournaments(BuildContext c) => ModeFlow.push<void>(c, const TournamentListScreen());
+  static void _openChallenges(BuildContext c) => ModeFlow.push<void>(c, const ChallengeHubScreen());
+  static void _openDaily(BuildContext c) => ModeFlow.push<void>(c, const DailyScreen());
+  static void _openWorldTour(BuildContext c) => ModeFlow.push<void>(c, const WorldTourScreen());
+  static void _openLeaderboard(BuildContext c) => ModeFlow.push<void>(c, const LeaderboardScreen());
+  static void _openLearn(BuildContext c) => ModeFlow.push<void>(c, const LearnHubScreen());
+  static void _openTraining(BuildContext c) => ModeFlow.push<void>(c, const TrainingScreen());
+  static void _openCustomText(BuildContext c) => ModeFlow.push<void>(c, const CustomTextScreen());
 
   static void _survival(BuildContext context) {
     final c = ModeFlow.container(context);
@@ -67,6 +82,7 @@ class HomeScreen extends ConsumerWidget {
       context,
       icon: Icons.local_fire_department,
       title: 'البقاء',
+      tint: C.red,
       bullets: const ['يطاردك مركبة ذكاء اصطناعي تتسارع باستمرار.', 'اكتب بسرعة لتبقى أمامها؛ كل خطأ يبطئك.', 'نص طويل متواصل — النتيجة هي مدة صمودك.'],
       bestLine: best > 0 ? 'أفضل صمود: ${best.round()} ثانية' : null,
       onStart: () => ModeFlow.race(context, config: () => ModeFlow.builder(c).survival()),
@@ -80,6 +96,7 @@ class HomeScreen extends ConsumerWidget {
       context,
       icon: Icons.rocket_launch,
       title: 'قتال الطريق',
+      tint: C.magenta,
       bullets: const ['كل كلمة تكتبها بلا خطأ تطلق صاروخاً على أقرب منافس.', 'لكل منافس 3 نقاط صحة (الزعماء 6).', 'عندما يهاجمك منافس تظهر كلمة تحذير: اكتبها بسرعة لتتفادى الضربة.', 'اربح بتدمير الجميع أو بالوصول أولاً.'],
       bestLine: kills > 0 ? 'إجمالي ما دمّرته: $kills' : null,
       onStart: () => ModeFlow.race(context, config: () => ModeFlow.builder(c).combat()),
@@ -225,6 +242,7 @@ class HomeScreen extends ConsumerWidget {
   Widget _pod(BuildContext context, WidgetRef ref, _Mode m, bool on, {bool compact = false, VoidCallback? onOpen}) => Opacity(
         opacity: on ? 1 : 0.45,
         child: Panel(
+          tint: m.tint,
           padding: EdgeInsets.all(compact ? 10 : 12),
           onTap: on
               ? () {
@@ -240,7 +258,7 @@ class HomeScreen extends ConsumerWidget {
             fit: BoxFit.scaleDown,
             alignment: AlignmentDirectional.centerStart,
             child: Column(mainAxisAlignment: MainAxisAlignment.center, crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Icon(m.icon, size: compact ? 22 : 26, color: C.cyan),
+              Icon(m.icon, size: compact ? 22 : 26, color: m.tint),
               const SizedBox(height: 2),
               Text(m.title, style: TextStyle(fontWeight: FontWeight.w900, fontSize: compact ? 13.5 : 15)),
               Text(m.sub, style: const TextStyle(color: C.textDim, fontSize: 11)),

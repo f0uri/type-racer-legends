@@ -65,14 +65,27 @@ class Panel extends StatelessWidget {
   final Color? color;
   final Color? border;
   final VoidCallback? onTap;
-  const Panel({super.key, required this.child, this.padding = const EdgeInsets.all(14), this.color, this.border, this.onTap});
+
+  /// Gives the panel a colour of its own: a soft diagonal wash from a tinted surface to a plain
+  /// one, plus a matching border. This is how the lobby tells one mode from another at a glance.
+  final Color? tint;
+  const Panel({super.key, required this.child, this.padding = const EdgeInsets.all(14), this.color, this.border, this.onTap, this.tint});
   @override
   Widget build(BuildContext context) {
+    final base = color ?? C.surface;
+    final wash = tint == null
+        ? null
+        : LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [Color.alphaBlend(tint!.withValues(alpha: 0.30), base), Color.alphaBlend(tint!.withValues(alpha: 0.07), base)],
+          );
     final w = Container(
       decoration: BoxDecoration(
-        color: color ?? C.surface,
+        color: wash == null ? base : null,
+        gradient: wash,
         borderRadius: BorderRadius.circular(18),
-        border: Border.all(color: border ?? Colors.white10),
+        border: Border.all(color: border ?? tint?.withValues(alpha: 0.45) ?? Colors.white10),
       ),
       // The transparent Material gives every ListTile/SwitchListTile/InkWell inside a panel a
       // paint target *within* the panel. Without it their background and ink splashes are painted
