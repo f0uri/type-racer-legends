@@ -68,12 +68,22 @@ if os.environ.get('GITHUB_ACTIONS') == 'true':
             elif kind == 'testDone' and ev.get('result') != 'success' and not ev.get('hidden'):
                 fails.append(ev.get('testID'))
         print('::error ::TESTS exit=%s failed=%d' % (t.returncode, len(fails)))
+        # one line per failing test: the runner keeps only the last ~10 annotations, so the
+        # readout must be small and dense.
         for tid in fails[:3]:
-            print('::error ::=== %s' % names.get(tid, '?')[:150])
+            pieces = []
             for msg in prints.get(tid, []):
                 for piece in msg.splitlines():
                     piece = piece.strip()
-                    if not piece: continue
-                    print('::error ::   ' + piece.replace('%', '%25')[:600])
+                    if not piece or len(piece) < 4: continue
+                    pieces.append(piece)
+            picks = []
+            for needle in ('Expected:', 'Actual:', 'Warning:', 'hit test', 'The following', 'overflowed', 'Bad state', 'Exception:', 'Which:'):
+                for piece in pieces:
+                    if needle in piece:
+                        if piece not in picks: picks.append(piece)
+                        break
+            line = ' || '.join(picks[:3]) or (' || '.join(pieces[:2]))
+            print('::error ::FAIL %s :: %s' % (names.get(tid, '?')[:70], line.replace('%', '%25')[:850]))
     except Exception as e:
         print('::error ::TESTS diag failed: %s' % e)
