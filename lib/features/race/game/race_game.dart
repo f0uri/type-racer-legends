@@ -539,7 +539,7 @@ class RaceGame extends FlameGame {
 
   void _tag(Canvas c, RacerState r, double x, double gy, double L, Look look) {
     if (r.isPlayer) return;
-    final txt = r.isGhost ? '${r.name}' : '${r.spec?.isBoss == true ? '★ ' : ''}AI · ${r.name}';
+    final txt = r.isGhost ? r.name : '${r.spec?.isBoss == true ? '★ ' : ''}AI · ${r.name}';
     final tp = _tagPainter(txt, r.isGhost ? const Color(0xAAFFFFFF) : const Color(0xDDFFFFFF));
     final h = VehiclePainter.heightOf(look) * L;
     tp.paint(c, Offset(x + L * 0.5 - tp.width / 2, gy - h - tp.height - 2));

@@ -146,7 +146,7 @@ class ChallengeFlow {
       config: () {
         final b = ModeFlow.builder(c);
         final t = c.read(contentProvider).textById(link.textId) ?? b.pickText();
-        final ghost = GhostSpec(name: '${link.name}', wpm: link.wpm.toDouble());
+        final ghost = GhostSpec(name: link.name, wpm: link.wpm.toDouble());
         return RaceConfig(modeId: 'challenge', title: 'تحدٍّ من ${link.name}', text: t, biomeId: b.randomBiome().id, ghosts: [ghost], rules: RaceRules.solo, meta: {'challenge': link.textId});
       },
     );

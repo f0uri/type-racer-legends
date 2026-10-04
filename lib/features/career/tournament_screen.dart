@@ -391,7 +391,7 @@ class _MatchCard extends StatelessWidget {
             const SizedBox(width: 4),
             Expanded(
               child: Text(
-                e.isPlayer ? '${e.name}' : e.name,
+                e.name,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(
                   fontSize: 12,
