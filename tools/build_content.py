@@ -30,15 +30,3 @@ json.dump(cat, open(cat_path, 'w', encoding='utf-8'), ensure_ascii=False, indent
 open(cat_path + '.sha256', 'w').write(hashlib.sha256(open(cat_path, 'rb').read()).hexdigest())
 print('catalog v%d, %d files, changed=%s' % (cat['version'], len(files), changed))
 
-# --- TEMPORARY DIAGNOSTIC: the check job hides test text; surface the failures as annotations.
-import subprocess
-try:
-    _r = subprocess.run(['flutter', 'test', '--reporter', 'expanded'], capture_output=True, text=True, timeout=2400)
-    _out = (_r.stdout + _r.stderr).splitlines()
-    _bad = [l for l in _out if any(k in l for k in ('[E]', 'Expected:', 'Actual:', 'Which:', 'reason:'))]
-    for _l in _bad[:12]:
-        print('::error ::TEST ' + _l.strip().replace('%', '%25')[:400])
-    print('::error ::TEST_EXIT %d bad=%d' % (_r.returncode, len(_bad)))
-except Exception as _e:
-    print('::error ::DIAG_FAILED ' + str(_e)[:200])
-
