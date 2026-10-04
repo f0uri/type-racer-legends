@@ -737,7 +737,8 @@ class _RaceScreenState extends ConsumerState<RaceScreen> with WidgetsBindingObse
                       child: const Row(mainAxisSize: MainAxisSize.min, children: [
                         Icon(Icons.backspace_outlined, size: 14, color: C.red),
                         SizedBox(width: 5),
-                        Text('امسح الحرف الأحمر بزر المسح', style: TextStyle(color: C.red, fontWeight: FontWeight.w800, fontSize: 12)),
+                        // Flexible + ellipsis: the hint must never overflow the row on a narrow phone
+                        Flexible(child: Text('امسح الحرف الأحمر بزر المسح', maxLines: 1, overflow: TextOverflow.ellipsis, style: TextStyle(color: C.red, fontWeight: FontWeight.w800, fontSize: 12))),
                       ]),
                     ),
                   ),
@@ -765,7 +766,7 @@ class _RaceScreenState extends ConsumerState<RaceScreen> with WidgetsBindingObse
                     child: const Row(mainAxisSize: MainAxisSize.min, children: [
                       Icon(Icons.keyboard, size: 20),
                       SizedBox(width: 8),
-                      Text('اضغط لإظهار لوحة المفاتيح', style: TextStyle(fontWeight: FontWeight.w800)),
+                      Flexible(child: Text('اضغط لإظهار لوحة المفاتيح', maxLines: 1, overflow: TextOverflow.ellipsis, style: TextStyle(fontWeight: FontWeight.w800))),
                     ]),
                   ),
                 ),

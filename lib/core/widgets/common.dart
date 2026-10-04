@@ -2,10 +2,23 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import '../theme/app_theme.dart';
 
+/// A short message, in the game's own language: a floating pill that sits *above* the dock.
+///
+/// A default SnackBar is a full-width bar pinned to the bottom edge — it covers the dock and
+/// eats the next press (that is exactly what broke the progress-tab test: the tap aimed at
+/// «التقدم» landed on the snackbar's action surface instead).
 void toast(BuildContext c, String msg) {
   final m = ScaffoldMessenger.maybeOf(c);
-  m?.hideCurrentSnackBar();
-  m?.showSnackBar(SnackBar(content: Text(msg, textAlign: TextAlign.center), duration: const Duration(seconds: 3)));
+  if (m == null) return;
+  m.hideCurrentSnackBar();
+  m.showSnackBar(SnackBar(
+    content: Text(msg, textAlign: TextAlign.center),
+    duration: const Duration(seconds: 3),
+    behavior: SnackBarBehavior.floating,
+    margin: const EdgeInsets.fromLTRB(16, 0, 16, 92),
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+    backgroundColor: C.surface,
+  ));
 }
 
 /// The 100 ms a web page does not have: whatever the player presses squashes under the finger

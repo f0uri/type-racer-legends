@@ -184,33 +184,39 @@ class HomeScreen extends ConsumerWidget {
       context: context,
       backgroundColor: C.surface,
       showDragHandle: true,
+      // Six pods + a title are taller than the default 9/16 of the screen, which overflowed by
+      // 99px on a 360x733 phone; the sheet now asks for the height it needs and scrolls if the
+      // phone is shorter than that.
+      isScrollControlled: true,
       builder: (_) => SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(14, 0, 14, 14),
-          child: Column(mainAxisSize: MainAxisSize.min, children: [
-            const Text('أوضاع إضافية', style: TextStyle(fontWeight: FontWeight.w900, fontSize: 16)),
-            const SizedBox(height: 12),
-            GridView(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, mainAxisSpacing: 10, crossAxisSpacing: 10, mainAxisExtent: 96),
-              children: [
-                for (final m in rest)
-                  _pod(
-                    context,
-                    ref,
-                    m,
-                    m.feature == null || db.featureOn(m.feature!),
-                    compact: true,
-                    // close the sheet first, otherwise the pushed page sits on top of it forever
-                    onOpen: () {
-                      Navigator.of(context).pop();
-                      m.open(context);
-                    },
-                  ),
-              ],
-            ),
-          ]),
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(14, 0, 14, 14),
+            child: Column(mainAxisSize: MainAxisSize.min, children: [
+              const Text('أوضاع إضافية', style: TextStyle(fontWeight: FontWeight.w900, fontSize: 16)),
+              const SizedBox(height: 12),
+              GridView(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, mainAxisSpacing: 10, crossAxisSpacing: 10, mainAxisExtent: 96),
+                children: [
+                  for (final m in rest)
+                    _pod(
+                      context,
+                      ref,
+                      m,
+                      m.feature == null || db.featureOn(m.feature!),
+                      compact: true,
+                      // close the sheet first, otherwise the pushed page sits on top of it forever
+                      onOpen: () {
+                        Navigator.of(context).pop();
+                        m.open(context);
+                      },
+                    ),
+                ],
+              ),
+            ]),
+          ),
         ),
       ),
     );
