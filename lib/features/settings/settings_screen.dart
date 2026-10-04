@@ -20,7 +20,7 @@ class SettingsScreen extends ConsumerWidget {
 
   Widget _section(String t) => Padding(
         padding: const EdgeInsets.fromLTRB(4, 18, 4, 8),
-        child: Text(t, style: const TextStyle(color: C.cyan, fontWeight: FontWeight.w900, fontSize: 15)),
+        child: Text(t, style: displayStyle(size: 15, color: C.cyan, spacing: 0.4)),
       );
 
   Widget _switch(WidgetRef ref, String title, String key, bool value, {String? sub}) => SwitchListTile(

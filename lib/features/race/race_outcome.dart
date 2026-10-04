@@ -46,6 +46,9 @@ class RaceRewards {
     final meaningful = r.chars >= minCharsForStats && !r.suspicious && countsForRecords(r);
 
     p.addCounter('races', 1);
+    // The hour of the day is recorded here (one additive counter per hour) so reminders can be
+    // smart later: a notification at the player's own habitual hour is worth ten at 22:00 sharp.
+    p.addCounter('hour_${(now ?? DateTime.now()).hour}', 1);
     if (r.won && r.opponents > 0) p.addCounter('wins', 1);
     p.addCounter('chars', r.chars);
     if (r.nitroUses > 0) p.addCounter('nitro_count', r.nitroUses);

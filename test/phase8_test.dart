@@ -93,6 +93,35 @@ void main() {
       expect(ReminderPlanner.plan(db: db, p: withStreak(0, ''), s: s, now: now).where((r) => r.id == ReminderPlanner.streakId), isEmpty);
     });
 
+    test('the streak reminder follows the player\'s habitual hour once it is known', () {
+      final now = DateTime(2026, 9, 30, 10);
+      final p = withStreak(4, '2026-09-29');
+      // four races at 21:00 and one at 08:00 -> habit 21:00, which is earlier than the 22:00 fallback
+      for (var i = 0; i < 4; i++) {
+        p.addCounter('hour_21', 1);
+      }
+      p.addCounter('hour_8', 1);
+      expect(p.usualPlayHour, 21);
+      final r = ReminderPlanner.plan(db: db, p: p, s: s, now: now).where((x) => x.id == ReminderPlanner.streakId).single;
+      expect(r.at, DateTime(2026, 9, 30, 21));
+
+      // too little history -> the game keeps the safe default instead of guessing
+      final fresh = withStreak(4, '2026-09-29');
+      fresh.addCounter('hour_3', 2);
+      expect(fresh.usualPlayHour, isNull);
+      final r2 = ReminderPlanner.plan(db: db, p: fresh, s: s, now: now).where((x) => x.id == ReminderPlanner.streakId).single;
+      expect(r2.at, DateTime(2026, 9, 30, ReminderPlanner.streakHour));
+
+      // a night owl gets their reminder pulled back to 22:00: later than that the day is already gone
+      final owl = withStreak(4, '2026-09-29');
+      for (var i = 0; i < 6; i++) {
+        owl.addCounter('hour_23', 1);
+      }
+      expect(owl.usualPlayHour, 23);
+      final r3 = ReminderPlanner.plan(db: db, p: owl, s: s, now: now).where((x) => x.id == ReminderPlanner.streakId).single;
+      expect(r3.at, DateTime(2026, 9, 30, ReminderPlanner.streakHour));
+    });
+
     test('reminders respect the player settings', () {
       final off = GameSettingsStub.make({'streakReminder': false, 'eventNotifs': false});
       expect(ReminderPlanner.plan(db: db, p: withStreak(9, '2026-09-30'), s: off, now: DateTime(2026, 9, 30, 10)), isEmpty);

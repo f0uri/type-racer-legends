@@ -123,6 +123,31 @@ class PlayerProfile {
     return s;
   }
 
+  /// How many races were started in each hour of the day (0..23), as additive per-device
+  /// counters. It is what lets a reminder arrive when the player is actually there.
+  Map<int, int> get playHours {
+    final out = <int, int>{};
+    for (var h = 0; h < 24; h++) {
+      final v = counter('hour_$h');
+      if (v > 0) out[h] = v;
+    }
+    return out;
+  }
+
+  /// The hour of the day the player usually plays, or null while there is not enough history:
+  /// five sessions before the game pretends to know a habit.
+  int? get usualPlayHour {
+    var total = 0, best = -1, bestTotal = 0;
+    for (final e in playHours.entries) {
+      total += e.value;
+      if (e.value > bestTotal) {
+        bestTotal = e.value;
+        best = e.key;
+      }
+    }
+    return total >= 5 ? best : null;
+  }
+
   void addCounter(String key, int n) {
     if (n <= 0) return;
     final c = sub(m('c'), key);

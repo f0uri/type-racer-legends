@@ -101,7 +101,7 @@ class _ResultScreenState extends ConsumerState<ResultScreen> {
         child: SafeArea(
           child: Stack(children: [
             ListView(padding: const EdgeInsets.all(16), children: [
-            Center(child: Text(title, style: TextStyle(fontSize: 30, fontWeight: FontWeight.w900, color: color))),
+            Center(child: Text(title, style: displayStyle(size: 30, color: color))),
             if (chain >= 2)
               Center(
                 child: Padding(
@@ -218,6 +218,10 @@ class _ResultScreenState extends ConsumerState<ResultScreen> {
                 filled: widget.onPrimary == null,
                 color: widget.onPrimary == null ? C.cyan : C.magenta,
                 onPressed: () async {
+                  // The next race answers the press immediately: a whoosh and a thump before the
+                  // ad/navigation gap, so the button never feels like it dropped the request.
+                  ref.read(audioProvider).play(Sfx.whoosh, vol: 0.7);
+                  ref.read(hapticsProvider).light();
                   // the only place an interstitial can appear: between two races, at the player's own request
                   await ref.read(adsProvider).betweenRaces(tutorialOrLesson: r.config.modeId == 'lesson');
                   if (!context.mounted) return;

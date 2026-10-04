@@ -236,7 +236,7 @@ class AppBarTitle extends StatelessWidget {
   final String text;
   const AppBarTitle(this.text, {super.key});
   @override
-  Widget build(BuildContext context) => Text(text, style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 20));
+  Widget build(BuildContext context) => Text(text, style: displayStyle(size: 21));
 }
 
 double degToRad(double d) => d * math.pi / 180;

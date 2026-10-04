@@ -21,7 +21,11 @@ class ReminderPlanner {
   static List<Reminder> plan({required ContentDb db, required PlayerProfile p, required GameSettings s, required DateTime now}) {
     final out = <Reminder>[];
     if (s.streakReminder && p.streak > 0) {
-      final today = DateTime(now.year, now.month, now.day, streakHour);
+      // Smart timing: if the player habitually plays at a certain hour, the reminder lands then
+      // (never later than 22:00 — it has to arrive while the streak can still be saved).
+      final habit = p.usualPlayHour;
+      final hour = habit == null ? streakHour : habit.clamp(9, streakHour).toInt();
+      final today = DateTime(now.year, now.month, now.day, hour);
       final playedToday = p.streakLast == dayKey(now);
       // played today -> the streak is safe today; it will end at the end of tomorrow unless the player returns
       final at = !playedToday && now.isBefore(today) ? today : today.add(const Duration(days: 1));

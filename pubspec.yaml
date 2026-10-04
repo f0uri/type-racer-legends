@@ -90,6 +90,7 @@ flutter:
     - content/texts/
     - assets/google_client_id.txt
     - assets/fonts/OFL-tajawal.txt
+    - assets/fonts/OFL-almarai.txt
     - assets/fonts/OFL-firamono.txt
     - assets/fonts/OFL-opendyslexic.txt
   fonts:
@@ -99,6 +100,14 @@ flutter:
         - asset: assets/fonts/Tajawal-Bold.ttf
           weight: 700
         - asset: assets/fonts/Tajawal-ExtraBold.ttf
+          weight: 800
+    # Display face for titles: Almarai ExtraBold is a heavier, wider Arabic face than Tajawal,
+    # so a screen title reads as a title even before the player reads the words. Silently absent
+    # inside a text: a culture-font family is tolerant of glyph gaps (see tests) but both faces
+    # are OFL-licensed, shipped with their license files next to them.
+    - family: Almarai
+      fonts:
+        - asset: assets/fonts/Almarai-ExtraBold.ttf
           weight: 800
     - family: FiraMono
       fonts:

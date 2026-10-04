@@ -114,7 +114,7 @@ class _ChestOpenScreenState extends ConsumerState<ChestOpenScreen> with SingleTi
         child: Row(mainAxisSize: MainAxisSize.min, children: [
           Icon(icon, size: 24, color: c),
           const SizedBox(width: 8),
-          Text(text, style: TextStyle(fontSize: 20, fontWeight: FontWeight.w900, color: c)),
+          Text(text, style: displayStyle(size: 20, color: c)),
         ]),
       );
 }

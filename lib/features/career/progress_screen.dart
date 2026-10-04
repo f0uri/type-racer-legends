@@ -590,7 +590,7 @@ class _EventCardState extends ConsumerState<_EventCard> {
         border: color,
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Row(children: [
-            Expanded(child: Text(loc(e.name), style: TextStyle(fontSize: 20, fontWeight: FontWeight.w900, color: color))),
+            Expanded(child: Text(loc(e.name), style: displayStyle(size: 20, color: color))),
             if (e.xpMultiplier > 1) Container(padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2), decoration: BoxDecoration(color: C.gold, borderRadius: BorderRadius.circular(10)), child: Text('خبرة ×${e.xpMultiplier}', style: const TextStyle(color: Colors.black, fontWeight: FontWeight.w900, fontSize: 12))),
           ]),
           Text(loc(e.desc), style: const TextStyle(color: C.textDim, fontSize: 13)),
