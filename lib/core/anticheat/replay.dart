@@ -1,5 +1,3 @@
-import 'dart:math' as math;
-
 import '../../features/race/engine/metrics.dart';
 
 /// What a replayed keystroke log says about a submitted result.
