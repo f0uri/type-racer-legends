@@ -54,7 +54,7 @@ if os.environ.get('GITHUB_ACTIONS') == 'true':
         print('::error ::DIAG failed: %s' % e)
     try:
         t = subprocess.run(['flutter', 'test', '--reporter', 'json'], capture_output=True, text=True, timeout=2400)
-        names, fails, errs = {}, [], []
+        names, fails, prints = {}, [], {}
         for line in (t.stdout or '').splitlines():
             line = line.strip()
             if not line.startswith('{'): continue
@@ -63,12 +63,17 @@ if os.environ.get('GITHUB_ACTIONS') == 'true':
             kind = ev.get('type')
             if kind == 'testStart':
                 names[ev['test']['id']] = ev['test'].get('name', '?')
-            elif kind == 'error':
-                errs.append((names.get(ev.get('testID'), '?'), (ev.get('error') or '').replace('\n', ' | ')[:400]))
+            elif kind == 'print':
+                prints.setdefault(ev.get('testID'), []).append((ev.get('message') or ''))
             elif kind == 'testDone' and ev.get('result') != 'success' and not ev.get('hidden'):
-                fails.append(names.get(ev.get('testID'), '?'))
-        print('::error ::TESTS exit=%s failed=%d %s' % (t.returncode, len(fails), ' | '.join(fails)[:400]))
-        for n, m in errs[:8]:
-            print('::error ::FAIL %s :: %s' % (n[:120], m))
+                fails.append(ev.get('testID'))
+        print('::error ::TESTS exit=%s failed=%d' % (t.returncode, len(fails)))
+        for tid in fails[:3]:
+            print('::error ::=== %s' % names.get(tid, '?')[:150])
+            for msg in prints.get(tid, []):
+                for piece in msg.splitlines():
+                    piece = piece.strip()
+                    if not piece: continue
+                    print('::error ::   ' + piece.replace('%', '%25')[:600])
     except Exception as e:
         print('::error ::TESTS diag failed: %s' % e)
