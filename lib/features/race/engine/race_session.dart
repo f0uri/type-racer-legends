@@ -137,6 +137,13 @@ class RaceSession {
   final Map<String, int> _lastSign = {};
   double _tauntCd = 4;
 
+  // ── C# Style: فيزياء أسطورية واقعية (Fable + Astra) — كتلة + تسارع + احتكاك ──
+  double _velocity = 0; // chars/sec فيزيائي
+  double _targetVel = 0;
+  double weightTransfer = 0; // -1..1 لنقل الوزن (pitch)
+  double get velocity => _velocity;
+  double get targetVelocity => _targetVel;
+
   // replay buffer (30 Hz samples of fractions for each racer)
   final Map<String, List<double>> history = {};
   double _histAcc = 0;
@@ -217,6 +224,9 @@ class RaceSession {
       if (nitroActive) gain += 0.25;
       if (slipstream) gain += 0.15;
       gain *= 1 + (config.rules.vehicleStats ? mods.accelBonus : 0);
+      // فيزياء: كل حرف صحيح يزيد السرعة المستهدفة
+      _targetVel = (_targetVel + gain * 2.2).clamp(0, 18);
+      weightTransfer = (gain * 0.6).clamp(-1, 1);
     }
     player.eff += gain;
     if (!pureRules && config.rules.nitro && !nitroActive) {
@@ -262,6 +272,9 @@ class RaceSession {
     final risky = config.riskMul > 1.5;
     nitroMeter = risky ? 0 : nitroMeter * 0.5;
     comboTierShown = 1;
+    // فيزياء: الخطأ يفقد السرعة وينقل الوزن للأمام (فرملة)
+    _targetVel = max(0, _targetVel - 3.5);
+    weightTransfer = -0.9;
     if (config.rules.pure || !config.rules.penalties) return;
     if (player.shielded) {
       player.shielded = false;
@@ -429,13 +442,21 @@ class RaceSession {
   // ---------------------------------------------------------------- update
   void update(double dt) {
     if (!started) return;
-    if (over) {
-      return;
-    }
+    if (over) return;
     time += dt;
     final playerFrac = fractionOf(player);
     final playerWpm = engine.rollingWpm(timeMs);
     player.speedCps = playerWpm * 5 / 60;
+    // فيزياء: تسارع/تباطؤ ناعم + احتكاك + تأثير البيئة
+    final traction = (spec.mod == 'ice' || spec.biome == 'snow') ? 0.85 : 1.0;
+    final accel = 9.0 * traction + (nitroActive ? 14 : 0) + (turboLeft > 0 ? 10 : 0);
+    final drag = 2.8 + (nitroActive ? -0.8 : 0);
+    _velocity += (_targetVel - _velocity) * (1 - pow(0.001, dt * accel * 0.12));
+    _velocity = max(0, _velocity - drag * dt * 0.22);
+    if (!started || player.finished) _velocity *= pow(0.92, dt * 60);
+    weightTransfer += (0 - weightTransfer) * min(1, dt * 4.5);
+    // تفاعل البيئة: مطر يقلل التماسك، صحراء تزيد الغبار
+    if (spec.weather == 'rain' && !player.finished) _velocity *= 0.998;
 
     if (brake > 0) brake -= dt;
     if (nitroActive) {

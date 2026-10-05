@@ -105,9 +105,11 @@ class RaceGame extends FlameGame {
       onEvents?.call(events);
     }
     final p = s.player;
+    // فيزياء Fable: السرعة من المحاكاة الفيزيائية + WPM
     final cps = s.started ? p.speedCps : 0.0;
-    final targetSpeed = s.started ? 150 + cps * 40 + (s.nitroActive ? 140 : 0) + (s.turboLeft > 0 ? 100 : 0) : 40;
-    scrollSpeed += (targetSpeed - scrollSpeed) * min(1, dt * 3);
+    final phys = s.started ? s.velocity * 22 : 0.0;
+    final targetSpeed = s.started ? 150 + cps * 28 + phys + (s.nitroActive ? 140 : 0) + (s.turboLeft > 0 ? 100 : 0) : 40;
+    scrollSpeed += (targetSpeed - scrollSpeed) * min(1, dt * 3.2);
     if (p.finished && s.over) scrollSpeed += (90 - scrollSpeed) * min(1, dt * 1.5);
     speed01 = ((scrollSpeed - 40) / 360).clamp(0.0, 1.0);
     _dist += scrollSpeed * dt;
@@ -451,7 +453,8 @@ class RaceGame extends FlameGame {
     final wb0 = ((look.vehicle.shape['wb'] as List)[0] as num).toDouble();
     final wr = ((look.vehicle.shape['wr'] as num?) ?? 0.09).toDouble();
     final pivot = Offset(x + wb0 * L, gy - wr * L);
-    var pitch = isPlayer ? (nitroFx * 0.07 + (session.brake > 0 ? 0.03 : 0)) : 0.0;
+    // نقل وزن Fable: الكبح ينقل الوزن للأمام، التسارع للخلف
+    var pitch = isPlayer ? (nitroFx * 0.07 + session.weightTransfer * 0.06 + (session.brake > 0 ? 0.03 : 0)) : 0.0;
     pitch += v.wobble * 0.03 * sin(sceneT * 40);
     if (isPlayer && r.finished && look.celebration == 'wheelie') pitch = 0.45 * min(1, v.afterFinish * 2);
     if (pitch != 0) {

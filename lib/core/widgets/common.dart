@@ -30,8 +30,8 @@ class Panel extends StatelessWidget {
   }
 }
 
-/// زر عائم بأسلوب iOS — زجاج ضبابي + ظل ناعم + حواف كبيرة
-class NeonButton extends StatelessWidget {
+/// زر عائم بأسلوب iPhone — زجاج ضبابي + ظل ناعم + حواف كبيرة + تفاعل Astra
+class NeonButton extends StatefulWidget {
   final String label;
   final IconData? icon;
   final VoidCallback? onPressed;
@@ -40,44 +40,53 @@ class NeonButton extends StatelessWidget {
   final bool busy;
   final double height;
   const NeonButton({super.key, required this.label, this.icon, this.onPressed, this.color = C.cyan, this.filled = true, this.busy = false, this.height = 52});
-  @override
-  Widget build(BuildContext context) {
-    final enabled = onPressed != null && !busy;
-    final bg = filled ? color : Colors.white.withValues(alpha: 0.12);
-    final fg = filled ? Colors.white : color;
-    final borderCol = filled ? Colors.white.withValues(alpha: 0.18) : color.withValues(alpha: 0.35);
+  @override State<NeonButton> createState() => _NeonButtonState();
+}
+class _NeonButtonState extends State<NeonButton> {
+  bool _down = false;
+  @override Widget build(BuildContext context) {
+    final enabled = widget.onPressed != null && !widget.busy;
+    final bg = widget.filled ? widget.color : Colors.white.withValues(alpha: 0.12);
+    final fg = widget.filled ? Colors.white : widget.color;
+    final borderCol = widget.filled ? Colors.white.withValues(alpha: 0.18) : widget.color.withValues(alpha: 0.35);
     return Opacity(
       opacity: enabled ? 1 : 0.55,
-      child: Container(
-        height: height,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(24),
-          boxShadow: [
-            BoxShadow(color: Colors.black.withValues(alpha: 0.22), blurRadius: 18, offset: const Offset(0, 8)),
-            BoxShadow(color: color.withValues(alpha: filled ? 0.25 : 0.12), blurRadius: 20, offset: const Offset(0, 4)),
-          ],
-        ),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(24),
-          child: Material(
-            color: bg,
-            child: InkWell(
-              onTap: enabled ? onPressed : null,
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(24),
-                  border: Border.all(color: borderCol, width: 1.2),
-                  gradient: filled
-                      ? LinearGradient(begin: Alignment.topLeft, end: Alignment.bottomRight, colors: [Color.lerp(color, Colors.white, 0.18)!, color, Color.lerp(color, Colors.black, 0.12)!])
-                      : null,
-                ),
-                child: Center(
-                  child: busy
-                      ? SizedBox(width: 22, height: 22, child: CircularProgressIndicator(strokeWidth: 2.5, color: fg))
-                      : Row(mainAxisSize: MainAxisSize.min, children: [
-                          if (icon != null) ...[Icon(icon, color: fg, size: 22), const SizedBox(width: 8)],
-                          Flexible(child: Text(label, style: TextStyle(color: fg, fontWeight: FontWeight.w800, fontSize: 16, letterSpacing: 0.2), overflow: TextOverflow.ellipsis)),
-                        ]),
+      child: AnimatedScale(
+        scale: _down ? 0.97 : 1, duration: const Duration(milliseconds: 90), curve: Curves.easeOut,
+        child: Container(
+          height: widget.height,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(24),
+            boxShadow: [
+              BoxShadow(color: Colors.black.withValues(alpha: 0.22), blurRadius: 18, offset: const Offset(0, 8)),
+              BoxShadow(color: widget.color.withValues(alpha: widget.filled ? 0.25 : 0.12), blurRadius: 20, offset: const Offset(0, 4)),
+            ],
+          ),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(24),
+            child: Material(
+              color: bg,
+              child: InkWell(
+                onTapDown: enabled ? (_) => setState(() => _down = true) : null,
+                onTapUp: enabled ? (_) => setState(() => _down = false) : null,
+                onTapCancel: () => setState(() => _down = false),
+                onTap: enabled ? widget.onPressed : null,
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(24),
+                    border: Border.all(color: borderCol, width: 1.2),
+                    gradient: widget.filled
+                        ? LinearGradient(begin: Alignment.topLeft, end: Alignment.bottomRight, colors: [Color.lerp(widget.color, Colors.white, 0.18)!, widget.color, Color.lerp(widget.color, Colors.black, 0.12)!])
+                        : null,
+                  ),
+                  child: Center(
+                    child: widget.busy
+                        ? SizedBox(width: 22, height: 22, child: CircularProgressIndicator(strokeWidth: 2.5, color: fg))
+                        : Row(mainAxisSize: MainAxisSize.min, children: [
+                            if (widget.icon != null) ...[Icon(widget.icon, color: fg, size: 22), const SizedBox(width: 8)],
+                            Flexible(child: Text(widget.label, style: TextStyle(color: fg, fontWeight: FontWeight.w800, fontSize: 16, letterSpacing: 0.2), overflow: TextOverflow.ellipsis)),
+                          ]),
+                  ),
                 ),
               ),
             ),
