@@ -11,11 +11,12 @@ class PersonaParams {
 class Persona {
   static const aggressive = 'aggressive', balanced = 'balanced', cautious = 'cautious', fatigue = 'fatigue';
   static const all = [aggressive, balanced, cautious, fatigue];
+  // C# Style: معاملات موزونة لفيزياء أسطورية واقعية — ربر باند مخفف لشعور عادل
   static final Map<String, PersonaParams> params = {
-    aggressive: const PersonaParams(0.16, 0.050, 1.06, 0.0, 0.10, 0.10),
-    balanced: const PersonaParams(0.10, 0.030, 1.0, 0.0, 0.10, 0.12),
-    cautious: const PersonaParams(0.06, 0.012, 0.95, 0.0, 0.09, 0.14),
-    fatigue: const PersonaParams(0.10, 0.028, 1.08, 0.22, 0.12, 0.08),
+    aggressive: const PersonaParams(0.13, 0.042, 1.04, 0.0, 0.06, 0.07),
+    balanced: const PersonaParams(0.08, 0.024, 1.0, 0.0, 0.055, 0.08),
+    cautious: const PersonaParams(0.05, 0.010, 0.96, 0.0, 0.05, 0.09),
+    fatigue: const PersonaParams(0.08, 0.022, 1.06, 0.18, 0.07, 0.06),
   };
 
   /// Overrides the defaults with values from content/ai.json (live-updatable).

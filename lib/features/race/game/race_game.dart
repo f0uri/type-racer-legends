@@ -62,8 +62,9 @@ class RaceGame extends FlameGame {
 
   Offset get playerScreenPos => Offset(_playerX, _size.height * EnvPainter.lanes[2]);
 
+  // ── C# Style: Encapsulated properties — خلفية واقعية بدون نيون ──
   @override
-  Color backgroundColor() => const Color(0xFF0B0F1E);
+  Color backgroundColor() => const Color(0xFF0F172A);
 
   @override
   void onGameResize(Vector2 size) {
@@ -143,26 +144,26 @@ class RaceGame extends FlameGame {
     for (final e in events) {
       switch (e.type) {
         case RaceEventType.keyWrong:
-          shake = max(shake, 0.35);
-          _v('player').wobble = 1;
-          particles.burst(PKind.spark, pp.dx + 20, pp.dy - 28, 7, speed: 120, colors: const [Color(0xFFFF4D6D), Color(0xFFFFB3C1)], life: 0.35, size: 2.5);
+          shake = max(shake, 0.18); // C# tuning: اهتزاز أخف وأكثر واقعية
+          _v('player').wobble = 0.6;
+          particles.burst(PKind.spark, pp.dx + 20, pp.dy - 28, 5, speed: 110, colors: const [Color(0xFFEF4444), Color(0xFFFCA5A5)], life: 0.30, size: 2.2);
           audio?.play(Sfx.wrong);
           haptics?.wrong();
           break;
         case RaceEventType.comboTier:
           final tier = e.value.toInt().clamp(2, 6);
-          particles.burst(PKind.star, pp.dx + 30, pp.dy - 46, 8 + tier * 2, speed: 90, colors: const [Color(0xFFFFD166), Color(0xFFFFFFFF), Color(0xFF7DF9FF)], life: 0.8, size: 4, g: 60);
+          particles.burst(PKind.star, pp.dx + 30, pp.dy - 46, 6 + tier, speed: 85, colors: const [Color(0xFFF59E0B), Color(0xFFFFFFFF), Color(0xFF38BDF8)], life: 0.7, size: 3.5, g: 55);
           audio?.play(Sfx.values[Sfx.combo2.index + tier - 2]);
           haptics?.combo();
           break;
         case RaceEventType.nitroStart:
-          flash = 0.5;
-          shake = max(shake, 0.5);
+          flash = 0.22;
+          shake = max(shake, 0.28);
           audio?.play(Sfx.whoosh);
           haptics?.nitro();
           break;
         case RaceEventType.perfectWord:
-          particles.burst(PKind.star, pp.dx + 10, pp.dy - 60, 10, speed: 70, colors: const [Color(0xFFFFD166), Color(0xFFFFF3B0)], life: 0.9, size: 4, g: -20);
+          particles.burst(PKind.star, pp.dx + 10, pp.dy - 60, 8, speed: 65, colors: const [Color(0xFFF59E0B), Color(0xFFFEF3C7)], life: 0.8, size: 3.5, g: -18);
           audio?.play(Sfx.ding);
           break;
         case RaceEventType.pitPrompt:
@@ -171,7 +172,7 @@ class RaceGame extends FlameGame {
           break;
         case RaceEventType.pitSuccess:
         case RaceEventType.powerSuccess:
-          particles.burst(PKind.ring, pp.dx + 30, pp.dy - 30, 3, speed: 0, life: 0.6, size: 30, colors: const [Color(0xFF7DF9FF)]);
+          particles.burst(PKind.ring, pp.dx + 30, pp.dy - 30, 2, speed: 0, life: 0.5, size: 28, colors: const [Color(0xFF38BDF8)]);
           audio?.play(Sfx.power);
           break;
         case RaceEventType.pitFail:
@@ -179,21 +180,21 @@ class RaceGame extends FlameGame {
           shake = max(shake, 0.25);
           break;
         case RaceEventType.bump:
-          shake = max(shake, 0.6);
-          particles.burst(PKind.spark, pp.dx + 60, pp.dy - 20, 12, speed: 160, colors: const [Color(0xFFFFD166), Color(0xFFFFFFFF)], life: 0.4, size: 2.5);
-          audio?.play(Sfx.thump, vol: 0.6);
+          shake = max(shake, 0.32);
+          particles.burst(PKind.spark, pp.dx + 60, pp.dy - 20, 8, speed: 140, colors: const [Color(0xFFF59E0B), Color(0xFFE2E8F0)], life: 0.35, size: 2.2);
+          audio?.play(Sfx.thump, vol: 0.55);
           haptics?.light();
           break;
         case RaceEventType.stunned:
           final target = session.racers.where((r) => r.name == e.who).firstOrNull;
           if (target != null) {
             final x = _screenX(target);
-            particles.burst(PKind.spark, x + 30, _laneY(target) - 30, 14, speed: 140, colors: const [Color(0xFF7DF9FF), Color(0xFFFFFFFF)], life: 0.5, size: 3);
-            particles.burst(PKind.ring, x + 30, _laneY(target) - 30, 3, speed: 0, life: 0.7, size: 26, colors: const [Color(0xFF7DF9FF)]);
+            particles.burst(PKind.spark, x + 30, _laneY(target) - 30, 10, speed: 130, colors: const [Color(0xFF38BDF8), Color(0xFFE0F2FE)], life: 0.45, size: 2.6);
+            particles.burst(PKind.ring, x + 30, _laneY(target) - 30, 2, speed: 0, life: 0.6, size: 24, colors: const [Color(0xFF38BDF8)]);
           }
           break;
         case RaceEventType.shieldBlocked:
-          particles.burst(PKind.ring, pp.dx + 30, pp.dy - 30, 3, speed: 0, life: 0.5, size: 34, colors: const [Color(0xFF4CC9F0)]);
+          particles.burst(PKind.ring, pp.dx + 30, pp.dy - 30, 2, speed: 0, life: 0.45, size: 32, colors: const [Color(0xFF0EA5E9)]);
           break;
         case RaceEventType.finish:
           if (e.who == 'player') {
@@ -214,18 +215,18 @@ class RaceGame extends FlameGame {
           final t = session.racers.where((r) => r.name == e.who).firstOrNull;
           if (t != null) {
             final x = _screenX(t) + 40, y = _laneY(t) - 26;
-            particles.burst(PKind.spark, x, y, 40, speed: 220, colors: const [Color(0xFFFF9E00), Color(0xFFFF4D00), Color(0xFFFFFFFF)], life: 0.9, size: 3.5, g: 120);
-            particles.burst(PKind.smoke, x, y, 16, speed: 60, colors: const [Color(0xFF444444)], life: 1.6, size: 10, g: -30);
-            particles.burst(PKind.ring, x, y, 3, speed: 0, life: 0.7, size: 40, colors: const [Color(0xFFFFB627)]);
+            particles.burst(PKind.spark, x, y, 28, speed: 190, colors: const [Color(0xFFF59E0B), Color(0xFFEF4444), Color(0xFFE2E8F0)], life: 0.75, size: 3, g: 110);
+            particles.burst(PKind.smoke, x, y, 12, speed: 55, colors: const [Color(0xFF475569)], life: 1.4, size: 9, g: -28);
+            particles.burst(PKind.ring, x, y, 2, speed: 0, life: 0.6, size: 36, colors: const [Color(0xFFF59E0B)]);
           }
-          shake = max(shake, 0.8);
+          shake = max(shake, 0.5);
           audio?.play(Sfx.thump);
           haptics?.nitro();
           break;
         case RaceEventType.hit:
-          shake = max(shake, 0.9);
-          flash = 0.4;
-          particles.burst(PKind.spark, pp.dx + 50, pp.dy - 26, 26, speed: 200, colors: const [Color(0xFFFF9E00), Color(0xFFFF4D00)], life: 0.7, size: 3, g: 100);
+          shake = max(shake, 0.55);
+          flash = 0.22;
+          particles.burst(PKind.spark, pp.dx + 50, pp.dy - 26, 18, speed: 175, colors: const [Color(0xFFF59E0B), Color(0xFFEF4444)], life: 0.6, size: 2.7, g: 95);
           audio?.play(Sfx.thump);
           haptics?.wrong();
           break;
@@ -242,16 +243,17 @@ class RaceGame extends FlameGame {
   void _rocketTo(double tx, double ty) {
     final pp = playerScreenPos;
     final sx = pp.dx + 60, sy = pp.dy - 30;
-    for (var i = 0; i < 14; i++) {
-      final f = i / 13;
-      particles.emit(PKind.dot, sx + (tx - sx) * f, sy + (ty - sy) * f - sin(f * pi) * 14, 0, 0, 0.18 + f * 0.25, 3.2, const Color(0xFFFFE066));
+    for (var i = 0; i < 12; i++) {
+      final f = i / 11;
+      particles.emit(PKind.dot, sx + (tx - sx) * f, sy + (ty - sy) * f - sin(f * pi) * 12, 0, 0, 0.16 + f * 0.22, 2.8, const Color(0xFFFDE68A));
     }
-    particles.burst(PKind.spark, tx, ty, 14, speed: 150, colors: const [Color(0xFFFFB627), Color(0xFFFFFFFF)], life: 0.5, size: 3, g: 60);
+    particles.burst(PKind.spark, tx, ty, 10, speed: 135, colors: const [Color(0xFFF59E0B), Color(0xFFFEF3C7)], life: 0.45, size: 2.7, g: 55);
   }
 
   void _celebrate() {
     final look = looks['player'];
-    final cols = look?.celebrationColors ?? const [Color(0xFFFF006E), Color(0xFFFFBE0B), Color(0xFF3A86FF)];
+    // ألوان واقعية أسطورية بدل النيون الصارخ
+    final cols = look?.celebrationColors ?? const [Color(0xFFDB2777), Color(0xFFF59E0B), Color(0xFF0EA5E9)];
     final type = look?.celebration ?? 'confetti';
     if (type == 'lightning') flash = 1;
     if (type == 'wheelie') _v('player').wobble = 2;
@@ -271,9 +273,9 @@ class RaceGame extends FlameGame {
       final back = -scrollSpeed * 0.8 - 40;
       Effects.exhaust(particles, look, ox, oy, back, sceneT, _rnd);
     }
-    if (nitroFx > 0.3 && _rnd.nextDouble() < dt * 60) {
-      final c = look.flameColors.isEmpty ? const Color(0xFF7DF9FF) : look.flameColors[_rnd.nextInt(look.flameColors.length)];
-      particles.emit(PKind.spark, ox - 6, oy, -scrollSpeed * 1.2 - 100, (_rnd.nextDouble() - 0.5) * 70, 0.35, 3, c);
+    if (nitroFx > 0.3 && _rnd.nextDouble() < dt * 45) {
+      final c = look.flameColors.isEmpty ? const Color(0xFF38BDF8) : look.flameColors[_rnd.nextInt(look.flameColors.length)];
+      particles.emit(PKind.spark, ox - 6, oy, -scrollSpeed * 1.1 - 90, (_rnd.nextDouble() - 0.5) * 60, 0.32, 2.6, c);
     }
     // weather splashes
     if (session.config.modeId != 'lesson' && env.spec.weather == 'rain' && _rnd.nextDouble() < dt * 20) {
@@ -571,11 +573,12 @@ class RaceGame extends FlameGame {
     }
   }
 
+  // C# Style: تأثير نيترو واقعي هادئ بدون نيون
   void _nitroBlur(Canvas c, double W, double H) {
-    final a = 0.5 * nitroFx;
-    c.drawRect(Rect.fromLTWH(0, 0, W * 0.22, H), Paint()..shader = Gradient.linear(Offset.zero, Offset(W * 0.22, 0), [Color.fromRGBO(120, 220, 255, a * 0.4), const Color(0x00000000)]));
-    c.drawRect(Rect.fromLTWH(W * 0.78, 0, W * 0.22, H), Paint()..shader = Gradient.linear(Offset(W, 0), Offset(W * 0.78, 0), [Color.fromRGBO(120, 220, 255, a * 0.4), const Color(0x00000000)]));
-    c.drawRect(Rect.fromLTWH(0, 0, W, H), Paint()..shader = Gradient.radial(Offset(W * 0.4, H * 0.7), W * 0.75, [const Color(0x00000000), Color.fromRGBO(0, 20, 60, a * 0.35)], [0.5, 1]));
+    final a = 0.32 * nitroFx;
+    c.drawRect(Rect.fromLTWH(0, 0, W * 0.20, H), Paint()..shader = Gradient.linear(Offset.zero, Offset(W * 0.20, 0), [Color.fromRGBO(56, 189, 248, a * 0.28), const Color(0x00000000)]));
+    c.drawRect(Rect.fromLTWH(W * 0.80, 0, W * 0.20, H), Paint()..shader = Gradient.linear(Offset(W, 0), Offset(W * 0.80, 0), [Color.fromRGBO(56, 189, 248, a * 0.28), const Color(0x00000000)]));
+    c.drawRect(Rect.fromLTWH(0, 0, W, H), Paint()..shader = Gradient.radial(Offset(W * 0.4, H * 0.7), W * 0.75, [const Color(0x00000000), Color.fromRGBO(15, 23, 42, a * 0.22)], [0.5, 1]));
   }
 
   // ------------------------------------------------------------------ photo-finish replay
