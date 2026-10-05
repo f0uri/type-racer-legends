@@ -451,9 +451,9 @@ class RaceSession {
     final traction = (spec.mod == 'ice' || spec.biome == 'snow') ? 0.85 : 1.0;
     final accel = 9.0 * traction + (nitroActive ? 14 : 0) + (turboLeft > 0 ? 10 : 0);
     final drag = 2.8 + (nitroActive ? -0.8 : 0);
-    _velocity += (_targetVel - _velocity) * (1 - pow(0.001, dt * accel * 0.12));
+    _velocity += (_targetVel - _velocity) * (1 - pow(0.001, dt * accel * 0.12).toDouble());
     _velocity = max(0, _velocity - drag * dt * 0.22);
-    if (!started || player.finished) _velocity *= pow(0.92, dt * 60);
+    if (!started || player.finished) _velocity *= pow(0.92, dt * 60).toDouble();
     weightTransfer += (0 - weightTransfer) * min(1, dt * 4.5);
     // تفاعل البيئة: مطر يقلل التماسك، صحراء تزيد الغبار
     if (spec.weather == 'rain' && !player.finished) _velocity *= 0.998;
