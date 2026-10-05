@@ -460,40 +460,6 @@ class _RaceScreenState extends ConsumerState<RaceScreen> with WidgetsBindingObse
               Expanded(flex: 5, child: _trackArea()),
               Expanded(flex: 4, child: _textArea(s, pal, kb)),
             ]),
-            // حقل إدخال حقيقي مخفي للكيبورد الافتراضي — لا تستعمل Offstage/Visibility(false) لأنها تمنع التركيز
-            // شفافية ~0 وحجم صغير لكن موجود في الشجرة، يطلب التركيز تلقائياً عند بدء السباق وعند أي ضغطة على النص
-            Positioned(
-              left: 0,
-              top: 0,
-              width: 2,
-              height: 2,
-              child: Opacity(
-                opacity: 0.01,
-                child: TextField(
-                  controller: input,
-                  focusNode: focus,
-                  autofocus: false,
-                  autocorrect: false,
-                  enableSuggestions: false,
-                  enableIMEPersonalizedLearning: false,
-                  keyboardType: TextInputType.visiblePassword,
-                  textCapitalization: TextCapitalization.none,
-                  smartDashesType: SmartDashesType.disabled,
-                  smartQuotesType: SmartQuotesType.disabled,
-                  textInputAction: TextInputAction.none,
-                  autofillHints: const [],
-                  showCursor: false,
-                  enableInteractiveSelection: false,
-                  maxLines: 1,
-                  style: const TextStyle(fontSize: 1, color: Colors.transparent),
-                  decoration: const InputDecoration(border: InputBorder.none, isDense: true, contentPadding: EdgeInsets.zero),
-                  onChanged: _onInput,
-                  onTapOutside: (_) {
-                    if (phase == _Phase.racing && !_paused) _focusInput();
-                  },
-                ),
-              ),
-            ),
             if (phase == _Phase.lobby) _lobby(),
             if (phase == _Phase.countdown || (phase == _Phase.racing && countdown >= 0)) _countdownOverlay(),
             if (photoReplay) _photoOverlay(),
@@ -679,6 +645,41 @@ class _RaceScreenState extends ConsumerState<RaceScreen> with WidgetsBindingObse
                       ),
                     ),
                   ]),
+                ),
+              ),
+              // حقل إدخال حقيقي يغطي كامل منطقة النص — شفاف لكنه يستقبل الكيبورد الافتراضي
+              Positioned.fill(
+                child: Opacity(
+                  opacity: 0.0,
+                  child: TextField(
+                    controller: input,
+                    focusNode: focus,
+                    autofocus: false,
+                    autocorrect: false,
+                    enableSuggestions: false,
+                    enableIMEPersonalizedLearning: false,
+                    keyboardType: TextInputType.visiblePassword,
+                    textCapitalization: TextCapitalization.none,
+                    smartDashesType: SmartDashesType.disabled,
+                    smartQuotesType: SmartQuotesType.disabled,
+                    textInputAction: TextInputAction.none,
+                    autofillHints: const [],
+                    showCursor: false,
+                    enableInteractiveSelection: false,
+                    maxLines: 1,
+                    expands: false,
+                    style: const TextStyle(color: Colors.transparent, fontSize: 16),
+                    decoration: const InputDecoration(
+                      border: InputBorder.none,
+                      isDense: true,
+                      contentPadding: EdgeInsets.zero,
+                      filled: false,
+                    ),
+                    onChanged: _onInput,
+                    onTapOutside: (_) {
+                      if (phase == _Phase.racing && !_paused) _focusInput();
+                    },
+                  ),
                 ),
               ),
               if (session.challenge != null) _challengeCard(session.challenge!),
