@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 
+// ألوان أسطورية بدون نيون — تصميم واقعي بأسلوب C# النظيف
 class C {
-  static const bg = Color(0xFF0B0F1E);
-  static const surface = Color(0xFF151B33);
-  static const surface2 = Color(0xFF1D2547);
-  static const cyan = Color(0xFF00E5FF);
-  static const magenta = Color(0xFFFF2BD6);
-  static const gold = Color(0xFFFFD166);
-  static const green = Color(0xFF3DDC84);
-  static const red = Color(0xFFFF4D6D);
-  static const textDim = Color(0xFF9AA4C7);
-  static const common = Color(0xFF8FA3C8);
-  static const rare = Color(0xFF6C8CFF);
-  static const legendary = Color(0xFFFFB627);
+  static const bg = Color(0xFF0F172A); // خلفية داكنة واقعية
+  static const surface = Color(0xFF1E293B);
+  static const surface2 = Color(0xFF334155);
+  static const cyan = Color(0xFF0EA5E9); // أزرق فولاذي بدل النيون
+  static const magenta = Color(0xFF8B5CF6); // بنفسجي هادئ بدل النيون
+  static const gold = Color(0xFFF59E0B); // ذهبي دافئ
+  static const green = Color(0xFF10B981); // أخضر زمردي
+  static const red = Color(0xFFEF4444); // أحمر واقعي
+  static const textDim = Color(0xFF94A3B8);
+  static const common = Color(0xFF64748B);
+  static const rare = Color(0xFF3B82F6);
+  static const legendary = Color(0xFFF59E0B);
   static Color rarity(String r) => r == 'legendary' ? legendary : (r == 'rare' ? rare : common);
 }
 
