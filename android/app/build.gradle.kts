@@ -62,20 +62,35 @@ android {
         }
     }
 
+    // ضغط الحجم إلى ~10 ميغا — تقسيم حسب ABI + تصغير الموارد (C# style)
+    splits {
+        abi {
+            isEnable = true
+            reset()
+            include("arm64-v8a", "armeabi-v7a", "x86_64")
+            isUniversalApk = true // يبقي app-release.apk للتوافق، والملفات المقسمة ~10MB
+        }
+    }
+
     buildTypes {
         release {
-            // Uses the real keystore when provided through secrets; otherwise falls back to the debug key
-            // so that CI builds still produce an installable APK (NOT for store upload).
             signingConfig = if (keyProps.getProperty("storeFile") != null) signingConfigs.getByName("release") else signingConfigs.getByName("debug")
-            isMinifyEnabled = false
-            isShrinkResources = false
+            isMinifyEnabled = true
+            isShrinkResources = true
+            isDebuggable = false
+            isJniDebuggable = false
+            isCrunchPngs = true
         }
         debug {
-            // Force debug builds to use the fixed committed keystore, not the ephemeral ~/.android/debug.keystore
             signingConfig = signingConfigs.getByName("debug")
             isMinifyEnabled = false
             isShrinkResources = false
         }
+    }
+
+    packaging {
+        jniLibs { useLegacyPackaging = false }
+        resources { excludes += setOf("META-INF/DEPENDENCIES", "META-INF/LICENSE", "META-INF/LICENSE.txt", "META-INF/NOTICE", "META-INF/NOTICE.txt") }
     }
 }
 
