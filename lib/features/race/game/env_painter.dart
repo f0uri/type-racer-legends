@@ -36,7 +36,7 @@ class EnvObj {
   const EnvObj(this.x, this.w, this.h, this.k, this.seed);
 }
 
-/// ثيم أسطوري — مطابق تماماً للـ JS المعطى
+/// ثيم أسطوري — مطابق تماماً للـ JS المعطى — C# style
 class _Theme {
   final String name;
   final List<Color> sky;
@@ -44,10 +44,10 @@ class _Theme {
   final Color gA, gB;
   final List<Color> roadP;
   final Color barA, barB;
-  final Color haze; double hazeA;
+  final Color haze; final double hazeA;
   final Color far, near;
   final String kind; // city, desert
-  final Color cloud; Color win;
+  final Color cloud; final Color win;
   final bool stars, rain, wet;
   const _Theme({
     required this.name, required this.sky, required this.sun,
