@@ -8,28 +8,29 @@ import 'particles.dart';
 /// Visual effects shared by the race game and the garage previews (exhaust, nitro flame, win celebrations).
 class Effects {
   /// Emits one exhaust particle for the look's exhaust skin. [back] is the horizontal velocity.
+  // C# Style: ألوان واقعية هادئة — بدون نيون
   static void exhaust(ParticleSystem ps, Look look, double x, double y, double back, double t, Random rnd) {
     switch (look.exhaustEffect) {
       case 'fire':
-        ps.emit(PKind.dot, x, y, back, (rnd.nextDouble() - 0.5) * 30, 0.35, 3.5, rnd.nextBool() ? const Color(0xFFFF9E00) : const Color(0xFFFF4D00));
+        ps.emit(PKind.dot, x, y, back, (rnd.nextDouble() - 0.5) * 30, 0.32, 3.2, rnd.nextBool() ? const Color(0xFFF59E0B) : const Color(0xFFEF4444));
         break;
       case 'sparks':
-        ps.emit(PKind.spark, x, y, back, (rnd.nextDouble() - 0.6) * 90, 0.45, 2.5, look.exhaustColor, g: 160);
+        ps.emit(PKind.spark, x, y, back, (rnd.nextDouble() - 0.6) * 90, 0.42, 2.3, look.exhaustColor, g: 155);
         break;
       case 'electric':
-        ps.emit(PKind.spark, x, y, back, (rnd.nextDouble() - 0.5) * 140, 0.3, 2.5, const Color(0xFF7DF9FF));
+        ps.emit(PKind.spark, x, y, back, (rnd.nextDouble() - 0.5) * 130, 0.28, 2.3, const Color(0xFF38BDF8));
         break;
       case 'bubbles':
-        ps.emit(PKind.ring, x, y, back * 0.6, -20 - rnd.nextDouble() * 30, 0.9, 6, const Color(0xFFB8F2FF));
+        ps.emit(PKind.ring, x, y, back * 0.6, -20 - rnd.nextDouble() * 30, 0.85, 5.5, const Color(0xFFBAE6FD));
         break;
       case 'rainbow':
-        ps.emit(PKind.dot, x, y, back, (rnd.nextDouble() - 0.5) * 20, 0.6, 4, HSVColor.fromAHSV(1, (t * 240) % 360, 0.9, 1).toColor());
+        ps.emit(PKind.dot, x, y, back, (rnd.nextDouble() - 0.5) * 20, 0.55, 3.8, HSVColor.fromAHSV(1, (t * 240) % 360, 0.75, 0.95).toColor());
         break;
       case 'stars':
-        ps.emit(PKind.star, x, y, back * 0.8, (rnd.nextDouble() - 0.5) * 40, 0.8, 3.5, const Color(0xFFFFD166));
+        ps.emit(PKind.star, x, y, back * 0.8, (rnd.nextDouble() - 0.5) * 40, 0.75, 3.2, const Color(0xFFF59E0B));
         break;
       default:
-        ps.emit(PKind.smoke, x, y, back * 0.6, -10 - rnd.nextDouble() * 20, 0.7, 4, const Color(0xFFB0B7C3));
+        ps.emit(PKind.smoke, x, y, back * 0.6, -10 - rnd.nextDouble() * 20, 0.65, 3.8, const Color(0xFF94A3B8));
     }
   }
 
@@ -64,7 +65,7 @@ class Effects {
   /// Nitro flame at the exhaust (origin already translated to the vehicle origin).
   static void flame(Canvas c, Look look, double L, double fx, double turbo, double t) {
     final ex = VehiclePainter.exhaustAnchor(look, L);
-    final cols = look.flameColors.length >= 2 ? look.flameColors : const [Color(0xFF7DF9FF), Color(0xFF2A6BFF), Color(0xFFFFFFFF)];
+    final cols = look.flameColors.length >= 2 ? look.flameColors : const [Color(0xFF38BDF8), Color(0xFF2563EB), Color(0xFFE2E8F0)];
     final len = L * (0.35 + 0.25 * sin(t * 60).abs()) * fx * (1 + turbo * 0.4);
     final w = L * 0.05;
     c.save();

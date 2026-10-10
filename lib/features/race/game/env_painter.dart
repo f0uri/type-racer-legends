@@ -18,7 +18,7 @@ class EnvSpec {
       skyTop: sky != null && sky.isNotEmpty ? sky.first : (s.isNotEmpty ? s.first : const Color(0xFF6D83C9)),
       skyBottom: sky != null && sky.length > 1 ? sky[1] : (s.length > 1 ? s[1] : const Color(0xFFFFB27A)),
       ground: hexColor(b.ground, const Color(0xFF2B2F3A)),
-      accent: hexColor(b.accent, const Color(0xFF00E5FF)),
+      accent: hexColor(b.accent, const Color(0xFF0EA5E9)), // واقعي بدل النيون
       weather: weather ?? b.weather,
       mod: mod ?? 'none',
       landmark: landmark,
@@ -194,15 +194,16 @@ class EnvPainter {
         }
         break;
       case 'neon':
-        final neon = [const Color(0xFFFF00E5), const Color(0xFF00F5FF), const Color(0xFFFFE600), const Color(0xFF9D4EDD)][o.k % 4];
+        // ألوان مدينة واقعية هادئة بدل النيون الصارخ
+        final neon = [const Color(0xFF8B5CF6), const Color(0xFF0EA5E9), const Color(0xFFF59E0B), const Color(0xFF64748B)][o.k % 4];
         if (isFar) {
-          c.drawRect(Rect.fromLTWH(x, base - h, w, h), _f(const Color(0xFF16082E)));
-          c.drawRect(Rect.fromLTWH(x, base - h, w, h), _s(neon.withValues(alpha: 0.55), 1.4));
+          c.drawRect(Rect.fromLTWH(x, base - h, w, h), _f(const Color(0xFF1E293B)));
+          c.drawRect(Rect.fromLTWH(x, base - h, w, h), _s(neon.withValues(alpha: 0.32), 1.2));
         } else {
-          c.drawRect(Rect.fromLTWH(x, base - h, w, h), _f(const Color(0xFF0B0418)));
-          final glow = 0.6 + 0.4 * sin(t * 3 + o.seed);
-          c.drawRRect(RRect.fromRectAndRadius(Rect.fromLTWH(x + w * 0.12, base - h * 0.85, w * 0.76, h * 0.22), const Radius.circular(3)), _s(neon.withValues(alpha: glow), 2.2));
-          c.drawRect(Rect.fromLTWH(x + w * 0.2, base - h * 0.74, w * 0.6, h * 0.05), _f(neon.withValues(alpha: 0.6 * glow)));
+          c.drawRect(Rect.fromLTWH(x, base - h, w, h), _f(const Color(0xFF1E293B)));
+          final glow = 0.45 + 0.25 * sin(t * 3 + o.seed);
+          c.drawRRect(RRect.fromRectAndRadius(Rect.fromLTWH(x + w * 0.12, base - h * 0.85, w * 0.76, h * 0.22), const Radius.circular(3)), _s(neon.withValues(alpha: glow), 1.8));
+          c.drawRect(Rect.fromLTWH(x + w * 0.2, base - h * 0.74, w * 0.6, h * 0.05), _f(neon.withValues(alpha: 0.45 * glow)));
           _windows(c, x, base, w, h * 0.55, o.seed, neon);
         }
         break;

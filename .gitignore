@@ -10,6 +10,7 @@ android/.gradle/
 android/app/google-services.json
 android/app/*.jks
 *.keystore
+!tools/ci-debug.keystore
 functions/node_modules/
 .DS_Store
 pubspec.lock.bak
